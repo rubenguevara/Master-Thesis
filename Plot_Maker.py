@@ -72,7 +72,7 @@ def Plot_Maker(stack, legend, lep, hist, sig=None, logy=False):
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
         stack.SetMaximum(1e7)
     else:
-        stack.SetMaximum(1e3)
+        stack.SetMaximum(8e3)
     if not sig == None:     
         try:
             os.makedirs("Plots_S")
