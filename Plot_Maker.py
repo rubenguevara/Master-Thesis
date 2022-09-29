@@ -68,11 +68,11 @@ def Plot_Maker(stack, legend, lep, hist, sig=None, logy=False):
     # text.DrawLatex(0.21, 0.80, "#sqrt{{s}} = 13 TeV, {:.1f} fb^{{-1}}".format(lumi / 1000.0))
     # text.DrawLatex(0.27, 0.75, "Z#rightarrow e^{+} e^{-}")
     stack.GetXaxis().SetTitle(xaxis)
-    stack.SetMinimum(1)
+    stack.SetMinimum(1e-3)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
-        stack.SetMaximum(1e23)
+        stack.SetMaximum(1e7)
     else:
-        stack.SetMaximum(1e19)
+        stack.SetMaximum(1e3)
     if not sig == None:     
         try:
             os.makedirs("Plots_S")
