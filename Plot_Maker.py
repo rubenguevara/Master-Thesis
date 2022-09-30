@@ -1,7 +1,6 @@
 import ROOT as R
-import os
 
-def Plot_Maker(stack, legend, lep, hist, sig=None, logy=False):
+def Plot_Maker(stack, legend, lep, hist, logy=False):
     c = R.TCanvas()
     c.SetWindowSize(1000, 800)
     c.cd()
@@ -10,8 +9,7 @@ def Plot_Maker(stack, legend, lep, hist, sig=None, logy=False):
         c.SetLogy()
     
     stack.Draw('HIST')
-    if not sig ==None:
-        sig.Draw('HIST2SAME')
+    
     legend.Draw('SAME')
     
     stack.GetYaxis().SetTitle("Events")
@@ -55,31 +53,24 @@ def Plot_Maker(stack, legend, lep, hist, sig=None, logy=False):
     elif hist =='phi2':
         xaxis = '#phi_{2}'
     
-    # Add ATLAS label
+    # Add ATLAS label?
     text = R.TLatex()
     text.SetNDC()
-    text.SetTextFont(72)
-    text.SetTextSize(0.045)
-    text.DrawLatex(0.21, 0.85, "ATLAS")
+    # text.SetTextFont(72)
+    # text.SetTextSize(0.045)
+    #text.DrawLatex(0.21, 0.85, "ATLAS")
     text.SetTextFont(42)
-    text.DrawLatex(0.235, 0.80, lepp)
-    # text.DrawLatex(0.21 + 0.087, 0.85, "Open Data")
-    # text.SetTextSize(0.04)
-    # text.DrawLatex(0.21, 0.80, "#sqrt{{s}} = 13 TeV, {:.1f} fb^{{-1}}".format(lumi / 1000.0))
-    # text.DrawLatex(0.27, 0.75, "Z#rightarrow e^{+} e^{-}")
+    text.SetTextSize(0.04)
+    # text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV  #int Ldt = 139 fb^{-1}")
+    text.DrawLatex(0.21, 0.85, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+    text.DrawLatex(0.32, 0.80, lepp)
+    # text.DrawLatex(0.21 + 0.087, 0.85, "PreLiminary")
     stack.GetXaxis().SetTitle(xaxis)
-    stack.SetMinimum(1e-3)
+    stack.SetMinimum(1e-2)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
-        stack.SetMaximum(1e7)
+        stack.SetMaximum(1e6)
     else:
-        stack.SetMaximum(8e3)
-    if not sig == None:     
-        try:
-            os.makedirs("Plots_S")
-
-        except FileExistsError:
-            pass
-        savepath = 'Plots_S/S_'+lep+'_'+hist+'.pdf'
-    else:
-        savepath = 'Plots/'+lep+'_'+hist+'.pdf'
+        stack.SetMaximum(2e4)
+        
+    savepath = 'Plots/'+lep+'_'+hist+'.pdf'
     c.SaveAs(savepath) 
