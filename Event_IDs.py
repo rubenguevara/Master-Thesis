@@ -1,3 +1,4 @@
+# DSIDs corresponding to the --bkgs argument         
 IDs = {} 
 IDs["DYmumu_incl"] = [364100, 364101, 364102, 364103, 364104, 364105, 364106, 364107, 364108, 364109, 364110, 364111, 364112, 364113]
 IDs["DYee_incl"] = [364114, 364115, 364116, 364117, 364118, 364119, 364120, 364121, 364122, 364123, 364124, 364125, 364126, 364127]
@@ -32,15 +33,19 @@ IDs["sig_AFII"] = [500339, 500340, 500341, 500342, 500343, 500344, 500345, 50034
                 514672, 514673, 514674, 514675, 514676, 514677, 514678, 514679, 514680, 514681, 514682, 514683, 514684, 514685, 514686, 514687, 514688, 514689, 514690, 514691, 514692, 514693, 514694, 514695,
                 514696, 514697, 514698, 514699, 514700, 514701, 514702, 514703, 514704, 514705, 514706, 514707]
 
+IDs['DY'] =[700320, 700321, 700322, 700323, 700324, 700325, 700326, 700327, 700328, 700452, 700453, 700454, 700455, 700456, 700457, 700458, 700459, 700460]
+IDs['TTbar'] = [410472]
+IDs['Single_top'] = [410644, 410645, 410648, 410649, 410658, 410659] 
+
 IDs["DY_all"] = IDs["DYmumu_incl"] + IDs["DYee_incl"] + IDs["DYmumu_100"] + IDs["DYee_100"] + IDs["DYtautau"] #+ IDs["DY_low"] #+ IDs["DYee_PH"] + IDs["DYmumu_PH"] 
 IDs["DY_Sh2211"] = IDs["DY_Sh2211_incl"]# + IDs["DY_Sh2211_high"]
-IDs["DY"] = IDs["DYmumu_incl"] + IDs["DYee_incl"] + IDs["DYmumu_100"] + IDs["DYee_100"] + IDs["DYee_PH"] + IDs["DYmumu_PH"] 
+#IDs["DY"] = IDs["DYmumu_incl"] + IDs["DYee_incl"] + IDs["DYmumu_100"] + IDs["DYee_100"] + IDs["DYee_PH"] + IDs["DYmumu_PH"] 
 IDs["DY_PH"] = IDs["DYee_PH"] + IDs["DYmumu_PH"]
 IDs["W"] = IDs["Wmunu"] + IDs["Wenu"] + IDs["Wtaunu"] 
 IDs["fakeMC"] = IDs["TTbar_nonallhad"]+IDs["W"] 
 IDs["sig"] = IDs["sig_high"] + IDs["sig_low"] 
 
-IDs["all_bkg"] = IDs["DY_Sh2211"]+IDs["Top"]+IDs["Diboson"] +IDs["W"] + IDs["TTbar_dil"]
+IDs["all_bkg"] = IDs["DY"]+ IDs['Single_top']+IDs["Diboson"] +IDs["W"] + IDs["TTbar"]
 IDs["all_MC"] = IDs["all_bkg"] + IDs["sig_AFII"]
 
 IDs["data15"] = ["D", "E", "F", "G", "H", "J"]
@@ -48,7 +53,8 @@ IDs["data16"] = ["A", "B", "C", "D", "E", "F", "G", "I", "K", "L"]
 IDs["data17"] = ["B", "C", "D", "E", "F", "H", "I", "K"]
 IDs["data18"] = ["B", "C", "D", "F", "I", "K", "L", "M", "O", "Q"]
 
-IDs['all_data'] = IDs['data15'] + IDs['data16'] + IDs['data17'] + IDs['data18'] 
+
+IDs['all_data'] = IDs['data15'] + IDs['data16'] + IDs['data17'] + IDs['data18']
 
 IDs["sig_test"] = [500340]
 IDs["sig_test_el"] = [500339]
