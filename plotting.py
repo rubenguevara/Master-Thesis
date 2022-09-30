@@ -1,8 +1,8 @@
 import ROOT as R
 import os
-from Event_IDs import IDs
+from EventIDs import IDs
 from Plot_Maker import Plot_Maker
-from SumOfWeights import SOW_bkg, SOW_sig, SOW_AFII, SOW_sig_AFII
+from SOW import SOW_bkg, SOW_sig, SOW_AFII, SOW_sig_AFII
 from collections import OrderedDict
 
 
