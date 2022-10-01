@@ -1,18 +1,46 @@
 import ROOT as R
 
-def Plot_Maker(stack, legend, lep, hist, logy=False):
+def Plot_Maker(stack, legend, lep, hist, data, logy=False):
     c = R.TCanvas()
     c.SetWindowSize(1000, 800)
-    c.cd()
+    c.Draw()
     R.gStyle.SetOptStat(0)
     if logy == True:
         c.SetLogy()
     
-    stack.Draw('HIST')
+    pad = R.TPad("upper_pad", "", 0, 0.27, 1, 1)
+    pad2 = R.TPad("lower_pad", "", 0, 0, 1, 0.33)
+    pad.SetTickx(False)
+    pad.SetTicky(False)
+    pad.SetBottomMargin(0.09)
+    pad.SetLogy()
+    pad2.SetBottomMargin(0.5)
+    pad2.SetTopMargin(0.009)
+    pad.Draw()
+    pad2.Draw()
+    pad.cd()
     
+    stack.Draw('HIST')
+    data.Draw("E SAME")
     legend.Draw('SAME')
     
+    
+    sumMC = stack.GetStack().Last()
+    sumMC.SetDirectory(0)
+    sumMC.SetFillColor(R.kBlack)
+    sumMC.SetLineColor(R.kBlack)
+    sumMC_err = stack.GetStack().Last().Clone("h_with_error")
+    
+    sumMC_err.SetFillStyle(3018)
+    sumMC_err.SetFillColor(R.kBlack)
+    sumMC_err.Draw("e2same")
+    sumMC.Divide(data)
+    
+    legend.AddEntry(sumMC_err,"Stat. unc.")
+    
     stack.GetYaxis().SetTitle("Events")
+    stack.GetYaxis().SetTitleSize(0.05)
+    stack.GetYaxis().SetTitleOffset(0.6)
     
     if lep == 'ee':
         lepp = 'e^{+}e^{-}'
@@ -61,16 +89,34 @@ def Plot_Maker(stack, legend, lep, hist, logy=False):
     #text.DrawLatex(0.21, 0.85, "ATLAS")
     text.SetTextFont(42)
     text.SetTextSize(0.04)
-    # text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV  #int Ldt = 139 fb^{-1}")
-    text.DrawLatex(0.21, 0.85, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-    text.DrawLatex(0.32, 0.80, lepp)
-    # text.DrawLatex(0.21 + 0.087, 0.85, "PreLiminary")
-    stack.GetXaxis().SetTitle(xaxis)
+    #text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV  #int Ldt = 139 fb^{-1}")
+    text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+    text.DrawLatex(0.27, 0.75, lepp)
+    #text.DrawLatex(0.21 + 0.087, 0.85, "PreLiminary")
+    #stack.GetXaxis().SetTitle(xaxis)
     stack.SetMinimum(1e-2)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
-        stack.SetMaximum(1e6)
+        stack.SetMaximum(3e10)
     else:
-        stack.SetMaximum(2e4)
+        stack.SetMaximum(2e8)
         
+    pad2.cd()
+    pad2.SetGridy()
+    pad2.SetTickx(False)
+    pad2.SetTicky(False)
+    sumMC.SetTitle("")
+    sumMC.SetMarkerStyle(20)
+    sumMC.GetXaxis().SetTitle(xaxis)
+    sumMC.GetXaxis().SetTitleOffset(1.3)
+    sumMC.GetYaxis().SetTitle("Events / Bkg")
+    sumMC.GetYaxis().SetTitleSize(0.09)
+    sumMC.GetYaxis().SetTitleOffset(0.3)
+    sumMC.GetXaxis().SetLabelSize(0.1)
+    sumMC.GetXaxis().SetTitleSize(0.13)
+    #sumMC.GetYaxis().SetLabelSize(0.16)
+    # sumMC.SetMaximum(15)
+    # sumMC.SetMinimum(-1)
+    sumMC.Draw("ep")
+    
     savepath = 'Plots/'+lep+'_'+hist+'.pdf'
     c.SaveAs(savepath) 
