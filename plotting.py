@@ -82,9 +82,10 @@ SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_AFII['mc16a'].item
 SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_AFII['mc16d'].items()) + list(SOW_sig['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()) )
 SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_AFII['mc16e'].items()) + list(SOW_sig['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()) )
 
-Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']
+Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']#, 'Signal']
 
 Colors = {}
+Colors["Signal"] = R.TColor.GetColor('#F42069')
 Colors["Drell Yan"] = R.TColor.GetColor('#8EDC9D')
 Colors['Single Top'] = R.TColor.GetColor('#EF7126')
 Colors["TTbar"] = R.TColor.GetColor('#F9E559')
