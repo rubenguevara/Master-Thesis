@@ -1,12 +1,10 @@
 import ROOT as R
 
-def Plot_Maker(stack, legend, lep, hist, data, logy=False):
+def Plot_Maker(stack, legend, lep, hist, data, sig=None):
     c = R.TCanvas()
     c.SetWindowSize(1000, 800)
     c.Draw()
     R.gStyle.SetOptStat(0)
-    if logy == True:
-        c.SetLogy()
     
     pad = R.TPad("upper_pad", "", 0, 0.27, 1, 1)
     pad2 = R.TPad("lower_pad", "", 0, 0, 1, 0.33)
@@ -23,6 +21,9 @@ def Plot_Maker(stack, legend, lep, hist, data, logy=False):
     stack.Draw('HIST')
     data.Draw("E SAME")
     legend.Draw('SAME')
+    
+    if sig != None:
+        sig.Draw('HIST2SAME')
     
     
     sumMC = stack.GetStack().Last()
@@ -114,8 +115,17 @@ def Plot_Maker(stack, legend, lep, hist, data, logy=False):
     sumMC.GetXaxis().SetLabelSize(0.1)
     sumMC.GetXaxis().SetTitleSize(0.13)
     #sumMC.GetYaxis().SetLabelSize(0.16)
-    # sumMC.SetMaximum(15)
-    # sumMC.SetMinimum(-1)
+    if hist == 'met' or hist == 'met_sig':
+        sumMC.SetMaximum(3)
+        sumMC.SetMinimum(0)
+    
+    elif hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
+        sumMC.SetMaximum(1.2)
+        sumMC.SetMinimum(0.8)
+    
+    else:
+        sumMC.SetMaximum(2)
+        sumMC.SetMinimum(0)
     sumMC.Draw("ep")
     
     savepath = 'Plots/'+lep+'_'+hist+'.pdf'

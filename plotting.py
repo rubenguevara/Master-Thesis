@@ -39,9 +39,6 @@ for subdir, dirs, files in os.walk(rootdir):
         myfile = R.TFile.Open(c)
         filelist.append(myfile)
         mc_run = subdir.split('/')[-1]
-        #print(mc_run)
-        #if mc_run == 'mc16e': continue
-        #for variable in variables:
         if dsid in IDs["DY"]: 
             dsid_list[mc_run]['Drell Yan'].append(str(dsid))
             for variable in variables:
@@ -101,7 +98,6 @@ try:
 except FileExistsError:
     pass
 
-skipper = False
 stack = {}
 stack2 = {}
 lep = {}
@@ -121,42 +117,36 @@ for vari in variables:
     for mc in mc_year:
         thist[vari][mc] = {}
         for i in Backgrounds:
-            #print('---'*30)
-            #print('Background:',i)
             if BigDic[mc][i][vari] == []: 
-                skipper = True
                 print('No events in',i,' on ',mc,'!')
                 continue  
                 
             id = dsid_list[mc][i][0]
             if mc == 'mc16a':
-                w = 1/SOW_a[id]
+                w = 33/SOW_a[id]
                 
             elif mc == 'mc16d':
-                w = 1/SOW_d[id]
-            
+                w = 44/SOW_d[id]
+                
             elif mc == 'mc16e':
-                w = 1/SOW_e[id]
+                w = 58.5/SOW_e[id]
             
             thist[vari][mc][i] = R.TH1D(BigDic[mc][i][vari][0])
             thist[vari][mc][i].Scale(w)
-        
-            #print('Entries from data:', BigDic[i][vari][0].GetEntries())
-            #print(0,thist[i].GetEntries())
+            
             for j in range(1,len(BigDic[mc][i][vari])):
                 id = dsid_list[mc][i][j]
                 if mc == 'mc16a':
-                    w = 1/SOW_a[id]
+                    w = 33/SOW_a[id]
                     
                 elif mc == 'mc16d':
-                    w = 1/SOW_d[id]
-                
+                    w = 44/SOW_d[id]
+                    
                 elif mc == 'mc16e':
-                    w = 1/SOW_e[id]
+                    w = 58.5/SOW_e[id]
                     
                 thist[vari][mc][i].Add(BigDic[mc][i][vari][j], w)
-            #    print('Entries from data:', BigDic[i][vari][j].GetEntries())
-            #    print(j,thist[i].GetEntries()) 
+
 
 data_hist = {}
 for vari in variables:
@@ -189,4 +179,4 @@ for vari in variables:
                 
         legend.AddEntry(thist[vari][mc][bkg], bkg)
     legend.AddEntry(data_hist[vari], 'Data')
-    Plot_Maker(stack[vari], legend, lep[vari], hist[vari], data_hist[vari], logy=True)
+    Plot_Maker(stack[vari], legend, lep[vari], hist[vari], data_hist[vari])
