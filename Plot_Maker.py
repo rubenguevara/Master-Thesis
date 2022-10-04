@@ -1,6 +1,6 @@
 import ROOT as R
 
-def Plot_Maker(stack, legend, lep, hist, data, sig=None):
+def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     c = R.TCanvas()
     c.SetWindowSize(1000, 800)
     c.Draw()
@@ -97,7 +97,7 @@ def Plot_Maker(stack, legend, lep, hist, data, sig=None):
     #stack.GetXaxis().SetTitle(xaxis)
     stack.SetMinimum(1e-2)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
-        stack.SetMaximum(3e10)
+        stack.SetMaximum(5e10)
     else:
         stack.SetMaximum(2e8)
         
@@ -128,5 +128,5 @@ def Plot_Maker(stack, legend, lep, hist, data, sig=None):
         sumMC.SetMinimum(0)
     sumMC.Draw("ep")
     
-    savepath = 'Plots/'+lep+'_'+hist+'.pdf'
+    savepath = dir+'/'+lep+'_'+hist+'.pdf'
     c.SaveAs(savepath) 

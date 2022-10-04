@@ -92,9 +92,9 @@ Colors["TTbar"] = R.TColor.GetColor('#F9E559')
 Colors["Diboson"] = R.TColor.GetColor('#6CCECB')
 Colors["W"] = R.TColor.GetColor('#218C8D')
 
-
+save_dir = "Plots"
 try:
-    os.makedirs("Plots")
+    os.makedirs(save_dir)
 
 except FileExistsError:
     pass
@@ -124,10 +124,10 @@ for vari in variables:
                 
             id = dsid_list[mc][i][0]
             if mc == 'mc16a':
-                w = 33/SOW_a[id]
+                w = 36.2/SOW_a[id]
                 
             elif mc == 'mc16d':
-                w = 44/SOW_d[id]
+                w = 44.3/SOW_d[id]
                 
             elif mc == 'mc16e':
                 w = 58.5/SOW_e[id]
@@ -138,10 +138,10 @@ for vari in variables:
             for j in range(1,len(BigDic[mc][i][vari])):
                 id = dsid_list[mc][i][j]
                 if mc == 'mc16a':
-                    w = 33/SOW_a[id]
+                    w = 36.2/SOW_a[id]
                     
                 elif mc == 'mc16d':
-                    w = 44/SOW_d[id]
+                    w = 44.3/SOW_d[id]
                     
                 elif mc == 'mc16e':
                     w = 58.5/SOW_e[id]
@@ -180,4 +180,4 @@ for vari in variables:
                 
         legend.AddEntry(thist[vari][mc][bkg], bkg)
     legend.AddEntry(data_hist[vari], 'Data')
-    Plot_Maker(stack[vari], legend, lep[vari], hist[vari], data_hist[vari])
+    Plot_Maker(stack[vari], legend, lep[vari], hist[vari], data_hist[vari], save_dir)
