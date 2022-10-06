@@ -28,14 +28,15 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     
     sumMC = stack.GetStack().Last()
     sumMC.SetDirectory(0)
-    sumMC.SetFillColor(R.kBlack)
-    sumMC.SetLineColor(R.kBlack)
+    #sumMC.SetFillColor(R.kBlack)
+    #sumMC.SetLineColor(R.kBlack)
     sumMC_err = stack.GetStack().Last().Clone("h_with_error")
+    data_clone = data.Clone()
     
     sumMC_err.SetFillStyle(3018)
     sumMC_err.SetFillColor(R.kBlack)
     sumMC_err.Draw("E2SAME")
-    sumMC.Divide(data)
+    #sumMC.Divide(data)
     
     legend.AddEntry(sumMC_err,"Stat. unc.")
     
@@ -102,27 +103,28 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     pad2.SetGridy()
     pad2.SetTickx(False)
     pad2.SetTicky(False)
-    sumMC.SetTitle("")
-    sumMC.SetMarkerStyle(20)
-    sumMC.GetXaxis().SetTitle(xaxis)
-    sumMC.GetXaxis().SetTitleOffset(1.3)
-    sumMC.GetYaxis().SetTitle("Events / Bkg")
-    sumMC.GetYaxis().SetTitleSize(0.09)
-    sumMC.GetYaxis().SetTitleOffset(0.3)
-    sumMC.GetXaxis().SetLabelSize(0.1)
-    sumMC.GetXaxis().SetTitleSize(0.13)
+    data_clone.Divide(sumMC)
+    data_clone.SetTitle("")
+    data_clone.SetMarkerStyle(20)
+    data_clone.GetXaxis().SetTitle(xaxis)
+    data_clone.GetXaxis().SetTitleOffset(1.3)
+    data_clone.GetYaxis().SetTitle("Events / Bkg")
+    data_clone.GetYaxis().SetTitleSize(0.09)
+    data_clone.GetYaxis().SetTitleOffset(0.3)
+    data_clone.GetXaxis().SetLabelSize(0.1)
+    data_clone.GetXaxis().SetTitleSize(0.13)
     if hist == 'met' or hist == 'met_sig':
-        sumMC.SetMaximum(3)
-        sumMC.SetMinimum(0)
+        data_clone.SetMaximum(3)
+        data_clone.SetMinimum(0)
     
     elif hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
-        sumMC.SetMaximum(1.2)
-        sumMC.SetMinimum(0.8)
+        data_clone.SetMaximum(1.2)
+        data_clone.SetMinimum(0.8)
     
     else:
-        sumMC.SetMaximum(2)
-        sumMC.SetMinimum(0)
-    sumMC.Draw("ep")
+        data_clone.SetMaximum(2)
+        data_clone.SetMinimum(0)
+    data_clone.Draw("ep")
     
     savepath = dir+'/'+lep+'_'+hist+'.pdf'
     c.SaveAs(savepath) 
