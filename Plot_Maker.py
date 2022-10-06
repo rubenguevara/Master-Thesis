@@ -34,7 +34,7 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     
     sumMC_err.SetFillStyle(3018)
     sumMC_err.SetFillColor(R.kBlack)
-    sumMC_err.Draw("e2same")
+    sumMC_err.Draw("E2SAME")
     sumMC.Divide(data)
     
     legend.AddEntry(sumMC_err,"Stat. unc.")
@@ -90,11 +90,8 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     #text.DrawLatex(0.21, 0.85, "ATLAS")
     text.SetTextFont(42)
     text.SetTextSize(0.04)
-    #text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV  #int Ldt = 139 fb^{-1}")
     text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
     text.DrawLatex(0.27, 0.75, lepp)
-    #text.DrawLatex(0.21 + 0.087, 0.85, "PreLiminary")
-    #stack.GetXaxis().SetTitle(xaxis)
     stack.SetMinimum(1e-2)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
         stack.SetMaximum(5e10)
@@ -114,7 +111,6 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     sumMC.GetYaxis().SetTitleOffset(0.3)
     sumMC.GetXaxis().SetLabelSize(0.1)
     sumMC.GetXaxis().SetTitleSize(0.13)
-    #sumMC.GetYaxis().SetLabelSize(0.16)
     if hist == 'met' or hist == 'met_sig':
         sumMC.SetMaximum(3)
         sumMC.SetMinimum(0)
