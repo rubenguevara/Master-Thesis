@@ -39,6 +39,10 @@ for subdir, dirs, files in os.walk(rootdir):
         myfile = R.TFile.Open(c)
         filelist.append(myfile)
         mc_run = subdir.split('/')[-1]
+        AFII = c.split('.')[-2].split('_')[-1]
+        if AFII =='AFII': 
+            print('Skipping AFII file:',c)
+            continue
         if dsid in IDs["DY"]: 
             dsid_list[mc_run]['Drell Yan'].append(str(dsid))
             for variable in variables:
@@ -49,6 +53,7 @@ for subdir, dirs, files in os.walk(rootdir):
                 BigDic[mc_run]['Single Top'][variable].append(myfile.Get(variable))
         elif dsid in IDs['TTbar']:
             dsid_list[mc_run]['TTbar'].append(str(dsid))
+            if AFII =='AFII': print('here')
             for variable in variables: 
                 BigDic[mc_run]["TTbar"][variable].append(myfile.Get(variable))
         elif dsid in IDs['Diboson']: 
