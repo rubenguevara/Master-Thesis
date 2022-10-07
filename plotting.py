@@ -2,7 +2,7 @@ import ROOT as R
 import os
 from EventIDs import IDs
 from Plot_Maker import Plot_Maker
-from SOW import SOW_bkg, SOW_sig, SOW_AFII, SOW_sig_AFII
+from SOW import SOW_bkg, SOW_sig#, SOW_AFII, SOW_sig_AFII
 from collections import OrderedDict
 
 
@@ -78,9 +78,12 @@ for subdir, dirs, files in os.walk(rootdird):
         for variable in variables:
             data[variable].append(myfile.Get(variable))
 
-SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_AFII['mc16a'].items()) + list(SOW_sig['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()) )
-SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_AFII['mc16d'].items()) + list(SOW_sig['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()) )
-SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_AFII['mc16e'].items()) + list(SOW_sig['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()) )
+# SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_AFII['mc16a'].items()) + list(SOW_sig['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()) )
+# SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_AFII['mc16d'].items()) + list(SOW_sig['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()) )
+# SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_AFII['mc16e'].items()) + list(SOW_sig['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()) )
+SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_sig['mc16a'].items()) )
+SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_sig['mc16d'].items()) )
+SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_sig['mc16e'].items()) )
 
 Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']#, 'Signal']
 

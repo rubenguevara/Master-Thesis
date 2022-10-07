@@ -73,6 +73,24 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
         
     elif hist =='mt':
         xaxis = 'm_{T} [GeV]'
+        
+    elif hist =='ht':
+        xaxis = 'H_{T} [GeV]'
+    
+    elif hist =='dPhiLeps':
+        xaxis = '#Delta#phi(l_{1}, l_{2})'
+    
+    elif hist =='dPhiLepMet':
+        xaxis = '#Delta#phi(l_{lead}, E_{T}^{miss})'
+    
+    elif hist =='dPhiLLmet':
+        xaxis = '#Delta#phi(ll, E_{T}^{miss})'
+        
+    elif hist =='mt2':
+        xaxis = 'm_{T2} [GeV]'
+        
+    elif hist =='nBJet':
+        xaxis = 'Number of B jets'
     
     elif hist =='et':
         xaxis = 'E_{T} [GeV]'
@@ -94,7 +112,7 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
     text.DrawLatex(0.27, 0.75, lepp)
     stack.SetMinimum(1e-2)
-    if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2': 
+    if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2' or hist=='dPhiLeps' or hist=='dPhiLepMet' or hist=='dPhiLLmet': 
         stack.SetMaximum(5e10)
     else:
         stack.SetMaximum(2e8)
