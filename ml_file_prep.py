@@ -1,6 +1,7 @@
 import pandas as pd
 import os
-# import ROOT as R
+from EventIDs import IDs
+import numpy as np
 import uproot as up
 
 file ='../EventSelector/ML_files/ParallelTest-mc16a.root'
@@ -24,9 +25,9 @@ for i in tree.keys():
 
 
 df1 = pd.DataFrame(dic)
-print(df1)
+# print(df1)
 df2 = pd.DataFrame(dic2)
-print(df2)
+# print(df2)
 # df3 = pd.DataFrame(dic3)
 # print(df3)
 
@@ -35,9 +36,10 @@ df = pd.concat(dfs).sample(frac=1, random_state=42).reset_index(drop=True)  # Sh
 print(df)
 
 print(700320 not in df['RunNumber'].unique())
+for i in range(len(df['RunNumber'])):
+    df['Label'][i] = np.where(df['RunNumber'][i] in IDs["all_bkg"], 0, 1)
 
-
-
+print(df)
 
 
 # save_dir = "ML_Files"

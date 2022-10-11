@@ -25,7 +25,7 @@ Int_t isData = 0, isMC = 0;
 Int_t doTruth = 0, doCutflow = 0, doSyst = 0, doFakes = 0, doLoose = 0, isRecast = 0, isAFII = 0, makeTree = 0; 
 
 // Sample and channel stuff
-Int_t DSID, prev_DSID = 0, yr; 
+Int_t DSID, filenr, prev_DSID = 0, yr; 
 Int_t Incl_Sherpa[] = {364100, 364101, 364102, 364103, 364104, 364105, 364106, 364107, 364108, 364114, 364115, 364117, 364118, 364120};
 Int_t Incl_Sh2211[] = {700320, 700321, 700322, 700323, 700324, 700325, 700326, 700327, 700328}; 
 Int_t Incl_Powheg[] = {361106, 361107}; 
@@ -154,7 +154,7 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_jetphi2[h_name] = new TH1D("h_jet_phi2", "jet_phi2", 50, -M_PI, M_PI);  
       
   }
-  filename2 = "ML_files/"+ml_file+".root";   // ML FILE
+  filename2 = "ML_files/"+ml_file+"-"+dataset+"-"+filenr+".root";   // ML FILE
   MY = new makeMYTree(dataset,"central",filename2,"");
 }
 
@@ -570,6 +570,7 @@ void EventSelector::Terminate()
   //cout << "Minimum MET for events with METsig>5.: " << min_MET << endl; 
 
   delete MY;  //ML FILE
+  filenr++;
 }
 
 
