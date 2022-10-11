@@ -16,7 +16,7 @@
 #include "MatrixMethod/MatrixMethod.cxx"
 #include "MatrixMethod/MMefficiencies.cxx"
 #include "makeMYTree.h"
-#include "makeMYTree.cxx"
+// #include "makeMYTree.cxx"
 
 TLorentzVector l1, l2, l3, met_lor, ll, l1_truth, l2_truth; 
 
@@ -154,8 +154,8 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_jetphi2[h_name] = new TH1D("h_jet_phi2", "jet_phi2", 50, -M_PI, M_PI);  
       
   }
-  // filename2 = "ML_files/"+ml_file+".root";   // ML FILE
-  // MY = new makeMYTree(dataset,"central",filename2,"");
+  filename2 = "ML_files/"+ml_file+".root";   // ML FILE
+  MY = new makeMYTree(dataset,"central",filename2,"");
 }
 
 void EventSelector::SlaveBegin(TTree * /*tree*/){}
@@ -519,42 +519,42 @@ Bool_t EventSelector::Process(Long64_t entry){
       h_dPhiLepMet[this_name]->Fill(l2.DeltaPhi(met_lor), wgt);}
   }
   
-  // // ML FILE, correct way?
-  // MY->bMY_channel = (DSID);  
-  // MY->bMY_weight = (wgt);  
-  // MY->bMY_lep1Pt = (l1.Pt());  
-  // MY->bMY_lep1Eta = (l1.Eta());  
-  // MY->bMY_lep1Phi = (l1.Phi()); 
-  // MY->bMY_lep1Et = (l1.Et());
-  // MY->bMY_lep2Pt = (l2.Pt());  
-  // MY->bMY_lep2Eta = (l2.Eta());  
-  // MY->bMY_lep2Phi = (l2.Phi()); 
-  // MY->bMY_lep2Et = (l2.Et());
-  // MY->bMY_jetB = (*n_jet);  
-  // MY->bMY_jetLight = (*n_jet);   
-  // MY->bMY_jetTot = (*n_jet);  
-  // if(*n_jet >=2){
-  // MY->bMY_jet1Pt = (j1.Pt());  
-  // MY->bMY_jet1Eta = (j1.Eta());  
-  // MY->bMY_jet1Phi = (j1.Phi());
-  // MY->bMY_jet2Pt = (j2.Pt());  
-  // MY->bMY_jet2Eta = (j2.Eta());  
-  // MY->bMY_jet2Phi = (j2.Phi());}
-  // else{
-  // MY->bMY_jet1Pt = (0);  
-  // MY->bMY_jet1Eta = (10);  
-  // MY->bMY_jet1Phi = (10);
-  // MY->bMY_jet2Pt = (0);  
-  // MY->bMY_jet2Eta = (10);  
-  // MY->bMY_jet2Phi = (10);}
+  // ML FILE, correct way?
+  MY->bMY_channel = (DSID);  
+  MY->bMY_weight = (wgt);  
+  MY->bMY_lep1Pt = (l1.Pt());  
+  MY->bMY_lep1Eta = (l1.Eta());  
+  MY->bMY_lep1Phi = (l1.Phi()); 
+  MY->bMY_lep1Et = (l1.Et());
+  MY->bMY_lep2Pt = (l2.Pt());  
+  MY->bMY_lep2Eta = (l2.Eta());  
+  MY->bMY_lep2Phi = (l2.Phi()); 
+  MY->bMY_lep2Et = (l2.Et());
+  MY->bMY_jetB = (nbjets);  
+  MY->bMY_jetLight = (nljets);   
+  MY->bMY_jetTot = (nbjets+nljets);  
+  if(*n_jet >=2){
+  MY->bMY_jet1Pt = (j1.Pt());  
+  MY->bMY_jet1Eta = (j1.Eta());  
+  MY->bMY_jet1Phi = (j1.Phi());
+  MY->bMY_jet2Pt = (j2.Pt());  
+  MY->bMY_jet2Eta = (j2.Eta());  
+  MY->bMY_jet2Phi = (j2.Phi());}
+  else{
+  MY->bMY_jet1Pt = (0);  
+  MY->bMY_jet1Eta = (10);  
+  MY->bMY_jet1Phi = (10);
+  MY->bMY_jet2Pt = (0);  
+  MY->bMY_jet2Eta = (10);  
+  MY->bMY_jet2Phi = (10);}
 
-  // MY->bMY_met_Et = (*met_tst_et/1000);  
-  // // MY->bMY_met_Phi = (*met_tst_phi);  
-  // MY->bMY_mll = (mll);
-  // MY->bMY_EventNumber = (*event);
-  // MY->bMY_RunNumber = (*run);  
+  MY->bMY_met_Et = (*met_tst_et/1000);  
+  // MY->bMY_met_Phi = (*met_tst_phi);  
+  MY->bMY_mll = (mll);
+  MY->bMY_EventNumber = (*event);
+  MY->bMY_RunNumber = (*run);  
 
-  // MY->WriteTree();
+  MY->WriteTree();
   return kTRUE;
 }
 
@@ -569,7 +569,7 @@ void EventSelector::Terminate()
   cout << "Events processed: " << nevents << endl; 
   //cout << "Minimum MET for events with METsig>5.: " << min_MET << endl; 
 
-  // delete MY;  //ML FILE
+  delete MY;  //ML FILE
 }
 
 
