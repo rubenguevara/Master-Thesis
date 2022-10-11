@@ -64,7 +64,7 @@ makeMYTree::makeMYTree(TString MCID, TString syst, TString fileName, TString tre
 void makeMYTree::ClearOutputBranches(void)
 {
 
-  // bMY_lep1Pt.clear();                                                  
+  // bMY_lep1Pt.clear();      //! Ser ut som de bare gjorde dette dersom variabelen var en vector<float>                                     
   // bMY_lep1Eta.clear();                                                 
   // bMY_lep1Phi.clear();                                                 
   // bMY_lep1Et.clear();
