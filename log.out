@@ -1,0 +1,1011 @@
+Number of files to process: 475
+Number of CPUs being used: 255
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000001.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000002.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000003.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000004.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000005.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000006.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000007.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000008.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000009.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000010.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000011.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000012.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000013.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000014.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000015.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000016.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410648.PowhegPythia8EvtGen_A14_Wt_DR_dilepton_top_minitrees.root/user.ehaaland.30014395._000002.minitrees.root
+>>> Started: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410649.PowhegPythia8EvtGen_A14_Wt_DR_dilepton_antitop_minitrees.root/user.ehaaland.30014396._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363356.Sherpa_221_NNPDF30NNLO_ZqqZll_minitrees.root/user.ehaaland.29219059._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363356.Sherpa_221_NNPDF30NNLO_ZqqZll_minitrees.root/user.ehaaland.29219059._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363356.Sherpa_221_NNPDF30NNLO_ZqqZll_minitrees.root/user.ehaaland.29219059._000004.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363356.Sherpa_221_NNPDF30NNLO_ZqqZll_minitrees.root/user.ehaaland.29219059._000005.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363356.Sherpa_221_NNPDF30NNLO_ZqqZll_minitrees.root/user.ehaaland.29219059._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363358.Sherpa_221_NNPDF30NNLO_WqqZll_minitrees.root/user.ehaaland.29219060._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363358.Sherpa_221_NNPDF30NNLO_WqqZll_minitrees.root/user.ehaaland.29219060._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363359.Sherpa_221_NNPDF30NNLO_WpqqWmlv_minitrees.root/user.ehaaland.29219061._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363359.Sherpa_221_NNPDF30NNLO_WpqqWmlv_minitrees.root/user.ehaaland.29219061._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363360.Sherpa_221_NNPDF30NNLO_WplvWmqq_minitrees.root/user.ehaaland.29219062._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363489.Sherpa_221_NNPDF30NNLO_WlvZqq_minitrees.root/user.ehaaland.29219063._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.363489.Sherpa_221_NNPDF30NNLO_WlvZqq_minitrees.root/user.ehaaland.29219063._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364156.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219064._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364156.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219064._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000004.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000005.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000007.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000008.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000009.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000010.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000004.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000005.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000007.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000008.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000010.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364159.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219067._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364159.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219067._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364160.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219068._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364160.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219068._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364161.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219069._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364161.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219069._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364162.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219070._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364162.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219070._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364163.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219071._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364163.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219071._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364163.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219071._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364164.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219072._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364164.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219072._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364165.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219073._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364165.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219073._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364166.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219074._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364166.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219074._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364167.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219075._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364167.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219075._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364167.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219075._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364168.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219076._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364168.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219076._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364169.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219077._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364169.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219077._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364169.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219077._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364170.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219078._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364170.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219078._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000004.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000005.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000007.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000008.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000009.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000010.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000004.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000005.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000007.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000008.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000009.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000010.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000011.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364173.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219082._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364173.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219082._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364174.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219083._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364174.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219083._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364175.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219084._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364175.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219084._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364175.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219084._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364176.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219085._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364176.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219085._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364177.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219086._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364177.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219086._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364177.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219086._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364178.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219087._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364178.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219087._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364179.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219088._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364179.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219088._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364180.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219089._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364180.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219089._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364181.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219090._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364181.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219090._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364181.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219090._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364182.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219091._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364182.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219091._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364183.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219092._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364183.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219092._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364184.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219093._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364184.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219093._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364185.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219094._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364185.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219094._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364185.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219094._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364186.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219095._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364186.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219095._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364187.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219096._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364187.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219096._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364188.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219097._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364188.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219097._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364189.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219098._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364189.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219098._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364190.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219099._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364190.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219099._000002.minitrees.root
+Process started: Tue Oct 11 10:33:16 2022
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364190.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219099._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364191.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219100._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364191.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219100._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364191.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219100._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364192.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219101._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364192.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219101._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364193.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219102._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364193.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219102._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364193.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219102._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364194.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219103._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364194.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219103._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364194.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219103._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364195.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219104._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364195.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219104._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_WpqqWmlv_000001
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000009
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364196.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219105._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364196.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219105._000002.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 13599
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364197.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219106._000002.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 14849
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364197.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219106._000003.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000002
+13599 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.363359.Sherpa_221_NNPDF30NNLO_WpqqWmlv_minitrees.root/user.ehaaland.29219061._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CVetoBVeto_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 20333
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 8659
+Process started: Tue Oct 11 10:33:17 2022
+Process started: Tue Oct 11 10:33:17 2022
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364250.Sherpa_222_NNPDF30NNLO_llll_minitrees.root/user.ehaaland.29219107._000001.minitrees.root
+14849 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000009.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364250.Sherpa_222_NNPDF30NNLO_llll_minitrees.root/user.ehaaland.29219107._000002.minitrees.root
+8659 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000002.minitrees.root
+20333 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364156.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219064._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000005
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364250.Sherpa_222_NNPDF30NNLO_llll_minitrees.root/user.ehaaland.29219107._000003.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 19763
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364250.Sherpa_222_NNPDF30NNLO_llll_minitrees.root/user.ehaaland.29219107._000004.minitrees.root
+19763 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000005.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000006
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 159
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364253.Sherpa_222_NNPDF30NNLO_lllv_minitrees.root/user.ehaaland.29219108._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000008
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 17121
+159 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364253.Sherpa_222_NNPDF30NNLO_lllv_minitrees.root/user.ehaaland.29219108._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364253.Sherpa_222_NNPDF30NNLO_lllv_minitrees.root/user.ehaaland.29219108._000003.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Process started: Tue Oct 11 10:33:17 2022
+17121 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000008.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364253.Sherpa_222_NNPDF30NNLO_lllv_minitrees.root/user.ehaaland.29219108._000004.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000003
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_WlvZqq_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29947
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 23135
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000010
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29493
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364254.Sherpa_222_NNPDF30NNLO_llvv_minitrees.root/user.ehaaland.29219109._000001.minitrees.root
+29947 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364254.Sherpa_222_NNPDF30NNLO_llvv_minitrees.root/user.ehaaland.29219109._000002.minitrees.root
+29493 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000010.minitrees.root
+23135 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.363489.Sherpa_221_NNPDF30NNLO_WlvZqq_minitrees.root/user.ehaaland.29219063._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000006
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364254.Sherpa_222_NNPDF30NNLO_llvv_minitrees.root/user.ehaaland.29219109._000003.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29740
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000004
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29752
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.364255.Sherpa_222_NNPDF30NNLO_lvvv_minitrees.root/user.ehaaland.29219110._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000001
+29740 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000001.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29013
+29752 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000004.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CVetoBVeto_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 23364
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000003.minitrees.root
+29013 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000004.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29831
+23364 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364159.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219067._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000005.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_000003
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 34988
+29831 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000007.minitrees.root
+34988 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364167.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219075._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000008.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000009.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000010.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_000001
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000011.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_WplvWmqq_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 19536
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 39695
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000012.minitrees.root
+39695 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.363360.Sherpa_221_NNPDF30NNLO_WplvWmqq_minitrees.root/user.ehaaland.29219062._000001.minitrees.root
+19536 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364169.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219077._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000013.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000007
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29685
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000014.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000007
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29216
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000016.minitrees.root
+29685 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000007.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000003
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29278
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000017.minitrees.root
+29216 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000007.minitrees.root
+29278 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000018.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410644.PowhegPythia8EvtGen_A14_singletop_schan_lept_top_minitrees.root/user.ehaaland.29219124._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_000009
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 43197
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410645.PowhegPythia8EvtGen_A14_singletop_schan_lept_antitop_minitrees.root/user.ehaaland.29219125._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000005
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 33753
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CFilterBVeto_000002
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 45208
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410648.PowhegPythia8EvtGen_A14_Wt_DR_dilepton_top_minitrees.root/user.ehaaland.29219128._000001.minitrees.root
+43197 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000009.minitrees.root
+33753 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000005.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_000002
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 67660
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410649.PowhegPythia8EvtGen_A14_Wt_DR_dilepton_antitop_minitrees.root/user.ehaaland.29219129._000001.minitrees.root
+45208 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364160.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219068._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000010
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410658.PhPy8EG_A14_tchan_BW50_lept_top_minitrees.root/user.ehaaland.29219133._000001.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 29408
+67660 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364167.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219075._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410658.PhPy8EG_A14_tchan_BW50_lept_top_minitrees.root/user.ehaaland.29219133._000002.minitrees.root
+29408 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000010.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410659.PhPy8EG_A14_tchan_BW50_lept_antitop_minitrees.root/user.ehaaland.29219134._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 40776
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.410659.PhPy8EG_A14_tchan_BW50_lept_antitop_minitrees.root/user.ehaaland.29219134._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CVetoBVeto_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 30379
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_000003
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000001.minitrees.root
+40776 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000001.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 32909
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_000007
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_000010
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 43227
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 43210
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000003.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_000003
+30379 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364170.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219078._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000007
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CVetoBVeto_000001
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000004
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 41044
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CVetoBVeto_000002
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 47817
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 24636
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 46779
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000004.minitrees.root
+43210 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000010.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 21625
+43227 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000007.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000005.minitrees.root
+32909 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364163.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219071._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000006.minitrees.root
+24636 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364165.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219073._000001.minitrees.root
+46779 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364159.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219067._000002.minitrees.root
+47817 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000004.minitrees.root
+41044 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000007.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000007.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000008.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CVetoBVeto_000001
+21625 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000003.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 27709
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000009.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000003
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000010.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 23869
+27709 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364162.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219070._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000011.minitrees.root
+23869 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000003.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000005
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 41201
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000012.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000013.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_BFilter_000002
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 7604
+41201 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000005.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000014.minitrees.root
+7604 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364189.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219098._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000015.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CVetoBVeto_000002
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CFilterBVeto_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 60139
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 23470
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000016.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_000006
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 28325
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000017.minitrees.root
+23470 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364166.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219074._000001.minitrees.root
+60139 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364176.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219085._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000018.minitrees.root
+28325 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000006.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_BFilter_000002
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 93483
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_BFilter_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 46776
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000019.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000008
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 20260
+Process started: Tue Oct 11 10:33:17 2022
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000028.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_000002
+93483 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364161.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219069._000002.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 42239
+46776 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364161.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219069._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000001.minitrees.root
+20260 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000008.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000030.minitrees.root
+42239 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000029.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000003.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto_000003
+Process started: Tue Oct 11 10:33:17 2022
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 6843
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_000002
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 5602
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_000001
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_BFilter_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 77715
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 3934
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000031.minitrees.root
+6843 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364191.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219100._000003.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_000005
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CFilterBVeto_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 43050
+5602 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364190.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219099._000002.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 3929
+3934 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364189.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219098._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000004.minitrees.root
+3929 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364188.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219097._000001.minitrees.root
+77715 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364163.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219071._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000032.minitrees.root
+43050 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000005.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 105432
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000005.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_000003
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 10329
+105432 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364167.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219075._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000033.minitrees.root
+10329 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364194.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219103._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000006.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000034.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_BFilter_000001
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CVetoBVeto_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 7628
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 24833
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_000003
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000007.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 11249
+7628 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364195.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219104._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000035.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_000002
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CVetoBVeto_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 1203
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 2328
+24833 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364179.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219088._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto_000002
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CVetoBVeto_000002
+11249 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364190.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219099._000003.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 49984
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 13928
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000008.minitrees.root
+2328 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364184.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219093._000001.minitrees.root
+1203 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364185.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219094._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_000002
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_BFilter_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 5222
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 2019
+49984 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364179.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219088._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CVetoBVeto_000001
+13928 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364191.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219100._000002.minitrees.root
+2019 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364186.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219095._000001.minitrees.root
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 30299
+5222 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364194.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219103._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_000001
+30299 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364176.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219085._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_000001
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000036.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV500_1000_000001
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 8578
+Time: Tue Oct 11 10:33:17 2022
+Events processed: 16644
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 76213
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CFilterBVeto_000001
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000009.minitrees.root
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 26621
+16644 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364190.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219099._000001.minitrees.root
+8578 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364193.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219102._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000010.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+26621 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364174.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219083._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV500_1000_000001
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000011.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_000001
+76213 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364168.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219076._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000012.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000013.minitrees.root
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 18601
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 7980
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CVetoBVeto_000002
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_000003
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CVetoBVeto_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 4553
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000014.minitrees.root
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 2560
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_BFilter_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 7961
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 26432
+7980 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364194.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219103._000001.minitrees.root
+4553 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364184.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219093._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000015.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_000001
+18601 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364196.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219105._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV500_1000_000003
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000016.minitrees.root
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 97887
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 152593
+2560 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364185.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219094._000003.minitrees.root
+7961 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364187.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219096._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000017.minitrees.root
+26432 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364192.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219101._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000018.minitrees.root
+97887 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364181.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219090._000001.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000019.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_000002
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000020.minitrees.root
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 26670
+152593 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364168.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219076._000003.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000021.minitrees.root
+26670 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364175.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219084._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000022.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000006
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 41144
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000023.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CFilterBVeto_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 23586
+41144 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000006.minitrees.root
+23586 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364180.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219089._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CVetoBVeto_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 29524
+29524 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364173.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219082._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_BFilter_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 52840
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 82491
+52840 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364192.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219101._000002.minitrees.root
+82491 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364177.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219086._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV500_1000_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 37709
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CVetoBVeto_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 40411
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000002
+37709 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364196.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219105._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 29465
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 70198
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 90932
+40411 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364156.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219064._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV1000_E_CMS_000002
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: PhPy8EG_A14_ttbar_hdamp258p75_dil_AFII_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 32131
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 23240
+70198 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364177.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219086._000002.minitrees.root
+32131 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364197.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219106._000002.minitrees.root
+90932 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364169.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219077._000002.minitrees.root
+23240 events to process for user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000002.minitrees.root
+29465 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_000003
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 11496
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 81
+11496 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364193.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219102._000003.minitrees.root
+81 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_000001
+Process started: Tue Oct 11 10:33:18 2022
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 79902
+79902 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364175.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219084._000001.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_000008
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 29673
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_000004
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 93
+93 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364158.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219066._000004.minitrees.root
+29673 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364157.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219065._000008.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000024.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CFilterBVeto_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 46598
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000025.minitrees.root
+46598 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364180.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219089._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000026.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000027.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_BFilter_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 138936
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700322.Sh_2211_Zee_maxHTpTV2_CVetoBVeto_minitrees.root/user.ehaaland.29219026._000028.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000010
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700322.Sh_2211_Zee_maxHTpTV2_CVetoBVeto_minitrees.root/user.ehaaland.29219026._000001.minitrees.root
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 164
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_WlvZqq_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 46527
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700322.Sh_2211_Zee_maxHTpTV2_CVetoBVeto_minitrees.root/user.ehaaland.29219026._000030.minitrees.root
+138936 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364164.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219072._000001.minitrees.root
+164 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000010.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700322.Sh_2211_Zee_maxHTpTV2_CVetoBVeto_minitrees.root/user.ehaaland.29219026._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700322.Sh_2211_Zee_maxHTpTV2_CVetoBVeto_minitrees.root/user.ehaaland.29219026._000029.minitrees.root
+46527 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.363489.Sherpa_221_NNPDF30NNLO_WlvZqq_minitrees.root/user.ehaaland.29219063._000002.minitrees.root
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700322.Sh_2211_Zee_maxHTpTV2_CVetoBVeto_minitrees.root/user.ehaaland.29219026._000003.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Process started: Tue Oct 11 10:33:18 2022
+Process started: Tue Oct 11 10:33:18 2022
+Process started: Tue Oct 11 10:33:18 2022
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV1000_E_CMS_000003
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 64175
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_222_NNPDF30NNLO_lvvv_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 47487
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV500_1000_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 144898
+64175 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364197.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219106._000003.minitrees.root
+47487 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364255.Sherpa_222_NNPDF30NNLO_lvvv_minitrees.root/user.ehaaland.29219110._000001.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+144898 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364182.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219091._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_000001
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CFilterBVeto_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 42313
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 8007
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000009
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_BFilter_000002
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 40843
+8007 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364188.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219097._000002.minitrees.root
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 4020
+42313 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000001.minitrees.root
+4020 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364186.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219095._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV1000_E_CMS_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 102564
+40843 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000009.minitrees.root
+102564 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364183.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219092._000001.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 3748
+3748 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364185.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219094._000001.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_000003
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 219797
+219797 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364169.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219077._000003.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: PowhegPythia8EvtGen_A14_singletop_schan_lept_antitop_000001
+Time: Tue Oct 11 10:33:18 2022
+Events processed: 67205
+67205 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.410645.PowhegPythia8EvtGen_A14_singletop_schan_lept_antitop_minitrees.root/user.ehaaland.29219125._000001.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_000003
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 52896
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CVetoBVeto_000002
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_000011
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 60554
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 41055
+52896 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364175.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_BFilter_minitrees.root/user.ehaaland.29219084._000003.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_BFilter_000002
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 15397
+60554 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364170.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CVetoBVeto_minitrees.root/user.ehaaland.29219078._000002.minitrees.root
+41055 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364172.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_BFilter_minitrees.root/user.ehaaland.29219081._000011.minitrees.root
+15397 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364195.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219104._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_000003
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 34747
+34747 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364177.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219086._000003.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_000002
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 32840
+32840 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364181.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219090._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CFilterBVeto_000002
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 52772
+52772 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364174.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219083._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_000003
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 65876
+65876 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364181.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV280_500_BFilter_minitrees.root/user.ehaaland.29219090._000003.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_BFilter_000002
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 276304
+276304 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364178.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219087._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CVetoBVeto_000002
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 58623
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_000002
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 66085
+58623 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364173.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV70_140_CVetoBVeto_minitrees.root/user.ehaaland.29219082._000002.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_BFilter_000001
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 135882
+66085 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364163.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219071._000002.minitrees.root
+Process started: Tue Oct 11 10:33:19 2022
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_BFilter_000002
+135882 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364178.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219087._000001.minitrees.root
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 276263
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: PowhegPythia8EvtGen_A14_singletop_schan_lept_top_000001
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 66794
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: PhPy8EG_A14_tchan_BW50_lept_top_000001
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 120166
+66794 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.410644.PowhegPythia8EvtGen_A14_singletop_schan_lept_top_minitrees.root/user.ehaaland.29219124._000001.minitrees.root
+276263 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364164.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_BFilter_minitrees.root/user.ehaaland.29219072._000002.minitrees.root
+120166 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.410658.PhPy8EG_A14_tchan_BW50_lept_top_minitrees.root/user.ehaaland.29219133._000001.minitrees.root
+Process started: Tue Oct 11 10:33:19 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CFilterBVeto_000002
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 47639
+47639 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364166.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CFilterBVeto_minitrees.root/user.ehaaland.29219074._000002.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: PhPy8EG_A14_ttbar_hdamp258p75_dil_AFII_000005
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 116182
+116182 events to process for user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000005.minitrees.root
+Process started: Tue Oct 11 10:33:19 2022
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_BFilter_000015
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 102000
+102000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000015.minitrees.root
+Process started: Tue Oct 11 10:33:19 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_CVetoBVeto_000001
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 60000
+60000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700322.Sh_2211_Zee_maxHTpTV2_CVetoBVeto_minitrees.root/user.ehaaland.29219026._000001.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_CFilterBVeto_000029
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 102000
+102000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000029.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_CFilterBVeto_000033
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 102000
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_CFilterBVeto_000028
+Time: Tue Oct 11 10:33:19 2022
+Events processed: 96000
+102000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000033.minitrees.root
+96000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000028.minitrees.root
+Process started: Tue Oct 11 10:33:19 2022
+Done with file: PhPy8EG_A14_ttbar_hdamp258p75_dil_000016
+Time: Tue Oct 11 10:33:20 2022
+Events processed: 52713
+52713 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000016.minitrees.root
+Process started: Tue Oct 11 10:33:19 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_CFilterBVeto_000027
+Time: Tue Oct 11 10:33:20 2022
+Events processed: 88000
+Process started: Tue Oct 11 10:33:19 2022
+Done with file: PhPy8EG_A14_tchan_BW50_lept_antitop_000001
+Time: Tue Oct 11 10:33:20 2022
+Events processed: 121466
+88000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000027.minitrees.root
+121466 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.410659.PhPy8EG_A14_tchan_BW50_lept_antitop_minitrees.root/user.ehaaland.29219134._000001.minitrees.root
+22573 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364160.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV70_140_CFilterBVeto_minitrees.root/user.ehaaland.29219068._000001.minitrees.root
+1130418 events to process for user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000014.minitrees.root
+54522 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364162.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV140_280_CVetoBVeto_minitrees.root/user.ehaaland.29219070._000002.minitrees.root
+49740 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364165.Sherpa_221_NNPDF30NNLO_Wmunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219073._000002.minitrees.root
+42526 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000008.minitrees.root
+Process started: Tue Oct 11 10:33:20 2022
+Done with file: Sherpa_221_NNPDF30NNLO_WpqqWmlv_000002
+Time: Tue Oct 11 10:33:20 2022
+Events processed: 27522
+27522 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.363359.Sherpa_221_NNPDF30NNLO_WpqqWmlv_minitrees.root/user.ehaaland.29219061._000002.minitrees.root
+>>> Completed: user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000002.minitrees.root (2336748)
+>>> Started: user.ehaaland.BKGmc16a03062022.mc16_13TeV.700322.Sh_2211_Zee_maxHTpTV2_CVetoBVeto_minitrees.root/user.ehaaland.29219026._000031.minitrees.root
+Process started: Tue Oct 11 10:33:16 2022
+Done with file: Sherpa_221_NNPDF30NNLO_ZqqZll_000004
+Time: Tue Oct 11 10:33:20 2022
+Events processed: 212954
+212954 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.363356.Sherpa_221_NNPDF30NNLO_ZqqZll_minitrees.root/user.ehaaland.29219059._000004.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_221_NNPDF30NNLO_ZqqZll_000006
+Time: Tue Oct 11 10:33:20 2022
+Events processed: 184897
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_CFilterBVeto_000034
+Time: Tue Oct 11 10:33:20 2022
+Events processed: 202000
+184897 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.363356.Sherpa_221_NNPDF30NNLO_ZqqZll_minitrees.root/user.ehaaland.29219059._000006.minitrees.root
+202000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000034.minitrees.root
+135783 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364250.Sherpa_222_NNPDF30NNLO_llll_minitrees.root/user.ehaaland.29219107._000001.minitrees.root
+554127 events to process for user.ehaaland.BKGAFIImc16a10082022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.30014391._000001.minitrees.root
+10457 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364191.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV140_280_CFilterBVeto_minitrees.root/user.ehaaland.29219100._000001.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_CFilterBVeto_000036
+Time: Tue Oct 11 10:33:20 2022
+Events processed: 204000
+204000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000036.minitrees.root
+Process started: Tue Oct 11 10:33:21 2022
+Done with file: Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_000002
+Time: Tue Oct 11 10:33:21 2022
+Events processed: 5574
+5574 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364193.Sherpa_221_NNPDF30NNLO_Wtaunu_MAXHTPTV280_500_CVetoBVeto_minitrees.root/user.ehaaland.29219102._000002.minitrees.root
+204988 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364183.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV1000_E_CMS_minitrees.root/user.ehaaland.29219092._000002.minitrees.root
+170000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000014.minitrees.root
+Process started: Tue Oct 11 10:33:18 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_BFilter_000001
+Time: Tue Oct 11 10:33:21 2022
+Events processed: 246000
+14086 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364171.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV0_70_CFilterBVeto_minitrees.root/user.ehaaland.29219079._000004.minitrees.root
+246000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700320.Sh_2211_Zee_maxHTpTV2_BFilter_minitrees.root/user.ehaaland.29219024._000001.minitrees.root
+2549999 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000006.minitrees.root
+102000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000035.minitrees.root
+Process started: Tue Oct 11 10:33:19 2022
+Done with file: Sh_2211_Zee_maxHTpTV2_CFilterBVeto_000026
+Time: Tue Oct 11 10:33:21 2022
+Events processed: 250000
+250000 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.700321.Sh_2211_Zee_maxHTpTV2_CFilterBVeto_minitrees.root/user.ehaaland.29219025._000026.minitrees.root
+72176 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364182.Sherpa_221_NNPDF30NNLO_Wenu_MAXHTPTV500_1000_minitrees.root/user.ehaaland.29219091._000001.minitrees.root
+88187 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.410472.PhPy8EG_A14_ttbar_hdamp258p75_dil_minitrees.root/user.ehaaland.29219112._000014.minitrees.root
+Process started: Tue Oct 11 10:33:17 2022
+Done with file: Sherpa_222_NNPDF30NNLO_lllv_000001
+Time: Tue Oct 11 10:33:21 2022
+Events processed: 245130
+245130 events to process for user.ehaaland.BKGmc16a03062022.mc16_13TeV.364253.Sherpa_222_NNPDF30NNLO_lllv_minitrees.root/user.ehaaland.29219108._000001.minitrees.root
