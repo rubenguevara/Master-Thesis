@@ -25,7 +25,7 @@ Int_t isData = 0, isMC = 0;
 Int_t doTruth = 0, doCutflow = 0, doSyst = 0, doFakes = 0, doLoose = 0, isRecast = 0, isAFII = 0, makeTree = 0; 
 
 // Sample and channel stuff
-Int_t DSID, filenr, prev_DSID = 0, yr; 
+Int_t DSID, prev_DSID = 0, yr; 
 Int_t Incl_Sherpa[] = {364100, 364101, 364102, 364103, 364104, 364105, 364106, 364107, 364108, 364114, 364115, 364117, 364118, 364120};
 Int_t Incl_Sh2211[] = {700320, 700321, 700322, 700323, 700324, 700325, 700326, 700327, 700328}; 
 Int_t Incl_Powheg[] = {361106, 361107}; 
@@ -38,7 +38,7 @@ Int_t Sh2211_samples[] = {700320, 700321, 700322, 700323, 700324, 700325, 700326
 Int_t Sh221_samples[] = {364100, 364101, 364102, 364103, 364104, 364105, 364106, 364107, 364108, 364109, 364110, 364111, 364112, 364113, 364114, 364115, 364116, 364117, 364118, 364119, 364120, 364121, 364122, 364123, 364124, 364125, 364126, 364127, 366300, 366301, 366302, 366303, 366304, 366305, 366306, 366307, 366308, 366309, 366310, 366312, 366313, 366315}; 
 Int_t isInclusive_Sherpa = 0, isInclusive_Powheg = 0, isInclusive_Sh2211 = 0, isTop = 0, isTTbar = 0, isSTincl = 0, isSTdilep = 0, isDiboson = 0, isSh2211 = 0, isSh221 =0, isZee = 0, isWB = 0, isSystChannel = 0, isTreeChannel = 0; 
 TString  dileptons, final_name, filepath, period, name_1; 
-TString option, dataset,  ml_file;
+TString option, dataset,  ml_file, file_nr;
 vector<TString> channel_names, of_channel_names, all_channels, passed_channels, all_METcuts, passed_METcuts, all_METrelcuts, passed_METrelcuts, all_METsigcuts, passed_METsigcuts, variations, SFvariations, weightVariations, TopVariations, WBVariations, blinded_channels, syst_channel_names, syst_channels;  
 map<TString, Int_t> weight_indices, weight_indices_Sh2211; 
 
@@ -104,6 +104,7 @@ void EventSelector::Begin(TTree * /*tree*/)
   isRecast = atoi(((TObjString *)(my_option->At(6)))->String());
   isAFII = atoi(((TObjString *)(my_option->At(7)))->String());
   ml_file = ((TObjString *)(my_option->At(8)))->String();
+  file_nr = ((TObjString *)(my_option->At(9)))->String();
   delete my_option; 
 
   string stringy_option(dataset); 
@@ -154,7 +155,7 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_jetphi2[h_name] = new TH1D("h_jet_phi2", "jet_phi2", 50, -M_PI, M_PI);  
       
   }
-  filename2 = "ML_files/"+ml_file+"-"+dataset+"-"+filenr+".root";   // ML FILE
+  filename2 = "ML_files/"+ml_file+"-"+dataset+"-"+file_nr+".root";   // ML FILE
   MY = new makeMYTree(dataset,"central",filename2,"");
 }
 
@@ -570,7 +571,6 @@ void EventSelector::Terminate()
   //cout << "Minimum MET for events with METsig>5.: " << min_MET << endl; 
 
   delete MY;  //ML FILE
-  filenr++;
 }
 
 

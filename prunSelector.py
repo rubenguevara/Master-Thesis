@@ -254,7 +254,9 @@ def runFile(filename):
         if "BKGAFII" in filename:
                 isAFII = 1
 
-        option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file
+        dsid = filename.split("/")[-2].split(".")[4] 
+        
+        option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file+"_"+dsid
         
         # gROOT.ProcessLine(".L makeMYTree.cxx+") #ML FILE
         myChain.Process("EventSelector.C+", option)

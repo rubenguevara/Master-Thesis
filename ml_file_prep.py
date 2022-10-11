@@ -4,8 +4,8 @@ from EventIDs import IDs
 import numpy as np
 import uproot as up
 
-file ='../EventSelector/ML_files/ParallelTest-mc16a.root'
-file2 ='../EventSelector/ML_files/ParallelTest-mc16d.root'
+file ='../EventSelector/ML_files_test/ParallelTest-mc16a.root'
+file2 ='../EventSelector/ML_files_test/ParallelTest-mc16d.root'
 # file2 ='../EventSelector/ML_files/ParallelTest-mc16e.root'
 
 thing = up.open(file)
@@ -35,12 +35,20 @@ dfs = [df1, df2]#, df3]
 df = pd.concat(dfs).sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle and fix indices
 print(df)
 
-print(700320 not in df['RunNumber'].unique())
-for i in range(len(df['RunNumber'])):
-    df['Label'][i] = np.where(df['RunNumber'][i] in IDs["all_bkg"], 0, 1)
-
+# Labeling method 1
+df['Label'] = np.isin(df['RunNumber'], IDs["all_bkg"])
 print(df)
 
+# df['Label'] = df['Label'].replace(True, 0)
+# df['Label'] = df['Label'].replace(False, 1)
+# print(df)
+
+# # Labeling method 2
+# df['Label'] = np.isin(df['RunNumber'], IDs["sig_AFII"])
+# print(df)
+
+# df['Label'] = df['Label'].astype(int)
+# print(df)
 
 # save_dir = "ML_Files"
 # try:
@@ -49,4 +57,4 @@ print(df)
 # except FileExistsError:
 #     pass
 
-# df.to_csv(save_dir+'/ZMET.csv')
+# df.to_csv(save_dir+'/Run2Bkgs.csv')
