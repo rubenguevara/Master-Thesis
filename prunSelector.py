@@ -232,7 +232,7 @@ def runDSID(DSID):
                 option = DSID+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII) 
         else: 
                 option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)  
-        gROOT.ProcessLine(".L makeMYTree.cxx+") # ML FILE
+        # gROOT.ProcessLine(".L makeMYTree.cxx+") # ML FILE
         myChain.Process("EventSelector.C+", option)
         print("Done with " +str(DSID) )
         return 
@@ -256,7 +256,7 @@ def runFile(filename):
 
         option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file
         
-        gROOT.ProcessLine(".L makeMYTree.cxx+") #ML FILE
+        # gROOT.ProcessLine(".L makeMYTree.cxx+") #ML FILE
         myChain.Process("EventSelector.C+", option)
 
         return 
@@ -292,6 +292,7 @@ if __name__ == '__main__':
         print("Number of files to process: " +str(len(args_list) ))
 
         t0 = time.time()
+        gROOT.ProcessLine(".L makeMYTree.cxx+") # ML FILE
         gROOT.ProcessLine(".L EventSelector.C+");
         parallel_exec(runFile, args_list, ncores)
         # Merge histograms 
