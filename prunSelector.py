@@ -120,13 +120,18 @@ IDs["top_test"] = [410644]
 IDs["db_test"] = [363360]
 IDs["data_test"] = ["E"]
 
-IDs['Run_2'] =  IDs['all_data'] + IDs['all_MC']
-
 # Make output directories         
 if not os.path.exists(hist_path):
         os.makedirs(hist_path)
 if not os.path.exists(hist_path+'/'+data+'/'):
         os.makedirs(hist_path+'/'+data)
+
+save_dir = "ML_files"
+try:
+        os.makedirs(save_dir)
+
+except FileExistsError: 
+        pass
 
 for ID in IDs[bkgs]: 
         this_path = ""
@@ -177,6 +182,7 @@ def parallel_exec(target, args_list, nproc=int(NCORES/2), name=None, sleep = 2):
                 p.name = n
                 pids.append(p)
                 p.start()
+                # counter[dsid] += 1
                 #if len(pids)==1:
                 #        time.sleep(10) 
         wait_all(pids)    
@@ -229,15 +235,15 @@ def runDSID(DSID):
 
         option = ''
         if 'data' in str(DSID): 
-                option = DSID+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII) 
+                option = DSID+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)#+"_"+ml_file+"_"+DSID
         else: 
-                option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)  
-        # gROOT.ProcessLine(".L makeMYTree.cxx+") # ML FILE
+                option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)#+"_"+ml_file+"_"+DSID
+
         myChain.Process("EventSelector.C+", option)
         print("Done with " +str(DSID) )
         return 
 
-
+# counter = {}
 def runFile(filename): 
 
         myChain = TChain("nominal")
@@ -255,11 +261,15 @@ def runFile(filename):
                 isAFII = 1
 
         dsid = filename.split("/")[-2].split(".")[4] 
+        fil_nr = filename.split("/")[-1].split(".")[-3]
         
-        option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file+"_"+dsid
+        # counter[dsid] = 0
         
-        # gROOT.ProcessLine(".L makeMYTree.cxx+") #ML FILE
+        option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file+"_"+dsid+fil_nr
+        
+        
         myChain.Process("EventSelector.C+", option)
+        # counter[dsid] +=1
 
         return 
 
