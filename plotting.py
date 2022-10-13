@@ -9,7 +9,7 @@ from collections import OrderedDict
 rootdir = '../EventSelector/Histograms'
 BigDic = {}; variables = []; dsid_list = {}
 Types = ["Drell Yan", 'Single Top', "Diboson", "W", "TTbar", "Signal"]
-mc_year = ['mc16a']#, 'mc16d', 'mc16e']
+mc_year = ['mc16a', 'mc16d', 'mc16e']
 
 
 for subdir, dirs, files in os.walk(rootdir+'/mc16a'):

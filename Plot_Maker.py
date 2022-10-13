@@ -124,7 +124,7 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     #text.DrawLatex(0.21, 0.85, "ATLAS")
     text.SetTextFont(42)
     text.SetTextSize(0.04)
-    text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV, mc16a")#139 fb^{-1}")
+    text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
     text.DrawLatex(0.27, 0.75, lepp)
     stack.SetMinimum(1e-2)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2' or hist=='dPhiLeps' or hist=='dPhiLepMet' or hist=='dPhiLLmet': 
