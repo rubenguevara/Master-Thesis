@@ -156,7 +156,7 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_jetphi2[h_name] = new TH1D("h_jet_phi2", "jet_phi2", 50, -M_PI, M_PI);  
       
   }
-  filename2 = "ML_files/"+ml_file+"-"+dataset+"-"+file_dsid+"-"+file_nr+".root";   // ML FILE
+  filename2 = "../../../storage/racarcam/ML_files/"+ml_file+"-"+dataset+"-"+file_dsid+"-"+file_nr+".root";   // ML FILE
   MY = new makeMYTree(dataset,"central",filename2,"");
 }
 
@@ -298,13 +298,13 @@ Bool_t EventSelector::Process(Long64_t entry){
       dileptons = "ee"; 
       lep1 = loose_el[0]; lep2 = loose_el[1]; n_loose_e++;} 
     else if(n_loose_el == 1 && n_loose_mu == 1){                             //HERE
-      if(el_trig==0 && mu_trig == 0){ return kTRUE; } 
+      if(el_trig == 0 && mu_trig == 0){ return kTRUE; } 
       if(el_pt[loose_el[0]]>mu_pt[loose_mu[0]]){
       dileptons = "eu"; 
-      lep1 = loose_el[0]; lep2 = loose_mu[1]; n_loose_u++; n_loose_e++;} 
+      lep1 = loose_el[0]; lep2 = loose_mu[0]; n_loose_u++; n_loose_e++;} 
       else if(el_pt[loose_el[0]]<mu_pt[loose_mu[0]]){
       dileptons = "ue"; 
-      lep1 = loose_mu[0]; lep2 = loose_el[1]; n_loose_u++; n_loose_e++;} }
+      lep1 = loose_mu[0]; lep2 = loose_el[0]; n_loose_u++; n_loose_e++;} }
   }
 
   if(dileptons==""){ return kTRUE; } 

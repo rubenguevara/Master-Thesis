@@ -115,7 +115,7 @@ IDs["sig_test"] = [500340]
 IDs["sig_test_el"] = [500339]
 IDs["sig_test_mu"] = [500340]
 IDs["sig_low_test"] = [506745]
-IDs["bkg_test"] = [700320, 500340]
+IDs["bkg_test"] = [364187]
 IDs["top_test"] = [410644]
 IDs["db_test"] = [363360]
 IDs["data_test"] = ["E"]
@@ -126,7 +126,7 @@ if not os.path.exists(hist_path):
 if not os.path.exists(hist_path+'/'+data+'/'):
         os.makedirs(hist_path+'/'+data)
 
-save_dir = "ML_files"
+save_dir = "../../../storage/racarcam/ML_files"
 try:
         os.makedirs(save_dir)
 
@@ -182,7 +182,6 @@ def parallel_exec(target, args_list, nproc=int(NCORES/2), name=None, sleep = 2):
                 p.name = n
                 pids.append(p)
                 p.start()
-                # counter[dsid] += 1
                 #if len(pids)==1:
                 #        time.sleep(10) 
         wait_all(pids)    
@@ -235,15 +234,15 @@ def runDSID(DSID):
 
         option = ''
         if 'data' in str(DSID): 
-                option = DSID+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)#+"_"+ml_file+"_"+DSID
+                option = DSID+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)
         else: 
-                option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)#+"_"+ml_file+"_"+DSID
+                option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)
 
         myChain.Process("EventSelector.C+", option)
         print("Done with " +str(DSID) )
         return 
 
-# counter = {}
+
 def runFile(filename): 
 
         myChain = TChain("nominal")
@@ -263,13 +262,10 @@ def runFile(filename):
         dsid = filename.split("/")[-2].split(".")[4] 
         fil_nr = filename.split("/")[-1].split(".")[-3]
         
-        # counter[dsid] = 0
-        
         option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file+"_"+dsid+fil_nr
         
         
         myChain.Process("EventSelector.C+", option)
-        # counter[dsid] +=1
 
         return 
 
@@ -510,6 +506,54 @@ if __name__ == '__main__':
 
                 shutil.rmtree(data)
 
+        os.chdir(working_dir) 
+        # Merge nTuples
+        save_path = save_dir+"/"
+
+        working_dir = os.getcwd() 
+        os.chdir(save_path) 
+
+        file_a = ""; file_d = ""; file_e = ""
+        outfile_a = ""; outfile_d = ""; outfile_e = ""
+        for file in os.listdir("."):
+                type = file.split('-')[0]
+                if type == 'DELETE':
+                        os.remove(file)
+                mcRun = file.split("-")[1]
+                extra = "-" + file.split("-")[2] + "-" + file.split("-")[3]
+                if mcRun == 'mc16a':
+                        outfile_a = "../"+file.replace(extra, ".root")
+                        file_a += (" "+file)
+                if mcRun == 'mc16d':
+                        outfile_d = "../"+file.replace(extra, ".root")
+                        file_d += (" "+file)
+                if mcRun == 'mc16e':
+                        outfile_e = "../"+file.replace(extra, ".root")
+                        file_e += (" "+file)
+
+        if outfile_a!="":
+                if os.path.exists(outfile_a): 
+                        print("Final file", file,"exists!")
+                        os.remove(outfile_a)
+                else: 
+                        os.system("hadd "+outfile_a+file_a)
+
+        if outfile_d!="":
+                if os.path.exists(outfile_d): 
+                        print("Final file", file,"exists!")
+                        os.remove(outfile_d)
+                else: 
+                        os.system("hadd "+outfile_d+file_d)
+
+        if outfile_e!="":
+                if os.path.exists(outfile_e): 
+                        print("Final file", file,"exists!")
+                        os.remove(outfile_e)
+                else: 
+                        os.system("hadd "+outfile_e+file_e)
+
+        shutil.rmtree(save_path)
+        
         os.chdir(working_dir) 
         print( "================================================")
         tot_events = 0
