@@ -83,9 +83,6 @@ for subdir, dirs, files in os.walk(rootdird):
         for variable in variables:
             data[variable].append(myfile.Get(variable))
 
-# SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_AFII['mc16a'].items()) + list(SOW_sig['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()) )
-# SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_AFII['mc16d'].items()) + list(SOW_sig['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()) )
-# SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_AFII['mc16e'].items()) + list(SOW_sig['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()) )
 SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_sig['mc16a'].items()) )
 SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_sig['mc16d'].items()) )
 SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_sig['mc16e'].items()) )
@@ -111,11 +108,13 @@ stack = {}
 stack2 = {}
 lep = {}
 hist = {}
+charge = {}
 
 thist = {}
 
 for vari in variables:
     lep[vari] = vari.split('_')[1]
+    charge[vari] = vari.split('_')[2]
     hist[vari] = vari.split('_')[-1]
     if hist[vari] == 'sig':
         hist[vari] = vari.split('_')[-2]+'_'+hist[vari]
@@ -188,4 +187,4 @@ for vari in variables:
                 
         legend.AddEntry(thist[vari][mc][bkg], bkg)
     legend.AddEntry(data_hist[vari], 'Data')
-    Plot_Maker(stack[vari], legend, lep[vari], hist[vari], data_hist[vari], save_dir)
+    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir)

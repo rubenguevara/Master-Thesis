@@ -533,22 +533,19 @@ if __name__ == '__main__':
 
         if outfile_a!="":
                 if os.path.exists(outfile_a): 
-                        print("Final file", file,"exists!")
-                        os.remove(outfile_a)
+                        print("Final file", file,"exists! Do you want to delete?")
                 else: 
                         os.system("hadd "+outfile_a+file_a)
 
         if outfile_d!="":
                 if os.path.exists(outfile_d): 
-                        print("Final file", file,"exists!")
-                        os.remove(outfile_d)
+                        print("Final file", file,"exists! Do you want to delete?")
                 else: 
                         os.system("hadd "+outfile_d+file_d)
 
         if outfile_e!="":
                 if os.path.exists(outfile_e): 
-                        print("Final file", file,"exists!")
-                        os.remove(outfile_e)
+                        print("Final file", file,"exists! Do you want to delete?")
                 else: 
                         os.system("hadd "+outfile_e+file_e)
 

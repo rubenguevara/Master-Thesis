@@ -118,10 +118,14 @@ void EventSelector::Begin(TTree * /*tree*/)
 
   all_channels = {};
   for(const auto & chn:channel_names){
-    all_channels.push_back("ee_"+chn); 
-    all_channels.push_back("uu_"+chn); 
-    all_channels.push_back("eu_"+chn); 
-    all_channels.push_back("ue_"+chn); 
+    all_channels.push_back("ee_SS_"+chn); 
+    all_channels.push_back("uu_SS_"+chn); 
+    all_channels.push_back("eu_SS_"+chn); 
+    all_channels.push_back("ue_SS_"+chn);
+    all_channels.push_back("ee_OS_"+chn); 
+    all_channels.push_back("uu_OS_"+chn); 
+    all_channels.push_back("eu_OS_"+chn); 
+    all_channels.push_back("ue_OS_"+chn); 
   }
 
   // Define histograms
@@ -351,12 +355,12 @@ Bool_t EventSelector::Process(Long64_t entry){
   if(dileptons == "eu"){
     l1.SetPtEtaPhiM(el_pt[lep1]/1000., el_eta[lep1], el_phi[lep1], m_e);  
     l2.SetPtEtaPhiM(mu_pt[lep2]/1000., mu_eta[lep2], mu_phi[lep2], m_u);  
-    if(mu_charge[lep1]!=mu_charge[lep2]){ isOS = 1; } 
+    if(el_charge[lep1]!=mu_charge[lep2]){ isOS = 1; } 
   } 
   if(dileptons == "ue"){
     l1.SetPtEtaPhiM(mu_pt[lep1]/1000., mu_eta[lep1], mu_phi[lep1], m_u);  
     l2.SetPtEtaPhiM(el_pt[lep2]/1000., el_eta[lep2], el_phi[lep2], m_e);  
-    if(mu_charge[lep1]!=mu_charge[lep2]){ isOS = 1; } 
+    if(mu_charge[lep1]!=el_charge[lep2]){ isOS = 1; } 
   } 
 
   TLorentzVector totalj, ajet, j1, j2;
@@ -423,10 +427,14 @@ Bool_t EventSelector::Process(Long64_t entry){
 
   // if(dileptons=="ee" && met>50){passed_channels.push_back("ee_incl");}   //add met cut?
   // if(dileptons=="uu" && met>50){passed_channels.push_back("uu_incl");} 
-  if(dileptons=="ee"){passed_channels.push_back("ee_incl");}   
-  if(dileptons=="uu"){passed_channels.push_back("uu_incl");} 
-  if(dileptons=="eu"){passed_channels.push_back("eu_incl");}   
-  if(dileptons=="ue"){passed_channels.push_back("ue_incl");} 
+  if(dileptons=="ee" && isOS == 0){passed_channels.push_back("ee_SS_incl");}   
+  if(dileptons=="uu" && isOS == 0){passed_channels.push_back("uu_SS_incl");} 
+  if(dileptons=="eu" && isOS == 0){passed_channels.push_back("eu_SS_incl");}   
+  if(dileptons=="ue" && isOS == 0){passed_channels.push_back("ue_SS_incl");} 
+  if(dileptons=="ee" && isOS == 1){passed_channels.push_back("ee_OS_incl");}   
+  if(dileptons=="uu" && isOS == 1){passed_channels.push_back("uu_OS_incl");} 
+  if(dileptons=="eu" && isOS == 1){passed_channels.push_back("eu_OS_incl");}   
+  if(dileptons=="ue" && isOS == 1){passed_channels.push_back("ue_OS_incl");} 
 
   //==============// 
   // Event weight //

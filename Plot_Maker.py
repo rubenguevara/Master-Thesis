@@ -1,6 +1,6 @@
 import ROOT as R
 
-def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
+def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
     c = R.TCanvas()
     c.SetWindowSize(1000, 800)
     c.Draw()
@@ -45,19 +45,28 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     stack.GetYaxis().SetTitleOffset(0.6)
     
     if lep == 'ee':
-        lepp = 'e^{+}e^{-}'
-    
+        lepp = 'ee'
+        
     elif lep == 'uu':
-        lepp = '#mu^{+}#mu^{-}'
+        lepp = '#mu#mu'
         
     elif lep == 'ue':
-        lepp = '#mu e'
+        lepp = '#mu'+'e'
         
     elif lep == 'eu':
         lepp = 'e#mu'
         
     elif lep == 'jet':
         lepp = 'Jets'
+        
+    if charge == "OS":
+        Q = 'Opposite charge'
+        
+    elif charge == "SS":
+        Q = 'Same charge'
+        
+    else:
+        Q = ''
         
     if hist =='pt1':
         xaxis = 'p_{T}^{1} [GeV]'
@@ -70,13 +79,13 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
         
     elif hist =='eta2':
         xaxis = '#eta_{2}'
-    
+        
     elif hist =='mll':
         xaxis = 'm_{ll} [GeV]'
         
     elif hist =='met':
         xaxis = 'E_{T}^{miss} [GeV]'
-    
+        
     elif hist =='met_sig':
         xaxis = 'E_{T}^{miss}/#sigma'
         
@@ -85,13 +94,13 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
         
     elif hist =='ht':
         xaxis = 'H_{T} [GeV]'
-    
+        
     elif hist =='dPhiLeps':
         xaxis = '#Delta#phi(l_{1}, l_{2})'
-    
+        
     elif hist =='dPhiLepMet':
         xaxis = '#Delta#phi(l_{lead}, E_{T}^{miss})'
-    
+        
     elif hist =='dPhiLLmet':
         xaxis = '#Delta#phi(ll, E_{T}^{miss})'
         
@@ -106,16 +115,16 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
         
     elif hist =='nTJet':
         xaxis = 'Total number of jets'
-    
+        
     elif hist =='et':
         xaxis = 'E_{T} [GeV]'
-    
+        
     elif hist =='phi1':
         xaxis = '#phi_{1}'
-    
+        
     elif hist =='phi2':
         xaxis = '#phi_{2}'
-    
+        
     # Add ATLAS label?
     text = R.TLatex()
     text.SetNDC()
@@ -125,7 +134,7 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
     text.SetTextFont(42)
     text.SetTextSize(0.04)
     text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-    text.DrawLatex(0.27, 0.75, lepp)
+    text.DrawLatex(0.21, 0.75, Q +" "+lepp)
     stack.SetMinimum(1e-2)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2' or hist=='dPhiLeps' or hist=='dPhiLepMet' or hist=='dPhiLLmet': 
         stack.SetMaximum(5e10)
@@ -159,5 +168,8 @@ def Plot_Maker(stack, legend, lep, hist, data, dir, sig=None):
         data_clone.SetMinimum(0)
     data_clone.Draw("ep")
     
-    savepath = dir+'/'+lep+'_'+hist+'.pdf'
+    if Q =='':
+        savepath = dir+'/'+lep+'_'+hist+'.pdf'
+    else:
+        savepath = dir+'/'+lep+'_'+charge+'_'+hist+'.pdf'
     c.SaveAs(savepath) 
