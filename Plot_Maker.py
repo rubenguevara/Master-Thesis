@@ -51,7 +51,7 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
         lepp = '#mu#mu'
         
     elif lep == 'ue':
-        lepp = '#mu'+'e'
+        lepp = '#mu'+' e'
         
     elif lep == 'eu':
         lepp = 'e#mu'
