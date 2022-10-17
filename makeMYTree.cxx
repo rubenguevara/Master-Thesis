@@ -127,4 +127,3 @@ void makeMYTree::setSumOfMcWeights(double sumOfMcWeights)
     delete sumwhist;
 }
 
-

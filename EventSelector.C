@@ -563,7 +563,6 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_mll = (mll);
   MY->bMY_EventNumber = (*event);
   MY->bMY_RunNumber = (*run);  
-  // MY->bMY_Label = (label); // HOW  
   MY->bMY_RunPeriod = (dataset);  
 
   MY->WriteTree();

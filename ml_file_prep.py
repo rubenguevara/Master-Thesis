@@ -5,32 +5,22 @@ import numpy as np
 import uproot as up
 
 save_dir = "../../../storage/racarcam/"
-mc16a_bkg = save_dir + "Run2-mc16a.root"
-mc16d_bkg = save_dir + "Run2-mc16d.root"
-mc16e_bkg = save_dir + "Run2-mc16e.root"
+dm1 = save_dir + "DM1.root"
+Run2_bkgs = save_dir + "Run2.root"
 
 
-thing = up.open(mc16a_bkg)
-thing2 = up.open(mc16d_bkg)
-thing3 = up.open(mc16e_bkg)
-tree = thing['id_mc16a']
-tree2 = thing2['id_mc16d']
-tree3 = thing3['id_mc16e']
-dic = {}
-dic2 = {}
-dic3 = {}
+thing = up.open(Run2_bkgs)
+print(thing.keys())
 
-for i in tree.keys():
-    dic[i] = tree[i].array()
-    dic2[i] = tree2[i].array()
-    dic3[i] = tree3[i].array()
+tree_a = thing['id_mc16a']
+tree_d = thing['id_mc16d']
+tree_e = thing['id_mc16e']
 
-
-df1 = pd.DataFrame(dic)
+df1 = tree_a.arrays(library="pd")
+df2 = tree_d.arrays(library="pd")
+df3 = tree_e.arrays(library="pd")
 print(df1)
-df2 = pd.DataFrame(dic2)
 print(df2)
-df3 = pd.DataFrame(dic3)
 print(df3)
 
 dfs = [df1, df2, df3]
@@ -40,15 +30,12 @@ print(df)
 df['Label'] = np.isin(df['RunNumber'], IDs["all_bkg"]).astype(int)
 print(df)
 
-# df['Label'] = df['Label'].replace(True, 1)
-# df['Label'] = df['Label'].replace(False, 0)
-# print(df)
 
-# save_dir = "ML_Files"
-# try:
-#     os.makedirs(save_dir)
+# # save_dir = "ML_Files"
+# # try:
+# #     os.makedirs(save_dir)
 
-# except FileExistsError:
-#     pass
+# # except FileExistsError:
+# #     pass
 
-# df.to_csv(save_dir+'/Run2Bkgs.csv')
+# # df.to_csv(save_dir+'/Run2Bkgs.csv')
