@@ -867,4 +867,3 @@ vector<Double_t> EventSelector::GetEffBinning(){
 
   return xbins;
 }
-
