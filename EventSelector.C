@@ -529,7 +529,7 @@ Bool_t EventSelector::Process(Long64_t entry){
       h_dPhiLepMet[this_name]->Fill(l2.DeltaPhi(met_lor), wgt);}
   }
   
-  // ML FILE, correct way?
+  // ML FILE
   MY->bMY_channel = (DSID);  
   MY->bMY_weight = (wgt);  
   MY->bMY_lep1Pt = (l1.Pt());  
@@ -563,6 +563,8 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_mll = (mll);
   MY->bMY_EventNumber = (*event);
   MY->bMY_RunNumber = (*run);  
+  // MY->bMY_Label = (label); // HOW  
+  MY->bMY_RunPeriod = (dataset);  
 
   MY->WriteTree();
   return kTRUE;

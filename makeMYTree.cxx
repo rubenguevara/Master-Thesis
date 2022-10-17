@@ -55,7 +55,8 @@ makeMYTree::makeMYTree(TString MCID, TString syst, TString fileName, TString tre
   tree->Branch("mll",                                                &bMY_mll);            
   tree->Branch("weight",                                             &bMY_weight);                                     
   tree->Branch("EventNumber",                                        &bMY_EventNumber);                                      
-  tree->Branch("RunNumber",                                          &bMY_RunNumber);                 
+  tree->Branch("RunNumber",                                          &bMY_RunNumber);                                        
+  tree->Branch("RunPeriod",                                          &bMY_RunPeriod);                 
 
   ClearOutputBranches();
 }

@@ -73,6 +73,7 @@ class makeMYTree  {
   Float_t                                    bMY_mll;                                                   
   ULong64_t                                  bMY_EventNumber;                                           
   Int_t                                      bMY_RunNumber;                                             
+  Int_t                                      bMY_RunPeriod;                                             
 
                                                
 
