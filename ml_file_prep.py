@@ -88,3 +88,13 @@ t = "{:.2f}".format(int( time.time()-t3 )/60.)
 print( "---"*40)
 print( "Time spent saving file: "+str(t)+" min")  
 print( "---"*40)
+
+
+t4 = time.time()
+new_df = pd.read_hdf(save_dir+'DM1_Run2.h5', key='df_tot')
+print(new_df)
+
+t = "{:.2f}".format(int( time.time()-t4 )/60.)
+print( "---"*40)
+print( "Time spent reading file: "+str(t)+" min")  
+print( "---"*40)
