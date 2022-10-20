@@ -7,9 +7,14 @@ import uproot as up
 t0 = time.time()
 
 save_dir = "../../../storage/racarcam/"
+
+
+## Customize files here
 dm1 = save_dir + "DM150MET.root"
 Run2_bkgs = save_dir + "Run250MET.root"
+filename = 'DM1_Run2_50MET'
 
+filename = filename +".h5" 
 
 thing = up.open(Run2_bkgs)
 
@@ -50,7 +55,6 @@ dm_df3 = dm_tree_e.arrays(library="pd")
 print(dm_df1)
 print(dm_df2)
 print(dm_df3)
-dm_df1.to_hdf(save_dir+'test.h5', key="dm_df1")
 
 dm_dfs = [dm_df1, dm_df2, dm_df3]
 dm_df = pd.concat(dm_dfs).sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle and fix indices
@@ -82,7 +86,7 @@ print( "TOTAL time spent preparing df: "+str(t)+" min")
 print( "---"*40)
 
 t3 = time.time()
-df_tot.to_hdf(save_dir+'DM1_Run2.h5', key='df_tot')
+df_tot.to_hdf(save_dir+filename, key='df_tot')
 
 t = "{:.2f}".format(int( time.time()-t3 )/60.)
 print( "---"*40)
@@ -91,7 +95,7 @@ print( "---"*40)
 
 
 t4 = time.time()
-new_df = pd.read_hdf(save_dir+'DM1_Run2.h5', key='df_tot')
+new_df = pd.read_hdf(save_dir+filename, key='df_tot')
 print(new_df)
 
 t = "{:.2f}".format(int( time.time()-t4 )/60.)
