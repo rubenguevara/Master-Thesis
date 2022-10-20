@@ -114,7 +114,7 @@ void EventSelector::Begin(TTree * /*tree*/)
   TH1::SetDefaultSumw2();
 
   // Define channels to consider 
-  channel_names = {"incl"};
+  channel_names = {"50MET"};
 
   all_channels = {};
   for(const auto & chn:channel_names){
@@ -146,9 +146,9 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_et[h_name] = new TH1D("h_"+h_name+"_et", h_name+"_et", 74, 20, 3000);
       h_phi1[h_name] = new TH1D("h_"+h_name+"_phi1", h_name+"_phi1", 50, -M_PI, M_PI);   
       h_phi2[h_name] = new TH1D("h_"+h_name+"_phi2", h_name+"_phi2", 50, -M_PI, M_PI);  
-      h_dPhiLeps[h_name] = new TH1D("h_"+h_name+"_dPhiLeps", h_name+"_dPhiLeps", 50, -M_PI, M_PI); 
-      h_dPhiLepMet[h_name] = new TH1D("h_"+h_name+"_dPhiLepMet", h_name+"_dPhiLepMet", 50, -M_PI, M_PI); 
-      h_dPhiLLmet[h_name] = new TH1D("h_"+h_name+"_dPhiLLmet", h_name+"_dPhiLLpmet", 50, -M_PI, M_PI);  
+      h_dPhiLeps[h_name] = new TH1D("h_"+h_name+"_dPhiLeps", h_name+"_dPhiLeps", 30, 0, M_PI); 
+      h_dPhiLepMet[h_name] = new TH1D("h_"+h_name+"_dPhiLepMet", h_name+"_dPhiLepMet", 30, 0, M_PI); 
+      h_dPhiLLmet[h_name] = new TH1D("h_"+h_name+"_dPhiLLmet", h_name+"_dPhiLLpmet", 30, 0, M_PI);  
       h_nBJet[h_name] = new TH1D("h_jet_nBJet","jet_nBJet", 8, 0, 7); 
       h_nLJet[h_name] = new TH1D("h_jet_nLJet","jet_nLJet", 8, 0, 7); 
       h_nTJet[h_name] = new TH1D("h_jet_nTJet","jet_nTJet", 8, 0, 7); 
@@ -422,19 +422,18 @@ Bool_t EventSelector::Process(Long64_t entry){
   }
 
   if(mll < 10){ return kTRUE; }
+  if(met < 50){ return kTRUE; }
 
   passed_channels = {}; isTreeChannel=0; 
 
-  // if(dileptons=="ee" && met>50){passed_channels.push_back("ee_incl");}   //add met cut?
-  // if(dileptons=="uu" && met>50){passed_channels.push_back("uu_incl");} 
-  if(dileptons=="ee" && isOS == 0){passed_channels.push_back("ee_SS_incl");}   
-  if(dileptons=="uu" && isOS == 0){passed_channels.push_back("uu_SS_incl");} 
-  if(dileptons=="eu" && isOS == 0){passed_channels.push_back("eu_SS_incl");}   
-  if(dileptons=="ue" && isOS == 0){passed_channels.push_back("ue_SS_incl");} 
-  if(dileptons=="ee" && isOS == 1){passed_channels.push_back("ee_OS_incl");}   
-  if(dileptons=="uu" && isOS == 1){passed_channels.push_back("uu_OS_incl");} 
-  if(dileptons=="eu" && isOS == 1){passed_channels.push_back("eu_OS_incl");}   
-  if(dileptons=="ue" && isOS == 1){passed_channels.push_back("ue_OS_incl");} 
+  if(dileptons=="ee" && isOS == 0){passed_channels.push_back("ee_SS_50MET");}   
+  if(dileptons=="uu" && isOS == 0){passed_channels.push_back("uu_SS_50MET");} 
+  if(dileptons=="eu" && isOS == 0){passed_channels.push_back("eu_SS_50MET");}   
+  if(dileptons=="ue" && isOS == 0){passed_channels.push_back("ue_SS_50MET");} 
+  if(dileptons=="ee" && isOS == 1){passed_channels.push_back("ee_OS_50MET");}   
+  if(dileptons=="uu" && isOS == 1){passed_channels.push_back("uu_OS_50MET");} 
+  if(dileptons=="eu" && isOS == 1){passed_channels.push_back("eu_OS_50MET");}   
+  if(dileptons=="ue" && isOS == 1){passed_channels.push_back("ue_OS_50MET");} 
 
   //==============// 
   // Event weight //
@@ -512,8 +511,8 @@ Bool_t EventSelector::Process(Long64_t entry){
     h_et[this_name]->Fill(ll.Et(), wgt);   
     h_phi1[this_name]->Fill(l1.Phi(), wgt); 
     h_phi2[this_name]->Fill(l2.Phi(), wgt); 
-    h_dPhiLeps[this_name]->Fill(l1.DeltaPhi(l2), wgt); 
-    h_dPhiLLmet[this_name]->Fill(ll.DeltaPhi(met_lor), wgt); 
+    h_dPhiLeps[this_name]->Fill(abs(l1.DeltaPhi(l2)), wgt); 
+    h_dPhiLLmet[this_name]->Fill(abs(ll.DeltaPhi(met_lor)), wgt); 
     h_nBJet[this_name]->Fill(nbjets, wgt);
     h_nLJet[this_name]->Fill(nljets, wgt);
     h_nTJet[this_name]->Fill(nbjets + nljets, wgt);
@@ -523,10 +522,10 @@ Bool_t EventSelector::Process(Long64_t entry){
     h_jeteta2[this_name]->Fill(j2.Eta(), wgt);
     h_jetphi1[this_name]->Fill(j1.Phi(), wgt);
     h_jetphi2[this_name]->Fill(j2.Phi(), wgt);
-    if(l1.Pt() > l2.Pt()){
-      h_dPhiLepMet[this_name]->Fill(l1.DeltaPhi(met_lor), wgt);}
+    if(abs(l1.DeltaPhi(met_lor))<abs(l2.DeltaPhi(met_lor))){
+      h_dPhiLepMet[this_name]->Fill(abs(l1.DeltaPhi(met_lor)), wgt);}
     else{
-      h_dPhiLepMet[this_name]->Fill(l2.DeltaPhi(met_lor), wgt);}
+      h_dPhiLepMet[this_name]->Fill(abs(l2.DeltaPhi(met_lor)), wgt);}
   }
   
   // ML FILE

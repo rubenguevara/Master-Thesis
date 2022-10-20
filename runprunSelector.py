@@ -5,7 +5,11 @@ t0 = time.time()
 mc_cmps = ["mc16a", "mc16d", "mc16e"]
 data_cmps =['data15', 'data16', 'data17', 'data18']
 
-ml_file = "Run2"
+
+# ml_file = "DM150MET"
+# bkg = "dm_sig"
+
+ml_file = "Run250MET"
 bkg = "all_bkg"
 
 for mc_cmp in mc_cmps: 
@@ -19,7 +23,7 @@ print( "---"*40)
 print( "TOTAL time spent: "+str(t)+" min")  
 print( "---"*40)
 
-import ROOT, shutil 
+import ROOT
 from ROOT import *
 
 # Merge nTuples

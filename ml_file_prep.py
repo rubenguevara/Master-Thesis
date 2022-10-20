@@ -7,8 +7,8 @@ import uproot as up
 t0 = time.time()
 
 save_dir = "../../../storage/racarcam/"
-dm1 = save_dir + "DM1.root"
-Run2_bkgs = save_dir + "Run2.root"
+dm1 = save_dir + "DM150MET.root"
+Run2_bkgs = save_dir + "Run250MET.root"
 
 
 thing = up.open(Run2_bkgs)
@@ -50,6 +50,7 @@ dm_df3 = dm_tree_e.arrays(library="pd")
 print(dm_df1)
 print(dm_df2)
 print(dm_df3)
+dm_df1.to_hdf(save_dir+'test.h5', key="dm_df1")
 
 dm_dfs = [dm_df1, dm_df2, dm_df3]
 dm_df = pd.concat(dm_dfs).sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle and fix indices
@@ -81,8 +82,7 @@ print( "TOTAL time spent preparing df: "+str(t)+" min")
 print( "---"*40)
 
 t3 = time.time()
-# df_tot.to_hdf(save_dir+'DM1_Run2.hdf5', 'DM1_Run2', mode = 'w')
-df_tot.to_csv(save_dir+'DM1_Run2.csv')
+df_tot.to_hdf(save_dir+'DM1_Run2.h5', key='df_tot')
 
 t = "{:.2f}".format(int( time.time()-t3 )/60.)
 print( "---"*40)

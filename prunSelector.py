@@ -270,7 +270,7 @@ def runFile(filename):
         dsid = filename.split("/")[-2].split(".")[4] 
         fil_nr = filename.split("/")[-1].split(".")[-3]
         
-        option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file+"_"+dsid+fil_nr
+        option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file+"_"+dsid+"_"+fil_nr
         
         
         myChain.Process("EventSelector.C+", option)
@@ -527,6 +527,7 @@ if __name__ == '__main__':
                 type = file.split('-')[0]
                 if type == 'DELETE':
                         os.remove(file)
+                        continue
                 mcRun = file.split("-")[1]
                 extra = "-" + file.split("-")[2] + "-" + file.split("-")[3]
                 if mcRun == 'mc16a':
