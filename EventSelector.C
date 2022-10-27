@@ -473,23 +473,60 @@ Bool_t EventSelector::Process(Long64_t entry){
       wgt_lsf *= el_SF_cid[lep2]; 
     }  
     if(dileptons.Contains("uu")){ // uu
-      wgt_lsf = *evsf_signal_nominal_MU;   
+    if(*evsf_signal_nominal_MU == 0){
+      if(mu_SF_rec[lep2] == 0 && mu_SF_rec[lep1] == 0){
+        wgt_lsf = mu_SF_iso[lep1]*mu_SF_iso[lep2];}
+      else if(mu_SF_rec[lep2] == 0){
+        wgt_lsf = mu_SF_iso[lep1]*mu_SF_rec[lep1]*mu_SF_iso[lep2];}
+      else if(mu_SF_rec[lep1] == 0){
+        wgt_lsf = mu_SF_iso[lep1]*mu_SF_rec[lep2]*mu_SF_iso[lep2];}  
+            }
+    else{
+      wgt_lsf = *evsf_signal_nominal_MU;  } 
     } 
-    if(dileptons.Contains("eu")){ // eu
-      wgt_lsf = *evsf_signal_nominal_MU;
+    if(dileptons.Contains("eu")){ // eu 
+    if(*evsf_signal_nominal_MU == 0){
+      if(mu_SF_rec[lep2] == 0){
+        wgt_lsf = mu_SF_iso[lep2];}
+      else{
+      wgt_lsf = mu_SF_iso[lep2]*mu_SF_rec[lep2];}
+    }
+    else{
+      wgt_lsf = *evsf_signal_nominal_MU;  } 
       wgt_lsf *= *evsf_signal_nominal_EL;    
       wgt_lsf *= el_SF_cid[lep1];
     } 
     if(dileptons.Contains("ue")){ // ue
-      wgt_lsf = *evsf_signal_nominal_MU;
+    if(*evsf_signal_nominal_MU == 0){
+      if(mu_SF_rec[lep1] == 0){
+        wgt_lsf = mu_SF_iso[lep1];}
+      else{
+      wgt_lsf = mu_SF_iso[lep1]*mu_SF_rec[lep1];}
+    }
+    else{
+      wgt_lsf = *evsf_signal_nominal_MU;  } 
       wgt_lsf *= *evsf_signal_nominal_EL;        
       wgt_lsf *= el_SF_cid[lep2];
     } 
 
     if ( !(tight1 && tight2) ){ wgt = 0.0; } 
     else{ wgt = wgt_mc*wgt_pu*wgt_xs*wgt_lsf*wgt_ttbar*wgt_nlo_ew*wgt_jet*wgt_bjet; } 
-    //cout << wgt << endl; 
-  
+    if (wgt == 0 && wgt_pu != 0){
+    cout << "wgt_lsf " << wgt_lsf << endl;
+    cout << "dileptons " << dileptons<< " isOS "<< isOS << " DSID " << file_dsid << " mcrun " << dataset <<endl;
+    if(dileptons == "uu"){
+    cout << "*evsf_signal_nominal_MU, mu_SF_iso[lep1], mu_SF_rec[lep1], mu_SF_iso[lep2], mu_SF_rec[lep2] == " << *evsf_signal_nominal_MU <<", "<< mu_SF_iso[lep1] <<", "<< mu_SF_rec[lep1] <<", "<< mu_SF_iso[lep2] <<", "<< mu_SF_rec[lep2] << endl;
+    }
+    else if (dileptons == "eu"){
+    cout << "*evsf_signal_nominal_MU, mu_SF_iso[lep1], mu_SF_rec[lep1], *evsf_signal_nominal_EL, el_SF_cid[lep1] == " << *evsf_signal_nominal_MU <<", "<< mu_SF_iso[lep1] <<", "<< mu_SF_rec[lep1] <<", "<< *evsf_signal_nominal_EL <<", "<< el_SF_cid[lep1]<< endl;
+    }
+    else if (dileptons == "ue"){
+    cout << "*evsf_signal_nominal_MU, mu_SF_iso[lep1], mu_SF_rec[lep1], *evsf_signal_nominal_EL, el_SF_cid[lep2] == " << *evsf_signal_nominal_MU <<", "<< mu_SF_iso[lep1] <<", "<< mu_SF_rec[lep1] <<", "<< *evsf_signal_nominal_EL <<", "<< el_SF_cid[lep2]<< endl;
+    }
+    cout << "wgt = wgt_mc*wgt_pu*wgt_xs*wgt_lsf*wgt_ttbar*wgt_nlo_ew*wgt_jet*wgt_bjet  =>" << endl;
+    cout << wgt <<" = "<< wgt_mc<<" * "<<wgt_pu<<" * "<<wgt_xs<<" * "<<wgt_lsf<<" * "<<wgt_ttbar<<" * "<<wgt_nlo_ew<<" * "<<wgt_jet<<" * "<<wgt_bjet <<endl;
+    }
+    
   }
 
   //=================//
