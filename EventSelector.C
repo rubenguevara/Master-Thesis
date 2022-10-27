@@ -147,7 +147,8 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_phi1[h_name] = new TH1D("h_"+h_name+"_phi1", h_name+"_phi1", 50, -M_PI, M_PI);   
       h_phi2[h_name] = new TH1D("h_"+h_name+"_phi2", h_name+"_phi2", 50, -M_PI, M_PI);  
       h_dPhiLeps[h_name] = new TH1D("h_"+h_name+"_dPhiLeps", h_name+"_dPhiLeps", 30, 0, M_PI); 
-      h_dPhiLepMet[h_name] = new TH1D("h_"+h_name+"_dPhiLepMet", h_name+"_dPhiLepMet", 30, 0, M_PI); 
+      h_dPhiCloseMet[h_name] = new TH1D("h_"+h_name+"_dPhiCloseMet", h_name+"_dPhiCloseMet", 30, 0, M_PI);
+      h_dPhiLeadMet[h_name] = new TH1D("h_"+h_name+"_dPhiLeadMet", h_name+"_dPhiLeadMet", 30, 0, M_PI); 
       h_dPhiLLmet[h_name] = new TH1D("h_"+h_name+"_dPhiLLmet", h_name+"_dPhiLLpmet", 30, 0, M_PI);  
       h_nBJet[h_name] = new TH1D("h_jet_nBJet","jet_nBJet", 8, 0, 7); 
       h_nLJet[h_name] = new TH1D("h_jet_nLJet","jet_nLJet", 8, 0, 7); 
@@ -385,6 +386,23 @@ Bool_t EventSelector::Process(Long64_t entry){
   met_lor.SetPtEtaPhiE(met, 0.0, *met_tst_phi, 0.0);
   met_sig = *met_tst_significance;
 
+  float_t mt2, ht, dPhiLeps, dPhiLLmet, dPhiCloseMet, dPhiLeadMet;
+  mt2 = ComputeMT2(l1,l2,met_lor,0.,0.).Compute();
+  ht = (ll+totalj).Pt();
+  dPhiLeps = abs(l1.DeltaPhi(l2)); 
+  dPhiLLmet = abs(ll.DeltaPhi(met_lor)); 
+
+  if(abs(l1.DeltaPhi(met_lor))<abs(l2.DeltaPhi(met_lor))){
+      dPhiCloseMet = l1.DeltaPhi(met_lor);}
+  else{
+      dPhiCloseMet = l2.DeltaPhi(met_lor);}
+  
+  if(l1.Pt() > l2.Pt()){
+      dPhiLeadMet = l1.DeltaPhi(met_lor);}
+  else{
+      dPhiLeadMet = l2.DeltaPhi(met_lor);}
+
+
   //=================//
   // Final selection //
   //=================//
@@ -543,8 +561,8 @@ Bool_t EventSelector::Process(Long64_t entry){
     h_met[this_name]->Fill(met, wgt);  
     h_met_sig[this_name]->Fill(met_sig, wgt); 
     h_mt[this_name]->Fill(ll.Mt(), wgt);
-    h_mt2[this_name]->Fill(ComputeMT2(l1,l2,met_lor,0.,0.).Compute(), wgt);
-    h_ht[this_name]->Fill((ll+totalj).Pt(), wgt);
+    h_mt2[this_name]->Fill(mt2, wgt);
+    h_ht[this_name]->Fill(ht, wgt);
     h_et[this_name]->Fill(ll.Et(), wgt);   
     h_phi1[this_name]->Fill(l1.Phi(), wgt); 
     h_phi2[this_name]->Fill(l2.Phi(), wgt); 
@@ -559,23 +577,18 @@ Bool_t EventSelector::Process(Long64_t entry){
     h_jeteta2[this_name]->Fill(j2.Eta(), wgt);
     h_jetphi1[this_name]->Fill(j1.Phi(), wgt);
     h_jetphi2[this_name]->Fill(j2.Phi(), wgt);
-    if(abs(l1.DeltaPhi(met_lor))<abs(l2.DeltaPhi(met_lor))){
-      h_dPhiLepMet[this_name]->Fill(abs(l1.DeltaPhi(met_lor)), wgt);}
-    else{
-      h_dPhiLepMet[this_name]->Fill(abs(l2.DeltaPhi(met_lor)), wgt);}
+    h_dPhiCloseMet[this_name]->Fill(abs(dPhiCloseMet), wgt);
+    h_dPhiLeadMet[this_name]->Fill(abs(dPhiLeadMet), wgt);
   }
   
   // ML FILE
-  MY->bMY_channel = (DSID);  
   MY->bMY_weight = (wgt);  
   MY->bMY_lep1Pt = (l1.Pt());  
   MY->bMY_lep1Eta = (l1.Eta());  
-  MY->bMY_lep1Phi = (l1.Phi()); 
-  MY->bMY_lep1Et = (l1.Et());
+  MY->bMY_lep1Phi = (l1.Phi());
   MY->bMY_lep2Pt = (l2.Pt());  
   MY->bMY_lep2Eta = (l2.Eta());  
-  MY->bMY_lep2Phi = (l2.Phi()); 
-  MY->bMY_lep2Et = (l2.Et());
+  MY->bMY_lep2Phi = (l2.Phi());
   MY->bMY_jetB = (nbjets);  
   MY->bMY_jetLight = (nljets);   
   MY->bMY_jetTot = (nbjets+nljets);  
@@ -594,9 +607,17 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_jet2Eta = (10);  
   MY->bMY_jet2Phi = (10);}
 
-  MY->bMY_met_Et = (*met_tst_et/1000);  
-  // MY->bMY_met_Phi = (*met_tst_phi);  
+  MY->bMY_met = (met);  
   MY->bMY_mll = (mll);
+  MY->bMY_met_sig = (met_sig);
+  MY->bMY_mt = (ll.Mt());  
+  MY->bMY_mt2 = (mt2);  
+  MY->bMY_ht = (ht);  
+  MY->bMY_et = (ll.Et());  
+  MY->bMY_dPhiLeps = (l1.DeltaPhi(l2));  
+  MY->bMY_dPhiLLMet = (ll.DeltaPhi(met_lor));  
+  MY->bMY_dPhiCloseMet = (dPhiCloseMet);  
+  MY->bMY_dPhiLeadMet = (dPhiLeadMet);  
   MY->bMY_EventNumber = (*event);
   MY->bMY_RunNumber = (*run);  
   MY->bMY_RunPeriod = (dataset);  
@@ -654,7 +675,8 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_phi2[h_name]->Write();
     h_dPhiLeps[h_name]->Write();
     h_dPhiLLmet[h_name]->Write();
-    h_dPhiLepMet[h_name]->Write();
+    h_dPhiCloseMet[h_name]->Write();
+    h_dPhiLeadMet[h_name]->Write();
     h_nBJet[h_name]->Write();
     h_nLJet[h_name]->Write();
     h_nTJet[h_name]->Write();
@@ -683,7 +705,8 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_phi1[h_name]->Reset(); 
     h_phi2[h_name]->Reset(); 
     h_dPhiLeps[h_name]->Reset(); 
-    h_dPhiLepMet[h_name]->Reset(); 
+    h_dPhiLeadMet[h_name]->Reset(); 
+    h_dPhiCloseMet[h_name]->Reset(); 
     h_dPhiLLmet[h_name]->Reset(); 
     h_nBJet[h_name]->Reset(); 
     h_nLJet[h_name]->Reset(); 
