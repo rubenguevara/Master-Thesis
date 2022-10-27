@@ -28,36 +28,18 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
     
     sumMC = stack.GetStack().Last()
     sumMC.SetDirectory(0)
-    #sumMC.SetFillColor(R.kBlack)
-    #sumMC.SetLineColor(R.kBlack)
     sumMC_err = stack.GetStack().Last().Clone("h_with_error")
     data_clone = data.Clone()
     
     sumMC_err.SetFillStyle(3018)
     sumMC_err.SetFillColor(R.kBlack)
     sumMC_err.Draw("E2SAME")
-    #sumMC.Divide(data)
     
     legend.AddEntry(sumMC_err,"Stat. unc.")
     
     stack.GetYaxis().SetTitle("Events")
     stack.GetYaxis().SetTitleSize(0.05)
     stack.GetYaxis().SetTitleOffset(0.6)
-    
-    # if lep == 'ee':
-    #     lepp = 'ee'
-        
-    # elif lep == 'uu':
-    #     lepp = '#mu#mu'
-        
-    # elif lep == 'ue':
-    #     lepp = '#mu'+' e'
-        
-    # elif lep == 'eu':
-    #     lepp = 'e#mu'
-        
-    # elif lep == 'jet':
-    #     lepp = 'Jets'
         
     if charge == "SS":    
         
@@ -120,8 +102,11 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
     elif hist =='dPhiLeps':
         xaxis = '|#Delta#phi(l_{1}, l_{2})|'
         
-    elif hist =='dPhiLepMet':
+    elif hist =='dPhiCloseMet':
         xaxis = '|#Delta#phi(l_{clos}, E_{T}^{miss})|'
+        
+    elif hist =='dPhiLeadMet':
+        xaxis = '|#Delta#phi(l_{lead}, E_{T}^{miss})|'
         
     elif hist =='dPhiLLmet':
         xaxis = '|#Delta#phi(ll, E_{T}^{miss})|'

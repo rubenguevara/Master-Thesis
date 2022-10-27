@@ -190,4 +190,4 @@ for vari in variables:
                 
         legend.AddEntry(thist[vari][mc][bkg], bkg)
     legend.AddEntry(data_hist[vari], 'Data')
-    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir, stack2[vari])
+    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir)#, stack2[vari])
