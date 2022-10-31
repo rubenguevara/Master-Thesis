@@ -139,7 +139,7 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
     text.SetTextSize(0.045)
     text.DrawLatex(0.21, 0.85, "ATLAS")
     text.SetTextFont(42)
-    text.DrawLatex(0.21 + 0.087, 0.85, "Internal")
+    text.DrawLatex(0.21 + 0.087, 0.85, "Preliminary")
     text.SetTextSize(0.04)
     text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
     text.DrawLatex(0.21, 0.75, "> 50GeV E_{T}^{miss}, " + lepp)

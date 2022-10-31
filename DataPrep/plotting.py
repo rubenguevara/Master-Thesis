@@ -30,7 +30,7 @@ for mc in mc_year:
         for variable in variables:
                 BigDic[mc][type][variable] = []
 
-
+DM_MODEL = 514619  # Write dsid of specific model
 filelist = []
 exclude = set(['data'])
 for subdir, dirs, files in os.walk(rootdir):
@@ -66,7 +66,8 @@ for subdir, dirs, files in os.walk(rootdir):
             dsid_list[mc_run]['W'].append(str(dsid))
             for variable in variables:
                 BigDic[mc_run]["W"][variable].append(myfile.Get(variable))
-        elif dsid in IDs['dm_sig']: 
+        elif dsid in IDs['dm_sig']:
+            # if not dsid == DM_MODEL: continue
             dsid_list[mc_run]['Signal'].append(str(dsid))
             for variable in variables:
                 BigDic[mc_run]["Signal"][variable].append(myfile.Get(variable))
@@ -89,7 +90,7 @@ SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].
 SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()) )
 SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()) )
 
-Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']#, 'Signal']
+Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan', 'Signal']
 
 Colors = {}
 Colors["Signal"] = R.TColor.GetColor('#F42069')
@@ -99,7 +100,7 @@ Colors["TTbar"] = R.TColor.GetColor('#F9E559')
 Colors["Diboson"] = R.TColor.GetColor('#6CCECB')
 Colors["W"] = R.TColor.GetColor('#218C8D')
 
-save_dir = "Plots_50MET"
+save_dir = "Plots_50MET_All_Sig"
 try:
     os.makedirs(save_dir)
 
@@ -178,7 +179,7 @@ for vari in variables:
     for bkg in Backgrounds:
         for mc in mc_year:
             if bkg == 'Signal':    
-                thist[vari][mc][bkg].SetFillColor(Colors[bkg])
+                thist[vari][mc][bkg].SetFillStyle(0)
                 thist[vari][mc][bkg].SetLineColor(Colors[bkg])
                 thist[vari][mc][bkg].SetLineStyle(10)
                 stack2[vari].Add(thist[vari][mc][bkg])
@@ -186,8 +187,7 @@ for vari in variables:
             else:   
                 thist[vari][mc][bkg].SetFillColor(Colors[bkg])
                 thist[vari][mc][bkg].SetLineColor(Colors[bkg])
-                stack[vari].Add(thist[vari][mc][bkg])
-                
+                stack[vari].Add(thist[vari][mc][bkg])      
         legend.AddEntry(thist[vari][mc][bkg], bkg)
     legend.AddEntry(data_hist[vari], 'Data')
-    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir)#, stack2[vari])
+    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir, stack2[vari])
