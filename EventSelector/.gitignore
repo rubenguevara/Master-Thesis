@@ -1,0 +1,9 @@
+*
+!EventSelector.C
+!EventSelector.h
+!makeMYTree.cxx
+!makeMYTree.h
+!prunSelector.py
+!runprunSelector.py
+!README.md
+!.gitignore
