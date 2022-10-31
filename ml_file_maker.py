@@ -10,8 +10,8 @@ save_dir = "../../../storage/racarcam/"
 
 
 ## Customize files here
-dm1 = save_dir + "DM150MET.root"
-Run2_bkgs = save_dir + "Run250MET.root"
+dm1 = save_dir + "DMx50MET.root"
+Run2_bkgs = save_dir + "Run2x50MET.root"
 filename = 'DM1_Run2_50MET.h5' 
 
 thing = up.open(Run2_bkgs)

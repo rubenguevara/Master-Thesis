@@ -1,104 +1,45 @@
 import pandas as pd
-import os, time
-from EventIDs import IDs
 import numpy as np
-import uproot as up
-
-t0 = time.time()
+import os
 
 save_dir = "../../../storage/racarcam/"
+filename = "DM1_Run2_50MET.h5"   # Change file if needed
 
-
-## Customize files here
-dm1 = save_dir + "DM150MET.root"
-Run2_bkgs = save_dir + "Run250MET.root"
-filename = 'DM1_Run2_50MET'
-
-filename = filename +".h5" 
-
-thing = up.open(Run2_bkgs)
-
-tree_a = thing['id_mc16a']
-tree_d = thing['id_mc16d']
-tree_e = thing['id_mc16e']
-
-df1 = tree_a.arrays(library="pd")
-df2 = tree_d.arrays(library="pd")
-df3 = tree_e.arrays(library="pd")
-print(df1)
-print(df2)
-print(df3)
-
-dfs = [df1, df2, df3]
-df = pd.concat(dfs).sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle and fix indices
+df = pd.read_hdf(save_dir+filename, key='df_tot')
 print(df)
 
-df['Label'] = np.isin(df['RunNumber'], IDs["dm_sig"]).astype(int)
+dm_df = df.loc[df['Label'] == 1]
+df = df.drop(df[df['Label'] == 1].index)
+print(dm_df)
 print(df)
 
-t = "{:.2f}".format(int( time.time()-t0 )/60.)
-print( "---"*40)
-print( "Time spent making bkg df: "+str(t)+" min")  
-print( "---"*40)
+dsids = df['RunNumber'].unique()
+df_dict = {dsid: df.loc[df['RunNumber'] == dsid] for dsid in dsids}
+for dsid in dsids:
+    if np.shape(df_dict[dsid])[0] > 10000000:
+        print('%g reduced to 4%%' %dsid)
+        df_dict[dsid] = df_dict[dsid].sample(frac=0.04, random_state=42)
+        
+    elif np.shape(df_dict[dsid])[0] > 5000000:
+        print('%g reduced to 5%%' %dsid)
+        df_dict[dsid] = df_dict[dsid].sample(frac=0.05, random_state=42)
+    
+    elif np.shape(df_dict[dsid])[0] > 1000000:
+        print('%g reduced to 8%%' %dsid)
+        df_dict[dsid] = df_dict[dsid].sample(frac=0.08, random_state=42)
+    
+    print(dsid, np.shape(df_dict[dsid])[0], np.shape(df_dict[dsid])[1] )
 
-t1 = time.time()
+new_bkg = pd.concat(df_dict.values())
+print(new_bkg)
 
-dm_thing = up.open(dm1)
-
-dm_tree_a = dm_thing['id_mc16a']
-dm_tree_d = dm_thing['id_mc16d']
-dm_tree_e = dm_thing['id_mc16e']
-
-dm_df1 = dm_tree_a.arrays(library="pd")
-dm_df2 = dm_tree_d.arrays(library="pd")
-dm_df3 = dm_tree_e.arrays(library="pd")
-print(dm_df1)
-print(dm_df2)
-print(dm_df3)
-
-dm_dfs = [dm_df1, dm_df2, dm_df3]
-dm_df = pd.concat(dm_dfs).sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle and fix indices
-print(dm_df)
-
-dm_df['Label'] = np.isin(dm_df['RunNumber'], IDs["dm_sig"]).astype(int)
-print(dm_df)
-
-t = "{:.2f}".format(int( time.time()-t1 )/60.)
-print( "---"*40)
-print( "Time spent making sig df: "+str(t)+" min")  
-print( "---"*40)
-
-
-t2 = time.time()
-
-s_and_b = [df, dm_df]
-df_tot = pd.concat(s_and_b).sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle and fix indices
+df_tot = pd.concat([new_bkg, dm_df]).sort_index()
 print(df_tot)
 
-t = "{:.2f}".format(int( time.time()-t2 )/60.)
-print( "---"*40)
-print( "Time spent making mixed df: "+str(t)+" min")  
-print( "---"*40)
+newfile = "Stat_red_"+filename
 
-t = "{:.2f}".format(int( time.time()-t0 )/60.)
-print( "---"*40)
-print( "TOTAL time spent preparing df: "+str(t)+" min")  
-print( "---"*40)
+if os.path.exists(save_dir+newfile):
+    print('Rewriting h5 file')
+    os.remove(save_dir+newfile)
 
-t3 = time.time()
-df_tot.to_hdf(save_dir+filename, key='df_tot')
-
-t = "{:.2f}".format(int( time.time()-t3 )/60.)
-print( "---"*40)
-print( "Time spent saving file: "+str(t)+" min")  
-print( "---"*40)
-
-
-t4 = time.time()
-new_df = pd.read_hdf(save_dir+filename, key='df_tot')
-print(new_df)
-
-t = "{:.2f}".format(int( time.time()-t4 )/60.)
-print( "---"*40)
-print( "Time spent reading file: "+str(t)+" min")  
-print( "---"*40)
+df_tot.to_hdf(save_dir+newfile, key='df_tot')
