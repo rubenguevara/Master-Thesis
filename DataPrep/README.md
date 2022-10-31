@@ -1,3 +1,4 @@
 # DataPrep
 This is a repo for the preparation of data to be used in my master thesis.
-The data generated is from another repo called EventSelector, here we see the modified version that fits this project. The scripts used to run EventSelector is mainly runprunSelector.py which goes through all of Run 2 and generates histograms and root Ntuples. makeMYTree is a script that is used to write the events that passed the event selection criteria into the root Ntuple. The root ntuples are generated into a Pandas DataFrame in ml_file_maker. This code showcases the plots that are used as the variables for machine learning. The actual .h5 files are not included in this repo due to their size.
+The data used in this directory can be found in EventSelector. The data generated there are root ntules and histograms. The root ntuples are made into a Pandas DataFrame in ml_file_maker then made into readable hdf5 files. This code showcases the plots that are used as the variables for machine learning. 
+The actual .h5 files are not included in this repo due to their size.

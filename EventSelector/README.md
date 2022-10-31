@@ -1,2 +1,3 @@
 # EventSelector
-The edited scripts to fit this project. The original repo is https://github.uio.no/evensha/EventSelector
+The data generated is from another repo called EventSelector, here we see the modified version that fits this project. The scripts used to run EventSelector is mainly runprunSelector.py which goes through all of Run 2 and generates histograms and root Ntuples. makeMYTree is a script that is used to write the events that passed the event selection criteria into the root Ntuple.
+The original repo is https://github.uio.no/evensha/EventSelector
