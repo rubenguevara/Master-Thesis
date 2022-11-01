@@ -523,6 +523,8 @@ if __name__ == '__main__':
 
         file_a = ""; file_d = ""; file_e = ""
         outfile_a = ""; outfile_d = ""; outfile_e = ""
+        file_15 = ""; file_16 = ""; file_17 = ""; file_18 = ""
+        outfile_15 = ""; outfile_16 = ""; outfile_17 = ""; outfile_18 = ""
         for file in os.listdir("."):
                 type = file.split('-')[0]
                 if type == 'DELETE':
@@ -539,6 +541,18 @@ if __name__ == '__main__':
                 if mcRun == 'mc16e':
                         outfile_e = "../"+file.replace(extra, ".root")
                         file_e += (" "+file)
+                if mcRun == 'data15':
+                        outfile_15 = "../"+file.replace(extra, ".root")
+                        file_15 += (" "+file)
+                if mcRun == 'data16':
+                        outfile_16 = "../"+file.replace(extra, ".root")
+                        file_16 += (" "+file)
+                if mcRun == 'data17':
+                        outfile_17 = "../"+file.replace(extra, ".root")
+                        file_17 += (" "+file)
+                if mcRun == 'data18':
+                        outfile_18 = "../"+file.replace(extra, ".root")
+                        file_18 += (" "+file)
 
         if outfile_a!="":
                 if os.path.exists(outfile_a): 
@@ -557,6 +571,30 @@ if __name__ == '__main__':
                         print("Final file", file,"exists! Do you want to delete?")
                 else: 
                         os.system("hadd "+outfile_e+file_e)
+        
+        if outfile_15!="":
+                if os.path.exists(outfile_15): 
+                        print("Final file", file,"exists! Do you want to delete?")
+                else: 
+                        os.system("hadd "+outfile_15+file_15)
+
+        if outfile_16!="":
+                if os.path.exists(outfile_16): 
+                        print("Final file", file,"exists! Do you want to delete?")
+                else: 
+                        os.system("hadd "+outfile_16+file_16)
+
+        if outfile_17!="":
+                if os.path.exists(outfile_17): 
+                        print("Final file", file,"exists! Do you want to delete?")
+                else: 
+                        os.system("hadd "+outfile_17+file_17)
+
+        if outfile_18!="":
+                if os.path.exists(outfile_18): 
+                        print("Final file", file,"exists! Do you want to delete?")
+                else: 
+                        os.system("hadd "+outfile_18+file_18)
 
         shutil.rmtree(save_path)
         

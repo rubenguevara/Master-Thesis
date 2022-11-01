@@ -16,7 +16,6 @@
 #include "MatrixMethod/MatrixMethod.cxx"
 #include "MatrixMethod/MMefficiencies.cxx"
 #include "makeMYTree.h"
-// #include "makeMYTree.cxx"
 
 TLorentzVector l1, l2, l3, met_lor, ll, l1_truth, l2_truth; 
 
@@ -302,7 +301,7 @@ Bool_t EventSelector::Process(Long64_t entry){
       if(el_trig==0){ return kTRUE; } 
       dileptons = "ee"; 
       lep1 = loose_el[0]; lep2 = loose_el[1]; n_loose_e++;} 
-    else if(n_loose_el == 1 && n_loose_mu == 1){                             //HERE
+    else if(n_loose_el == 1 && n_loose_mu == 1){                             
       if(el_trig == 0 && mu_trig == 0){ return kTRUE; } 
       if(el_pt[loose_el[0]]>mu_pt[loose_mu[0]]){
       dileptons = "eu"; 
@@ -441,6 +440,7 @@ Bool_t EventSelector::Process(Long64_t entry){
 
   if(mll < 10){ return kTRUE; }
   if(met < 50){ return kTRUE; }
+  if( isAFII ){ return kTRUE; }
 
   passed_channels = {}; isTreeChannel=0; 
 
@@ -497,7 +497,9 @@ Bool_t EventSelector::Process(Long64_t entry){
       else if(mu_SF_rec[lep2] == 0){
         wgt_lsf = mu_SF_iso[lep1]*mu_SF_rec[lep1]*mu_SF_iso[lep2];}
       else if(mu_SF_rec[lep1] == 0){
-        wgt_lsf = mu_SF_iso[lep1]*mu_SF_rec[lep2]*mu_SF_iso[lep2];}  
+        wgt_lsf = mu_SF_iso[lep1]*mu_SF_iso[lep2]*mu_SF_rec[lep2];}   
+      else{
+        wgt_lsf = mu_SF_iso[lep1]*mu_SF_rec[lep1]*mu_SF_iso[lep2]*mu_SF_rec[lep2];}  
             }
     else{
       wgt_lsf = *evsf_signal_nominal_MU;  } 
@@ -582,7 +584,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   }
   
   // ML FILE
-  MY->bMY_weight = (wgt);  
+  MY->bMY_Weight = (wgt);  
   MY->bMY_lep1Pt = (l1.Pt());  
   MY->bMY_lep1Eta = (l1.Eta());  
   MY->bMY_lep1Phi = (l1.Phi());
