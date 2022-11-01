@@ -1,20 +1,19 @@
 import xgboost as xgb
-from sklearn.metrics import mean_squared_error
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc
 import matplotlib.pyplot as plt
+import os
 
 save_dir = "../../../storage/racarcam/"
-filename = "Stat_red_DM1_Run2_50MET.h5"
+filename = "Stat_red_DM_Run2_50MET.h5"
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 
 X = df.copy()
-df_EventNumber = X.pop('EventNumber')
-W = np.abs(np.array(X.pop('weight')*0.2))
-# df_CrossSection = X.pop('CrossSection')
+df_EventNumber = X.pop('EventID')
+W = np.abs(np.array(X.pop('Weight')*0.2))
+df_CrossSection = X.pop('CrossSection')
 df_RunNumber = X.pop('RunNumber')
 df_RunPeriod = X.pop('RunPeriod')
 
@@ -58,6 +57,14 @@ y_pred_prob = xgbclassifier.predict_proba( X_valid ) # The BDT outputs for each 
 n, bins, patches = plt.hist(y_pred_prob[:,1][y_valid==0], 200, facecolor='blue', alpha=0.2,label="Background")
 n, bins, patches = plt.hist(y_pred_prob[:,1][y_valid==1], 200, facecolor='red', alpha=0.2, label="Signal")
 
+plot_dir = 'Plots_XGBoost/'
+
+try:
+    os.makedirs(plot_dir)
+
+except FileExistsError:
+    pass
+
 
 plt.figure(1, figsize=[10,8])
 plt.xlabel('XGBoost output')
@@ -65,7 +72,7 @@ plt.ylabel('Events')
 plt.title('XGBoost output, DM dataset, validation data')
 plt.grid(True)
 plt.legend()
-plt.savefig('Plots/VAL.pdf')
+plt.savefig(plot_dir+'VAL_red.pdf')
 plt.show()
 
 fpr, tpr, thresholds = roc_curve(y_valid,y_pred_prob[:,1], pos_label=1)
@@ -81,12 +88,12 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('ROC for xgBoost on DM dataset')
 plt.legend(loc="lower right")
-plt.savefig('Plots/ROC.pdf')
+plt.savefig(plot_dir+'ROC_red.pdf')
 plt.show()
 
 sorted_idx = xgbclassifier.feature_importances_.argsort()
 
 plt.figure(3, figsize=[20,12])
-xgb.plot_importance(xgbclassifier).set_yticklabels(features[sorted_idx][2:])
-plt.savefig('Plots/feature.pdf')
+xgb.plot_importance(xgbclassifier).set_yticklabels(features[sorted_idx][1:])
+plt.savefig(plot_dir+'feature_red.pdf')
 plt.show()
