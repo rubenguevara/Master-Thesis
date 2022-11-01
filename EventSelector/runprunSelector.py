@@ -7,7 +7,7 @@ data_cmps =['data15', 'data16', 'data17', 'data18']
 
 sig = 0
 
-data = 0
+data = 1
 
 if sig == 1:
     ml_file = "DMx50MET"

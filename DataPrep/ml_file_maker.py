@@ -12,7 +12,7 @@ save_dir = "../../../storage/racarcam/"
 ## Customize files here
 dm1 = save_dir + "DMx50MET.root"
 Run2_bkgs = save_dir + "Run2x50MET.root"
-filename = 'DM1_Run2_50MET.h5' 
+filename = 'DM_Run2_50MET.h5' 
 
 thing = up.open(Run2_bkgs)
 
@@ -78,8 +78,8 @@ print( "Time spent making mixed df: "+str(t)+" min")
 print( "---"*40)
 
 print('REMOVING WEIGHT = 0 EVENTS')
-df_weight_0 = df_tot[df_tot['weight'] == 0].index  # MET cut after?
-print(df_tot[df_tot['weight'] == 0])
+df_weight_0 = df_tot[df_tot['Weight'] == 0].index  # MET cut after?
+print(df_tot[df_tot['Weight'] == 0])
 df_tot = df_tot.drop(df_weight_0).reset_index(drop=True)
 print(df_tot)
 

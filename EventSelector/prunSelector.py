@@ -270,7 +270,7 @@ def runFile(filename):
         dsid = filename.split("/")[-2].split(".")[4] 
         fil_nr = filename.split("/")[-1].split(".")[-3]
         
-        option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file+"_"+dsid+"_"+fil_nr
+        option = data+"_"+str(doTruth)+"_"+str(doCutflow)+"_"+str(doSyst)+"_"+str(doFakes)+"_"+str(doLoose)+"_"+str(isRecast)+"_"+str(isAFII)+"_"+ml_file+"_"+dsid+fil_nr
         
         
         myChain.Process("EventSelector.C+", option)
