@@ -19,6 +19,7 @@ df_RunNumber = X.pop('RunNumber')
 df_RunPeriod = X.pop('RunPeriod')
 
 Y = np.array(X.pop('Label'))
+features = np.array(X.columns)
 X = np.array(X)
 size = int(len(Y)*0.2)
 
@@ -36,14 +37,18 @@ sum_wbkg = sum( w_train[i] for i in range(len(y_train)) if y_train[i] == 0.0  )
 
 xgbclassifier = xgb.XGBClassifier(
     max_depth=3, 
+    use_label_encoder=False,
     n_estimators=120,
     learning_rate=0.1,
     #n_jobs=4,
     scale_pos_weight=sum_wbkg/sum_wsig,
     objective='binary:logistic',
-    missing=10) 
+    eval_metric='error',
+    # eval_metric='logloss',
+    missing=10,
+    random_state=42) 
 
-xgbclassifier.fit(X_train, y_train, w_train) 
+xgbclassifier.fit(X_train, y_train, sample_weight=w_train) 
 
 # Test the BDT performance using the validation dataset
 y_pred = xgbclassifier.predict( X_valid ) # The actual signal/background predictions. Note that we don't actually use them
@@ -54,7 +59,7 @@ n, bins, patches = plt.hist(y_pred_prob[:,1][y_valid==0], 200, facecolor='blue',
 n, bins, patches = plt.hist(y_pred_prob[:,1][y_valid==1], 200, facecolor='red', alpha=0.2, label="Signal")
 
 
-plt.figure(1)
+plt.figure(1, figsize=[10,8])
 plt.xlabel('XGBoost output')
 plt.ylabel('Events')
 plt.title('XGBoost output, DM dataset, validation data')
@@ -68,7 +73,7 @@ roc_auc = auc(fpr,tpr)
 plt.figure(2)
 lw = 2
 plt.plot(fpr, tpr, color='darkorange',
-         lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
+        lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
 plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
 plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
@@ -79,9 +84,9 @@ plt.legend(loc="lower right")
 plt.savefig('Plots/ROC.pdf')
 plt.show()
 
+sorted_idx = xgbclassifier.feature_importances_.argsort()
 
-plt.figure(3)
-xgb.plot_importance(xgbclassifier)
-plt.rcParams["figure.figsize"] = [15,15]
+plt.figure(3, figsize=[20,12])
+xgb.plot_importance(xgbclassifier).set_yticklabels(features[sorted_idx][2:])
 plt.savefig('Plots/feature.pdf')
 plt.show()
