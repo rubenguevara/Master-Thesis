@@ -66,7 +66,7 @@ except FileExistsError:
     pass
 
 
-plt.figure(1, figsize=[10,8])
+plt.figure(1, figsize=[10,6])
 plt.xlabel('XGBoost output')
 plt.ylabel('Events')
 plt.title('XGBoost output, DM dataset, validation data')

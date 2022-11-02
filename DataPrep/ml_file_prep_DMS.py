@@ -50,7 +50,7 @@ print('Making files for each DSID')
 print("=="*40)
 
 for dm_dsid in dm_dsids:
-    newfile = 'DMS2/'+str(dm_dsid)+'.h5'
+    newfile = 'DMS/'+str(dm_dsid)+'.h5'
     print('Events in ', dm_dsid, " : ", np.shape(dm_dict[dm_dsid])[0])
     print('Making file '+newfile)
     dm_dict[dm_dsid].to_hdf(save_dir+newfile, key='df_tot')
@@ -62,7 +62,7 @@ print("=="*40)
 t0 = time.time()
 
 new_df = pd.read_hdf(save_dir+'Stat_red_bkgs.h5', key='df_tot')
-new_dm = pd.read_hdf(save_dir+'DMS2/'+str(dm_dsid)+'.h5', key='df_tot')
+new_dm = pd.read_hdf(save_dir+'DMS/'+str(dm_dsid)+'.h5', key='df_tot')
 
 new_concat = pd.concat([new_df, new_dm]).sort_index()
 print(new_concat)
