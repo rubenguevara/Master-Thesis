@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc
 
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-tf.debugging.set_log_device_placement(True)
+tf.debugging.set_log_device_placement(False)
 
 print(tf.__version__)
 
@@ -55,7 +55,7 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda, norm):
 network = NN_model(X_train.shape[1], 3, 10, 0.1, 1e-3, normalize)
 network.fit(X_train, Y_train, epochs=10, batch_size=100)
 
-plot_dir = 'Plots_NeuralNetwork/'
+plot_dir = 'Plots_NeuralNetwork/ALL/'
 
 try:
     os.makedirs(plot_dir)
@@ -90,6 +90,7 @@ n, bins, patches = plt.hist(pred[test==1], 200, facecolor='red' , alpha=0.2, lab
 plt.xlabel('TF output')
 plt.xlim([0,1])
 plt.ylabel('Events')
+plt.yscale('log')
 plt.title('Model output, Full DM dataset, validation data')
 plt.grid(True)
 plt.legend()
@@ -122,5 +123,4 @@ plt.legend()
 plt.savefig(plot_dir+'Loss.pdf')
 plt.show()
 
-# network.save('Models/DM_Slider')
 
