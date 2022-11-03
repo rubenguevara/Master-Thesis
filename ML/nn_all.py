@@ -20,7 +20,7 @@ filename = "Stat_red_DM_Run2_50MET.h5"
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 
 df_features = df.copy()
-df_EventNumber = df_features.pop('EventID')
+df_EventID = df_features.pop('EventID')
 df_Weight = df_features.pop('Weight')
 df_CrossSection = df_features.pop('CrossSection')
 df_RunNumber = df_features.pop('RunNumber')
@@ -28,7 +28,7 @@ df_RunPeriod = df_features.pop('RunPeriod')
 
 df_labels = df_features.pop('Label')
 
-X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size=0.2, train_size=0.8, random_state=42)
+X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size=0.2, random_state=42)
 
 normalize = layers.experimental.preprocessing.Normalization()
 # normalize = layers.Normalization()
