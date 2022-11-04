@@ -5,9 +5,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc
+
 model_dir = 'Models/NN/'
 save_dir = "../../../storage/racarcam/"
-filename = "Stat_red_bkgs.h5"
+filename = "bkgs.h5"
 df_bkgs = pd.read_hdf(save_dir+filename, key='df_tot')
 
 DSIDS = os.listdir('Models/NN/')
@@ -15,7 +16,8 @@ dm_dict_file = open('DM_DICT.json')
 DM_DICT = json.load(dm_dict_file)
 
 for dsid in DSIDS:
-    plot_dir = 'Plots_NeuralNetwork/DSID/'+dsid+'_sample_splitting/'
+    dsid = '514603'
+    plot_dir = 'Plots_NeuralNetwork/DSID/'+dsid+'/'
 
     try:
         os.makedirs(plot_dir)
@@ -23,7 +25,7 @@ for dsid in DSIDS:
     except FileExistsError:
         pass
 
-    df_dm = pd.read_hdf(save_dir+'DMS2/'+dsid+'.h5', key='df_tot')
+    df_dm = pd.read_hdf(save_dir+'DMS/'+dsid+'.h5', key='df_tot')
 
     df = pd.concat([df_bkgs, df_dm]).sort_index()
 
@@ -32,7 +34,11 @@ for dsid in DSIDS:
     df_CrossSection = df_features.pop('CrossSection')
     df_RunNumber = df_features.pop('RunNumber')
     df_RunPeriod = df_features.pop('RunPeriod')
+    df_dPhiCloseMet = df_features.pop('dPhiCloseMet')   # Bad variable
+    df_dPhiLeps = df_features.pop('dPhiLeps')           # Bad variable
+    
     df_labels = df_features.pop('Label')
+    print(df_features)
     
     X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size=0.2, random_state=42)
     X_train_wgt = X_train.pop('Weight')
@@ -72,3 +78,4 @@ for dsid in DSIDS:
     plt.legend()
     plt.savefig(plot_dir+'VAL.pdf')
     plt.show()
+    break
