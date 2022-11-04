@@ -3,6 +3,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc
 
@@ -16,8 +17,8 @@ dm_dict_file = open('DM_DICT.json')
 DM_DICT = json.load(dm_dict_file)
 
 for dsid in DSIDS:
-    dsid = '514603'
-    plot_dir = 'Plots_NeuralNetwork/DSID/'+dsid+'/'
+    dsid = '514603' # test sample for weighting
+    plot_dir = 'Plots_NeuralNetwork/DSID/'+dsid+'_NEW_WEIGHT/'
 
     try:
         os.makedirs(plot_dir)
@@ -38,19 +39,25 @@ for dsid in DSIDS:
     df_dPhiLeps = df_features.pop('dPhiLeps')           # Bad variable
     
     df_labels = df_features.pop('Label')
-    print(df_features)
+    # print(df_features)
     
     X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size=0.2, random_state=42)
     X_train_wgt = X_train.pop('Weight')
     X_test_wgt = X_test.pop('Weight')
     
-    network = tf.keras.models.load_model(model_dir+dsid)  
+    network = tf.keras.models.load_model(model_dir+dsid+'_NEW_WEIGHTED')  
     network_pred_label = network.predict(X_test).ravel()
     test = Y_test
     pred = network_pred_label
-
+    
+    weight_test = np.ones(len(Y_test))
+    weight_test[Y_test==0] = np.sum(weight_test[Y_test==1])/np.sum(weight_test[Y_test==0])
+    print(weight_test)
+    unique, counts = np.unique(pred, return_counts=True)
+    print(dict(zip(unique, counts)))
+    
     dsid_title = DM_DICT[dsid]
-    fpr, tpr, thresholds = roc_curve(test, pred, pos_label=1, )
+    fpr, tpr, thresholds = roc_curve(test, pred, sample_weight = weight_test, pos_label=1)
     roc_auc = auc(fpr,tpr)
     plt.figure(1)
     lw = 2
@@ -79,3 +86,5 @@ for dsid in DSIDS:
     plt.savefig(plot_dir+'VAL.pdf')
     plt.show()
     break
+
+dm_dict_file.close()
