@@ -1,3 +1,5 @@
 *.out
-Models/*
+/Models
 *.json
+EventIDs.py
+/__pycache__
