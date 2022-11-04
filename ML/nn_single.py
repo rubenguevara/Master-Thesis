@@ -78,53 +78,6 @@ for file in os.listdir(save_dir+'/DMS'):
     network.fit(X_train, Y_train, epochs=10, batch_size=100, sample_weight=X_train_wgt) # Correct way to use weights?
     
     network.save(model_dir+'NEW_WEIGHTED_'+dsid)
-    
-    """""""""""""""
-    Plotting
-    """""""""""""""
-    
-    plot_dir = 'Plots_NeuralNetwork/DSID/NEW_WEIGHTED_'+dsid+'/'
-
-    try:
-        os.makedirs(plot_dir)
-
-    except FileExistsError:
-        pass
-    
-    network_pred_label = network.predict(X_test).ravel()
-    test = Y_test
-    pred = network_pred_label
-
-    dsid_title = DM_DICT[dsid]
-    fpr, tpr, thresholds = roc_curve(test, pred, pos_label=1, )
-    roc_auc = auc(fpr,tpr)
-    plt.figure(1)
-    lw = 2
-    plt.plot(fpr, tpr, color='darkorange', lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
-    plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-    plt.xlim([-0.01, 1.02])
-    plt.ylim([-0.01, 1.02])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC for model on '+dsid_title+' dataset')
-    plt.legend(loc="lower right")
-    plt.savefig(plot_dir+'ROC.pdf')
-    plt.show()
-
-
-    plt.figure(2, figsize=[10,6])
-    n, bins, patches = plt.hist(pred[test==0], 200, facecolor='blue', alpha=0.2,label="Background")
-    n, bins, patches = plt.hist(pred[test==1], 200, facecolor='red' , alpha=0.2, label="Signal")
-    plt.xlabel('TF output')
-    plt.xlim([0,1])
-    plt.ylabel('Events')
-    plt.title('Model output, '+dsid_title+' dataset, validation data')
-    plt.grid(True)
-    plt.yscale('log')
-    plt.legend()
-    plt.savefig(plot_dir+'VAL.pdf')
-    plt.show()
-
     break
 
 dm_dict_file.close()
