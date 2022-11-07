@@ -3,3 +3,5 @@
 *.json
 EventIDs.py
 /__pycache__
+plotting_variables_old.py
+lazy.py
