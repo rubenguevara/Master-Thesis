@@ -1,41 +1,54 @@
-import os
+import os, argparse
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1' 
 import tensorflow as tf
 from tensorflow.keras import layers
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
+from packaging.version import parse
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_curve, auc
 
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 tf.debugging.set_log_device_placement(False)
+vrs = tf.__version__
+print(vrs)
 
-print(tf.__version__)
+parser = argparse.ArgumentParser()
+parser.add_argument('--wgt', type=int, default=1, help="Whether to do unweighted training")
+args = parser.parse_args()
+wgt = args.wgt                                                              # Default is weighted training
 
+if (parse(vrs) != parse('2.5.0')) and (wgt == 1):
+    print('For weighted training it should be 2.5.0 !!!') 
+    exit()    
 
 save_dir = "../../../storage/racarcam/"
-filename = "Stat_red_DM_Run2_50MET.h5"
+filename = 'Full_DM_sig.h5'
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 
 df_features = df.copy()
 df_EventID = df_features.pop('EventID')
-df_Weight = df_features.pop('Weight')
 df_CrossSection = df_features.pop('CrossSection')
 df_RunNumber = df_features.pop('RunNumber')
 df_RunPeriod = df_features.pop('RunPeriod')
+df_dPhiCloseMet = df_features.pop('dPhiCloseMet')                             # Bad variable
+df_dPhiLeps = df_features.pop('dPhiLeps')                                     # Bad variable
 
 df_labels = df_features.pop('Label')
 
 X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size=0.2, random_state=42)
+X_train_w = X_train.pop('Weight')
+X_test_w = X_test.pop('Weight')
 
-normalize = layers.experimental.preprocessing.Normalization()
-# normalize = layers.Normalization()
+if wgt == 0:
+    normalize = layers.Normalization()
+else:
+    normalize = layers.experimental.preprocessing.Normalization()
+    
 normalize.adapt(X_train)
 
 def NN_model(inputsize, n_layers, n_neuron, eta, lamda, norm):
-    model=tf.keras.Sequential([norm])      
+    model=tf.keras.Sequential([norm])         
     
     for i in range(n_layers):                                                # Run loop to add hidden layers to the model
         if (i==0):                                                           # First layer requires input dimensions
@@ -49,13 +62,34 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda, norm):
     
     model.compile(loss=tf.losses.BinaryCrossentropy(),
                 optimizer=sgd,
-                metrics = [tf.keras.metrics.BinaryAccuracy()])
+                metrics = [tf.keras.metrics.BinaryAccuracy(), tf.keras.metrics.AUC()])
     return model
 
 network = NN_model(X_train.shape[1], 3, 10, 0.1, 1e-3, normalize)
-network.fit(X_train, Y_train, epochs=10, batch_size=100)
+if wgt == 0:
+    history = network.fit(X_train, Y_train, validation_data = (X_test, Y_test), epochs=10, batch_size=10000)
 
-plot_dir = 'Plots_NeuralNetwork/ALL/'
+else:
+    history = network.fit(X_train, Y_train, sample_weight = X_train_w, 
+                    validation_data = (X_test, Y_test, X_test_w),            # OBS ONLY WORKS FOR TENSORFLOW VERSION 2.5.0
+                    epochs = 10, batch_size = 10000)
+
+model_dir = 'Models/NN/'
+try:
+    os.makedirs(model_dir)
+
+except FileExistsError:
+    pass
+
+if wgt == 0:
+    network.save(model_dir+'FULL_UNWEIGHTED')
+else:
+    network.save(model_dir+'FULL_WEIGHTED')
+
+if wgt == 0:
+    plot_dir = 'Plots_NeuralNetwork/ALL/UNWEIGHTED/'
+else:
+    plot_dir = 'Plots_NeuralNetwork/ALL/WEIGHTED/'
 
 try:
     os.makedirs(plot_dir)
@@ -63,57 +97,17 @@ try:
 except FileExistsError:
     pass
 
-network_pred_label = network.predict(X_test).ravel()
-test = Y_test
-pred = network_pred_label
-
-
-fpr, tpr, thresholds = roc_curve(test, pred, pos_label=1)
-roc_auc = auc(fpr,tpr)
 plt.figure(1)
-lw = 2
-plt.plot(fpr, tpr, color='darkorange', lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
-plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-plt.xlim([-0.01, 1.02])
-plt.ylim([-0.01, 1.02])
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('ROC for model on full DM dataset')
-plt.legend(loc="lower right")
-plt.savefig(plot_dir+'ROC.pdf')
-plt.show()
-
-
-plt.figure(2, figsize=[10,6])
-n, bins, patches = plt.hist(pred[test==0], 200, facecolor='blue', alpha=0.2,label="Background")
-n, bins, patches = plt.hist(pred[test==1], 200, facecolor='red' , alpha=0.2, label="Signal")
-plt.xlabel('TF output')
-plt.xlim([0,1])
-plt.ylabel('Events')
-plt.yscale('log')
-plt.title('Model output, Full DM dataset, validation data')
-plt.grid(True)
-plt.legend()
-plt.savefig(plot_dir+'VAL.pdf')
-plt.show()
-
-
-normalize2 = layers.experimental.preprocessing.Normalization()
-normalize2.adapt(df_features)
-network = NN_model(df_features.shape[1], 3, 10, 0.1, 1e-3, normalize2)
-history = network.fit(df_features, df_labels, validation_split=0.25, epochs=10, batch_size=100)
-
-plt.figure(3)
 plt.plot(history.history['binary_accuracy'], label = 'Train')
 plt.plot(history.history['val_binary_accuracy'], label = 'Test')
 plt.title('Model accuracy')
-plt.ylabel('Accuracy')
+plt.ylabel('Binary accuracy')
 plt.xlabel('Epoch')
 plt.legend()
-plt.savefig(plot_dir+'Accuracy.pdf')
+plt.savefig(plot_dir+'Binary_accuracy.pdf')
 plt.show()
 
-plt.figure(4)
+plt.figure(2)
 plt.plot(history.history['loss'], label = 'Train')
 plt.plot(history.history['val_loss'], label = 'Test')
 plt.title('Model loss')
@@ -123,4 +117,12 @@ plt.legend()
 plt.savefig(plot_dir+'Loss.pdf')
 plt.show()
 
-
+plt.figure(3)
+plt.plot(history.history['auc'], label = 'Train')
+plt.plot(history.history['val_auc'], label = 'Test')
+plt.title('Model accuracy')
+plt.ylabel('AUC')
+plt.xlabel('Epoch')
+plt.legend()
+plt.savefig(plot_dir+'AUC.pdf')
+plt.show()
