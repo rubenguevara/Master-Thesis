@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras import layers
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 from packaging.version import parse
 from sklearn.model_selection import train_test_split
 
@@ -22,7 +23,8 @@ if (parse(vrs) != parse('2.5.0')) and (wgt == 1):
     exit()    
 
 save_dir = "../../../storage/racarcam/"
-filename = 'Full_DM_sig.h5'
+# filename = 'Full_DM_sig.h5'
+filename = 'Find_Diboson.h5'
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 
@@ -40,15 +42,26 @@ X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test
 X_train_w = X_train.pop('Weight')
 X_test_w = X_test.pop('Weight')
 
+W_test = np.ones(len(Y_test))
+W_test[Y_test==0] = np.sum(W_test[Y_test==1])/np.sum(W_test[Y_test==0])
+W_test = pd.DataFrame(W_test, columns=['Weight'])                            # Has to be a pandas dataframe else it won't work
+
+W_train = np.ones(len(Y_train))
+W_train[Y_train==0] = np.sum(W_train[Y_train==1])/np.sum(W_train[Y_train==0])
+W_train = pd.DataFrame(W_train, columns=['Weight'])
+
+
 if wgt == 0:
+    print('Doing unweighted training')
     normalize = layers.Normalization()
 else:
+    print('Doing weighted training')
     normalize = layers.experimental.preprocessing.Normalization()
     
 normalize.adapt(X_train)
 
 def NN_model(inputsize, n_layers, n_neuron, eta, lamda, norm):
-    model=tf.keras.Sequential([norm])         
+    model=tf.keras.Sequential([norm])
     
     for i in range(n_layers):                                                # Run loop to add hidden layers to the model
         if (i==0):                                                           # First layer requires input dimensions
@@ -69,9 +82,14 @@ network = NN_model(X_train.shape[1], 3, 10, 0.1, 1e-3, normalize)
 if wgt == 0:
     history = network.fit(X_train, Y_train, validation_data = (X_test, Y_test), epochs=10, batch_size=10000)
 
-else:
-    history = network.fit(X_train, Y_train, sample_weight = X_train_w, 
-                    validation_data = (X_test, Y_test, X_test_w),            # OBS ONLY WORKS FOR TENSORFLOW VERSION 2.5.0
+# else:                                                                      # Old weighting method
+#     history = network.fit(X_train, Y_train, sample_weight = X_train_w, 
+#                     validation_data = (X_test, Y_test, X_test_w),          # OBS ONLY WORKS FOR TENSORFLOW VERSION 2.5.0
+#                     epochs = 10, batch_size = 10000)
+
+else:    
+    history = network.fit(X_train, Y_train, sample_weight = W_train, 
+                    validation_data = (X_test, Y_test, W_test),              # OBS ONLY WORKS FOR TENSORFLOW VERSION 2.5.0
                     epochs = 10, batch_size = 10000)
 
 model_dir = 'Models/NN/'
@@ -82,14 +100,18 @@ except FileExistsError:
     pass
 
 if wgt == 0:
-    network.save(model_dir+'FULL_UNWEIGHTED')
+    # network.save(model_dir+'FULL_UNWEIGHTED')
+    network.save(model_dir+'Diboson_UNWEIGHTED')
 else:
-    network.save(model_dir+'FULL_WEIGHTED')
+    # network.save(model_dir+'FULL_WEIGHTED')
+    network.save(model_dir+'Diboson_WEIGHTED_NEW')
 
 if wgt == 0:
-    plot_dir = 'Plots_NeuralNetwork/ALL/UNWEIGHTED/'
+    # plot_dir = 'Plots_NeuralNetwork/ALL/UNWEIGHTED/'
+    plot_dir = 'Plots_NeuralNetwork/Diboson/UNWEIGHTED/'
 else:
-    plot_dir = 'Plots_NeuralNetwork/ALL/WEIGHTED/'
+    # plot_dir = 'Plots_NeuralNetwork/ALL/WEIGHTED/'
+    plot_dir = 'Plots_NeuralNetwork/Diboson/WEIGHTED_NEW/'
 
 try:
     os.makedirs(plot_dir)

@@ -14,7 +14,8 @@ print(tf.__version__)
 
 model_dir = 'Models/NN/'
 save_dir = "../../../storage/racarcam/"
-filename = 'Full_DM_sig.h5'
+# filename = 'Full_DM_sig.h5'
+filename = 'Find_Diboson.h5'
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 
@@ -33,12 +34,16 @@ X_train_w = X_train.pop('Weight')
 X_test_w = X_test.pop('Weight')
 
 # model_type = 'FULL_UNWEIGHTED'
-model_type = 'FULL_WEIGHTED'
+# model_type = 'FULL_WEIGHTED'
+# model_type = 'Diboson_UNWEIGHTED'
+model_type = 'Diboson_WEIGHTED_NEW'
 network = tf.keras.models.load_model(model_dir+model_type)  
 network_pred_label = network.predict(X_test).ravel()
 
 # plot_dir = 'Plots_NeuralNetwork/ALL/UNWEIGHTED/'
-plot_dir = 'Plots_NeuralNetwork/ALL/WEIGHTED/'
+# plot_dir = 'Plots_NeuralNetwork/ALL/WEIGHTED/'
+# plot_dir = 'Plots_NeuralNetwork/Diboson/UNWEIGHTED/'
+plot_dir = 'Plots_NeuralNetwork/Diboson/WEIGHTED_NEW/'
 
 try:
     os.makedirs(plot_dir)
@@ -68,9 +73,7 @@ plt.show()
 
 weight_test = np.ones(len(Y_test))
 weight_test[Y_test==0] = np.sum(weight_test[Y_test==1])/np.sum(weight_test[Y_test==0])
-# print(weight_test)
 unique, counts = np.unique(pred, return_counts=True)
-print(dict(zip(unique, counts)))
 
 fpr, tpr, thresholds = roc_curve(test, pred, sample_weight = weight_test, pos_label=1)
 roc_auc = auc(fpr,tpr)
@@ -104,8 +107,8 @@ plt.show()
 
 
 plt.figure(3, figsize=[10,6])
-n, bins, patches = plt.hist(pred[test==0], bins = 200, facecolor='blue', alpha=0.2, label="Background")
-n, bins, patches = plt.hist(pred[test==1], bins = 200, facecolor='red' , alpha=0.2, label="Signal")
+n, bins, patches = plt.hist(pred[test==0], bins = 100, facecolor='blue', alpha=0.2, label="Background")
+n, bins, patches = plt.hist(pred[test==1], bins = 100, facecolor='red' , alpha=0.2, label="Signal")
 plt.xlabel('TF output')
 plt.xlim([0,1])
 plt.ylabel('Events')
@@ -118,8 +121,8 @@ plt.show()
 
 
 plt.figure(4, figsize=[10,6])
-n, bins, patches = plt.hist(pred[test==0], weights = X_test_w[test==0], bins = 200, facecolor='blue', alpha=0.2, label="Background")
-n, bins, patches = plt.hist(pred[test==1], weights = X_test_w[test==1], bins = 200, facecolor='red' , alpha=0.2, label="Signal")
+n, bins, patches = plt.hist(pred[test==0], weights = X_test_w[test==0], bins = 100, facecolor='blue', alpha=0.2, label="Background")
+n, bins, patches = plt.hist(pred[test==1], weights = X_test_w[test==1], bins = 100, facecolor='red' , alpha=0.2, label="Signal")
 plt.xlabel('TF output')
 plt.xlim([0,1])
 plt.ylabel('Events')
