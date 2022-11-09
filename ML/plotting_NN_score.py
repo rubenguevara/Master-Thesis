@@ -7,9 +7,14 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc
 
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+tf.debugging.set_log_device_placement(False)
+
+print(tf.__version__)
+
 model_dir = 'Models/NN/'
 save_dir = "../../../storage/racarcam/"
-filename = "bkgs.h5"
+filename = "Stat_red_bkgs.h5"
 df_bkgs = pd.read_hdf(save_dir+filename, key='df_tot')
 
 DSIDS = os.listdir('Models/NN/')
@@ -18,7 +23,7 @@ DM_DICT = json.load(dm_dict_file)
 
 for dsid in DSIDS:
     dsid = '514603' # test sample for weighting
-    plot_dir = 'Plots_NeuralNetwork/DSID/'+dsid+'_NEW_WEIGHT/'
+    plot_dir = 'Plots_NeuralNetwork/DSID/'+dsid+'/'
 
     try:
         os.makedirs(plot_dir)
@@ -39,22 +44,18 @@ for dsid in DSIDS:
     df_dPhiLeps = df_features.pop('dPhiLeps')           # Bad variable
     
     df_labels = df_features.pop('Label')
-    # print(df_features)
     
     X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size=0.2, random_state=42)
     X_train_wgt = X_train.pop('Weight')
     X_test_wgt = X_test.pop('Weight')
     
-    network = tf.keras.models.load_model(model_dir+dsid+'_NEW_WEIGHTED')  
-    network_pred_label = network.predict(X_test).ravel()
+    network = tf.keras.models.load_model(model_dir+dsid)  
+    network_pred_label = network.predict(X_test, batch_size = 4096, use_multiprocessing = True, verbose = 1).ravel()
     test = Y_test
     pred = network_pred_label
     
     weight_test = np.ones(len(Y_test))
     weight_test[Y_test==0] = np.sum(weight_test[Y_test==1])/np.sum(weight_test[Y_test==0])
-    print(weight_test)
-    unique, counts = np.unique(pred, return_counts=True)
-    print(dict(zip(unique, counts)))
     
     dsid_title = DM_DICT[dsid]
     fpr, tpr, thresholds = roc_curve(test, pred, sample_weight = weight_test, pos_label=1)
@@ -74,8 +75,8 @@ for dsid in DSIDS:
 
 
     plt.figure(2, figsize=[10,6])
-    n, bins, patches = plt.hist(pred[test==0], 200, facecolor='blue', alpha=0.2,label="Background")
-    n, bins, patches = plt.hist(pred[test==1], 200, facecolor='red' , alpha=0.2, label="Signal")
+    n, bins, patches = plt.hist(pred[test==0], weights = X_test_wgt[Y_test==0], bins = 100, facecolor='blue', alpha=0.2, label="Background")
+    n, bins, patches = plt.hist(pred[test==1], weights = X_test_wgt[Y_test==1], bins = 100, facecolor='red' , alpha=0.2, label="Signal")
     plt.xlabel('TF output')
     plt.xlim([0,1])
     plt.ylabel('Events')
@@ -85,6 +86,6 @@ for dsid in DSIDS:
     plt.legend()
     plt.savefig(plot_dir+'VAL.pdf')
     plt.show()
-    break
+    # break
 
 dm_dict_file.close()

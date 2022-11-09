@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_curve, auc
 
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 tf.debugging.set_log_device_placement(False)
@@ -23,9 +22,9 @@ try:
 except FileExistsError:
     pass
 
-def NN_model(inputsize, n_layers, n_neuron, eta, lamda, norm):
-    model=tf.keras.Sequential([norm])      
-    
+def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
+    model=tf.keras.Sequential()
+    model.add(layers.BatchNormalization())
     for i in range(n_layers):                                                # Run loop to add hidden layers to the model
         if (i==0):                                                           # First layer requires input dimensions
             model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(lamda), input_dim=inputsize))
@@ -34,17 +33,15 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda, norm):
             model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(lamda)))
     
     model.add(layers.Dense(1, activation='sigmoid'))                         # 1 output - signal or no signal
-    sgd=tf.optimizers.SGD(learning_rate=eta)
+    adam=tf.optimizers.Adam(learning_rate=eta)
     
     model.compile(loss=tf.losses.BinaryCrossentropy(),
-                optimizer=sgd,
-                metrics = [tf.keras.metrics.BinaryAccuracy()])
+                optimizer=adam,
+                metrics = [tf.keras.metrics.BinaryAccuracy(), tf.keras.metrics.AUC()])
     return model
 
 df_bkgs = pd.read_hdf(save_dir+filename, key='df_tot')
 
-dm_dict_file = open('DM_DICT.json')
-DM_DICT = json.load(dm_dict_file)
 already_done = os.listdir('Plots_NeuralNetwork/DSID/')
 
 for file in os.listdir(save_dir+'/DMS'):
@@ -52,6 +49,7 @@ for file in os.listdir(save_dir+'/DMS'):
     if dsid in already_done: 
         print('Already did DSID', dsid)
         continue
+    # dsid = '514603'
     print('Doing DSID', dsid)
     
     df_dm = pd.read_hdf(save_dir+'DMS/'+dsid+'.h5', key='df_tot')
@@ -63,6 +61,8 @@ for file in os.listdir(save_dir+'/DMS'):
     df_CrossSection = df_features.pop('CrossSection')
     df_RunNumber = df_features.pop('RunNumber')
     df_RunPeriod = df_features.pop('RunPeriod')
+    df_dPhiCloseMet = df_features.pop('dPhiCloseMet')                        # "Bad" variable
+    df_dPhiLeps = df_features.pop('dPhiLeps')                                # "Bad" variable
     
     df_labels = df_features.pop('Label')
     
@@ -70,14 +70,9 @@ for file in os.listdir(save_dir+'/DMS'):
     X_train_wgt = X_train.pop('Weight')
     X_test_wgt = X_test.pop('Weight')
     
-    normalize = layers.experimental.preprocessing.Normalization()
-    # normalize = layers.Normalization()
-    normalize.adapt(X_train)
-
-    network = NN_model(X_train.shape[1], 3, 10, 0.1, 1e-3, normalize)
-    network.fit(X_train, Y_train, epochs=10, batch_size=100, sample_weight=X_train_wgt) # Correct way to use weights?
+    network = NN_model(X_train.shape[1], 3, 10, 0.1, 1e-3)
+    network.fit(X_train, Y_train, sample_weight=X_train_wgt,
+                epochs = 10, batch_size = 8192, use_multiprocessing = True)
     
-    network.save(model_dir+'NEW_WEIGHTED_'+dsid)
-    break
-
-dm_dict_file.close()
+    network.save(model_dir+dsid)
+    # break

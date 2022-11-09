@@ -53,16 +53,13 @@ W_train = pd.DataFrame(W_train, columns=['Weight'])
 
 if wgt == 0:
     print('Doing unweighted training')
-    normalize = layers.Normalization()
 else:
     print('Doing weighted training')
-    normalize = layers.experimental.preprocessing.Normalization()
     
-normalize.adapt(X_train)
 
-def NN_model(inputsize, n_layers, n_neuron, eta, lamda, norm):
-    model=tf.keras.Sequential([norm])
-    
+def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
+    model=tf.keras.Sequential()
+    model.add(layers.BatchNormalization())
     for i in range(n_layers):                                                # Run loop to add hidden layers to the model
         if (i==0):                                                           # First layer requires input dimensions
             model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(lamda), input_dim=inputsize))
@@ -71,26 +68,28 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda, norm):
             model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(lamda)))
     
     model.add(layers.Dense(1, activation='sigmoid'))                         # 1 output - signal or no signal
-    sgd=tf.optimizers.SGD(learning_rate=eta)
+    adam=tf.optimizers.Adam(learning_rate=eta)
     
     model.compile(loss=tf.losses.BinaryCrossentropy(),
-                optimizer=sgd,
+                optimizer=adam,
                 metrics = [tf.keras.metrics.BinaryAccuracy(), tf.keras.metrics.AUC()])
     return model
 
-network = NN_model(X_train.shape[1], 3, 10, 0.1, 1e-3, normalize)
+network = NN_model(X_train.shape[1], 3, 10, 0.1, 1e-3)
+print('Starting fitting')
 if wgt == 0:
-    history = network.fit(X_train, Y_train, validation_data = (X_test, Y_test), epochs=10, batch_size=10000)
+    history = network.fit(X_train, Y_train, validation_data = (X_test, Y_test), epochs=10, batch_size=8192)
 
-# else:                                                                      # Old weighting method
-#     history = network.fit(X_train, Y_train, sample_weight = X_train_w, 
-#                     validation_data = (X_test, Y_test, X_test_w),          # OBS ONLY WORKS FOR TENSORFLOW VERSION 2.5.0
-#                     epochs = 10, batch_size = 10000)
+else:                                                                        # Should work??
+    history = network.fit(X_train, Y_train, sample_weight = X_train_w,       # OBS ONLY WORKS FOR TENSORFLOW VERSION 2.5.0 
+                    validation_data = (X_test, Y_test),            
+                    epochs = 10, batch_size = 8192, use_multiprocessing = True)
 
-else:    
-    history = network.fit(X_train, Y_train, sample_weight = W_train, 
-                    validation_data = (X_test, Y_test, W_test),              # OBS ONLY WORKS FOR TENSORFLOW VERSION 2.5.0
-                    epochs = 10, batch_size = 10000)
+
+# else:                                                                        # Shady weighting
+#     history = network.fit(X_train, Y_train, sample_weight = W_train, 
+#                     validation_data = (X_test, Y_test),              
+#                     epochs = 10, batch_size = 8192)
 
 model_dir = 'Models/NN/'
 try:
@@ -100,18 +99,14 @@ except FileExistsError:
     pass
 
 if wgt == 0:
-    # network.save(model_dir+'FULL_UNWEIGHTED')
     network.save(model_dir+'Diboson_UNWEIGHTED')
 else:
-    # network.save(model_dir+'FULL_WEIGHTED')
-    network.save(model_dir+'Diboson_WEIGHTED_NEW')
+    network.save(model_dir+'Diboson_WEIGHTED')
 
 if wgt == 0:
-    # plot_dir = 'Plots_NeuralNetwork/ALL/UNWEIGHTED/'
     plot_dir = 'Plots_NeuralNetwork/Diboson/UNWEIGHTED/'
 else:
-    # plot_dir = 'Plots_NeuralNetwork/ALL/WEIGHTED/'
-    plot_dir = 'Plots_NeuralNetwork/Diboson/WEIGHTED_NEW/'
+    plot_dir = 'Plots_NeuralNetwork/Diboson/WEIGHTED/'
 
 try:
     os.makedirs(plot_dir)
@@ -142,7 +137,7 @@ plt.show()
 plt.figure(3)
 plt.plot(history.history['auc'], label = 'Train')
 plt.plot(history.history['val_auc'], label = 'Test')
-plt.title('Model accuracy')
+plt.title('Area Under Curve ')
 plt.ylabel('AUC')
 plt.xlabel('Epoch')
 plt.legend()

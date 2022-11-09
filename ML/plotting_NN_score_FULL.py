@@ -33,17 +33,11 @@ X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test
 X_train_w = X_train.pop('Weight')
 X_test_w = X_test.pop('Weight')
 
-# model_type = 'FULL_UNWEIGHTED'
-# model_type = 'FULL_WEIGHTED'
-# model_type = 'Diboson_UNWEIGHTED'
-model_type = 'Diboson_WEIGHTED_NEW'
+model_type = 'Diboson_WEIGHTED'
 network = tf.keras.models.load_model(model_dir+model_type)  
-network_pred_label = network.predict(X_test).ravel()
+network_pred_label = network.predict(X_test, batch_size = 4096, use_multiprocessing = True, verbose = 1).ravel()
 
-# plot_dir = 'Plots_NeuralNetwork/ALL/UNWEIGHTED/'
-# plot_dir = 'Plots_NeuralNetwork/ALL/WEIGHTED/'
-# plot_dir = 'Plots_NeuralNetwork/Diboson/UNWEIGHTED/'
-plot_dir = 'Plots_NeuralNetwork/Diboson/WEIGHTED_NEW/'
+plot_dir = 'Plots_NeuralNetwork/Diboson/WEIGHTED/'
 
 try:
     os.makedirs(plot_dir)
@@ -51,7 +45,6 @@ try:
 except FileExistsError:
     pass
 
-network_pred_label = network.predict(X_test).ravel()
 test = Y_test
 pred = network_pred_label
 
