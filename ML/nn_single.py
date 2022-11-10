@@ -15,7 +15,7 @@ print(tf.__version__)
 save_dir = "../../../storage/racarcam/"
 filename = "bkgs.h5"
 
-model_dir = 'Models/NN/'
+model_dir = 'Models/NN/DSID/WEIGHTED'
 try:
     os.makedirs(model_dir)
 
@@ -42,14 +42,15 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
 
 df_bkgs = pd.read_hdf(save_dir+filename, key='df_tot')
 
-already_done = os.listdir('Plots_NeuralNetwork/DSID/')
+already_done = os.listdir(model_dir)
 
 for file in os.listdir(save_dir+'/DMS'):
     dsid = file.split('.')[0]
     if dsid in already_done: 
         print('Already did DSID', dsid)
-        continue
-    # dsid = '514603'
+        continue  
+    dsid = '514562'
+    # dsid = '514630'  
     print('Doing DSID', dsid)
     
     df_dm = pd.read_hdf(save_dir+'DMS/'+dsid+'.h5', key='df_tot')
@@ -70,9 +71,13 @@ for file in os.listdir(save_dir+'/DMS'):
     X_train_wgt = X_train.pop('Weight')
     X_test_wgt = X_test.pop('Weight')
     
+    W_train = np.ones(len(Y_train))
+    W_train[Y_train==0] = sum(W_train[Y_train==1])/sum(W_train[Y_train==0])
+    W_train = pd.DataFrame(W_train, columns=['Weight'])                      # Has to be a pandas DataFrame or it crashes
+    
     network = NN_model(X_train.shape[1], 3, 10, 0.1, 1e-3)
-    network.fit(X_train, Y_train, sample_weight=X_train_wgt,
+    network.fit(X_train, Y_train, sample_weight=W_train,
                 epochs = 10, batch_size = 8192, use_multiprocessing = True)
     
     network.save(model_dir+dsid)
-    # break
+    break

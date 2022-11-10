@@ -14,16 +14,15 @@ print(tf.__version__)
 
 model_dir = 'Models/NN/'
 save_dir = "../../../storage/racarcam/"
-filename = "Stat_red_bkgs.h5"
+filename = "bkgs.h5"
 df_bkgs = pd.read_hdf(save_dir+filename, key='df_tot')
 
-DSIDS = os.listdir('Models/NN/')
+DSIDS = os.listdir('Models/NN/DSID/WEIGHTED/')
 dm_dict_file = open('DM_DICT.json')
 DM_DICT = json.load(dm_dict_file)
 
 for dsid in DSIDS:
-    dsid = '514603' # test sample for weighting
-    plot_dir = 'Plots_NeuralNetwork/DSID/'+dsid+'/'
+    plot_dir = 'Plots_NeuralNetwork/DSID/'+dsid+'/WEIGHTED/'
 
     try:
         os.makedirs(plot_dir)
@@ -86,6 +85,6 @@ for dsid in DSIDS:
     plt.legend()
     plt.savefig(plot_dir+'VAL.pdf')
     plt.show()
-    # break
+    break
 
 dm_dict_file.close()

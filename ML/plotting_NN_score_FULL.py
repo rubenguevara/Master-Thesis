@@ -14,8 +14,7 @@ print(tf.__version__)
 
 model_dir = 'Models/NN/'
 save_dir = "../../../storage/racarcam/"
-# filename = 'Full_DM_sig.h5'
-filename = 'Find_Diboson.h5'
+filename = 'Full_DM_sig.h5'
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 
@@ -33,12 +32,12 @@ X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test
 X_train_w = X_train.pop('Weight')
 X_test_w = X_test.pop('Weight')
 
-model_type = 'Diboson_WEIGHTED'
+model_type = 'FULL_WEIGHTED'
+
 network = tf.keras.models.load_model(model_dir+model_type)  
 network_pred_label = network.predict(X_test, batch_size = 4096, use_multiprocessing = True, verbose = 1).ravel()
 
-plot_dir = 'Plots_NeuralNetwork/Diboson/WEIGHTED/'
-
+plot_dir = 'Plots_NeuralNetwork/FULL/WEIGHTED/'
 try:
     os.makedirs(plot_dir)
 
@@ -59,7 +58,7 @@ plt.xlim([-0.01, 1.02])
 plt.ylim([-0.01, 1.02])
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('Unweighted ROC on full DM dataset')
+plt.title('Unweighted ROC on Full DM dataset')
 plt.legend(loc="lower right")
 plt.savefig(plot_dir+'ROC_uw.pdf')
 plt.show()
@@ -78,26 +77,10 @@ plt.xlim([-0.01, 1.02])
 plt.ylim([-0.01, 1.02])
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('Estimated weight ROC on full DM dataset')
+plt.title('Weighted ROC on Full DM dataset')
 plt.legend(loc="lower right")
 plt.savefig(plot_dir+'ROC_we.pdf')
 plt.show()
-
-# fpr, tpr, thresholds = roc_curve(test, pred, sample_weight = X_test_w, pos_label=1)
-# roc_auc = auc(fpr,tpr)
-
-# plt.figure(2)
-# plt.plot(fpr, tpr, color='darkorange', lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
-# plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-# plt.xlim([-0.01, 1.02])
-# plt.ylim([-0.01, 1.02])
-# plt.xlabel('False Positive Rate')
-# plt.ylabel('True Positive Rate')
-# plt.title('Real weight ROC on full DM dataset')
-# plt.legend(loc="lower right")
-# plt.savefig(plot_dir+'ROC_wr.pdf')
-# plt.show()
-
 
 plt.figure(3, figsize=[10,6])
 n, bins, patches = plt.hist(pred[test==0], bins = 100, facecolor='blue', alpha=0.2, label="Background")
