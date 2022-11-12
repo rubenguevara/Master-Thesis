@@ -54,6 +54,7 @@ makeMYTree::makeMYTree(TString MCID, TString syst, TString fileName, TString tre
   tree->Branch("dPhiLeadMet",                                        &bMY_dPhiLeadMet);                                
   tree->Branch("dPhiLeps",                                           &bMY_dPhiLeps);          
   tree->Branch("Weight",                                             &bMY_Weight);                                         
+  tree->Branch("Dileptons",                                          &bMY_Dileptons);                                   
   tree->Branch("CrossSection",                                       &bMY_CrossSection);                                     
   tree->Branch("RunNumber",                                          &bMY_RunNumber);                                        
   tree->Branch("RunPeriod",                                          &bMY_RunPeriod);                 

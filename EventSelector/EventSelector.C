@@ -620,6 +620,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_dPhiLLMet = (ll.DeltaPhi(met_lor));  
   MY->bMY_dPhiCloseMet = (dPhiCloseMet);  
   MY->bMY_dPhiLeadMet = (dPhiLeadMet);  
+  MY->bMY_Dileptons = (dileptons);
   MY->bMY_CrossSection = (xs);
   MY->bMY_EventID = (*event);
   MY->bMY_RunNumber = (*run);  
