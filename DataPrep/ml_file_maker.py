@@ -1,5 +1,5 @@
 import pandas as pd
-import os, time
+import os, time, json
 from EventIDs import IDs
 import numpy as np
 import uproot as up
@@ -10,9 +10,9 @@ save_dir = "../../../storage/racarcam/"
 
 
 ## Customize files here
-dm1 = save_dir + "DMx50MET.root"
-Run2_bkgs = save_dir + "Run2x50MET.root"
-filename = 'DM_Run2_50MET.h5' 
+dm1 = save_dir + "DM50MET.root"
+Run2_bkgs = save_dir + "Run250MET.root"
+filename = 'FULL_DM_50MET.h5' 
 
 thing = up.open(Run2_bkgs)
 
@@ -78,9 +78,45 @@ print( "Time spent making mixed df: "+str(t)+" min")
 print( "---"*40)
 
 print('REMOVING WEIGHT = 0 EVENTS')
-df_weight_0 = df_tot[df_tot['Weight'] == 0].index  # MET cut after?
+df_weight_0 = df_tot[df_tot['Weight'] == 0].index
 print(df_tot[df_tot['Weight'] == 0])
 df_tot = df_tot.drop(df_weight_0).reset_index(drop=True)
+print(df_tot)
+
+print("---"*40)
+print('Weight fixing')
+print("---"*40)
+
+sow_bkg_file = open('SOW_bkg.json')
+SOW_bkg = json.load(sow_bkg_file)
+sow_sig_file = open('SOW_sig_AFII.json')
+SOW_sig = json.load(sow_sig_file)
+
+cols = df_tot.columns.tolist()
+
+df_tot.rename(columns = {'Weight':'OldWeight'}, inplace = True)
+
+new_weights = []
+for w, dsid, mcrun, label in zip(df_tot['OldWeight'], df_tot['RunNumber'], df_tot['RunPeriod'], df_tot['Label']):
+    if label == 0:
+        sow = SOW_bkg[mcrun][str(dsid)]
+    elif label == 1:
+        sow = SOW_sig[mcrun][str(dsid)]
+    
+    if mcrun == 'mc16a':
+        lumi = 36.2
+    elif mcrun == 'mc16d':
+        lumi = 44.3        
+    elif mcrun == 'mc16e':
+        lumi = 58.5
+    wgt = lumi*w/sow
+    new_weights.append(wgt)
+sow_bkg_file.close()
+sow_sig_file.close()
+
+old = df_tot.pop('OldWeight')
+df_tot['Weight'] = new_weights
+df_tot = df_tot[cols]
 print(df_tot)
 
 t = "{:.2f}".format(int( time.time()-t0 )/60.)
