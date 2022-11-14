@@ -2,22 +2,16 @@ import os, time
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from EventIDs import IDs
-
+import multiprocessing as mp
 
 t0 = time.time()
 
 model_dir = 'Models/NN/'
 save_dir = "../../../storage/racarcam/"
 filename = "FULL_DM_50MET.h5"
-datafile = 'data.h5'
 
-# df_data = pd.read_hdf(save_dir+datafile, key='df')
 df = pd.read_hdf(save_dir+filename, key='df_tot')
-
-# dm_dict_file = open('DM_DICT.json')
-# DM_DICT = json.load(dm_dict_file)
 
 """
 Choose what you want to plot!
@@ -26,7 +20,7 @@ dsid_LV_HDS_MZ_130 = [514562, 514563]
 dsid_DH_HDS_MZ_130 = [514560, 514561] 
 dsid_EFT_HDS_MZ_130 = [514564, 514565] 
 
-plot_dir = 'Plots_data_analysis/HDS_MZp_130_ee/UNCUT/'
+plot_dir = 'Plots_data_analysis/HDS_MZp_130_ee/CUT/'
 
 try:
     os.makedirs(plot_dir)
@@ -45,50 +39,55 @@ df_dPhiCloseMet = df_features.pop('dPhiCloseMet')                        # "Bad"
 df_dPhiLeps = df_features.pop('dPhiLeps')                                # "Bad" variable
 df_labels = df_features.pop('Label')
 
+# """ Make cuts here """
+# df_features = df_features.loc[df_features['met_sig'] > 2]      
+# df_features = df_features.loc[df_features['mt'] > 120]          
+# df_features = df_features.loc[df_features['dPhiLLMet'] > 0.7]       
+# df_features = df_features.loc[df_features['jetB'] <= 3]             
+# df_features = df_features.loc[df_features['jetLight'] <= 5]          
+# df_features = df_features.loc[df_features['mll'] < 250]          
+# df_features = df_features.loc[df_features['jet2Pt'] < 600]                  
+
 variables = df_features.columns[:-3]
-x_axis = np.linspace(0, 100, 74)
-# data_train = np.histogram(D_train[variable], bins = 74, range = (0, 100))
-# data_test = np.histogram(D_test[variable], bins = 74, range = (0, 100))
 
-var_ax = {}
+def plot_maker(variable):
+    var_ax = {}
 
-var_ax['lep1Pt'] = '$p_{T}^{1}$ [GeV]'
-var_ax['lep2Pt'] = '$p_{T}^{2}$ [GeV]'
-var_ax['lep1Eta'] = '$\eta_{1}$'
-var_ax['lep2Eta'] = '$\eta_{2}$'
-var_ax['jet1Pt'] = 'jet $p_{T}^{1}$ [GeV]'
-var_ax['jet2Pt'] = 'jet $p_{T}^{2}$ [GeV]'
-var_ax['jet1Eta'] = 'jet $\eta_{1}$'
-var_ax['jet2Eta'] = 'jet $\eta_{2}$'
-var_ax['mll'] = '$m_{ll}$ [GeV]'
-var_ax['met'] = '$E_{T}^{miss}$ [GeV]'
-var_ax['met_sig'] = '$E_{T}^{miss}/sigma$'
-var_ax['mt'] = '$m_{T}$ [GeV]'
-var_ax['ht'] = '$H_{T}$ [GeV]'
-var_ax['dPhiLeadMet'] = '$|\Delta\phi(l_{lead}, E_{T}^{miss})|$'
-var_ax['dPhiLLMet'] = '$|\Delta\phi(ll, E_{T}^{miss})|$'
-var_ax['mt2'] = '$m_{T2}$ [GeV]'
-var_ax['jetB'] = 'Number of B jets'
-var_ax['jetLight'] = 'Number of light jets'
-var_ax['jetTot'] = 'Total number of jets'
-var_ax['et'] = '$E_{T}$ [GeV]'
-var_ax['lep1Phi'] = '$\phi_{1}$'
-var_ax['lep2Phi'] = '$\phi_{2}$'
-var_ax['jet1Phi'] = 'jet $\phi_{1}$'
-var_ax['jet2Phi'] = 'jet $\phi_{2}$'
+    var_ax['lep1Pt'] = '$p_{T}^{1}$ [GeV]'
+    var_ax['lep2Pt'] = '$p_{T}^{2}$ [GeV]'
+    var_ax['lep1Eta'] = '$\eta_{1}$'
+    var_ax['lep2Eta'] = '$\eta_{2}$'
+    var_ax['jet1Pt'] = 'jet $p_{T}^{1}$ [GeV]'
+    var_ax['jet2Pt'] = 'jet $p_{T}^{2}$ [GeV]'
+    var_ax['jet1Eta'] = 'jet $\eta_{1}$'
+    var_ax['jet2Eta'] = 'jet $\eta_{2}$'
+    var_ax['mll'] = '$m_{ll}$ [GeV]'
+    var_ax['met'] = '$E_{T}^{miss}$ [GeV]'
+    var_ax['met_sig'] = '$E_{T}^{miss}/sigma$'
+    var_ax['mt'] = '$m_{T}$ [GeV]'
+    var_ax['ht'] = '$H_{T}$ [GeV]'
+    var_ax['dPhiLeadMet'] = '$|\Delta\phi(l_{lead}, E_{T}^{miss})|$'
+    var_ax['dPhiLLMet'] = '$|\Delta\phi(ll, E_{T}^{miss})|$'
+    var_ax['mt2'] = '$m_{T2}$ [GeV]'
+    var_ax['jetB'] = 'Number of B jets'
+    var_ax['jetLight'] = 'Number of light jets'
+    var_ax['jetTot'] = 'Total number of jets'
+    var_ax['et'] = '$E_{T}$ [GeV]'
+    var_ax['lep1Phi'] = '$\phi_{1}$'
+    var_ax['lep2Phi'] = '$\phi_{2}$'
+    var_ax['jet1Phi'] = 'jet $\phi_{1}$'
+    var_ax['jet2Phi'] = 'jet $\phi_{2}$'
 
-x_axis_gen = np.linspace(20, 3500, 74)
-x_eta = np.linspace(-3, 3, 50);
-x_met = np.linspace(20, 2500, 74)
-x_mt2 = np.linspace(20, 1500, 74)
-x_met_sig = np.linspace(0, 100, 74)
-x_et = np.linspace(20, 3000, 74)
-x_phi = np.linspace(-np.pi, np.pi, 50)
-x_dphi = np.linspace(0, np.pi, 30) 
-x_jets = np.linspace(0, 7, 8)
+    x_axis_gen = np.linspace(20, 3500, 74)
+    x_eta = np.linspace(-3, 3, 50);
+    x_met = np.linspace(20, 2500, 74)
+    x_mt2 = np.linspace(20, 1500, 74)
+    x_met_sig = np.linspace(0, 100, 74)
+    x_et = np.linspace(20, 3000, 74)
+    x_phi = np.linspace(-np.pi, np.pi, 50)
+    x_dphi = np.linspace(0, np.pi, 30) 
+    x_jets = np.linspace(0, 7, 8)
 
-
-for variable in variables:
     print('Plotting', variable)
     x_axis = x_axis_gen
     if 'Phi' in variable:
@@ -109,7 +108,7 @@ for variable in variables:
     if variable =='met_sig':
         x_axis = x_met_sig
     
-    if variable == 'jetB' or variable == 'jetLight' or variable == 'jetLight':
+    if variable == 'jetB' or variable == 'jetLight' or variable == 'jetTot':
         x_axis = x_jets
     
     if variable == 'et':
@@ -163,6 +162,10 @@ for variable in variables:
     plt.xlim([x_axis[0], x_axis[-1]])
     plt.savefig(plot_dir+variable+'.pdf')
     plt.show()
-    
+
+with mp.Pool(processes=len(variables)) as pool:
+    pool.map(plot_maker, variables)
+pool.close()
+
 t = "{:.2f}".format(int( time.time()-t0 )/60.)
 print( "Time spent: "+str(t)+" min")
