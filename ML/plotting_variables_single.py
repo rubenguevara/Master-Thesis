@@ -1,17 +1,16 @@
-import os, time
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from EventIDs import IDs
 import multiprocessing as mp
 
-t0 = time.time()
-
 model_dir = 'Models/NN/'
 save_dir = "../../../storage/racarcam/"
 filename = "FULL_DM_50MET.h5"
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
+
 
 """
 Choose what you want to plot!
@@ -20,7 +19,9 @@ dsid_LV_HDS_MZ_130 = [514562, 514563]
 dsid_DH_HDS_MZ_130 = [514560, 514561] 
 dsid_EFT_HDS_MZ_130 = [514564, 514565] 
 
-plot_dir = 'Plots_data_analysis/HDS_MZp_130_ee/CUT/'
+chnl = 'uu'
+
+plot_dir = 'Plots_data_analysis/HDS_MZp_130_'+chnl+'/CUT/'
 
 try:
     os.makedirs(plot_dir)
@@ -28,27 +29,68 @@ try:
 except FileExistsError:
     pass
 
-df_ee = df.loc[df['Dileptons'] == 'ee']
+df_chnl = df.loc[df['Dileptons'] == chnl]
 
-df_features = df_ee.copy()
+if chnl == 'uu':
+    chnl = '$\mu\mu$'
+
+df_features = df_chnl.copy()
 df_EventID = df_features.pop('EventID')
 df_CrossSection = df_features.pop('CrossSection')
-# df_RunNumber = df_features.pop('RunNumber')
 df_RunPeriod = df_features.pop('RunPeriod')
-df_dPhiCloseMet = df_features.pop('dPhiCloseMet')                        # "Bad" variable
-df_dPhiLeps = df_features.pop('dPhiLeps')                                # "Bad" variable
-df_labels = df_features.pop('Label')
+df_dPhiCloseMet = df_features.pop('dPhiCloseMet')                           # "Bad" variable
+df_dPhiLeps = df_features.pop('dPhiLeps')                                   # "Bad" variable
 
-# """ Make cuts here """
-# df_features = df_features.loc[df_features['met_sig'] > 2]      
-# df_features = df_features.loc[df_features['mt'] > 120]          
-# df_features = df_features.loc[df_features['dPhiLLMet'] > 0.7]       
-# df_features = df_features.loc[df_features['jetB'] <= 3]             
-# df_features = df_features.loc[df_features['jetLight'] <= 5]          
-# df_features = df_features.loc[df_features['mll'] < 250]          
-# df_features = df_features.loc[df_features['jet2Pt'] < 600]                  
+s_LV_u = sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_LV_HDS_MZ_130[0]])
+s_LV_u += sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_LV_HDS_MZ_130[1]])
+s_DH_u = sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_DH_HDS_MZ_130[0]])
+s_DH_u += sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_DH_HDS_MZ_130[1]])
+s_EFT_u = sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_EFT_HDS_MZ_130[0]])
+s_EFT_u += sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_EFT_HDS_MZ_130[1]])
+b_u = sum(df_features['Weight'].loc[df_features['Label'] == 0])
 
-variables = df_features.columns[:-3]
+print('===='*12, 'Events before cuts', '===='*12)
+print(int(s_LV_u), 'Light Vector events')
+print(int(s_DH_u), 'Dark Higgs events')
+print(int(s_EFT_u), ' EFT events')
+print(int(b_u), 'background events')
+
+def low_stat_Z(sig, bkg):
+    Z = np.sqrt(2*( (sig + bkg)*np.log(1 + sig/bkg) - sig ))
+    return Z
+
+""" Make cuts here """
+df_features = df_features.loc[df_features['met_sig'] > 10]                  
+df_features = df_features.loc[df_features['mt'] > 160]                      
+df_features = df_features.loc[df_features['mll'] > 120]                     
+df_features = df_features.loc[df_features['jetB'] == 0]                               
+df_features = df_features.loc[df_features['mt2'] > 110]        
+
+
+variables = df_features.columns[:-4]
+
+print('===='*12, 'Events after cuts ', '===='*12)
+s_LV = sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_LV_HDS_MZ_130[0]])
+s_LV += sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_LV_HDS_MZ_130[1]])
+s_DH = sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_DH_HDS_MZ_130[0]])
+s_DH += sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_DH_HDS_MZ_130[1]])
+s_EFT = sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_EFT_HDS_MZ_130[0]])
+s_EFT += sum(df_features['Weight'].loc[df_features['RunNumber'] == dsid_EFT_HDS_MZ_130[1]])
+b = sum(df_features['Weight'].loc[df_features['Label'] == 0])
+
+
+print(int(s_LV), 'Light Vector events')
+print(int(s_DH), 'Dark Higgs events')
+print(int(s_EFT), ' EFT events')
+print(int(b), 'background events')
+
+
+print('===='*29)
+print('The expected significance for Light Vector is        %.3f sigma' %low_stat_Z(s_LV, b))
+print('The expected significance for Dark Higgs is          %.3f sigma' %low_stat_Z(s_DH, b))
+print('The expected significance for EFT is                 %.3f sigma' %low_stat_Z(s_EFT, b))
+
+
 
 def plot_maker(variable):
     var_ax = {}
@@ -88,7 +130,6 @@ def plot_maker(variable):
     x_dphi = np.linspace(0, np.pi, 30) 
     x_jets = np.linspace(0, 7, 8)
 
-    print('Plotting', variable)
     x_axis = x_axis_gen
     if 'Phi' in variable:
         x_axis = x_phi
@@ -154,7 +195,7 @@ def plot_maker(variable):
     plt.hist(EFT, weights=EFT_w, bins = x_axis,  label='Effective Field Theory', histtype='step', color='red')
     plt.figtext(0.3, 0.82, 'ATLAS', fontstyle='italic', fontweight='bold')
     plt.figtext(0.3 + 0.045, 0.82, 'Preliminary')
-    plt.figtext(0.3, 0.79, '$>50GeV$ $E_{T}^{miss},$ $ee$')
+    plt.figtext(0.3, 0.79, '$>50GeV$ $E_{T}^{miss}$, '+chnl)
     plt.xlabel(var_ax[variable]); plt.ylabel('Events'); 
     plt.title("Signal search for Heavy Dark Sector and $m_{Z'}=130G$eV")
     plt.yscale('log') 
@@ -162,10 +203,7 @@ def plot_maker(variable):
     plt.xlim([x_axis[0], x_axis[-1]])
     plt.savefig(plot_dir+variable+'.pdf')
     plt.show()
-
+    
 with mp.Pool(processes=len(variables)) as pool:
     pool.map(plot_maker, variables)
 pool.close()
-
-t = "{:.2f}".format(int( time.time()-t0 )/60.)
-print( "Time spent: "+str(t)+" min")
