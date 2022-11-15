@@ -6,21 +6,26 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc
+import xgboost as xgb
 
+ML = 'BDT'
 
-print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-tf.debugging.set_log_device_placement(False)
+if ML == 'NN':
+    print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+    tf.debugging.set_log_device_placement(False)
 
-print(tf.__version__)
+    print(tf.__version__)
 
-model_dir = 'Models/NN/'
+elif ML == 'BDT':
+    print(xgb.__version__)
+    
 save_dir = "../../../storage/racarcam/"
 filename = "FULL_DM_50MET.h5"
 
-chnl = 'ee'
-model = 'EFT'
+chnl = 'uu'
+model = 'LV'
 
-print('Doing', model, chnl)
+print('Doing', model, chnl, 'on', ML)
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 df_chnl = df.loc[df['Dileptons'] == chnl]
@@ -75,8 +80,6 @@ X_test_LV_w = X_test_LV.pop('Weight')
 X_test_DH_w = X_test_DH.pop('Weight')
 X_test_EFT_w = X_test_EFT.pop('Weight')
 
-model_type = 'FULL_WEIGHTED'
-
 if model == 'LV':
     X_test = X_test_LV
     W_test = X_test_LV_w
@@ -95,11 +98,25 @@ elif model == 'EFT':
 else:
     print("Model "+model+" not indluded!")
     exit()
-    
-network = tf.keras.models.load_model(model_dir+model_type)  
-network_pred_label = network.predict(X_test, batch_size = 2048, use_multiprocessing = True, verbose = 1).ravel()
 
-plot_dir = 'Plots_NeuralNetwork/FULL/SIGNIFICANCE/'+model+'/'
+if ML =='NN':
+    plot_dir = 'Plots_NeuralNetwork/FULL/SIGNIFICANCE/'+model+'/'
+    model_dir = 'Models/NN/'
+    model_type = 'FULL_WEIGHTED'    
+    network = tf.keras.models.load_model(model_dir+model_type)  
+    network_pred_label = network.predict(X_test, batch_size = 2048, use_multiprocessing = True, verbose = 1).ravel()
+
+elif ML == 'BDT':
+    plot_dir = 'Plots_XGBoost/FULL/SIGNIFICANCE/'+model+'/'
+    model_dir = 'Models/XGB/'
+    model_xgb = xgb.XGBClassifier()
+    model_xgb.load_model(model_dir+'FULL.txt')
+
+    # y_pred = xgbclassifier.predict(X_test)
+    y_pred_prob = model_xgb.predict_proba(X_test)
+    network_pred_label = y_pred_prob[:,1]
+
+
 try:
     os.makedirs(plot_dir)
 
