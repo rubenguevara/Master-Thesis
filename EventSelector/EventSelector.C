@@ -57,6 +57,7 @@ Int_t n_trig_u = 0, n_jetclean_u = 0, n_twolep_u = 0, n_loose_u = 0, n_mubad = 0
 Int_t passed_pt30 = 0; 
 Float_t min_MET = 999; 
 Int_t n_2lep_truth = 0, n_not2lep_truth;  
+Int_t n_el = 0, n_mu = 0, n_jet = 0;
 
 // Weight sums 
 Float_t s_mc_e = 0, s_kf_e = 0, s_pu_e = 0, s_xs_e = 0, s_lsf_e = 0, s_trig_e = 0, s_tt_e = 0, s_wgt_e = 0;     
@@ -186,7 +187,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   nevents++; eventID = *event;
 
   if(nevents%1000000 == 0){cout << nevents/1000000 << " million events processed" << endl; } 
-  // if(nevents>10){return kTRUE;} 
+  if(nevents>10){return kTRUE;} 
   
   
   if( isData ){
@@ -198,8 +199,8 @@ Bool_t EventSelector::Process(Long64_t entry){
     TObjArray *path = (TString(((TChain*)(EventSelector::fChain))->GetFile()->GetName())).Tokenize(".");
     
     
-    period = ((TObjString *)(path->At(6)))->String();  //4
-    TString file_nr = ((TObjString *)(path->At(11)))->String();  //9
+    period = ((TObjString *)(path->At(6)))->String();  
+    TString file_nr = ((TObjString *)(path->At(11)))->String(); 
 
     final_name = period+file_nr;
     delete path;
@@ -219,8 +220,8 @@ Bool_t EventSelector::Process(Long64_t entry){
     prev_DSID = DSID; 
     
     TObjArray *path = (TString(((TChain*)(EventSelector::fChain))->GetFile()->GetName())).Tokenize(".");
-    name_1 = ((TObjString *)(path->At(7)))->String(); //5
-    TString file_nr = ((TObjString *)(path->At(11)))->String();//9
+    name_1 = ((TObjString *)(path->At(7)))->String(); 
+    TString file_nr = ((TObjString *)(path->At(11)))->String();
     string name_2(name_1);
     name_2.erase(name_2.end()-10, name_2.end()); 
     if(isAFII){ final_name = TString(name_2)+"_AFII"+file_nr; } 
@@ -244,29 +245,14 @@ Bool_t EventSelector::Process(Long64_t entry){
   // Triggers, isolation and cleaning //
   //==================================//
 
-  Int_t el_trig = 0, mu_trig = 0;  
+  Int_t ee_trig = *pass_ee_trig, uu_trig = *pass_uu_trig, e_trig = *pass_e_trig, u_trig = *pass_u_trig;
+  Int_t mu_trig = uu_trig, el_trig = ee_trig; 
 
-  if(yr==2015){ 
-    if( *trigger_HLT_2e12_lhloose_L12EM10VH ){ el_trig = 1; n_trig_e++; }
-    if( *trigger_HLT_mu26_imedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
-  }
-  if(yr==2016){ 
-    if( *trigger_HLT_2e17_lhvloose_nod0 ){ el_trig = 1; n_trig_e++; }
-    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
-  }
-  if(yr==2017){
-    if( *trigger_HLT_2e24_lhvloose_nod0 ){el_trig = 1; n_trig_e++;}
-    if((isData && (*run<326834 || *run>328393)) || isMC ){ // (isMC && *systName=="" && doSyst && (*randomRunNumber<326834 || *randomRunNumber>328393)) ){
-      if( *trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI ){el_trig = 1; n_trig_e++;}
-    }  
-    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
-  }
-  if(yr==2018){
-    if( *trigger_HLT_2e24_lhvloose_nod0 || *trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI ){el_trig = 1; n_trig_e++;}
-    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
-  }
-
-  if( el_trig == 0 && mu_trig == 0 ){ return kTRUE; } 
+  Int_t pass_l_trig = 0, pass_ll_trig = 0;
+  if(ee_trig || uu_trig){ pass_ll_trig = 1; }
+  if( u_trig ){pass_l_trig = 1; } // e_trig ||
+  
+  if (pass_ll_trig == 0 && pass_l_trig == 0){ return kTRUE; }
 
   if(*jetCleaning_eventClean == 0){ return kTRUE; } 
   if(doCutflow==1){
@@ -277,16 +263,24 @@ Bool_t EventSelector::Process(Long64_t entry){
   Int_t n_loose_mu = 0; vector<Int_t> loose_mu = {}; 
   Int_t n_loose_mu_f = 0; vector<Int_t> loose_mu_f = {}; 
   Int_t n_mu_bad = 0; 
-  for(Int_t i = 0; i<*n_mu; i++){
-    if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
-    if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
+
+
+  n_mu = mu_pt.GetSize();
+  for(Int_t i = 0; i<n_mu; i++){
+    // if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
+    if(mu_passTTVA[i]){n_loose_mu++; loose_mu.push_back(i);}
+    // if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
     if(mu_isBad[i]){n_mu_bad++; } 
   }
-  for(Int_t i = 0; i<*n_jet; i++){
+  n_jet = jet_eta.GetSize();
+  n_el = el_pt.GetSize();
+
+  for(Int_t i = 0; i<n_jet; i++){
     float jetpt = jet_pt[i];}
   Int_t n_loose_el = 0; vector<Int_t> loose_el = {}; 
-  for(Int_t i = 0; i<*n_el; i++){
-    if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
+  for(Int_t i = 0; i<n_el; i++){
+    // if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
+    if(el_passTTVA[i]){n_loose_el++; loose_el.push_back(i);}
   }
 
   Int_t n_loose_lep = n_loose_el + n_loose_mu;
@@ -365,8 +359,8 @@ Bool_t EventSelector::Process(Long64_t entry){
 
   TLorentzVector totalj, ajet, j1, j2;
   n_bjet77 = 0; n_bjet85 = 0; nljets = 0; nbjets = 0;  
-  for(Int_t i = 0; i<*n_jet; i++){
-    if(*n_jet >= 2){
+  for(Int_t i = 0; i<n_jet; i++){
+    if(n_jet >= 2){
       j1.SetPtEtaPhiM(jet_pt[0]/1000., jet_eta[0], jet_phi[0], jet_m[0]/1000.);
       j2.SetPtEtaPhiM(jet_pt[1]/1000., jet_eta[1], jet_phi[1], jet_m[1]/1000.);}
     ajet.SetPtEtaPhiM(jet_pt[i]/1000., jet_eta[i], jet_phi[i], jet_m[i]/1000.);
@@ -594,7 +588,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_jetB = (nbjets);  
   MY->bMY_jetLight = (nljets);   
   MY->bMY_jetTot = (nbjets+nljets);  
-  if(*n_jet >=2){
+  if(n_jet >=2){
   MY->bMY_jet1Pt = (j1.Pt());  
   MY->bMY_jet1Eta = (j1.Eta());  
   MY->bMY_jet1Phi = (j1.Phi());

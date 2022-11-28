@@ -1,20 +1,20 @@
 import ROOT as R
-import os, sys
+import os, sys, json
 from EventIDs import IDs
 from Plot_Maker import Plot_Maker
 from SOW import SOW_bkg, SOW_sig_AFII#, SOW_AFII, SOW_sig_AFII
 from collections import OrderedDict
 
 
-rootdir = '../EventSelector/Histograms'
+rootdir = '../EventSelector/Histograms_SUSY'
 BigDic = {}; variables = []; dsid_list = {}
 Types = ["Drell Yan", 'Single Top', "Diboson", "W", "TTbar", "Signal"]
-mc_year = ['mc16a', 'mc16d', 'mc16e']
+mc_year = ['mc16a']#, 'mc16d', 'mc16e']
 
 
-for subdir, dirs, files in os.walk(rootdir+'/mc16d'):
+for subdir, dirs, files in os.walk(rootdir+'/mc16a'):
     for file in files:
-        if '514' in file: continue
+        if '50' in file: continue
         c = os.path.join(subdir, file)
         myfile = R.TFile.Open(c)
         for variable in myfile.GetListOfKeys():
@@ -30,7 +30,9 @@ for mc in mc_year:
         for variable in variables:
                 BigDic[mc][type][variable] = []
 
-DM_MODEL = 514619  # Write dsid of specific model
+# DM_MODEL = 514619  # Write dsid of specific model
+# sig_var = 'dm_sig'
+sig_var = 'SUSY'
 filelist = []
 exclude = set(['data'])
 for subdir, dirs, files in os.walk(rootdir):
@@ -66,7 +68,7 @@ for subdir, dirs, files in os.walk(rootdir):
             dsid_list[mc_run]['W'].append(str(dsid))
             for variable in variables:
                 BigDic[mc_run]["W"][variable].append(myfile.Get(variable))
-        elif dsid in IDs['dm_sig']:
+        elif dsid in IDs[sig_var]:
             # if not dsid == DM_MODEL: continue
             dsid_list[mc_run]['Signal'].append(str(dsid))
             for variable in variables:
@@ -85,12 +87,16 @@ for subdir, dirs, files in os.walk(rootdird):
         filelist.append(myfile)
         for variable in variables:
             data[variable].append(myfile.Get(variable))
-
-SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()) )
+            
+sow_susy_file = open('SOW_SUSY.json')
+SOW_SUSY = json.load(sow_susy_file)
+SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_SUSY['mc16a'].items()) )
+# SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()) )
 SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()) )
 SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()) )
+sow_susy_file.close()
 
-Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']#, 'Signal']
+Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan', 'Signal']
 
 Colors = {}
 Colors["Signal"] = R.TColor.GetColor('#F42069')
@@ -100,7 +106,7 @@ Colors["TTbar"] = R.TColor.GetColor('#F9E559')
 Colors["Diboson"] = R.TColor.GetColor('#6CCECB')
 Colors["W"] = R.TColor.GetColor('#218C8D')
 
-save_dir = "Plots_50MET"
+save_dir = "..Plots/Data_Analysis/50MET_FULL_SUSY"
 try:
     os.makedirs(save_dir)
 
@@ -180,8 +186,9 @@ for vari in variables:
         for mc in mc_year:
             if bkg == 'Signal':    
                 thist[vari][mc][bkg].SetFillStyle(0)
+                thist[vari][mc][bkg].SetLineWidth(2)
                 thist[vari][mc][bkg].SetLineColor(Colors[bkg])
-                thist[vari][mc][bkg].SetLineStyle(10)
+                thist[vari][mc][bkg].SetLineStyle(1)
                 stack2[vari].Add(thist[vari][mc][bkg])
                 
             else:   
@@ -190,4 +197,4 @@ for vari in variables:
                 stack[vari].Add(thist[vari][mc][bkg])      
         legend.AddEntry(thist[vari][mc][bkg], bkg)
     legend.AddEntry(data_hist[vari], 'Data')
-    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir)#, stack2[vari])
+    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir, stack2[vari])

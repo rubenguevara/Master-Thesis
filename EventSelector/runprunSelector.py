@@ -2,16 +2,16 @@ import os, time
 
 t0 = time.time()
 
-mc_cmps = ["mc16a", "mc16d", "mc16e"]
-data_cmps =['data15', 'data16', 'data17', 'data18']
+mc_cmps = ["mc16a"]#, "mc16d", "mc16e"]
+data_cmps =['data15', 'data16']#, 'data17', 'data18']
 
-sig = 0
+sig = 1
 
-data = 1
+data = 0
 
 if sig == 1:
-    ml_file = "DMx50MET"
-    bkg = "dm_sig"
+    ml_file = "SUSYxDMx50MET"
+    bkg = "SUSY"
 
 else:
     ml_file = "Run2x50MET"
@@ -29,6 +29,7 @@ print( "---"*40)
 print( "TOTAL time spent: "+str(t)+" min")  
 print( "---"*40)
 
+exit()
 import ROOT
 from ROOT import *
 
