@@ -6,4 +6,4 @@ So far it is divided in three categories:
 - DataPrep: Which both plots the kinematic variables to be used in ML and prepares the files in a ML friendly format.<br/>
 - ML: Here are the main algorithms made to train a Neural Network and Boosted Decision Tree to distinguish signal (Dark matter) from background (The Standard Model). <br/>
 - Plots: Here are all the plots created from the various scripts <br/><br/>
-More info on each category is inside the respective category. A LaTeX file with a pdf containing the theory behind everything is to come later.
+<p>More info on each category is inside the respective category. A LaTeX file with a pdf containing the theory behind everything is to come later.
