@@ -61,6 +61,14 @@ except FileExistsError:
     pass
 
 
+np_dir = 'Data/xgb_d_5-8/'
+
+try:
+    os.makedirs(np_dir)
+
+except FileExistsError:
+    pass
+
 def low_stat_Z(sig, bkg):
     Z = np.sqrt(2*( (sig + bkg)*np.log(1 + sig/bkg) - sig ))
     return Z
@@ -74,7 +82,7 @@ def grid_search(eta, lamda, depth):
     
     for i in range(len(depth)):                                             # Run loops over max depth and learning rates to calculate 
         for j in range(len(eta)):      
-            print("max depth:",i+1,"/",len(depth),", eta:",j+1,"/",len(eta))
+            print("max depth:",i+1,"/",len(depth),", eta:",j+1,"/",len(eta),'With depth =', depth[i], 'and eta =', eta[j])
             
             xgbclassifier = xgb.XGBClassifier(
                 max_depth=depth[i], 
@@ -129,12 +137,11 @@ max_depth = [5, 6, 7, 8]
 
 Train_accuracy, Test_accuracy, Train_AUC, Test_AUC, Exp_sig = grid_search(eta, lamda, max_depth)
 
-
-np.save('Data/xgb/train_acc', Train_accuracy)
-np.save('Data/xgb/test_acc', Test_accuracy)
-np.save('Data/xgb/train_auc', Train_AUC)
-np.save('Data/xgb/test_auc', Test_AUC)
-np.save('Data/xgb/exp_sig', Exp_sig)
+np.save(np_dir+'train_acc', Train_accuracy)
+np.save(np_dir+'test_acc', Test_accuracy)
+np.save(np_dir+'train_auc', Train_AUC)
+np.save(np_dir+'test_auc', Test_AUC)
+np.save(np_dir+'exp_sig', Exp_sig)
 print('==='*20)
 t = "{:.2f}".format(int( time.time()-t0 )/60.)
 finish = time.asctime(time.localtime())
