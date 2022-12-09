@@ -61,7 +61,7 @@ except FileExistsError:
     pass
 
 
-np_dir = 'Data/xgb_d_5-8/'
+np_dir = 'Data/xgb_d_13-18/'
 
 try:
     os.makedirs(np_dir)
@@ -133,7 +133,7 @@ print('Starting gridsearch', time.asctime(time.localtime()))
 """ Choose variables"""
 eta = np.logspace(-3, 0, 4)                                                 # Define vector of learning rates (parameter to SGD optimiser)
 lamda = 1e-5                                                                # Define hyperparameter
-max_depth = [5, 6, 7, 8]
+max_depth = [13, 14, 15, 16, 17, 18]                                        
 
 Train_accuracy, Test_accuracy, Train_AUC, Test_AUC, Exp_sig = grid_search(eta, lamda, max_depth)
 
