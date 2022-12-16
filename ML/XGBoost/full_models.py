@@ -56,7 +56,7 @@ except FileExistsError:
 xgbclassifier.save_model(model_dir+'FULL.txt')
 
 # To load
-# model_xgb = xgb.Booster()
+# model_xgb = xgb.XGBClassifier()
 # model_xgb.load_model(model_dir+'FULL.txt')
 
 # y_pred = xgbclassifier.predict(X_test)

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.cm import YlGn_r as color
 
-plot_dir = '../Plots/XGBoost/FULL/GRIDSEARCH_13-18/'
+plot_dir = '../../Plots/XGBoost/FULL/GRIDSEARCH_24-30/'
 
 try:
     os.makedirs(plot_dir)
@@ -13,9 +13,13 @@ except FileExistsError:
 
 eta = np.logspace(-3, 0, 4)                                                  
 lamda = 1e-5
-max_depth = [13, 14, 15, 16, 17, 18]
+# max_depth = [8, 9, 10, 11, 12, 13]
+# max_depth = [13, 14, 15, 16, 17, 18]
+max_depth = [24, 25, 26, 27, 28, 29, 30]
+# max_depth = [3,4,5,6]
+# max_depth = [5,6,7,8]
 
-np_dir = 'Data/xgb_d_13-18/'
+np_dir = '../Data/xgb_d_24-30/'
 
 Train_accuracy = np.load(np_dir+'train_acc.npy')
 Test_accuracy = np.load(np_dir+'test_acc.npy')
@@ -44,7 +48,7 @@ def plot_data(x, y, data, title=None):
     ax = fig.add_subplot(111)
     cax = ax.matshow(data.T, interpolation='nearest', cmap=color, vmax=vmax)
     if len(x) > 5:  
-        sh = 0.62
+        sh = 0.54 #0.62
     else: 
         sh = 1.0
     cbar=fig.colorbar(cax, shrink = sh)
