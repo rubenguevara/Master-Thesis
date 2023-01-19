@@ -1,0 +1,150 @@
+\documentclass[14pt, a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, bm}
+%\usepackage{xcolor}
+%\usepackage{mdframed}
+\usepackage[shortlabels]{enumitem}
+\usepackage[american]{duomasterforside}
+%\usepackage{indentfirst}
+%\usepackage{simpler-wick}
+\usepackage{booktabs}
+%\usepackage{siunitx}
+\usepackage{physics}
+%\usepackage{polynom}
+%\usepackage{verbatim}
+%\usepackage{tensor}
+\usepackage{todonotes}
+%\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[backend = biber, style = vancouver]{biblatex}
+\bibliography{refs.bib}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=cyan,
+    pdftitle={../Model_independent_search_for_Dark_Matter},
+    %pdfpagemode=FullScreen,
+    }
+
+\usepackage{subfiles} 
+
+
+\title{Model independent search for Dark Matter
+% }\subtitle{
+in dilepton + MET final states with the ATLAS detector at the LHC 
+}
+\author{Ruben Guevara}
+\date{Spring 2023}
+
+\begin{document}
+\pagenumbering{roman}
+\duoforside[
+dept = {Department of Physics},
+long,
+program = {Physics: Nuclear and Particle Physics},
+]
+\newpage
+\section*{Acknowledgements}
+Thank you everybody<3<3
+
+\newpage
+\begin{center}
+\section*{Abstract}
+Something something
+\end{center}
+
+
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\pagenumbering{arabic}
+\part{The theory behind modern particle physics}
+
+
+\chapter{The Standard Model of Particle Physics and Beyond}
+
+\section{The Basics}
+\subsection{Classical Field Theory}
+
+
+\subsection{Quantum Mechanics}
+
+
+\subsection{Special Relativity}
+
+
+\section{Quantum Field Theory}
+
+
+\subsection{Fermionic and Bosonic fields}
+
+
+\subsection{Quantum Electro Dynamics}
+
+\subsection{Quantum Chromo Dynamics}
+
+
+\subsection{Electroweak unification}
+
+
+\subsection{The Brout-Englert-Higgs Mechanism}
+
+
+\subsection{The Standard Model of Particle Physics}
+
+
+\section{Beyond Standard Model}
+
+\subsection{Dark Matter}
+
+
+
+\chapter{Detection and Analysis}
+
+
+\section{The ATLAS Detector}
+
+
+\section{Classical Data Analysis}
+
+
+
+\chapter{Machine Learning}
+\subfile{chapters/Part_I/3_Machine_Learning}
+
+\part{Implementation}
+\chapter{Data Analysis}
+\section{Background Estimation}
+\section{Kinematic Variables}
+\section{Dark Matter samples}
+
+\chapter{Machine Learning}
+\subfile{chapters/Part_II/5_Machine_Learning}
+
+\part{Results}
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{l|c|c|c}\midrule\midrule
+                    & Number of events & Sum of weights & Events $\times$ SOW [$10^{13}$]\\\midrule
+         Signal     & 2,991,543        & 36,327,943.99  & 1.08\\
+         Background & 69,664,345       & 36,327,944.03  & 25.3 \\ \midrule\midrule
+    \end{tabular}
+    \caption[Unbalanced DM training dataset]{Table Showcasing how uneven the training dataset is between signal and background. This is on the dataset which incorporates all the different DM MC samples}
+    \label{tab:UnbalancedDMTraining}
+\end{table}
+in spacetime.
+
+%\printbibliography
+
+\end{document}
