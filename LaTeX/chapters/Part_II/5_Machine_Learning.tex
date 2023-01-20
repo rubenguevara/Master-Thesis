@@ -1,7 +1,7 @@
 \documentclass[14pt, a4paper]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[margin=1in]{geometry} 
+\usepackage[margin=1in,marginpar=0.75in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, bm}
 %\usepackage{xcolor}
 %\usepackage{mdframed}
@@ -48,7 +48,101 @@ Another approach is to make multiple datasets and combine the results of every n
 \\Thus making the approach to teach the networks one MC sample at a time is impossible \todo{for NN}. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600 \cap\le 1100$ GeV and the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. Will try DSID now...
 
 \section{Neural Network Training}
+\subsection{Padding of data}\label{sec:padding_NN}
+There are two problems that need to be adressed when utilizing NNs as compared to BDTs. The first one which is the hardest one to solve, as no one has found a reliabe solution yet is the padding of the missing values.
+Padding is the process of filling missing values on a dataset that goes into a network. This is a problem that doesn't usually appear in other fields than physics, especially with the type of data we look at in HEP.
+As an example, in the dataset being used in this thesis we include two six kinematic variables that might not even be there, these are the $p_T$, $\eta$ and $\phi$ of the two highest $p_T$ jets in an event. The obvious reason for this is that there might not be two jets in every event, thus we have missing variables. \todo{check if you did}As previously mentioned, the way that the dataset was made made sure that there where two jets before recording the actual values of the variables on the dataset. If there weren't at least two jets the $p_T$ was set to zero while $\eta$ and $\phi$ were set to 10.\\
+\\The jet $p_T$ being 0 is a valid form of padding the dataset, as this doesn't break any fundemental law of physics. However setting \todo{mixing variables?}$\phi$ as something outside of $[-\pi,\pi]$ doesn't make much sense as this is the angle around the detector. Setting a high value of $\eta$ might be physically possible (in the future) but as of today the ATLAS detector has a $\abs{\eta}<4.9$\todo{this is from 2010, new source needed} as the pseudorapidity states how close to the beamline the event is recorded.
+However having a $p_T$ of a jet equal to zero and still recording the $\eta$ and $\phi$ breaks the laws of physics, so this is a problem that needs to be fixed.\\
+\\As mentioned before, there is no general consensus of how the padding should be done, and there are many different methods of doing so. The classical data scientist way of solving this problem would be to just take the mean of every feature and use that as a variable for every event with missing values. That means replacing every $p_T = 0$ and $\eta,\phi=10$ with the mean of every $p_T$, $\eta$ and $\phi$ (excluding those values). However this is not popular among physicists since it breaks conservation laws when we say there are jets when there really isn't.
+Another approach is to use Bayesian statistics or ML to estimate the missing values, these options will not be pursued in this thesis due to time. 
+Another approach, perhaps a naive one, is setting all the missing values to zero, as this might mean that there isn't anything there, but this also breaks conservation laws since $\eta,\phi=0$ have physical meaning, this is also highly looked down upon by data scientists since this would affect the weighting when training the network. 
+Another approach is to just remove all events that have a missing value completely getting rid of the problem, but this reduces the statistics of the dataset which is not desired when searching for new physis, as this might remove precious signal events.
+One could also just remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss. \textit{\textbf{For this project it is still up to discussion what approach should be used, and so far only the latest method has been applied.}}\\
+\subsection{Normalization of data}\label{sec:normie_NN}
+Moving onto the second problem, which is not as problematic as the previous, we have the Normalization of data. Since neural networks send a lot of data into multiple neurons and mulitple layers using activation functions and other mathemathical tools, then it is important to make sure that the signal doesn't die when moving around the network. A fast way for the signal to die off is to not normalize the data and send it through the network, the reason it might die is because we send in numbers which vary significantly to eachother, i.e. the $p_{T}$ might be as high as thousands GeV, while $E_T^{miss}/\sigma$ might be as low as 0.1. What might happen when sending such different numbers is that the network might think "obviouly the high number is more important than the low number" thus making the activation function worse for the feature, even though this feature is of high imporatance when looking at MET final states.
+A way to fix this problem is to normalize all features. There are many ways to do this, one could do \textit{min max scaling} which normalizes every feature from $[0,1]$, completely erasing the problem above. Mathematically speaking this is done by
+\begin{equation}\label{eq:minmax}
+   X_{norm} = \frac{X - X_{min}}{X_{max}-X_{min}}
+\end{equation}
+Where $X$ is the array containing all features, while $X_{min}$ and $X_{max}$ is the lowest and highest value in said array. Another way to normalize the data is to make the mean of the data 0 and the standard deviation to one, this is called \textit{Z-score normalization} \todo{is it?}
+\begin{equation}\label{eq:Z-score}
+   X_{norm} = \frac{X - \bar{X}}{\sqrt{\sigma_X^2}}
+\end{equation}
+where $\bar{X}$ is the mean of said array and $\sigma_X^2$ is the variance. One could also use pre-built functions in TensorFlow that do this normalization for you, one is called \verb|Batch_normalization| which normalized the data that enters the network pr. batch, this is usually used in Convolutional NNs as it improves computational speed. 
+And another one is simply \verb|Normalize| which does the same a Eq. (\ref{eq:Z-score}) for the whole training set going in, this is however very slow to use. There is also \verb|Layer_normalization|, which normalized the data on each layer.\todo{check if true} \\
+\\There is a big difference when normalizing data ourselves and using TensorFlow, and that is that TensorFlow will remember how the data was normalized when training and will normalize the testing data in the same way (using the same variables). However we by not using TensorFlow to normalize we could normalize the whole dataset before splitting, making for more a more model independent normalization. \todo{I assume}
+These different normalization methods have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. 
+We can see that the best results come from Z-score and Batch normalization. We can see how the significance differs on both cases in Figure \ref{fig:BestNormie}.\\
+\\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? \textit{\textbf{For the following examples I have used the Z-score method, but I might change to use Batch normaliazation in the future.}}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{NO_NORM/VAL_unscaled.pdf}
+      \caption{No normalization}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Layer_norm/VAL_unscaled.pdf}
+      \caption{Layer normalization}
+   \end{subfigure}
+   \hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{minmax/VAL_unscaled.pdf}
+      \caption{Min max scaling}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/DH_HDS_mZp_130/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{VAL_unscaled.pdf}
+      \caption{Z-score}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Batch_norm/VAL_unscaled.pdf}
+      \caption{Batch normalization}
+   \end{subfigure}
+   \caption{NN prediction when using different normalization methods. This is testing a dataset with a Z' DM model.}\label{fig:DifferentNormalizations}
+\end{figure}
+
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/DH_HDS_mZp_130/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{VAL.pdf}
+      \caption{Z-score}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Batch_norm/VAL.pdf}
+      \caption{Batch normalization}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/DH_HDS_mZp_130/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
+      \caption{The expected significance of a)}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Batch_norm/EXP_SIG.pdf}
+      \caption{The expected significance of b)}
+   \end{subfigure}
+   \caption{Comparison of the best normalization methods. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }\label{fig:BestNormie}
+\end{figure}
+
+
+\clearpage
 \subsection{Weights}\label{sec:wgts}
+\graphicspath{{../../figures/}}
 The results so far (my \textit{OLD} interpretation with only three different DM theories) show that the network is completely capable of distinguishing signal from background in the unweighted training, however if we were to scale the predictions (the networks output) with the weights (sample weights * luminosity / sum of weights) we would see that the signal is hidden underneath the background. Both validation plots are shown in Figure \ref{fig:OLD_FULL_DM_VAL}. If we train the network using the weights of the MC samples we see that the network still gets the same accuracy, and an even lower loss function score. But the AUC becomes exactly 0.5. When looking at the ROC curve and validation plots (plots showing how well the network sorts signal from background) we see that everything "is messed up" the ROC is 0.5, and there is only \textbf{one} background bin. When printing how many signal events the weighted network predicted it is easy to understand why, it is because it says there is not a single dark matter event. Which I first interpreted as being in agreement with Figure \ref{fig:OLD_W_FULL_DM_VAL}.\\
 \begin{figure}[!ht]
 	\centering
@@ -121,31 +215,162 @@ The results so far (my \textit{OLD} interpretation with only three different DM 
     \label{tab:UnbalancedDibosonTraining}
 \end{table}
 
-\subsection{Balanced weights}
-% \graphicspath{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_SIG_UP/DH_HDS_mZp_130/}}
-% \begin{figure}[!ht]
-% 	\centering
-% 	\begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=1\textwidth]{VAL_unscaled.pdf}
-%         \caption{ROC score for the unweighted training.}\label{fig:DibosonROCUW}
-%      \end{subfigure}
-%      \hfill
-%    %   \graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANED_WEIGHTING/MC_WGT_SIG_UP/DH_HDS_mZP_1500/}}
-%      \begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=1\textwidth]{VAL_unscaled.pdf}
-%         \caption{ROC score for the weighted training using MC weights.}\label{fig:DibosonROCMC}
-%      \end{subfigure}
-%      \caption{Shitty test}\label{fig:Shit}
-% \end{figure}
+\clearpage
+\subsection{Balanced weights}\label{sec:Balanced_wgts}
+Even if the weighting method previously described helps the network to give reasonable results. It most likely won't distinguish the importance between signal events that have high resonance and those that do not. 
+As an example, if we look at the Z' DH model in the HDS and compare how the network classifies a model with a $m_{Z'}$ of 130 GeV to one with a $m_{Z'}$ of 1500 GeV we might get an idea of how the network classifies things.
+We can see how the network predicts wether an event is signal or background using validation plots, this is seen in \ref{fig:PurelyBalanced_DH_HDS}.
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:PurelyBalanced_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:PurelyBalanced_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN comparison of trained models in FULL Z' dataset}\label{fig:PurelyBalanced_DH_HDS}
+\end{figure}
+\\The result purely demonstrate the raw network output, meaning that the validation dataset has not been scaled up using MC weights (i.e. model cross section) or luminosity.\\
+\\We can see the network is better at classifying the events from the model with $m{Z'}$ = 1500 GeV than the other, even if this model has a much lower cross section, as seen in the correctly scaled plots below.
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}
+     \end{subfigure}
+     \caption{Correctly scaled plots.}\label{fig:SCALED_PurelyBalanced_DH_HDS}
+\end{figure}
+\\As we can clearly see, the better predicted model by the network does not even have one event when scaled up correctly. Therefore it is desirable to both take into account the data imbalance between the signal and background as well as the MC weights when training a network. To do this using TensorFlow we could make use of two parameters when training the network: \verb|class_weight| and \verb|sample_weight|.
+\\\\\verb|class_weight| works as a dictionary that weights events that are keys on the dictionary. For our purposes we can make a dictionary where we weight signal and background events differently, this is the same type of scaling that was done in the previous section. 
+\verb|sample_weight| takes in individual weights for every single event that goes into the netwrok, meaning that it is crucial that we know that the desired weight matches the desired event. Ideally we would use both weighting methods, \verb|class_weight| to balance the signal to background ratio and \verb|sample_weight| with the MC weights. 
+However there is a bug in TensorFlow (up to version \verb|GPU 2.7.1|) that makes it so the program doesn't run when using both parameters. This is not a big problem though, as when looking at the source code one can see that what TensorFlow does with both weights is multiply them togheter. Thus we could try to make use of this "balaned weighting" method to see if the network learns the different models better.\\
+\\We can see in Table \ref{tab:MC_imbalance} how uneven the data (FULL Z') is. To balance the data we have four options. We can either \textit{weigh up the signal} events by the ratio of background over signal. Or \textit{weigh down the bacgkround} with the ratio of signal over background. However this ratio might differ a lot when using the MC raw event ratio or the SOW events ratio. I have tested all four possibilities and these can be see below.\\
+\begin{table}[!h]
+   \centering
+   \begin{tabular}{l|c|c}\midrule\midrule
+                        & Actual events   & MC events \\\midrule
+         Background     & 2,715,280.4     & 69,664,290  \\
+         Signal         & 388.4           & 2,991,598   \\\midrule\midrule
+   \end{tabular}
+   \caption[Imbalance raw events and SOW]{Table showcasing the data imbalance between background and signal in both raw MC events and actual events. By actual events it is meant weighted events. This is for the training dataset on the FULL Z' dataset.}
+   \label{tab:MC_imbalance}
+\end{table}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_SIG_UP/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:MC_WGT_SIG_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:MC_WGT_SIG_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN prediction when weighting the signal with the SOW ratio.}\label{fig:MC_WGT_SIG_DH_HDS}
+\end{figure}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_EVENTS_SIG_UP/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:MC_EVT_SIG_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:MC_EVT_SIG_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN prediction when weighting the signal with the raw event ratio.}\label{fig:MC_EVT_SIG_DH_HDS}
+\end{figure}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_BKG_DOWN/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:MC_WGT_BKG_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:MC_WGT_BKG_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN prediction when weighting the background with the SOW ratio.}\label{fig:MC_WGT_BKG_DH_HDS}
+\end{figure}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_EVENTS_BKG_DOWN/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:MC_EVT_BKG_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:MC_EVT_BKG_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN prediction when weighting the bacgkround with the raw event ratio.}\label{fig:MC_EVT_BKG_DH_HDS}
+\end{figure}
+\clearpage 
+As we can see almost every way of doing this balanced weighting gives poor results. The only one that seems to work is when we we scale up the MC weights with the ratio between the SOW of the bacgkround over signal, however it does not seem to learn the model with lower mass better compared to how it learned the model with higher mass. It seems to have generally learned both models better, which might be a hint that it learns other models worse, i.e. EFT models with much lower cross section.\\ 
+If we now compare the correctly scaled validation plots of DH HDS $m_{Z'}$ = 130 GeV.
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_SIG_UP/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL.pdf}
+        \caption{MC weights + scaling signal up with SOW ratio}%\label{fig:MC_EVT_BKG_DH_HDS_130}
+     \end{subfigure}
+     \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/}}
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL.pdf}
+        \caption{Only using raw MC events weigh down bacgkround}%\label{fig:MC_EVT_BKG_DH_HDS_1500}
+     \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_SIG_UP/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/EXP_SIG.pdf}
+      \caption{The expected significance of a)}%\label{fig:MC_EVT_BKG_DH_HDS_130}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/EXP_SIG.pdf}
+      \caption{The expected significance of b)}%\label{fig:MC_EVT_BKG_DH_HDS_1500}
+   \end{subfigure}
+     \caption{Comparison of the best balanced weighting method to the weighting method of the previous section. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }%\label{fig:MC_EVT_BKG_DH_HDS}
+\end{figure}
+\\From this we can see that the the network that trained when balancing the data is better at classifying the DH HDS $m_{Z'}$ = 130 GeV model correctly as signal than the other network. We also observe that it wrongly classifies more background as signal than the other network, but even if this is the case the expected significance is greater in the new network.
+The reason that the new network wrongly classifies more background as signal might be becuse I utilized the same hyperparameters when training both newtworks, when it might be better to use different hyperparameters on each. 
+Another thing that might be of significance is that I used the ratio of the training set, it might make a difference (better or worse) to use the ratio of the full dataset when training as this is more general. Since the ratio most likely differs for the training and testing set. \textit{\textbf{Both of this options are up to discussion to further pursue. As well as if this appreoach is worth pursuing if it only learns the models with higher cross section.}}
 
 
-real events (SOW): bkg sig 2715280.423627234 388.36308153506815 
-mc events (raw) 69664290 2991598
-idk
 \clearpage
 
+\graphicspath{{../../figures/}}
 
 \section{XGBoost Training}
 For XGBoost there is a different problem when it comes to weights. XGBoost has a variable called \verb|scale_pos_weight| where we can help the network deal with unbalanced data, such as the one we have. Thus we can use the \textit{real} weights that are calculated in the MC generators, except not really, XGBoost does not have to possibility to include negative weights. In this project I have therefore used the absolute value of the weights when training. Other than that there are few complications. 
