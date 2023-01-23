@@ -1,39 +1,4 @@
 \documentclass[14pt, a4paper]{book}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[margin=1in,marginpar=0.75in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, bm}
-%\usepackage{xcolor}
-%\usepackage{mdframed}
-\usepackage[shortlabels]{enumitem}
-%\usepackage{indentfirst}
-%\usepackage{simpler-wick}
-\usepackage{booktabs}
-%\usepackage{siunitx}
-\usepackage{physics}
-%\usepackage{polynom}
-%\usepackage{verbatim}
-%\usepackage{tensor}
-\usepackage{todonotes}
-%\usepackage{dcolumn}% Align table columns on decimal point
-\usepackage{listings}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage[backend = biber, style = vancouver]{biblatex}
-\bibliography{refs.bib}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-    citecolor=cyan,
-    % pdftitle={../Model_independent_search_for_Dark_Matter},
-    %pdfpagemode=FullScreen,
-    }
-
-\usepackage{subfiles} 
-
 \begin{document}
 
 \graphicspath{{../../figures/}}
@@ -49,10 +14,10 @@ Another approach is to make multiple datasets and combine the results of every n
 
 \section{Neural Network Training}
 \subsection{Padding of data}\label{sec:padding_NN}
-There are two problems that need to be adressed when utilizing NNs as compared to BDTs. The first one which is the hardest one to solve, as no one has found a reliabe solution yet is the padding of the missing values.
+swag fr lol. There are two problems that need to be adressed when utilizing NNs as compared to BDTs. The first one which is the hardest one to solve, as no one has found a reliabe solution yet is the padding of the missing values.
 Padding is the process of filling missing values on a dataset that goes into a network. This is a problem that doesn't usually appear in other fields than physics, especially with the type of data we look at in HEP.
-As an example, in the dataset being used in this thesis we include two six kinematic variables that might not even be there, these are the $p_T$, $\eta$ and $\phi$ of the two highest $p_T$ jets in an event. The obvious reason for this is that there might not be two jets in every event, thus we have missing variables. \todo{check if you did}As previously mentioned, the way that the dataset was made made sure that there where two jets before recording the actual values of the variables on the dataset. If there weren't at least two jets the $p_T$ was set to zero while $\eta$ and $\phi$ were set to 10.\\
-\\The jet $p_T$ being 0 is a valid form of padding the dataset, as this doesn't break any fundemental law of physics. However setting \todo{mixing variables?}$\phi$ as something outside of $[-\pi,\pi]$ doesn't make much sense as this is the angle around the detector. Setting a high value of $\eta$ might be physically possible (in the future) but as of today the ATLAS detector has a $\abs{\eta}<4.9$\todo{this is from 2010, new source needed} as the pseudorapidity states how close to the beamline the event is recorded.
+As an example, in the dataset being used in this thesis we include two six kinematic variables that might not even be there, these are the $p_T$, $\eta$ and $\phi$ of the two highest $p_T$ jets in an event. The obvious reason for this is that there might not be two jets in every event, thus we have missing variables. \todo{remember to do this}As previously mentioned, the way that the dataset was made made sure that there where two jets before recording the actual values of the variables on the dataset. If there weren't at least two jets the $p_T$ was set to zero while $\eta$ and $\phi$ were set to 10.\\
+\\The jet $p_T$ being 0 is a valid form of padding the dataset, as this doesn't break any fundemental law of physics. However setting $\phi$ as something outside of $[-\pi,\pi]$ doesn't make much sense as this is the angle around the detector. Setting a high value of $\eta$ might be physically possible (in the future) but as of today the ATLAS detector has a $\abs{\eta}<4.9$\todo{this is from 2010, new source needed} as the pseudorapidity states how close to the beamline the event is recorded.
 However having a $p_T$ of a jet equal to zero and still recording the $\eta$ and $\phi$ breaks the laws of physics, so this is a problem that needs to be fixed.\\
 \\As mentioned before, there is no general consensus of how the padding should be done, and there are many different methods of doing so. The classical data scientist way of solving this problem would be to just take the mean of every feature and use that as a variable for every event with missing values. That means replacing every $p_T = 0$ and $\eta,\phi=10$ with the mean of every $p_T$, $\eta$ and $\phi$ (excluding those values). However this is not popular among physicists since it breaks conservation laws when we say there are jets when there really isn't.
 Another approach is to use Bayesian statistics or ML to estimate the missing values, these options will not be pursued in this thesis due to time. 
@@ -69,9 +34,9 @@ Where $X$ is the array containing all features, while $X_{min}$ and $X_{max}$ is
 \begin{equation}\label{eq:Z-score}
    X_{norm} = \frac{X - \bar{X}}{\sqrt{\sigma_X^2}}
 \end{equation}
-where $\bar{X}$ is the mean of said array and $\sigma_X^2$ is the variance. One could also use pre-built functions in TensorFlow that do this normalization for you, one is called \verb|Batch_normalization| which normalized the data that enters the network pr. batch, this is usually used in Convolutional NNs as it improves computational speed. 
-And another one is simply \verb|Normalize| which does the same a Eq. (\ref{eq:Z-score}) for the whole training set going in, this is however very slow to use. There is also \verb|Layer_normalization|, which normalized the data on each layer.\todo{check if true} \\
-\\There is a big difference when normalizing data ourselves and using TensorFlow, and that is that TensorFlow will remember how the data was normalized when training and will normalize the testing data in the same way (using the same variables). However we by not using TensorFlow to normalize we could normalize the whole dataset before splitting, making for more a more model independent normalization. \todo{I assume}
+where $\bar{X}$ is the mean of said array and $\sigma_X^2$ is the variance. One could also use pre-built functions in TensorFlow that do this normalization for you, one is called \verb|Batch_normalization| which normalizes the data that enters the network pr. batch, this is usually used in Convolutional NNs as it improves computational speed. 
+And another one is simply \verb|Normalize| which does the same a Eq. (\ref{eq:Z-score}) for the whole training set going in, this is however very slow to use. There is also \verb|Layer_normalization|, where you normalize the activations of the previous layer in a batch \textit{independently}, rather than \textit{across} a batch like \verb|Batch_Normalization|. But of these methods are also based on Z-score normaliazation. \\
+\\There is a big difference when normalizing data ourselves and using TensorFlow, and that is that TensorFlow will remember how the data was normalized when training and will normalize the testing data in the same way (using the same variables). However we by not using TensorFlow to normalize we could normalize the whole dataset before splitting, which might \todo{thoughts?}make for more a more model independent normalization than doing it in bacthes that might not include all models.
 These different normalization methods have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. 
 We can see that the best results come from Z-score and Batch normalization. We can see how the significance differs on both cases in Figure \ref{fig:BestNormie}.\\
 \\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? \textit{\textbf{For the following examples I have used the Z-score method, but I might change to use Batch normaliazation in the future.}}
@@ -367,11 +332,113 @@ If we now compare the correctly scaled validation plots of DH HDS $m_{Z'}$ = 130
 The reason that the new network wrongly classifies more background as signal might be becuse I utilized the same hyperparameters when training both newtworks, when it might be better to use different hyperparameters on each. 
 Another thing that might be of significance is that I used the ratio of the training set, it might make a difference (better or worse) to use the ratio of the full dataset when training as this is more general. Since the ratio most likely differs for the training and testing set. \textit{\textbf{Both of this options are up to discussion to further pursue. As well as if this appreoach is worth pursuing if it only learns the models with higher cross section.}}
 
-
 \clearpage
+\subsection{Grid Search}\label{sec:NNGriddy}
+To get the best performance on our NN, we need to find which hyperparemters helps the network reach highest significance. To do this, we need to do a gridsearch. 
+For our neural network we will mainly focus on four hyperparameters explained on section \ref{sec:theory_nn}:
+\begin{itemize}
+   \item The learning rate $\eta$
+   \item The L2-regressor variable $\lambda$
+   \item The number of neurons on each hidden layer \verb|n_neuron|
+   \item Possibly the number of layers \verb|n_layers|, exluding the output. (NB! Meaning that \verb|n_layers| = 1 means no hidden layer!)
+\end{itemize}
+The metrics that will be used to estimate the best hyperparameters are \textbf{AUC}, \textbf{binary accuracy} and most importantly \textbf{expected significance}. 
+The expected significance for this section has been calculated using the low statistics formula Eq. (\ref{eq:low_stat_Z}) just in case there is too few events after the network prediction.
+The expected significance will also be calculcated when making a cut on \todo{not 100, so we have many background events!}0.85 on the netowrk prediction, meaning only looking at events which the network rates as signal with 85\% confidence and above.\\
+\\The dataset on which I've trained so far is the FULL Z' DM dataset including DH, LV and EFT. The raw number of events on this dataset is roughly 3 million signal events to 70 million background events,
+I have however split this into a 80\% training set and 20\% testing set. \textit{\textbf{The reason for doing this, is so we get the best hyperparameters for doing a model independant search}}.\\
+\\The full results of the gridsearch when setting \verb|n_layers| = 2 (one hidden layer) and $\eta \in [0.001, 0.01, 0.1, 1]$, $\lambda\in[10^{-5},10^{-4},10^{-3},10^{-2}]$ and \verb|n_neuron|$\in[1, 10, 50, 100]$ can be found in my GitHub under \\\verb|Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons|, 
+but for the sake of this thesis not being too long I will only show the significance plot as well as the AUC for the testing and training set when setting $\lambda=10^{-5}$. 
+The significance is seen in Figure \ref{fig:NN_GRID_SIG}, while the AUC is in Figure \ref{fig:NN_GRID_AUC}.\\
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons}}
+\begin{figure}[!ht]
+      \centering
+      \includegraphics[width=0.6\textwidth]{Significance_ne.pdf}
+      \caption{Grid search significance with $\lambda=10^{-5}$ and n\_layers = 2}\label{fig:NN_GRID_SIG}
+\end{figure}
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons/AUC}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{testing_ne.pdf}
+        \caption{Testing AUC}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{training_ne.pdf}
+        \caption{Training AUC}
+     \end{subfigure}
+     \caption{Grid search AUC with $\lambda=10^{-5}$ and n\_layers = 2}\label{fig:NN_GRID_AUC}
+\end{figure}
+\newpage\noindent Doing the same but with more hidden layers and setting $\lambda=10^{-5}$ we get the results shown in GitHub under \verb|Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons|, 
+for the sake of this thesis not being too long I will again only show the significance plot as well as the AUC for the testing and training set but this time when setting $\eta=0.01$. 
+The significance is seen in Figure \ref{fig:DNN_GRID_SIG}, while the AUC is in Figure \ref{fig:DNN_GRID_AUC}. 
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons}}
+\begin{figure}[!ht]
+      \centering
+      \includegraphics[width=0.6\textwidth]{Significance_nl.pdf}
+      \caption{Grid search significance with $\lambda=10^{-5}$ and and $\eta = 0.01$}\label{fig:DNN_GRID_SIG}
+\end{figure}
 
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons/AUC}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{testing_nl.pdf}
+        \caption{Testing AUC}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{training_nl.pdf}
+        \caption{Training AUC}
+     \end{subfigure}
+     \caption{Grid search significance with $\lambda=10^{-5}$ and $\eta = 0.01$}\label{fig:DNN_GRID_AUC}
+\end{figure}
+\newpage\noindent I also made a test network with the same hyperparameters as the best one in Figure \ref{fig:DNN_GRID_SIG}, the only difference being that it has 10 hidden layers.
+I plotted the validation data to see how different the networks were at predicting the DH HDS $m_{Z'}=130$ GeV model. 
+These were trained and tested when using the Z-score normalization, Eq. (\ref{eq:Z-score}), and the weighting method explained in section \ref{sec:wgts}. The results are shown in the figure below.
+\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/BEST_GRID/DH_HDS_mZp_130/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL.pdf}
+        \caption{Four hidden layers}
+     \end{subfigure}
+     \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/10_HIDDEN_LAYERS/DH_HDS_mZp_130/}}
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL.pdf}
+        \caption{Ten hidden layers}
+     \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/BEST_GRID/DH_HDS_mZp_130/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
+      \caption{The expected significance of a)}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/10_HIDDEN_LAYERS/DH_HDS_mZp_130/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
+      \caption{The expected significance of b)}
+   \end{subfigure}
+     \caption{Comparison of the network performance when having four and ten hidden layers. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }
+\end{figure}
+\newpage\noindent This hints that we could be able to make a DNN with more hidden layers and get better results. However there are a few things that need to be noted when doing this, aside from the padding which is an even greater problem.
+The first and smallest one is that we could have used batch normalization instead of Z-score, but this is again something to be further discussed.\\
+\\The second being that I have not used the "balanced weighting" method when training the network, which might be for better or worse if the network really does ignore all EFT models...\\
+\\The third one which is more technical is that since more complex networks require more computational power, then this leads to us decreasing the batch size. Which lowers the statistics of signal, 
+and might even lead to the network training on batches without any signal sample at all. So the trade off is also something to be discussed.\\
+\\The last thing to be noted is that having a DNN completely removes the possibility of combining the results of multiple networks trained on a single model, as the imbalance becomes too much for the network to see anything.
+A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, we could try the Parametrized NN approach, which could potentially avoid the imbalance problem.
+This is obviously something we have to discuss further.
+\clearpage
 \graphicspath{{../../figures/}}
-
 \section{XGBoost Training}
 For XGBoost there is a different problem when it comes to weights. XGBoost has a variable called \verb|scale_pos_weight| where we can help the network deal with unbalanced data, such as the one we have. Thus we can use the \textit{real} weights that are calculated in the MC generators, except not really, XGBoost does not have to possibility to include negative weights. In this project I have therefore used the absolute value of the weights when training. Other than that there are few complications. 
 

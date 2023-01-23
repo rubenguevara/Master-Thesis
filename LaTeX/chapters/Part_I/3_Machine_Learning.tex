@@ -1,44 +1,9 @@
 \documentclass[14pt, a4paper]{book}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[margin=1in,marginpar=0.75in]{geometry} 
-\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, bm}
-%\usepackage{xcolor}
-%\usepackage{mdframed}
-\usepackage[shortlabels]{enumitem}
-%\usepackage{indentfirst}
-%\usepackage{simpler-wick}
-\usepackage{booktabs}
-%\usepackage{siunitx}
-\usepackage{physics}
-%\usepackage{polynom}
-%\usepackage{verbatim}
-%\usepackage{tensor}
-\usepackage{todonotes}
-%\usepackage{dcolumn}% Align table columns on decimal point
-\usepackage{listings}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage[backend = biber, style = vancouver]{biblatex}
-\bibliography{refs.bib}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-    citecolor=cyan,
-    % pdftitle={../Model_independent_search_for_Dark_Matter},
-    %pdfpagemode=FullScreen,
-    }
-
-\usepackage{subfiles} 
-
 \begin{document}
 
 \graphicspath{{../../figures/}}
 
-\section{Neural Networks}
+\section{Neural Networks}\label{sec:theory_nn}
 Since the goal is to use ML to get a high accuracy to distinguish signal from background we have to start from the ML basics.  This project will take from granted that the reader is comfortable with linear algebra and jump straight into ML. The essence of machine learning is to use cost functions to tweak some parameters until it gives satisfactory predictions for the task given. In this project we will do Supervised Learning (meaning we know what the output should be) and only look at Neural Networks (NN) as our ML algorithm, since the ultimate goal is to "upgrade" this to run it on a quantum computer. The parameters mentioned above are called \textit{weights} and \textit{biases} for NNs. Considering a general parameter $\bm{\beta} = \{\beta_1,\beta_2,\cdots,\beta_n\}$ for a n-dimensional problem, the goal is to choose these parameters $\bm{\beta}$ such that we minimize a cost function $C(\bm{\beta})$ with respect to a set of data points given by a matrix $\mathbf{X}$, which in the case of the HiggsML are the features. And target values $\mathbf{t}$, which on the HiggsML are the labels. Before we get into that we can start by looking at Stochastic Gradient Descent (SDG).
 
 \subsection{Stochastic Gradient Descent}
