@@ -1,20 +1,21 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.cm import YlGn_r as color
+import os
 
-eta = np.logspace(-3, 0, 4)                                                  # Define vector of learning rates (parameter to SGD optimiser)
-lamda = np.logspace(-5, -2, 4)                                               # Define hyperparameter
-n_neuron = [1, 10, 50, 100]
+n_neuron = [10, 50, 100]     
+eta = np.logspace(-3, -1, 3) 
+n_layers = [3, 4, 5]
 
-Train_accuracy = np.load('../Data/NN/train_acc.npy')
-Test_accuracy = np.load('../Data/NN/test_acc.npy')
-Train_AUC = np.load('../Data/NN/train_auc.npy')
-Test_AUC = np.load('../Data/NN/test_auc.npy')
-Exp_sig = np.load('../Data/NN/exp_sig.npy')
+Train_accuracy = np.load('../Data/DNN/train_acc.npy')
+Test_accuracy = np.load('../Data/DNN/test_acc.npy')
+Train_AUC = np.load('../Data/DNN/train_auc.npy')
+Test_AUC = np.load('../Data/DNN/test_auc.npy')
+Exp_sig = np.load('../Data/DNN/exp_sig.npy')
 Exp_sig = np.nan_to_num(Exp_sig)
 indices = np.where(Exp_sig == np.max(Exp_sig))
 print("Best expected significance:",np.max(Exp_sig))
-print("The parameters are: lambda:",lamda[int(indices[0])],", eta:", eta[int(indices[1])],"and", n_neuron[int(indices[2])],'neurons')
+print("The parameters are: layers:",n_layers[int(indices[0])],", eta:", eta[int(indices[1])],"and", n_neuron[int(indices[2])],'neurons')
 print("This gives an AUC and Binary Accuracy of %g and %g when training" %(Train_AUC[indices], Train_accuracy[indices]) )
 print("This gives an AUC and Binary Accuracy of %g and %g when testing " %(Test_AUC[indices], Test_accuracy[indices]) )
 
@@ -26,7 +27,6 @@ def plot_data(x, y, s, ind, data, title=None):
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    
     if 'AUC' in title:
         vmax = 1.0
     elif 'Accuracy' in title:
@@ -44,10 +44,11 @@ def plot_data(x, y, s, ind, data, title=None):
         cbar.ax.set_ylabel('AUC',rotation=90,fontsize=fontsize)
     else:
         cbar.ax.set_ylabel('$\sigma$',rotation=90,fontsize=fontsize)
-    
+
+    # put text on matrix elements
     for i, x_val in enumerate(np.arange(len(x))):
         for j, y_val in enumerate(np.arange(len(y))):
-            if 'AUC'in title:
+            if 'AUC' in title:
                 c = '%.3f' %data[i,j]  
             elif 'Significance' in title:
                 c = '%.3f $\sigma$' %data[i,j]
@@ -65,19 +66,19 @@ def plot_data(x, y, s, ind, data, title=None):
     if s == "l":
         ax.set_xlabel('$\eta$',fontsize=fontsize)
         ax.set_ylabel('$\\mathrm{hidden\\ neurons}$',fontsize=fontsize)
-        titlefr= title[:-2] + 'scores for $\eta$ and hidden neuron with $\lambda$ = %g' %lamda[int(ind[0])]
+        titlefr= title[:-2] + 'scores for $\eta$ and hidden neuron with %g layers' %n_layers[int(ind[0])]
         ax.set_title(titlefr)
         
     elif s =="n":
         ax.set_ylabel('$\eta$',fontsize=fontsize)
-        ax.set_xlabel('$\lambda$',fontsize=fontsize)
-        titlefr= title[:-2] + 'scores for $\eta$ and $\lambda$ with %g hidden neurons' %n_neuron[int(ind[2])]
+        ax.set_xlabel('layers',fontsize=fontsize)
+        titlefr= title[:-2] + 'scores for $\eta$ and layers with %g hidden neurons' %n_neuron[int(ind[2])]
         ax.set_title(titlefr)
         
     elif s =="e":
-        ax.set_xlabel('$\lambda$',fontsize=fontsize)
+        ax.set_xlabel('layers',fontsize=fontsize)
         ax.set_ylabel('$\\mathrm{hidden\\ neurons}$',fontsize=fontsize)
-        titlefr= title[:-2] + 'scores for $\lambda$ and hidden neuron with $\eta$ = %g' %eta[int(ind[1])]
+        titlefr= title[:-2] + 'scores for layers and hidden neuron with $\eta$ = %g' %eta[int(ind[1])]
         ax.set_title(titlefr)
         
     plt.tight_layout()
@@ -86,25 +87,30 @@ def plot_data(x, y, s, ind, data, title=None):
     else:
         better_saving = title.split(' ')
         titlefig = better_saving[0] +'/' +better_saving[1]+'_'+better_saving[2]+'.pdf'
-    
-    plt.savefig('../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons/'+titlefig)
+    plt.savefig('../../Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons/'+titlefig)
     
     plt.show()
 
+try:
+    os.makedirs('../../Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons/')
+
+except FileExistsError:
+    pass
+
 plot_data(eta, n_neuron, "l", indices, 100*Train_accuracy[int(indices[0]),:,:], 'Accuracy training ne')
 plot_data(eta, n_neuron, "l", indices, 100*Test_accuracy[int(indices[0]),:,:], 'Accuracy testing ne')
-plot_data(lamda, eta, "n", indices, 100*Train_accuracy[:,:,int(indices[2])], 'Accuracy training le')
-plot_data(lamda, eta, "n", indices, 100*Test_accuracy[:,:,int(indices[2])], 'Accuracy testing le')
-plot_data(lamda, n_neuron,  "e", indices, 100*Train_accuracy[:,int(indices[1]),:], 'Accuracy training nl')
-plot_data(lamda, n_neuron, "e", indices, 100*Test_accuracy[:,int(indices[1]),:], 'Accuracy testing nl')
+plot_data(n_layers, eta, "n", indices, 100*Train_accuracy[:,:,int(indices[2])], 'Accuracy training le')
+plot_data(n_layers, eta, "n", indices, 100*Test_accuracy[:,:,int(indices[2])], 'Accuracy testing le')
+plot_data(n_layers, n_neuron,  "e", indices, 100*Train_accuracy[:,int(indices[1]),:], 'Accuracy training nl')
+plot_data(n_layers, n_neuron, "e", indices, 100*Test_accuracy[:,int(indices[1]),:], 'Accuracy testing nl')
 
 plot_data(eta, n_neuron, "l", indices, Train_AUC[int(indices[0]),:,:], 'AUC training ne')
 plot_data(eta, n_neuron, "l", indices, Test_AUC[int(indices[0]),:,:], 'AUC testing ne')
-plot_data(lamda, eta, "n", indices, Train_AUC[:,:,int(indices[2])], 'AUC training le')
-plot_data(lamda, eta, "n", indices, Test_AUC[:,:,int(indices[2])], 'AUC testing le')
-plot_data(lamda, n_neuron, "e", indices, Train_AUC[:,int(indices[1]),:], 'AUC training nl')
-plot_data(lamda, n_neuron, "e", indices, Test_AUC[:,int(indices[1]),:], 'AUC testing nl')
+plot_data(n_layers, eta, "n", indices, Train_AUC[:,:,int(indices[2])], 'AUC training le')
+plot_data(n_layers, eta, "n", indices, Test_AUC[:,:,int(indices[2])], 'AUC testing le')
+plot_data(n_layers, n_neuron, "e", indices, Train_AUC[:,int(indices[1]),:], 'AUC training nl')
+plot_data(n_layers, n_neuron, "e", indices, Test_AUC[:,int(indices[1]),:], 'AUC testing nl')
 
 plot_data(eta, n_neuron, "l", indices, Exp_sig[int(indices[0]),:,:], 'Significance ne')
-plot_data(lamda, eta, "n", indices, Exp_sig[:,:,int(indices[2])], 'Significance le')
-plot_data(lamda, n_neuron, "e", indices, Exp_sig[:,int(indices[1]),:], 'Significance nl')
+plot_data(n_layers, eta, "n", indices, Exp_sig[:,:,int(indices[2])], 'Significance le')
+plot_data(n_layers, n_neuron, "e", indices, Exp_sig[:,int(indices[1]),:], 'Significance nl')
