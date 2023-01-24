@@ -12,13 +12,14 @@ To train the networks I will utilize two methods. The first one being this where
 Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when teaching a network using the full dataset it might only focus on a few special ones that stand out more than others on the massive dataset. Also, every different DM sample has different phenomenology, specially in the future when I will be receiving SUSY samples, meaning that it also won't teach the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights (i.e. cross sections) gives us an extremely low statistics dataset, even in the full DM dataset. \\
 \\Thus making the approach to teach the networks one MC sample at a time is impossible \todo{for NN}. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600 \cap\le 1100$ GeV and the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. Will try DSID now...
 
-\section{Neural Network Preparation}
+\section{Neural Network Training}
 For this thesis we purely utilize \verb|TensorFlow v. 2.7.1 GPU| for NN. Before implementing everything into a real NN we need to first prepare the data in a special way when.
 The first and most important thing for this whole project is that the \verb|batch_size| should be as big as possible whenever we try \textbf{anything} when using the dataset.
 This is because of both the size of the dataset and because of the imbalance between signal and background.\\
 \\The highest possible batch size that could be used for this thesis was $2^{24}$ which means that there are roughly 17 million samples pr. batch. This is the best that a dedicated GPU, \verb|NVIDIA A100-PCIE-40GB|, could handle. 
 The batch size also decreases the more complex the NN becomes, as this takes greater computational power.\\
 \\With this out of the way there are still a few things that needs to be done to get the best NN for our purposes. These have their own section as they are more difficult to tackle than the batch size.
+
 \subsection{Padding of data}\label{sec:padding_NN}
 There are two problems that need to be adressed when utilizing NNs as compared to BDTs. The first one which is the hardest one to solve, as no one has found a reliabe solution yet is the padding of the missing values.
 Padding is the process of filling missing values on a dataset that goes into a network. This is a problem that doesn't usually appear in other fields than physics, especially with the type of data we look at in HEP.
@@ -30,6 +31,9 @@ Another approach is to use Bayesian statistics or ML to estimate the missing val
 Another approach, perhaps a naive one, is setting all the missing values to zero, as this might mean that there isn't anything there, but this also breaks conservation laws since $\eta,\phi=0$ have physical meaning, this is also highly looked down upon by data scientists since this would affect the weighting when training the network. 
 Another approach is to just remove all events that have a missing value completely getting rid of the problem, but this reduces the statistics of the dataset which is not desired when searching for new physis, as this might remove precious signal events.
 One could also just remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss. \textit{\textbf{For this project it is still up to discussion what approach should be used, and so far only the latest method has been applied.}}\\
+
+
+
 \subsection{Normalization of data}\label{sec:normie_NN}
 Moving onto the second problem, which is not as problematic as the previous, we have the Normalization of data. Since neural networks send a lot of data into multiple neurons and mulitple layers using activation functions and other mathemathical tools, then it is important to make sure that the signal doesn't die when moving around the network. A fast way for the signal to die off is to not normalize the data and send it through the network, the reason it might die is because we send in numbers which vary significantly to eachother, i.e. the $p_{T}$ might be as high as thousands GeV, while $E_T^{miss}/\sigma$ might be as low as 0.1. What might happen when sending such different numbers is that the network might think "obviouly the high number is more important than the low number" thus making the activation function worse for the feature, even though this feature is of high imporatance when looking at MET final states.
 A way to fix this problem is to normalize all features. There are many ways to do this, one could do \textit{min max scaling} which normalizes every feature from $[0,1]$, completely erasing the problem above. Mathematically speaking this is done by
@@ -112,6 +116,9 @@ We can see that the best results come from Z-score and Batch normalization. We c
 
 
 \clearpage
+
+
+
 \subsection{Weights}\label{sec:wgts}
 \graphicspath{{../../figures/}}
 The results so far (my \textit{OLD} interpretation with only three different DM theories) show that the network is completely capable of distinguishing signal from background in the unweighted training, however if we were to scale the predictions (the networks output) with the weights (sample weights * luminosity / sum of weights) we would see that the signal is hidden underneath the background. Both validation plots are shown in Figure \ref{fig:OLD_FULL_DM_VAL}. If we train the network using the weights of the MC samples we see that the network still gets the same accuracy, and an even lower loss function score. But the AUC becomes exactly 0.5. When looking at the ROC curve and validation plots (plots showing how well the network sorts signal from background) we see that everything "is messed up" the ROC is 0.5, and there is only \textbf{one} background bin. When printing how many signal events the weighted network predicted it is easy to understand why, it is because it says there is not a single dark matter event. Which I first interpreted as being in agreement with Figure \ref{fig:OLD_W_FULL_DM_VAL}.\\
@@ -187,6 +194,9 @@ The results so far (my \textit{OLD} interpretation with only three different DM 
 \end{table}
 
 \clearpage
+
+
+
 \subsection{Balanced weights}\label{sec:Balanced_wgts}
 Even if the weighting method previously described helps the network to give reasonable results. It most likely won't distinguish the importance between signal events that have high resonance and those that do not. 
 As an example, if we look at the Z' DH model in the HDS and compare how the network classifies a model with a $m_{Z'}$ of 130 GeV to one with a $m_{Z'}$ of 1500 GeV we might get an idea of how the network classifies things.
@@ -339,6 +349,212 @@ The reason that the new network wrongly classifies more background as signal mig
 Another thing that might be of significance is that I used the ratio of the training set, it might make a difference (better or worse) to use the ratio of the full dataset when training as this is more general. Since the ratio most likely differs for the training and testing set. \textit{\textbf{Both of this options are up to discussion to further pursue. As well as if this appreoach is worth pursuing if it only learns the models with higher cross section.}}
 
 \clearpage
+
+
+
+\subsection{Architecture}\label{sec:NN_Architecture}
+The architecture of the NN utilized in this project is of the form shown in Figure \ref{fig:NNArch}.
+\begin{figure}[!ht]
+   \centering
+   \begin{tikzpicture}[x=0.5pt,y=0.5pt,yscale=-1,xscale=1]
+      %uncomment if require: \path (0,496); %set diagram left start at 0, and has height of 496
+
+      %Straight Lines [id:da4017136284587772] 
+      \draw    (44.71,124.36) -- (206.2,71.74) ;
+      %Straight Lines [id:da2227878135161746] 
+      \draw    (46.14,210.32) -- (207.63,157.71) ;
+      %Straight Lines [id:da35416891916640736] 
+      \draw    (45.42,296.29) -- (206.92,243.68) ;
+      %Straight Lines [id:da16193112504220186] 
+      \draw    (45.42,420.09) -- (206.2,329.65) ;
+      %Straight Lines [id:da3497039034753928] 
+      \draw    (44.71,124.36) -- (205.49,157.71) ;
+      %Straight Lines [id:da24573604202629373] 
+      \draw    (46.14,210.32) -- (206.92,243.68) ;
+      %Straight Lines [id:da01718938654762414] 
+      \draw    (45.42,296.29) -- (206.2,329.65) ;
+      %Straight Lines [id:da4694218304226967] 
+      \draw    (45.42,420.09) -- (206.2,453.44) ;
+      %Straight Lines [id:da6780505366621903] 
+      \draw    (44.71,124.36) -- (206.92,243.68) ;
+      %Straight Lines [id:da3700806633588325] 
+      \draw    (46.14,210.32) -- (208.35,329.65) ;
+      %Straight Lines [id:da7204661169538961] 
+      \draw    (45.42,296.29) -- (206.2,453.44) ;
+      %Straight Lines [id:da03352111792760715] 
+      \draw    (49.89,126.59) -- (206.2,329.65) ;
+      %Straight Lines [id:da7880697711535636] 
+      \draw    (44.71,124.36) -- (206.2,453.44) ;
+      %Straight Lines [id:da8177807044758987] 
+      \draw    (46.14,210.32) -- (206.2,453.44) ;
+      %Straight Lines [id:da5902292990985858] 
+      \draw    (49.89,210.5) -- (206.2,71.74) ;
+      %Straight Lines [id:da7293359024356544] 
+      \draw    (45.42,296.29) -- (206.2,71.74) ;
+      %Straight Lines [id:da8672682409124693] 
+      \draw    (45.42,420.09) -- (206.2,71.74) ;
+      %Straight Lines [id:da14015258542164877] 
+      \draw    (52.03,295.09) -- (205.49,157.71) ;
+      %Straight Lines [id:da6510778766409582] 
+      \draw    (45.42,420.09) -- (205.49,157.71) ;
+      %Straight Lines [id:da19048953930291812] 
+      \draw    (45.42,420.09) -- (205.85,243.68) ;
+      %Straight Lines [id:da5900414918521127] 
+      \draw    (205.52,72.77) -- (459.29,73.12) ;
+      %Straight Lines [id:da9923475282888197] 
+      \draw    (204.06,158.74) -- (459.29,73.12) ;
+      %Straight Lines [id:da6224502087859033] 
+      \draw    (206.98,244.71) -- (462.21,159.09) ;
+      %Straight Lines [id:da21387151774072322] 
+      \draw    (205.52,330.68) -- (460.75,245.05) ;
+      %Straight Lines [id:da40912543404428503] 
+      \draw    (205.52,454.47) -- (459.29,331.02) ;
+      %Straight Lines [id:da6756606943081097] 
+      \draw    (208.44,158.74) -- (462.21,159.09) ;
+      %Straight Lines [id:da16137493446626694] 
+      \draw    (206.98,244.71) -- (460.75,245.05) ;
+      %Straight Lines [id:da10150687813127202] 
+      \draw    (205.52,330.68) -- (459.29,331.02) ;
+      %Straight Lines [id:da0030866090013578207] 
+      \draw    (205.52,454.47) -- (459.29,454.82) ;
+      %Straight Lines [id:da5047969586038915] 
+      \draw    (206.98,244.71) -- (459.29,73.12) ;
+      %Straight Lines [id:da16781805884673007] 
+      \draw    (204.43,334.29) -- (459.29,73.12) ;
+      %Straight Lines [id:da5565130910620758] 
+      \draw    (205.52,454.47) -- (459.29,73.12) ;
+      %Straight Lines [id:da36371826499194726] 
+      \draw    (205.52,454.47) -- (462.21,159.09) ;
+      %Straight Lines [id:da11821496918512042] 
+      \draw    (205.52,330.68) -- (462.21,159.09) ;
+      %Straight Lines [id:da7692636391915034] 
+      \draw    (205.52,72.77) -- (457.83,159.09) ;
+      %Straight Lines [id:da6770318174394677] 
+      \draw    (208.44,158.74) -- (460.75,245.05) ;
+      %Straight Lines [id:da9309923147992141] 
+      \draw    (206.98,244.71) -- (459.29,331.02) ;
+      %Straight Lines [id:da7413198534186101] 
+      \draw    (213.18,73.63) -- (460.75,245.05) ;
+      %Straight Lines [id:da26068921273410117] 
+      \draw    (213.18,73.63) -- (459.29,331.02) ;
+      %Straight Lines [id:da8585525579192329] 
+      \draw    (205.52,72.77) -- (459.29,454.82) ;
+      %Straight Lines [id:da2270863173532055] 
+      \draw    (213.18,162.87) -- (459.29,454.82) ;
+      %Straight Lines [id:da5864780819119888] 
+      \draw    (205.52,330.68) -- (459.29,454.82) ;
+      %Straight Lines [id:da16348930210331503] 
+      \draw    (205.52,454.47) -- (460.75,245.05) ;
+      %Straight Lines [id:da2425074417898001] 
+      \draw    (208.44,158.74) -- (459.29,331.02) ;
+      %Straight Lines [id:da13422732156968453] 
+      \draw    (456.31,71.74) -- (617.09,259.84) ;
+      %Straight Lines [id:da7308781194762678] 
+      \draw    (457.74,157.71) -- (617.09,259.84) ;
+      %Straight Lines [id:da5359704776892366] 
+      \draw    (457.02,243.68) -- (617.09,259.84) ;
+      %Straight Lines [id:da3406152128273612] 
+      \draw    (456.31,329.65) -- (617.09,259.84) ;
+      %Straight Lines [id:da14904168253418448] 
+      \draw    (456.31,453.44) -- (617.09,259.84) ;
+      %Shape: Ellipse [id:dp8560274429988182] 
+      \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (8.8,124.36) .. controls (8.8,105.27) and (24.88,89.8) .. (44.71,89.8) .. controls (64.54,89.8) and (80.62,105.27) .. (80.62,124.36) .. controls (80.62,143.44) and (64.54,158.91) .. (44.71,158.91) .. controls (24.88,158.91) and (8.8,143.44) .. (8.8,124.36) -- cycle ;
+      %Shape: Ellipse [id:dp5971121909630736] 
+      \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (10.23,210.32) .. controls (10.23,191.24) and (26.31,175.76) .. (46.14,175.76) .. controls (65.97,175.76) and (82.05,191.24) .. (82.05,210.32) .. controls (82.05,229.41) and (65.97,244.88) .. (46.14,244.88) .. controls (26.31,244.88) and (10.23,229.41) .. (10.23,210.32) -- cycle ;
+      %Shape: Ellipse [id:dp024903598729203225] 
+      \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (9.51,296.29) .. controls (9.51,277.21) and (25.59,261.73) .. (45.42,261.73) .. controls (65.25,261.73) and (81.33,277.21) .. (81.33,296.29) .. controls (81.33,315.38) and (65.25,330.85) .. (45.42,330.85) .. controls (25.59,330.85) and (9.51,315.38) .. (9.51,296.29) -- cycle ;
+      %Shape: Ellipse [id:dp2752980849146809] 
+      \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (9.51,420.09) .. controls (9.51,401) and (25.59,385.53) .. (45.42,385.53) .. controls (65.25,385.53) and (81.33,401) .. (81.33,420.09) .. controls (81.33,439.17) and (65.25,454.64) .. (45.42,454.64) .. controls (25.59,454.64) and (9.51,439.17) .. (9.51,420.09) -- cycle ;
+
+      %Shape: Ellipse [id:dp22212680764969794] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.01,71.06) .. controls (171.01,51.97) and (187.09,36.5) .. (206.92,36.5) .. controls (226.75,36.5) and (242.83,51.97) .. (242.83,71.06) .. controls (242.83,90.14) and (226.75,105.61) .. (206.92,105.61) .. controls (187.09,105.61) and (171.01,90.14) .. (171.01,71.06) -- cycle ;
+      %Shape: Ellipse [id:dp31615925311964466] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (170.3,157.02) .. controls (170.3,137.94) and (186.37,122.46) .. (206.2,122.46) .. controls (226.04,122.46) and (242.11,137.94) .. (242.11,157.02) .. controls (242.11,176.11) and (226.04,191.58) .. (206.2,191.58) .. controls (186.37,191.58) and (170.3,176.11) .. (170.3,157.02) -- cycle ;
+      %Shape: Ellipse [id:dp763257580789] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.73,242.99) .. controls (171.73,223.9) and (187.8,208.43) .. (207.63,208.43) .. controls (227.47,208.43) and (243.54,223.9) .. (243.54,242.99) .. controls (243.54,262.08) and (227.47,277.55) .. (207.63,277.55) .. controls (187.8,277.55) and (171.73,262.08) .. (171.73,242.99) -- cycle ;
+      %Shape: Ellipse [id:dp41332126656266754] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.01,328.96) .. controls (171.01,309.87) and (187.09,294.4) .. (206.92,294.4) .. controls (226.75,294.4) and (242.83,309.87) .. (242.83,328.96) .. controls (242.83,348.05) and (226.75,363.52) .. (206.92,363.52) .. controls (187.09,363.52) and (171.01,348.05) .. (171.01,328.96) -- cycle ;
+      %Shape: Ellipse [id:dp3269904901419234] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (170.3,453.44) .. controls (170.3,434.35) and (186.37,418.88) .. (206.2,418.88) .. controls (226.04,418.88) and (242.11,434.35) .. (242.11,453.44) .. controls (242.11,472.53) and (226.04,488) .. (206.2,488) .. controls (186.37,488) and (170.3,472.53) .. (170.3,453.44) -- cycle ;
+      %Shape: Ellipse [id:dp43598218516443177] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,71.74) .. controls (420.4,52.66) and (436.48,37.18) .. (456.31,37.18) .. controls (476.14,37.18) and (492.22,52.66) .. (492.22,71.74) .. controls (492.22,90.83) and (476.14,106.3) .. (456.31,106.3) .. controls (436.48,106.3) and (420.4,90.83) .. (420.4,71.74) -- cycle ;
+      %Shape: Ellipse [id:dp5839593265260355] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (419.69,157.71) .. controls (419.69,138.62) and (435.76,123.15) .. (455.6,123.15) .. controls (475.43,123.15) and (491.5,138.62) .. (491.5,157.71) .. controls (491.5,176.8) and (475.43,192.27) .. (455.6,192.27) .. controls (435.76,192.27) and (419.69,176.8) .. (419.69,157.71) -- cycle ;
+      %Shape: Ellipse [id:dp5046190422661424] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (421.12,243.68) .. controls (421.12,224.59) and (437.19,209.12) .. (457.02,209.12) .. controls (476.86,209.12) and (492.93,224.59) .. (492.93,243.68) .. controls (492.93,262.77) and (476.86,278.24) .. (457.02,278.24) .. controls (437.19,278.24) and (421.12,262.77) .. (421.12,243.68) -- cycle ;
+      %Shape: Ellipse [id:dp04717464708306185] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,329.65) .. controls (420.4,310.56) and (436.48,295.09) .. (456.31,295.09) .. controls (476.14,295.09) and (492.22,310.56) .. (492.22,329.65) .. controls (492.22,348.73) and (476.14,364.21) .. (456.31,364.21) .. controls (436.48,364.21) and (420.4,348.73) .. (420.4,329.65) -- cycle ;
+      %Shape: Ellipse [id:dp9408343992389916] 
+      \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,453.44) .. controls (420.4,434.35) and (436.48,418.88) .. (456.31,418.88) .. controls (476.14,418.88) and (492.22,434.35) .. (492.22,453.44) .. controls (492.22,472.53) and (476.14,488) .. (456.31,488) .. controls (436.48,488) and (420.4,472.53) .. (420.4,453.44) -- cycle ;
+      %Shape: Ellipse [id:dp47294074537144504] 
+      \draw  [fill={rgb, 255:red, 209; green, 132; blue, 132 }  ,fill opacity=1 ] (581.18,259.84) .. controls (581.18,240.75) and (597.26,225.28) .. (617.09,225.28) .. controls (636.92,225.28) and (653,240.75) .. (653,259.84) .. controls (653,278.93) and (636.92,294.4) .. (617.09,294.4) .. controls (597.26,294.4) and (581.18,278.93) .. (581.18,259.84) -- cycle ;
+
+      % Text Node
+      \draw (50,340) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
+      % Text Node
+      \draw (210,371) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
+      % Text Node
+      \draw (460,371) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
+      % Text Node
+      \draw (312,420) node [anchor=north west][inner sep=0.75pt]  [rotate=0] [align=left] {. . .};
+      % Text Node
+      \draw (22,39.75) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 198; green, 235; blue, 167 }  ,opacity=1 ] [align=left] {\begin{minipage}[lt]{22.16pt}\setlength\topsep{0pt}
+      \begin{center}
+      {\scriptsize \textcolor[rgb]{0.7,0.83,0.59}{\textbf{input\\layer}}}
+      \end{center}
+
+      \end{minipage}};
+      % Text Node
+      \draw (270.19,36.82) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\scriptsize \textcolor[rgb]{0.51,0.64,0.79}{\textbf{hidden layer(s)}}}};
+      % Text Node
+      \draw (590.42,160.07) node [anchor=north west][inner sep=0.75pt]   [align=left] {\begin{minipage}[lt]{26.92pt}\setlength\topsep{0pt}
+      \begin{center}
+      {\scriptsize \textbf{\textcolor[rgb]{0.75,0.49,0.49}{output\\layer}}}
+      \end{center}
+
+      \end{minipage}};
+      % Text Node
+      \draw (80.17,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
+      % Text Node
+      \draw (295.11,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
+      % Text Node
+      \draw (528.6,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = Sigmoid}};
+
+
+   \end{tikzpicture}
+   \caption[Neural Network Architecture]{Architecture of the NN used on this thesis. 
+   The neurons on the hidden layer(s) is a hyperparameter, as well as the number of hidden layers. }\label{fig:NNArch}
+\end{figure}
+\\Making this type of NN using TensorFlow is easy. An algorithm showing one of the possibilites can be seen in Algorithm \ref{alg:nn}.
+\begin{lstlisting}[language=Python, caption={Neural network definition using TensorFlow}, label=alg:nn, captionpos=t]
+   import tensorflow as tf
+   from tensorflow.keras import layers
+   
+   def Neural_Network(inputsize, n_layers, n_neuron, eta, lamda):
+       
+       model=tf.keras.Sequential()      
+       
+       for i in range(n_layers):       
+           if (i==0):                  
+               model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=
+                tf.keras.regularizers.l2(lamda), input_dim=inputsize))
+           else:                       
+               model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=
+                       tf.keras.regularizers.l2(lamda)))
+                       
+       model.add(layers.Dense(1,activation='sigmoid')) 
+       
+       sgd=tf.optimizers.Adam(learning_rate=eta)
+       
+       model.compile(loss=tf.losses.BinaryCrossentropy(),
+                   optimizer=sgd,
+                   metrics = [tf.keras.metrics.BinaryAccuracy()])
+       return model
+   \end{lstlisting}
+\clearpage
+
+
+
 \subsection{Grid Search}\label{sec:NNGriddy}
 To get the best performance on our NN, we need to find which hyperparemters helps the network reach highest significance. To do this, we need to do a gridsearch. 
 For our neural network we will mainly focus on four hyperparameters explained on section \ref{sec:theory_nn}:
@@ -445,8 +661,140 @@ A solution to this however, is that instead of combining the results of multiple
 This is obviously something we have to discuss further.
 \clearpage
 \graphicspath{{../../figures/}}
-\section{XGBoost Training}
-For XGBoost there is a different problem when it comes to weights. XGBoost has a variable called \verb|scale_pos_weight| where we can help the network deal with unbalanced data, such as the one we have. Thus we can use the \textit{real} weights that are calculated in the MC generators, except not really, XGBoost does not have to possibility to include negative weights. In this project I have therefore used the absolute value of the weights when training. Other than that there are few complications. 
+
+
+
+
+
+
+\section{Boosted Desicion Tree Training}
+When working with BDTs we do not run into as many problems as we do with NNs. For example the padding and normalization of data can be completely avoided, making the whole procedure a lot easier when one uses "weird data" as we do in HEPP.
+There is however one other problem that need to be dealt with when working with this type of ML, this is the weights, which will be discussed in the next section.\\
+\\For this project we will as mentioned \todo{remember to mention it} utilize the Extreme Gradient Boosting, or XGBoost for short, package made for the HiggsML\todo{add source/remove this comment?} whenever we mention BDTs.
+This project utilized version \verb|1.5.0| without GPU \todo{might change?}adaptability. XGBoost also helps to avoid padding as it is integrated with a \verb|missing_variable| variable where we can simply write the number of the variable that is missing.
+
+\subsection{Weights}
+For XGBoost there is a different problem when it comes to weights. XGBoost has a variable called \verb|scale_pos_weight| where we can help the network deal with unbalanced data, such as the one we have. 
+Meaning that the whole problem of section \ref{sec:Balanced_wgts} completely dissapears, meaning we could use the \textit{real} weights calculated in the MC generators.
+Sadly it is not that easy, XGBoost does not have to possibility to include negative weights, which this dataset has lots of. The MC generators \todo{find which I'm using} generate events with negative weights, which are important to correctly scale the simulated events to real data.
+In the future this might no longer be a problem, as XGBoost might add an update that tackles negative weights, or \todo{I have no other sources to this other than spoken words at conferenes...} future MC generators might only have positive weights.\\
+\\In this project I have opted to using the absolute value of the weights when training to solve, or rather avoid, this problem. 
+This is however not generally accepted as a solution, and some even say it should be avoided. \\
+\\There are other options however, one is to not include events with negative weights on the training set. This is not desirable for this thesis since it would lower our statistics.\\
+\\Another one \todo{Soruce: William} is to normalize the weights when using the absolute value with respect to the sum of weights over the sum of absolute weights. The reason behind this is because the sum of weights is obviously not the same when we take the absolute value. 
+Mathemathically speaking, if we have an array of weights $W$, we can update this like
+$$
+W \rightarrow \abs{W}\frac{\sum_i W_i}{\sum_i\abs{W_i}}
+$$
+such that the weights are at least in the same scale. \textit{\textbf{I have used both this and only the absolute value, and the difference is negligible}}. 
+If there are others method to fix this problem it is still up to discussion.
+
+
+
+% \subsection{General structure of the network}
+% BDT illustration? \\
+% \\Makinga BDT for our purposes is fairly easy as well using XGBoost. One way to do it is using the code below in Algorithm
+% \begin{lstlisting}[language=Python, caption={Boosted Decision Tree definition using XGBoost}, label=alg:xgb, captionpos=t]
+%    import xgboost as xgb
+   
+%    Boosted_Decision_Tree = xgb.XGBClassifier(
+%                 max_depth, 
+%                 use_label_encoder=False,
+%                 n_estimators,
+%                 learning_rate,
+%                 reg_lambda,
+%                 predictor = 'cpu_predictor',
+%                 tree_method = 'hist',
+%                 scale_pos_weight=sow_bkg/sow_sig,
+%                 objective='binary:logistic',
+%                 eval_metric='auc',
+%                 missing=10,
+%                 random_state=42,
+%                 verbosity = 1) 
+% \end{lstlisting}
+
+
+
+\subsection{Grid Search}\label{sec:BDTGriddy}
+To get the best performance on our BDT we have to do a grid search here as well. The trainable hyperparameters here are different than for NNs though. 
+With XGBoost we have the following hyperparameters
+\begin{itemize}
+   \item Tree depth: how many times we split the data
+   \item Number of estimators: how many estimators we use to do out gradient boosting \todo{write BDT theory...}
+   \item The learning rate $\eta$
+   \item L2-regressor $\lambda$, to stop overtraning
+\end{itemize}
+The data set used for this grid search is the same one used in the NN grid search. That is the FULL Z' DM data set containing DH, LV and EFT models. 
+The metrics used to evaluate the score for this case was again the \textbf{AUC} and \textbf{expected significance}.\\
+\\At first I set the number of estimators to be 120 and fixed the L2 $\lambda$ to $10^{-5}$. Then conducted a grid search on the tree depth and learning rate only. 
+I used the same range on the learning rate as I did with the NNs, $\eta \in [0.001, 0.01, 0.1, 1]$, and first did a treee depth from 3-6. 
+This showed however a trend hinting to the expected significance only increasing with more depth, because of this I ended up continuing the grid search up to a depth of 30.
+The results can be shown in Figure \ref{fig:BDT_deep_sig}. This is however highly radical as the convention is to normally not have a depth greater than 7, 
+the reason being that the network is highly likely to overtrain and give wrong predictions. However this was not the case for me as seen for example in Figure \ref{fig:DBDT_GRID_AUC}.
+\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_3-6}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Expected_significance.pdf}
+   %   \caption{Testing AUC}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_24-30}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Expected_significance.pdf}
+   %   \caption{Training AUC}
+   \end{subfigure}
+   \caption{Grid search expected significance going to a depth of up to 30}\label{fig:BDT_deep_sig}
+\end{figure}
+\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_24-30}}
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Testing_AUC.pdf}
+      \caption{Testing AUC}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Training_AUC.pdf}
+      \caption{Training AUC}
+   \end{subfigure}
+   \caption{Grid search AUC going to a depth of up to 30}\label{fig:DBDT_GRID_AUC}
+\end{figure}
+\\ I understand however that this is controversial since we are splitting a data set, that is at best of size $2^{27}$, 30 times. That means that after a depth of 27 there is exaclty one event pr branch.
+So how does a depth of 30 make sense? Luckily for us there is a feature in XGBoost where we can see which features are most important when evaluating a signal. 
+When testing the network trained on the FULL Z' DM data set on a DH HDS $m_{Z'}=130$ GeV model we get the features shown in Figure \ref{fig:DBDT_feat} as most important. 
+\graphicspath{{../../../Plots/XGBoost/FULL/DH_HDS_mZp_130/feature_importance}}
+\begin{figure}[!ht]
+	\centering
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{weight.pdf}
+      \caption{Using "weight" metric}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{total_cover.pdf}
+      \caption{Using "coverage" metric}
+   \end{subfigure}
+   \caption{Feature importance of depth 30 network trained on FULL Z' DM data set when testing it on DH HDS $m_{Z'}=130$ GeV model.}\label{fig:DBDT_feat}
+\end{figure}
+\newpage\noindent As we can see these features vary a lot depending on which metric we use to evaluate the importance. 
+When using the "coverage" metric, which as stated is defined as the number of samples affected by the split, we get the features we physically expect to be important when trying to single out a DM model.
+And this metric is arguably the one we need to use to define what features are important. Since the more samples a feature split, the more powerful it is to separate signal from background.\\
+\\We can see however that when we use "weight" as a metric, which is the XGBoost standard metric, we get completely unexpected features that we physically don't expect to be important when trying to single out a DM model.
+But as described by the metric, the "weight" is the number of times a feature appears in a tree. This \todo{my opinion!}leads me to believe that the reason the pseudorapidity and $\phi$ range so high on this list, 
+is simply because the tree is struggling to find a pattern here and is trying extra hard to single out DM from SM.
+
+
+\clearpage
+\graphicspath{{../../figures/}}
+
+
+
 
 \section{Pure log}
 Some problems that have happened is that I had previously made a Deep Neural Network, using three hidden layers. This is however not optimal as the DM statistics is non existent compared to the SM background. Another big problem I had was that I used small bacth sizes when training the Neural Networks. A batch being a portion of the data which is used when training. The reason we batch is to reduce computational power and divide the task of learning. I had a batch size of around 30,000 MC events pr batch. To remind ourselves of our data size, we have around 90,000,000 MC events, from which roughly 40,000 corresponds to a single DM MC DSID. So when batching we trained the network to recognize DM, when there most likely wasn't a single DM sample in the batch itself... this explain the abrupt end, and peak of backgrounds on the signal region seen in Fig. \ref{fig:NN_EXP_SIG:uu}. Thankfully, since I have the supercomputer \verb|hepp03| available I could increase the batch size to a massive amount such as $2^24$ which gives roughly 16 million MC events pr bacth. This is the highest the GPU of the supercomputer can handle!\\

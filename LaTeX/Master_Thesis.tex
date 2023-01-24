@@ -18,6 +18,7 @@
 \usepackage{todonotes}
 %\usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{listings}
+\renewcommand{\lstlistingname}{Algorithm}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[backend = biber, style = vancouver]{biblatex}
@@ -32,7 +33,33 @@
     pdftitle={Model\_independent\_search\_for\_Dark\_Matter},
     pdfpagemode=FullScreen,
     }
+\usepackage{tikz}
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
 \usepackage{subfiles} 
 
 
