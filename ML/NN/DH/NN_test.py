@@ -46,6 +46,25 @@ data_jet2Eta = df_data.pop('jet2Eta')
 data_jet1Pt = df_data.pop('jet1Pt')
 data_jet2Pt = df_data.pop('jet2Pt')
 
+
+# Signal region search
+
+df_data = df_data.loc[df_data['mll'] > 120]                     
+
+# met_reg = '50-100'
+# met_reg = '100-150'
+met_reg = '150'
+
+if met_reg == '50-100':
+    df_data = df_data.loc[df_data['met'] < 100]                     
+
+elif met_reg == '100-150':
+    df_data = df_data.loc[df_data['met'] > 100]                     
+    df_data = df_data.loc[df_data['met'] < 150]      
+    
+elif met_reg == '150':
+    df_data = df_data.loc[df_data['met'] > 150]    
+
 data_train, data_test = train_test_split(df_data, test_size = 0.1, random_state = 42)
 
 model_dir = '../../Models/NN/'
@@ -62,7 +81,7 @@ for dsid_int in dsid_test:
     dsid2 = str(dsid_int[1])
     dsid_name = DM_DICT[dsid1].split(' ')
     dsid_title = dsid_name[0] +' '+ dsid_name[1] +' '+ dsid_name[2] +' '+ dsid_name[3]
-    dsid_save = dsid_name[0] +'_'+ dsid_name[1] + '_mZp_' + dsid_name[3]
+    dsid_save = dsid_name[1] + '_mZp_' + dsid_name[3]
     
     print('Doing', dsid_save)
 
@@ -88,6 +107,21 @@ for dsid_int in dsid_test:
     df_jet1Eta = df_features.pop('jet1Eta')
     df_jet2Eta = df_features.pop('jet2Eta')
 
+    
+    # Signal region search
+
+    df_features = df_features.loc[df_features['mll'] > 120]               
+
+    if met_reg == '50-100':
+        df_features = df_features.loc[df_features['met'] < 100]                     
+
+    elif met_reg == '100-150':
+        df_features = df_features.loc[df_features['met'] > 100]                     
+        df_features = df_features.loc[df_features['met'] < 150]      
+        
+    elif met_reg == '150':
+        df_features = df_features.loc[df_features['met'] > 150]    
+        
     df_labels = df_features.pop('Label')
     
     test_size = 0.2
@@ -99,9 +133,9 @@ for dsid_int in dsid_test:
     DSID_test = X_test.pop('RunNumber')
     
     scaler = 1/test_size
-    network = tf.keras.models.load_model(model_dir+'Zp_DH')
-    pred = network.predict(X_test, batch_size = int(2**23), use_multiprocessing = True, verbose = 1).ravel()
-    data_pred = network.predict(data_test, batch_size = int(2**23), use_multiprocessing = True, verbose = 1).ravel()
+    network = tf.keras.models.load_model(model_dir+'Zp_DH_mll_120_met_'+met_reg)
+    pred = network.predict(X_test, batch_size = int(2**24), use_multiprocessing = True, verbose = 1).ravel()
+    data_pred = network.predict(data_test, batch_size = int(2**24), use_multiprocessing = True, verbose = 1).ravel()
     data_w = np.ones(len(data_pred))*10
     n_bins = 100
     
@@ -131,7 +165,7 @@ for dsid_int in dsid_test:
     colors = ['#218C8D', '#6CCECB', '#F9E559', '#EF7126', '#8EDC9D']
     labels = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']
     
-    plot_dir = '../../../Plots/NeuralNetwork/Zp_DH/BEST_GRID/'+dsid_save+'/'
+    plot_dir = '../../../Plots/NeuralNetwork/Zp_DH/'+dsid_save+'/mll_120_met_'+met_reg+'/'
 
     try:
         os.makedirs(plot_dir)
@@ -163,15 +197,13 @@ for dsid_int in dsid_test:
     n, bins, patches = ax1.hist(hist, weights = hist_w, bins = n_bins, label = labels, histtype='barstacked', color=colors, zorder = 0)
     n, bins, patches = ax1.hist(pred[Y_test==1], weights = W_test[Y_test==1]*scaler, bins = n_bins, color='#F42069', label="Signal", zorder = 5, histtype='step')
     ax1.bar(x_axis, 2*unc_bkg, bottom=bkg_pred-unc_bkg, fill=False, hatch='XXXXX', label='Stat. + Syst. Unc.', width = width, lw=0.0, alpha=0.3)
-    ax1.text(0.15, max(bkg_pred), 'ATLAS', fontstyle='italic', fontweight='bold')
-    ax1.text(0.15 + 0.06, max(bkg_pred), 'Preliminary')
-    ax1.text(0.15, max(bkg_pred)/2.5, '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$') 
-    ax1.text(0.15, max(bkg_pred)/6, '$>50$ GeV $E_{T}^{miss}$')
+    ax1.text(0.15, max(bkg_pred), '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$') 
+    ax1.text(0.15, max(bkg_pred)/2.5, '$>50$ GeV $E_{T}^{miss}$, > 120 GeV $m_{ll}$')
     ax1.errorbar(x_axis, data_hist, yerr = unc_data, fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2 )
     ax1.set_ylabel('Events')
     ax1.set_yscale('log')
     ax1.set_xlim([0,1])
-    ax1.set_ylim([2e-3,2e7])
+    ax1.set_ylim([2e-3,max(bkg_pred)*7])
     ax1.legend(ncol=2)
     ax2.set_ylabel('Events / Bkg')
     ax2.errorbar(x_axis, ratio, yerr = unc_ratio, fmt='o', color='black', ms=3, lw=1, ecolor='grey')

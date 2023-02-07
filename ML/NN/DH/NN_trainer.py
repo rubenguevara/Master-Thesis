@@ -18,7 +18,6 @@ sig_file = save_dir+'/DM_Models/DM_Zp_dh.h5'
 df_bkg = pd.read_hdf(bkg_file, key='df_tot')
 df_sig = pd.read_hdf(sig_file, key='df_tot')
 df = pd.concat([df_bkg, df_sig])
-print(df)
 
 df_features = df.copy()
 df_EventID = df_features.pop('EventID')
@@ -37,18 +36,38 @@ df_jet2Phi = df_features.pop('jet2Phi')
 df_jet1Eta = df_features.pop('jet1Eta')
 df_jet2Eta = df_features.pop('jet2Eta')
 
+
+
+# Signal region search
+
+df_features = df_features.loc[df_features['mll'] > 120]                     
+
+# met_reg = '50-100'
+# met_reg = '100-150'
+met_reg = '150'
+
+if met_reg == '50-100':
+    df_features = df_features.loc[df_features['met'] < 100]                     
+
+elif met_reg == '100-150':
+    df_features = df_features.loc[df_features['met'] > 100]                     
+    df_features = df_features.loc[df_features['met'] < 150]      
+    
+elif met_reg == '150':
+    df_features = df_features.loc[df_features['met'] > 150]                      
+
 df_labels = df_features.pop('Label')
 
 test_size = 0.2
 X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size=test_size, random_state=42)
-X_train_w = np.asarray(X_train.pop('Weight'))
+X_train_w = X_train.pop('Weight')
 W_test = X_test.pop('Weight')
 
+print('Doing SR with mll > 120 and met',met_reg)
 
-Balancer = np.ones(len(Y_train))
-Balancer[Y_train==1] = sum(X_train_w[Y_train==0])/sum(X_train_w[Y_train==1])
-W_train = pd.DataFrame(X_train_w*Balancer, columns=['Weight'])                          # Has to be a pandas DataFrame or it crashes
-print(W_test)
+W_train = np.ones(len(Y_train))
+W_train[Y_train==0] = sum(W_train[Y_train==1])/sum(W_train[Y_train==0])
+W_train = pd.DataFrame(W_train, columns=['Weight'])                          
 
 def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
     model=tf.keras.Sequential()
@@ -70,6 +89,6 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
     return model
 
 
-model=NN_model(X_train.shape[1], 5, 100, 0.01, 1e-5)
-model.fit(X_train, Y_train, sample_weight = W_train, epochs=50, batch_size = int(2**23), verbose = 1, use_multiprocessing = True)
-model.save('../../Models/NN/Zp_DH')
+model=NN_model(X_train.shape[1], 2, 100, 0.01, 1e-5)
+model.fit(X_train, Y_train, sample_weight = W_train, epochs=50, batch_size = int(2**24), verbose = 1, use_multiprocessing = True)
+model.save('../../Models/NN/Zp_DH_mll_120_met_'+met_reg)
