@@ -37,7 +37,7 @@ dataRP = df_data.pop('RunPeriod')
 data_train, data_test = train_test_split(df_data, test_size = 0.1, random_state = 42)
 
 
-model_dir = '../Models/XGB/'
+model_dir = '../Models/XGB/WGTS/'
 try:
     os.makedirs(model_dir)
 
@@ -76,14 +76,14 @@ for dsid_int in dsid_test:
     df_labels = df_features.pop('Label')
     test_size = 0.2
     X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size = test_size, random_state = 42)
-    W_train = abs(X_train.pop('Weight'))
+    W_train = X_train.pop('Weight')
     W_test = X_test.pop('Weight')
     DSID_train = X_train.pop('RunNumber')
     DSID_test = X_test.pop('RunNumber')
     
     scaler = 1/test_size
     xgbclassifier = xgb.XGBClassifier()
-    xgbclassifier.load_model(model_dir+'best_full')
+    xgbclassifier.load_model(model_dir+'NN_wgt.txt')
     
     y_pred_prob = xgbclassifier.predict_proba(X_test)
     data_pred_prob = xgbclassifier.predict_proba(data_test)
@@ -119,7 +119,7 @@ for dsid_int in dsid_test:
     colors = ['#218C8D', '#6CCECB', '#F9E559', '#EF7126', '#8EDC9D']
     labels = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']
     
-    plot_dir = '../../Plots/XGBoost/FULL/'+dsid_save+'/'
+    plot_dir = plot_dir = '../../Plots/TESTING/XGBoost/LVB/'+dsid_save+'/NN_WGT/'
 
     try:
         os.makedirs(plot_dir)
@@ -151,10 +151,8 @@ for dsid_int in dsid_test:
     n, bins, patches = ax1.hist(hist, weights = hist_w, bins = n_bins, label = labels, histtype='barstacked', color=colors, zorder = 0)
     n, bins, patches = ax1.hist(pred[Y_test==1], weights = W_test[Y_test==1]*scaler, bins = n_bins, color='#F42069', label="Signal", zorder = 5, histtype='step')
     ax1.bar(x_axis, 2*unc_bkg, bottom=bkg_pred-unc_bkg, fill=False, hatch='XXXXX', label='Stat. + Syst. Unc.', width = width, lw=0.0, alpha=0.3)
-    ax1.text(0.15, max(bkg_pred), 'ATLAS', fontstyle='italic', fontweight='bold')
-    ax1.text(0.15 + 0.06, max(bkg_pred), 'Preliminary')
-    ax1.text(0.15, max(bkg_pred)/2.5, '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$') 
-    ax1.text(0.15, max(bkg_pred)/6, '$>50$ GeV $E_{T}^{miss}$')
+    ax1.text(0.15, max(bkg_pred), '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$') 
+    ax1.text(0.15, max(bkg_pred)/2.5, '$>50$ GeV $E_{T}^{miss}$')
     ax1.errorbar(x_axis, data_hist, yerr = unc_data, fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2 )
     ax1.set_ylabel('Events')
     ax1.set_yscale('log')
@@ -165,7 +163,7 @@ for dsid_int in dsid_test:
     ax2.errorbar(x_axis, ratio, yerr = unc_ratio, fmt='o', color='black', ms=3, lw=1, ecolor='grey')
     ax2.grid(axis='y')
     ax2.set_xlim([0,1])
-    ax2.set_ylim([0,2.8])
+    ax2.set_ylim([0.5, 1.5])
     ax2.set_xlabel('XGBoost output')
     fig.suptitle('XGBoost output, '+dsid_title+' dataset, validation data with 30 % syst. unc.', fontsize='x-large')
     plt.savefig(plot_dir+'VAL.pdf')
