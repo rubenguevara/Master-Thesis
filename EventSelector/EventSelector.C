@@ -44,7 +44,7 @@ map<TString, Int_t> weight_indices, weight_indices_Sh2211;
 // Kinematic variables
 Float_t mll, met, met_phi, met_sig, met_sig_rel, met_ht, dphi, dR_ll, dphi_ll, ptll, ht, met_rel, dphi_rel, met_res, met_soft, met_elec, met_muon, met_jet, pt_lep1, pt_lep2;
 Float_t met_truth, met_rel_truth, dphi_rel_truth, mll_truth, dphi_truth;
-Int_t njets, ncjets, nfjets, nljets, nbjets, n_bjet77, n_bjet85;
+Int_t njets, ncjets, nfjets, nljets, nbjets, n_bjet77, n_bjet85, n_bjetPt20, n_bjetPt30, n_bjetPt40, n_bjetPt50, n_bjetPt60, n_ljetPt20, n_ljetPt30, n_ljetPt40, n_ljetPt50, n_ljetPt60, jetEtaCentral, jetEtaForward;
 
 // Weights and SFs
 Float_t wgt, wgt_mc, wgt_pu, wgt_kf, wgt_ttbar, wgt_nlo_ew, wgt_xs, wgt_lsf, wgt_jsf, wgt_tsf, g_eff, xs, wgt_jet, wgt_bjet, wgt_fakes, LLwgt_noSF, wgt_lsf_lep1Loose, wgt_lsf_lep1Tight, wgt_lsf_lep2Loose, wgt_lsf_lep2Tight, wgt_lsf_lep3Loose, wgt_lsf_lep3Tight; 
@@ -187,7 +187,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   nevents++; eventID = *event;
 
   if(nevents%1000000 == 0){cout << nevents/1000000 << " million events processed" << endl; } 
-  if(nevents>10){return kTRUE;} 
+  // if(nevents>10){return kTRUE;} 
   
   
   if( isData ){
@@ -241,18 +241,76 @@ Bool_t EventSelector::Process(Long64_t entry){
     if(dataset=="data18"){yr=2018;} 
   } 
 
+  // //==================================//
+  // // Triggers, isolation and cleaning SUSY //
+  // //==================================//
+
+  // Int_t ee_trig = *pass_ee_trig, uu_trig = *pass_uu_trig, e_trig = *pass_e_trig, u_trig = *pass_u_trig;
+  // Int_t mu_trig = uu_trig, el_trig = ee_trig; 
+
+  // Int_t pass_l_trig = 0, pass_ll_trig = 0;
+  // if(ee_trig || uu_trig){ pass_ll_trig = 1; }
+  // if( u_trig ){pass_l_trig = 1; } // e_trig ||
+  
+  // if (pass_ll_trig == 0 && pass_l_trig == 0){ return kTRUE; }
+
+  // if(*jetCleaning_eventClean == 0){ return kTRUE; } 
+  // if(doCutflow==1){
+  //   if(mu_trig==1){ n_jetclean_u++;} 
+  //   if(el_trig==1){ n_jetclean_e++;} 
+  // }
+
+  // Int_t n_loose_mu = 0; vector<Int_t> loose_mu = {}; 
+  // Int_t n_loose_mu_f = 0; vector<Int_t> loose_mu_f = {}; 
+  // Int_t n_mu_bad = 0; 
+
+
+  // n_mu = mu_pt.GetSize();
+  // for(Int_t i = 0; i<n_mu; i++){
+  //   // if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
+  //   if(mu_passTTVA[i]){n_loose_mu++; loose_mu.push_back(i);}
+  //   // if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
+  //   if(mu_isBad[i]){n_mu_bad++; } 
+  // }
+  // n_jet = jet_eta.GetSize();
+  // n_el = el_pt.GetSize();
+
+  // for(Int_t i = 0; i<n_jet; i++){
+  //   float jetpt = jet_pt[i];}
+  // Int_t n_loose_el = 0; vector<Int_t> loose_el = {}; 
+  // for(Int_t i = 0; i<n_el; i++){
+  //   // if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
+  //   if(el_passTTVA[i]){n_loose_el++; loose_el.push_back(i);}
+  // }
+
+
   //==================================//
   // Triggers, isolation and cleaning //
   //==================================//
 
-  Int_t ee_trig = *pass_ee_trig, uu_trig = *pass_uu_trig, e_trig = *pass_e_trig, u_trig = *pass_u_trig;
-  Int_t mu_trig = uu_trig, el_trig = ee_trig; 
+  Int_t el_trig = 0, mu_trig = 0;  
 
-  Int_t pass_l_trig = 0, pass_ll_trig = 0;
-  if(ee_trig || uu_trig){ pass_ll_trig = 1; }
-  if( u_trig ){pass_l_trig = 1; } // e_trig ||
-  
-  if (pass_ll_trig == 0 && pass_l_trig == 0){ return kTRUE; }
+  if(yr==2015){ 
+    if( *trigger_HLT_2e12_lhloose_L12EM10VH ){ el_trig = 1; n_trig_e++; }
+    if( *trigger_HLT_mu26_imedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
+  }
+  if(yr==2016){ 
+    if( *trigger_HLT_2e17_lhvloose_nod0 ){ el_trig = 1; n_trig_e++; }
+    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
+  }
+  if(yr==2017){
+    if( *trigger_HLT_2e24_lhvloose_nod0 ){el_trig = 1; n_trig_e++;}
+    if((isData && (*run<326834 || *run>328393)) || isMC ){ // (isMC && *systName=="" && doSyst && (*randomRunNumber<326834 || *randomRunNumber>328393)) ){
+      if( *trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI ){el_trig = 1; n_trig_e++;}
+    }  
+    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
+  }
+  if(yr==2018){
+    if( *trigger_HLT_2e24_lhvloose_nod0 || *trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI ){el_trig = 1; n_trig_e++;}
+    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
+  }
+
+  if( el_trig == 0 && mu_trig == 0 ){ return kTRUE; } 
 
   if(*jetCleaning_eventClean == 0){ return kTRUE; } 
   if(doCutflow==1){
@@ -263,24 +321,14 @@ Bool_t EventSelector::Process(Long64_t entry){
   Int_t n_loose_mu = 0; vector<Int_t> loose_mu = {}; 
   Int_t n_loose_mu_f = 0; vector<Int_t> loose_mu_f = {}; 
   Int_t n_mu_bad = 0; 
-
-
-  n_mu = mu_pt.GetSize();
-  for(Int_t i = 0; i<n_mu; i++){
-    // if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
-    if(mu_passTTVA[i]){n_loose_mu++; loose_mu.push_back(i);}
-    // if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
+  for(Int_t i = 0; i<*n_mu; i++){
+    if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
+    if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
     if(mu_isBad[i]){n_mu_bad++; } 
   }
-  n_jet = jet_eta.GetSize();
-  n_el = el_pt.GetSize();
-
-  for(Int_t i = 0; i<n_jet; i++){
-    float jetpt = jet_pt[i];}
   Int_t n_loose_el = 0; vector<Int_t> loose_el = {}; 
-  for(Int_t i = 0; i<n_el; i++){
-    // if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
-    if(el_passTTVA[i]){n_loose_el++; loose_el.push_back(i);}
+  for(Int_t i = 0; i<*n_el; i++){
+    if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
   }
 
   Int_t n_loose_lep = n_loose_el + n_loose_mu;
@@ -358,7 +406,11 @@ Bool_t EventSelector::Process(Long64_t entry){
   } 
 
   TLorentzVector totalj, ajet, j1, j2;
-  n_bjet77 = 0; n_bjet85 = 0; nljets = 0; nbjets = 0;  
+  n_bjet77 = 0; n_bjet85 = 0; nljets = 0; nbjets = 0;
+  n_bjetPt20 = 0; n_bjetPt30 = 0; n_bjetPt40 = 0; n_bjetPt50 = 0; n_bjetPt60 = 0;
+  n_ljetPt20 = 0; n_ljetPt30 = 0; n_ljetPt40 = 0; n_ljetPt50 = 0; n_ljetPt60 = 0; 
+  jetEtaCentral = 0; jetEtaForward = 0;
+
   for(Int_t i = 0; i<n_jet; i++){
     if(n_jet >= 2){
       j1.SetPtEtaPhiM(jet_pt[0]/1000., jet_eta[0], jet_phi[0], jet_m[0]/1000.);
@@ -366,8 +418,27 @@ Bool_t EventSelector::Process(Long64_t entry){
     ajet.SetPtEtaPhiM(jet_pt[i]/1000., jet_eta[i], jet_phi[i], jet_m[i]/1000.);
     
     if(jet_DL1r_score[i]>2.195){n_bjet77++;} 
-    if(jet_DL1r_score[i]>0.665){n_bjet85++; nbjets++; } 
-    if(jet_DL1r_score[i]<0.665){nljets++;} 
+    if(jet_DL1r_score[i]>0.665){
+      n_bjet85++; nbjets++; 
+      if (jet_pt[i]/1000 >= 60){n_bjetPt60++;} 
+      if (jet_pt[i]/1000 >= 50){n_bjetPt50++;}
+      if (jet_pt[i]/1000 >= 40){n_bjetPt40++;} 
+      if (jet_pt[i]/1000 >= 30){n_bjetPt30++;}
+      if (jet_pt[i]/1000 >= 20){n_bjetPt20++;} 
+      if (abs(jet_eta[i]) <= 2.5){jetEtaCentral++;}
+      if (abs(jet_eta[i]) > 2.5){jetEtaForward++;}
+      } 
+    if(jet_DL1r_score[i]<0.665){
+      nljets++;
+      if (jet_pt[i]/1000 >= 60){n_ljetPt60++;} 
+      if (jet_pt[i]/1000 >= 50){n_ljetPt50++;}
+      if (jet_pt[i]/1000 >= 40){n_ljetPt40++;} 
+      if (jet_pt[i]/1000 >= 30){n_ljetPt30++;}
+      if (jet_pt[i]/1000 >= 20){n_ljetPt20++;} 
+      if (abs(jet_eta[i]) <= 2.5){jetEtaCentral++;}
+      if (abs(jet_eta[i]) > 2.5){jetEtaForward++;}
+      } 
+    
 
     if(i==0)totalj = ajet;
     else totalj += ajet;
@@ -475,6 +546,26 @@ Bool_t EventSelector::Process(Long64_t entry){
     xs = *xsec; 
     // Filter efficiency 
     g_eff = *geneff; 
+
+    if(xs == 0 && g_eff == 0){
+        TTree file_fixer; file_fixer.ReadFile("DMRuben_xsec_JAN23.txt"); 
+        int channel=0; double_t crossSection = 0, genFiltEff = 0 ; 
+        file_fixer.SetBranchAddress("dataset_number",&channel);
+        file_fixer.SetBranchAddress("crossSection",&crossSection);
+        file_fixer.SetBranchAddress("genFiltEff",&genFiltEff);
+        std::map<int,double_t> crossSections;
+        std::map<int,double_t> genFiltEffs;
+        for(int i=0;i<file_fixer.GetEntries();i++) {
+          file_fixer.GetEntry(i);
+          crossSections[channel] = crossSection;
+          genFiltEffs[channel] = genFiltEff;
+        }
+    
+    xs = crossSections[file_dsid.Atoi()];
+    g_eff = genFiltEffs[file_dsid.Atoi()];
+    // cout << "xs and g_eff were zero, updated to xs = " << xs << " and g_eff = " << g_eff << " | for DSID " << file_dsid << " mcrun " << dataset << endl;
+      
+    }
     if( xs < 0 || g_eff < 0 ){ cout << "Error in cross section or filter efficiency!!!" << endl; } 
     // Total cross section weight 
     wgt_xs = xs*wgt_kf*nb2fb*g_eff; 
@@ -525,6 +616,9 @@ Bool_t EventSelector::Process(Long64_t entry){
 
     if ( !(tight1 && tight2) ){ wgt = 0.0; } 
     else{ wgt = wgt_mc*wgt_pu*wgt_xs*wgt_lsf*wgt_ttbar*wgt_nlo_ew*wgt_jet*wgt_bjet; } 
+    // if (wgt_xs == 0){
+    //   cout << "wgt_xs = xs*wgt_kf*nb2fb*g_eff   ==   " << wgt_xs << " = " << xs << " * " << wgt_kf << " * " << nb2fb << " * " << g_eff << " | for DSID " << file_dsid << " mcrun " << dataset << endl;
+    //   }
     if (wgt == 0 && wgt_pu != 0){
     cout << "wgt_lsf " << wgt_lsf << endl;
     cout << "dileptons " << dileptons<< " isOS "<< isOS << " DSID " << file_dsid << " mcrun " << dataset <<endl;
@@ -579,6 +673,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   
   // ML FILE
   MY->bMY_Weight = (wgt);  
+  MY->bMY_Sample_Weight = (wgt_mc);  
   MY->bMY_lep1Pt = (l1.Pt());  
   MY->bMY_lep1Eta = (l1.Eta());  
   MY->bMY_lep1Phi = (l1.Phi());
@@ -587,7 +682,23 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_lep2Phi = (l2.Phi());
   MY->bMY_jetB = (nbjets);  
   MY->bMY_jetLight = (nljets);   
-  MY->bMY_jetTot = (nbjets+nljets);  
+  // MY->bMY_jetTot = (nbjets+nljets);  
+  
+
+  // Skip padding, hopefully
+  MY->bMY_n_bjetPt20 = (n_bjetPt20);
+  MY->bMY_n_bjetPt30 = (n_bjetPt30);
+  MY->bMY_n_bjetPt40 = (n_bjetPt40);
+  MY->bMY_n_bjetPt50 = (n_bjetPt50);
+  MY->bMY_n_bjetPt60 = (n_bjetPt60);  
+  MY->bMY_n_ljetPt20 = (n_ljetPt20);
+  MY->bMY_n_ljetPt30 = (n_ljetPt30);
+  MY->bMY_n_ljetPt40 = (n_ljetPt40);
+  MY->bMY_n_ljetPt50 = (n_ljetPt50);
+  MY->bMY_n_ljetPt60 = (n_ljetPt60); 
+  MY->bMY_jetEtaCentral = (jetEtaCentral);  
+  MY->bMY_jetEtaForward = (jetEtaForward); 
+
   if(n_jet >=2){
   MY->bMY_jet1Pt = (j1.Pt());  
   MY->bMY_jet1Eta = (j1.Eta());  
@@ -595,13 +706,20 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_jet2Pt = (j2.Pt());  
   MY->bMY_jet2Eta = (j2.Eta());  
   MY->bMY_jet2Phi = (j2.Phi());}
+  else if(n_jet ==1){
+  MY->bMY_jet1Pt = (j1.Pt());  
+  MY->bMY_jet1Eta = (j1.Eta());  
+  MY->bMY_jet1Phi = (j1.Phi());
+  MY->bMY_jet2Pt = (-999);  
+  MY->bMY_jet2Eta = (-999);  
+  MY->bMY_jet2Phi = (-999);}
   else{
-  MY->bMY_jet1Pt = (0);  
-  MY->bMY_jet1Eta = (10);  
-  MY->bMY_jet1Phi = (10);
-  MY->bMY_jet2Pt = (0);  
-  MY->bMY_jet2Eta = (10);  
-  MY->bMY_jet2Phi = (10);}
+  MY->bMY_jet1Pt = (-999);  
+  MY->bMY_jet1Eta = (-999);  
+  MY->bMY_jet1Phi = (-999);
+  MY->bMY_jet2Pt = (-999);  
+  MY->bMY_jet2Eta = (-999);  
+  MY->bMY_jet2Phi = (-999);}
 
   MY->bMY_met = (met);  
   MY->bMY_mll = (mll);

@@ -59,7 +59,7 @@ class makeMYTree  {
   Float_t                                    bMY_jet2Phi;                                              
   Float_t                                    bMY_jetB;                                             
   Float_t                                    bMY_jetLight;                                             
-  Float_t                                    bMY_jetTot;                                              
+  // Float_t                                    bMY_jetTot;                                              
   Float_t                                    bMY_met;                                               
   Float_t                                    bMY_met_sig;                                              
   Float_t                                    bMY_ht;                                              
@@ -75,7 +75,20 @@ class makeMYTree  {
   Float_t                                    bMY_CrossSection;                                                   
   ULong64_t                                  bMY_EventID;                                           
   Int_t                                      bMY_RunNumber;                                             
-  TString                                    bMY_RunPeriod;                                             
+  TString                                    bMY_RunPeriod;                                       
+  Int_t                                      bMY_Sample_Weight;       
+  Int_t                                      bMY_n_bjetPt20;
+  Int_t                                      bMY_n_bjetPt30;
+  Int_t                                      bMY_n_bjetPt40;
+  Int_t                                      bMY_n_bjetPt50;
+  Int_t                                      bMY_n_bjetPt60;  
+  Int_t                                      bMY_n_ljetPt20;
+  Int_t                                      bMY_n_ljetPt30;
+  Int_t                                      bMY_n_ljetPt40;
+  Int_t                                      bMY_n_ljetPt50;
+  Int_t                                      bMY_n_ljetPt60; 
+  Int_t                                      bMY_jetEtaCentral;  
+  Int_t                                      bMY_jetEtaForward;                                              
 
                                                
 
