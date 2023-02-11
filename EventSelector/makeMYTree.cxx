@@ -64,11 +64,11 @@ makeMYTree::makeMYTree(TString MCID, TString syst, TString fileName, TString tre
   tree->Branch("n_bjetPt40",                                         &bMY_n_bjetPt40);
   tree->Branch("n_bjetPt50",                                         &bMY_n_bjetPt50);
   tree->Branch("n_bjetPt60",                                         &bMY_n_bjetPt60);  
-  tree->Branch("n_bjetPt20",                                         &bMY_n_ljetPt20);
-  tree->Branch("n_bjetPt30",                                         &bMY_n_ljetPt30);
-  tree->Branch("n_bjetPt40",                                         &bMY_n_ljetPt40);
-  tree->Branch("n_bjetPt50",                                         &bMY_n_ljetPt50);
-  tree->Branch("n_bjetPt60",                                         &bMY_n_ljetPt60); 
+  tree->Branch("n_ljetPt20",                                         &bMY_n_ljetPt20);
+  tree->Branch("n_ljetPt30",                                         &bMY_n_ljetPt30);
+  tree->Branch("n_ljetPt40",                                         &bMY_n_ljetPt40);
+  tree->Branch("n_ljetPt50",                                         &bMY_n_ljetPt50);
+  tree->Branch("n_ljetPt60",                                         &bMY_n_ljetPt60); 
   tree->Branch("jetEtaCentral",                                      &bMY_jetEtaCentral);  
   tree->Branch("jetEtaForward",                                      &bMY_jetEtaForward);            
 

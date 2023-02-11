@@ -160,6 +160,19 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_jetphi1[h_name] = new TH1D("h_jet_phi1", "jet_phi1", 50, -M_PI, M_PI);   
       h_jetphi2[h_name] = new TH1D("h_jet_phi2", "jet_phi2", 50, -M_PI, M_PI);  
       
+      h_n_bjetsPt20[h_name] = new TH1D("h_n_bjetsPt20", "n_bjetsPt20", 21, 0, 20); 
+      h_n_bjetsPt30[h_name] = new TH1D("h_n_bjetsPt30", "n_bjetsPt30", 21, 0, 20); 
+      h_n_bjetsPt40[h_name] = new TH1D("h_n_bjetsPt40", "n_bjetsPt40", 21, 0, 20); 
+      h_n_bjetsPt50[h_name] = new TH1D("h_n_bjetsPt50", "n_bjetsPt50", 21, 0, 20); 
+      h_n_bjetsPt60[h_name] = new TH1D("h_n_bjetsPt60", "n_bjetsPt60", 21, 0, 20); 
+      h_n_ljetsPt20[h_name] = new TH1D("h_n_ljetsPt20", "n_ljetsPt20", 21, 0, 20); 
+      h_n_ljetsPt30[h_name] = new TH1D("h_n_ljetsPt30", "n_ljetsPt30", 21, 0, 20); 
+      h_n_ljetsPt40[h_name] = new TH1D("h_n_ljetsPt40", "n_ljetsPt40", 21, 0, 20); 
+      h_n_ljetsPt50[h_name] = new TH1D("h_n_ljetsPt50", "n_ljetsPt50", 21, 0, 20); 
+      h_n_ljetsPt60[h_name] = new TH1D("h_n_ljetsPt60", "n_ljetsPt60", 21, 0, 20); 
+      h_jetEtaCentral[h_name] = new TH1D("h_jetEtaCentral", "jetEtaCentral", 21, 0, 20); 
+      h_jetEtaForward[h_name] = new TH1D("h_jetEtaForward", "jetEtaForward", 21, 0, 20); 
+      
   }
   filename2 = "../../../storage/racarcam/ML_files/"+ml_file+"-"+dataset+"-"+file_dsid+"-"+file_nr+".root";   // ML FILE
   MY = new makeMYTree(dataset,"central",filename2,"");
@@ -272,7 +285,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   //   // if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
   //   if(mu_isBad[i]){n_mu_bad++; } 
   // }
-  // n_jet = jet_eta.GetSize();
+  n_jet = jet_eta.GetSize();
   // n_el = el_pt.GetSize();
 
   // for(Int_t i = 0; i<n_jet; i++){
@@ -415,6 +428,9 @@ Bool_t EventSelector::Process(Long64_t entry){
     if(n_jet >= 2){
       j1.SetPtEtaPhiM(jet_pt[0]/1000., jet_eta[0], jet_phi[0], jet_m[0]/1000.);
       j2.SetPtEtaPhiM(jet_pt[1]/1000., jet_eta[1], jet_phi[1], jet_m[1]/1000.);}
+    else if(n_jet == 1){
+      j1.SetPtEtaPhiM(jet_pt[0]/1000., jet_eta[0], jet_phi[0], jet_m[0]/1000.);}
+      
     ajet.SetPtEtaPhiM(jet_pt[i]/1000., jet_eta[i], jet_phi[i], jet_m[i]/1000.);
     
     if(jet_DL1r_score[i]>2.195){n_bjet77++;} 
@@ -669,6 +685,19 @@ Bool_t EventSelector::Process(Long64_t entry){
     h_jetphi2[this_name]->Fill(j2.Phi(), wgt);
     h_dPhiCloseMet[this_name]->Fill(abs(dPhiCloseMet), wgt);
     h_dPhiLeadMet[this_name]->Fill(abs(dPhiLeadMet), wgt);
+
+    h_n_bjetsPt20[this_name]->Fill(n_bjetPt20, wgt);
+    h_n_bjetsPt30[this_name]->Fill(n_bjetPt30, wgt);
+    h_n_bjetsPt40[this_name]->Fill(n_bjetPt40, wgt);
+    h_n_bjetsPt50[this_name]->Fill(n_bjetPt50, wgt);
+    h_n_bjetsPt60[this_name]->Fill(n_bjetPt60, wgt);
+    h_n_ljetsPt20[this_name]->Fill(n_ljetPt20, wgt);
+    h_n_ljetsPt30[this_name]->Fill(n_ljetPt30, wgt);
+    h_n_ljetsPt40[this_name]->Fill(n_ljetPt40, wgt);
+    h_n_ljetsPt50[this_name]->Fill(n_ljetPt50, wgt);
+    h_n_ljetsPt60[this_name]->Fill(n_ljetPt60, wgt);
+    h_jetEtaCentral[this_name]->Fill(jetEtaCentral, wgt);
+    h_jetEtaForward[this_name]->Fill(jetEtaForward, wgt);
   }
   
   // ML FILE
@@ -802,6 +831,20 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_jeteta2[h_name]->Write();
     h_jetphi1[h_name]->Write();
     h_jetphi2[h_name]->Write();
+
+    h_n_bjetsPt20[h_name]->Write(); 
+    h_n_bjetsPt30[h_name]->Write();
+    h_n_bjetsPt40[h_name]->Write();
+    h_n_bjetsPt50[h_name]->Write();
+    h_n_bjetsPt60[h_name]->Write();
+    h_n_ljetsPt20[h_name]->Write();
+    h_n_ljetsPt30[h_name]->Write();
+    h_n_ljetsPt40[h_name]->Write();
+    h_n_ljetsPt50[h_name]->Write();
+    h_n_ljetsPt60[h_name]->Write(); 
+    h_jetEtaCentral[h_name]->Write();
+    h_jetEtaForward[h_name]->Write();
+
     }
 
   // Reset histograms
@@ -833,6 +876,19 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_jeteta2[h_name]->Reset(); 
     h_jetphi1[h_name]->Reset(); 
     h_jetphi2[h_name]->Reset(); 
+
+    h_n_bjetsPt20[h_name]->Reset(); 
+    h_n_bjetsPt30[h_name]->Reset();
+    h_n_bjetsPt40[h_name]->Reset();
+    h_n_bjetsPt50[h_name]->Reset();
+    h_n_bjetsPt60[h_name]->Reset();
+    h_n_ljetsPt20[h_name]->Reset();
+    h_n_ljetsPt30[h_name]->Reset();
+    h_n_ljetsPt40[h_name]->Reset();
+    h_n_ljetsPt50[h_name]->Reset();
+    h_n_ljetsPt60[h_name]->Reset(); 
+    h_jetEtaCentral[h_name]->Reset();
+    h_jetEtaForward[h_name]->Reset();
   }
   
   cout << "Done with file: " << name << endl; 

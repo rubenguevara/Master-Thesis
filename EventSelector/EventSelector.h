@@ -60,6 +60,19 @@ public :
   map<TString, TH1*> h_jetphi1; //!
   map<TString, TH1*> h_jetphi2; //!
 
+  map<TString, TH1*> h_n_bjetsPt20; //!
+  map<TString, TH1*> h_n_bjetsPt30; //!
+  map<TString, TH1*> h_n_bjetsPt40; //!
+  map<TString, TH1*> h_n_bjetsPt50; //!
+  map<TString, TH1*> h_n_bjetsPt60; //!
+  map<TString, TH1*> h_n_ljetsPt20; //!
+  map<TString, TH1*> h_n_ljetsPt30; //!
+  map<TString, TH1*> h_n_ljetsPt40; //!
+  map<TString, TH1*> h_n_ljetsPt50; //!
+  map<TString, TH1*> h_n_ljetsPt60; //!
+  map<TString, TH1*> h_jetEtaCentral; //!
+  map<TString, TH1*> h_jetEtaForward; //!
+
   // Readers to access the data (delete the ones you do not need).
   TTreeReaderValue<Float_t> mconly_weight = {fReader, "mconly_weight"};
   TTreeReaderArray<float> mconly_weights = {fReader, "mconly_weights"};

@@ -132,22 +132,54 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
     elif hist =='phi2':
         xaxis = '#phi_{2}'
         
+    elif hist =='bjetsPt20':
+        xaxis = 'Num. of b-jet with p_{T} > 20 GeV'
+        
+    elif hist =='bjetsPt30':
+        xaxis = 'Num. of b-jets with p_{T} > 30 GeV'
+        
+    elif hist =='bjetsPt40':
+        xaxis = 'Num. of b-jets with p_{T} > 40 GeV'
+        
+    elif hist =='bjetsPt50':
+        xaxis = 'Num. of b-jets with p_{T} > 50 GeV'
+        
+    elif hist =='bjetsPt60':
+        xaxis = 'Num. of b-jets with p_{T} > 60 GeV'
+        
+    elif hist =='ljetsPt20':
+        xaxis = 'Num. of light-jets with p_{T} > 20 GeV'
+        
+    elif hist =='ljetsPt30':
+        xaxis = 'Num. of light-jets with p_{T} > 30 GeV'
+        
+    elif hist =='ljetsPt40':
+        xaxis = 'Num. of light-jets with p_{T} > 40 GeV'
+        
+    elif hist =='ljetsPt50':
+        xaxis = 'Num. of light-jets with p_{T} > 50 GeV'
+        
+    elif hist =='ljetsPt60':
+        xaxis = 'Num. of light-jets with p_{T} > 60 GeV'
+        
+    elif hist =='jetEtaCentral':
+        xaxis = 'Num. of jets with |#eta| < 2.5'
+        
+    elif hist =='jetEtaForward':
+        xaxis = 'Num. of jets with |#eta| > 2.5'
+        
     # Add ATLAS label?
     text = R.TLatex()
     text.SetNDC()
-    text.SetTextFont(72)
-    text.SetTextSize(0.045)
-    text.DrawLatex(0.21, 0.85, "ATLAS")
     text.SetTextFont(42)
-    text.DrawLatex(0.21 + 0.087, 0.85, "Preliminary")
     text.SetTextSize(0.04)
-    text.DrawLatex(0.21, 0.80, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-    text.DrawLatex(0.21, 0.75, "> 50GeV E_{T}^{miss}, " + lepp)
+    text.DrawLatex(0.21, 0.82, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+    text.DrawLatex(0.21, 0.77, "> 50GeV E_{T}^{miss}, " + lepp)
     stack.SetMinimum(1e-2)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2' or hist=='dPhiLeps' or hist=='dPhiCloseMet' or hist=='dPhiLeadMet' or hist=='dPhiLLmet': 
-        stack.SetMaximum(5e10)
+        stack.SetMaximum(5e8)
     else:
-        stack.SetMaximum(2e8)
+        stack.SetMaximum(2e7)
         
     pad2.cd()
     pad2.SetGridy()
