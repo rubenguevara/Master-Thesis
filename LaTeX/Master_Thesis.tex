@@ -6,7 +6,8 @@
 %\usepackage{xcolor}
 %\usepackage{mdframed}
 \usepackage[shortlabels]{enumitem}
-\usepackage[american]{duomasterforside}
+% \usepackage[american]{duomasterforside}
+\usepackage[USenglish]{uiomasterfp}
 %\usepackage{indentfirst}
 %\usepackage{simpler-wick}
 \usepackage{booktabs}
@@ -16,6 +17,7 @@
 %\usepackage{verbatim}
 %\usepackage{tensor}
 \usepackage{todonotes}
+\usepackage{slashed}
 %\usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{listings}
 \renewcommand{\lstlistingname}{Algorithm}
@@ -72,10 +74,19 @@ in dilepton + MET final states with the ATLAS detector at the LHC
 
 \begin{document}
 \pagenumbering{roman}
-\duoforside[
+
+% \duoforside[
+% dept = {Department of Physics},
+% long,
+% program = {Physics: Nuclear and Particle Physics},
+% ]
+
+\uiomasterfp[
+colour = pink,
 dept = {Department of Physics},
 long,
 program = {Physics: Nuclear and Particle Physics},
+supervisors = {Professor Farid Ould-Saada \and Dr. Eirik Gramstad}
 ]
 \newpage
 \section*{Acknowledgements}
@@ -99,40 +110,8 @@ Something something
 
 
 \chapter{The Standard Model of Particle Physics and Beyond}
+\subfile{chapters/Part_I/1_The_Standard_Model_of_Particle_Physics_and_Beyond}
 
-\section{The Basics}
-\subsection{Classical Field Theory}
-
-
-\subsection{Quantum Mechanics}
-
-
-\subsection{Special Relativity}
-
-
-\section{Quantum Field Theory}
-
-
-\subsection{Fermionic and Bosonic fields}
-
-
-\subsection{Quantum Electro Dynamics}
-
-\subsection{Quantum Chromo Dynamics}
-
-
-\subsection{Electroweak unification}
-
-
-\subsection{The Brout-Englert-Higgs Mechanism}
-
-
-\subsection{The Standard Model of Particle Physics}
-
-
-\section{Beyond Standard Model}
-
-\subsection{Dark Matter}
 
 
 
@@ -151,9 +130,7 @@ Something something
 
 \part{Implementation}
 \chapter{Data Analysis}
-\section{Background Estimation}
-\section{Kinematic Variables}
-\section{Dark Matter samples}
+\subfile{chapters/Part_II/4_Data_Analysis.tex}
 
 \chapter{Machine Learning}
 \subfile{chapters/Part_II/5_Machine_Learning}

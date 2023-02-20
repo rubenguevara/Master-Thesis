@@ -12,6 +12,11 @@ To train the networks I will utilize two methods. The first one being this where
 Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when teaching a network using the full dataset it might only focus on a few special ones that stand out more than others on the massive dataset. Also, every different DM sample has different phenomenology, specially in the future when I will be receiving SUSY samples, meaning that it also won't teach the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights (i.e. cross sections) gives us an extremely low statistics dataset, even in the full DM dataset. \\
 \\Thus making the approach to teach the networks one MC sample at a time is impossible \todo{for NN}. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600 \cap\le 1100$ GeV and the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. Will try DSID now...
 
+
+
+
+
+
 \section{Neural Network Training}
 For this thesis we purely utilize \verb|TensorFlow v. 2.7.1 GPU| for NN. Before implementing everything into a real NN we need to first prepare the data in a special way when.
 The first and most important thing for this whole project is that the \verb|batch_size| should be as big as possible whenever we try \textbf{anything} when using the dataset.
@@ -49,7 +54,8 @@ And another one is simply \verb|Normalize| which does the same a Eq. (\ref{eq:Z-
 \\There is a big difference when normalizing data ourselves and using TensorFlow, and that is that TensorFlow will remember how the data was normalized when training and will normalize the testing data in the same way (using the same variables). However we by not using TensorFlow to normalize we could normalize the whole dataset before splitting, which might \todo{thoughts?}make for more a more model independent normalization than doing it in bacthes that might not include all models.
 These different normalization methods have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. 
 We can see that the best results come from Z-score and Batch normalization. We can see how the significance differs on both cases in Figure \ref{fig:BestNormie}.\\
-\\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? \textit{\textbf{For the following examples I have used the Z-score method, but I might change to use Batch normaliazation in the future.}}
+\\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? \textit{\textbf{For the following examples I have used the Z-score method, but I might change to use Batch normaliazation in the future.}}\\
+\\\textit{\textbf{EDIT:}} The reason batch normalization might work best for our case is because when we divide the data by bacthes it might unevenly represent the SM / signal and their ratio. But by using batch normalization it \todo{check if true} takes the average of all the batches creating an closer to real data representation. 
 \graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
 \begin{figure}[!ht]
 	\centering
@@ -359,6 +365,8 @@ The architecture of the NN utilized in this project is of the form shown in Figu
    \begin{tikzpicture}[x=0.5pt,y=0.5pt,yscale=-1,xscale=1]
       %uncomment if require: \path (0,496); %set diagram left start at 0, and has height of 496
 
+      %Straight Lines [id:da3125603624631026] 
+      \draw    (205.85,243.68) -- (456.31,453.44) ;
       %Straight Lines [id:da4017136284587772] 
       \draw    (44.71,124.36) -- (206.2,71.74) ;
       %Straight Lines [id:da2227878135161746] 
@@ -488,7 +496,6 @@ The architecture of the NN utilized in this project is of the form shown in Figu
       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,453.44) .. controls (420.4,434.35) and (436.48,418.88) .. (456.31,418.88) .. controls (476.14,418.88) and (492.22,434.35) .. (492.22,453.44) .. controls (492.22,472.53) and (476.14,488) .. (456.31,488) .. controls (436.48,488) and (420.4,472.53) .. (420.4,453.44) -- cycle ;
       %Shape: Ellipse [id:dp47294074537144504] 
       \draw  [fill={rgb, 255:red, 209; green, 132; blue, 132 }  ,fill opacity=1 ] (581.18,259.84) .. controls (581.18,240.75) and (597.26,225.28) .. (617.09,225.28) .. controls (636.92,225.28) and (653,240.75) .. (653,259.84) .. controls (653,278.93) and (636.92,294.4) .. (617.09,294.4) .. controls (597.26,294.4) and (581.18,278.93) .. (581.18,259.84) -- cycle ;
-
       % Text Node
       \draw (50,340) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
       % Text Node
@@ -676,7 +683,8 @@ This project utilized version \verb|1.5.0| without GPU \todo{might change?}adapt
 \subsection{Weights}
 For XGBoost there is a different problem when it comes to weights. XGBoost has a variable called \verb|scale_pos_weight| where we can help the network deal with unbalanced data, such as the one we have. 
 Meaning that the whole problem of section \ref{sec:Balanced_wgts} completely dissapears, meaning we could use the \textit{real} weights calculated in the MC generators.
-Sadly it is not that easy, XGBoost does not have to possibility to include negative weights, which this dataset has lots of. The MC generators \todo{find which I'm using} generate events with negative weights, which are important to correctly scale the simulated events to real data.
+Sadly it is not that easy, XGBoost does not have to possibility to include negative weights, which this dataset has a few of. Some MC generators generate events with negative weights, such as Sherpa \todo{cite sherpa?}, that take into acount higher order diagrams and needs to add 
+negative weights to "counter" the overcounting of diagrams \cite{Negative_Weights_article}, which are important to correctly scale the simulated events to real data.
 In the future this might no longer be a problem, as XGBoost might add an update that tackles negative weights, or \todo{I have no other sources to this other than spoken words at conferenes...} future MC generators might only have positive weights.\\
 \\In this project I have opted to using the absolute value of the weights when training to solve, or rather avoid, this problem. 
 This is however not generally accepted as a solution, and some even say it should be avoided. \\
@@ -876,10 +884,17 @@ However as of now this is not possible. So to this point we are still uncertain 
 
 
 
+
+
 \section{Pure log}
 Some problems that have happened is that I had previously made a Deep Neural Network, using three hidden layers. This is however not optimal as the DM statistics is non existent compared to the SM background. Another big problem I had was that I used small bacth sizes when training the Neural Networks. A batch being a portion of the data which is used when training. The reason we batch is to reduce computational power and divide the task of learning. I had a batch size of around 30,000 MC events pr batch. To remind ourselves of our data size, we have around 90,000,000 MC events, from which roughly 40,000 corresponds to a single DM MC DSID. So when batching we trained the network to recognize DM, when there most likely wasn't a single DM sample in the batch itself... this explain the abrupt end, and peak of backgrounds on the signal region seen in Fig. \ref{fig:NN_EXP_SIG:uu}. Thankfully, since I have the supercomputer \verb|hepp03| available I could increase the batch size to a massive amount such as $2^24$ which gives roughly 16 million MC events pr bacth. This is the highest the GPU of the supercomputer can handle!\\
 \\With this fixed there was still a big problem, the expected significance of both NN's and XGB is at best half of what a very rough cut and count gives. As mentioned in section 5.1.2, we can split the data in different forms. While splitting it pr DSID works with one hidden layer now it doesn't make much physical sense to do it the way I'm currently doing it when looking at the Z' DM models, since the DM MC samples are splitted into $ee$ and $\mu\mu$ final states. However if we train the network on either final state we are removing the model independent part of the plan (although this increases the significance!). The plan fowards so far is to combine the final states of the Z' DM models as long as they only differ in final lepton state. And compare the significance of these to a statistically combined significance of cut and count.\\
 \\One last thing to add as to why the significance might be so much lower for our networks is that I have not yet done a grid search for the best hyperparameters and loss functions. Doing this with XGBoost is easy, but there is a memory leak in the codebase of TensorFlow that makes the process tedious... This is where I am at in the present time, as well as waiting for more DM data.
+
+
+
+
+
 
 \section{Comparison to cut and count}
 Testing three models using the classical data analysis way we apply cuts to kinematic variables and try to isolate the signal from the background to then calculated the expected significance. The three models I chose to test are all High Dark Sector models with $m_{Z'}=130$GeV. They are a Light Vector (LV), Dark Higgs (DH) and Effective Field Theory (EFT) models. The cuts I made on these are shown in Table \ref{tab:cuts}.
@@ -956,4 +971,18 @@ Where $s$ is the number of signal events and $b$ is the number of background eve
 \end{figure}
 \clearpage As we can see the expected significance is lower using ML than a rough cut and count. My theory for why this is the case is because we are testing just \textit{\textbf{one}} sample out of 154 different ones that are included for the three different theories I have acquired so far. And the ML networks shown above have both trained on a dataset including all 154 DM samples. The models that I tested might also not have been one of the "important" models the network learned from. Thus if I were to train the network individually based on the theory it might give better results.
 
+\clearpage
+\begin{table}[!h]
+   \centering
+   \begin{tabular}{l|c|c|c|r}\midrule\midrule
+                                                & Signal     & Background \\\midrule
+        MC events                               & 2,990,986  & 69,664,902 \\
+        Sum of "Weight"                         & 388.75     & 2,714,091.3 \\
+        Sum of generator weights                & 236.3      & 55,446,228,776,354.8 \\
+        Sum of (generator weights*lumi / SOW)   & 9,167.1    & 61.1 \\
+        Sum of (generator weights/SOW)          & 199.21    & 1.52 \\\midrule\midrule
+   \end{tabular}
+   \caption[Cut and count significance ee]{Table showcasing the result of the cut and count method for the electron channel.}
+   \label{tab:cutsigee}
+\end{table}
 \end{document}
