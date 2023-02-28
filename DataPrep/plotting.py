@@ -6,10 +6,11 @@ from SOW import SOW_bkg, SOW_sig_AFII#, SOW_AFII, SOW_sig_AFII
 from collections import OrderedDict
 
 
-rootdir = '../EventSelector/Histograms_SUSY'
+rootdir = '../EventSelector/Histograms'
+susydir = '../EventSelector/Histograms_SUSY'
 BigDic = {}; variables = []; dsid_list = {}
 Types = ["Drell Yan", 'Single Top', "Diboson", "W", "TTbar", "Signal"]
-mc_year = ['mc16a']#, 'mc16d', 'mc16e']
+mc_year = ['mc16a', 'mc16d', 'mc16e']
 
 
 for subdir, dirs, files in os.walk(rootdir+'/mc16a'):
@@ -31,9 +32,10 @@ for mc in mc_year:
                 BigDic[mc][type][variable] = []
 
 # DM_MODEL = 514619  # Write dsid of specific model
-# sig_var = 'dm_sig'
-sig_var = 'SUSY'
+sig_var = 'dm_sig'
+# sig_var = 'SUSY'
 filelist = []
+filelist2 = []
 exclude = set(['data'])
 for subdir, dirs, files in os.walk(rootdir):
     dirs[:] = [d for d in dirs if d not in exclude]
@@ -50,32 +52,67 @@ for subdir, dirs, files in os.walk(rootdir):
         if dsid in IDs["DY"]: 
             dsid_list[mc_run]['Drell Yan'].append(str(dsid))
             for variable in variables:
-                BigDic[mc_run]["Drell Yan"][variable].append(myfile.Get(variable))
+                histogram = myfile.Get(variable)
+                histogram.SetDirectory(0)
+                BigDic[mc_run]["Drell Yan"][variable].append(histogram)
         elif dsid in IDs['Single_top']: 
             dsid_list[mc_run]['Single Top'].append(str(dsid))
             for variable in variables:
-                BigDic[mc_run]['Single Top'][variable].append(myfile.Get(variable))
+                histogram = myfile.Get(variable)
+                histogram.SetDirectory(0)
+                BigDic[mc_run]['Single Top'][variable].append(histogram)
         elif dsid in IDs['TTbar']:
             dsid_list[mc_run]['TTbar'].append(str(dsid))
             if AFII =='AFII': print('here')
             for variable in variables: 
-                BigDic[mc_run]["TTbar"][variable].append(myfile.Get(variable))
+                histogram = myfile.Get(variable)
+                histogram.SetDirectory(0)
+                BigDic[mc_run]["TTbar"][variable].append(histogram)
         elif dsid in IDs['Diboson']: 
             dsid_list[mc_run]['Diboson'].append(str(dsid))
             for variable in variables:
-                BigDic[mc_run]["Diboson"][variable].append(myfile.Get(variable))
+                histogram = myfile.Get(variable)
+                histogram.SetDirectory(0)
+                BigDic[mc_run]["Diboson"][variable].append(histogram)
         elif dsid in IDs['W']: 
             dsid_list[mc_run]['W'].append(str(dsid))
             for variable in variables:
-                BigDic[mc_run]["W"][variable].append(myfile.Get(variable))
+                histogram = myfile.Get(variable)
+                histogram.SetDirectory(0)
+                BigDic[mc_run]["W"][variable].append(histogram)
         elif dsid in IDs[sig_var]:
             # if not dsid == DM_MODEL: continue
             dsid_list[mc_run]['Signal'].append(str(dsid))
             for variable in variables:
                 BigDic[mc_run]["Signal"][variable].append(myfile.Get(variable))
 
-data = {}
 
+# for subdir, dirs, files in os.walk(susydir):
+#     dirs[:] = [d for d in dirs if d not in exclude]
+#     for file in files:
+#         dsid = int(file.split('.')[1])
+#         c = os.path.join(subdir, file)
+#         # print(c)
+#         myfile2 = R.TFile.Open(c)
+#         # filelist2.append(myfile2)
+#         mc_run = subdir.split('/')[-1]
+#         AFII = c.split('.')[-2].split('_')[-1]
+#         if AFII =='AFII': 
+#             print('Skipping AFII file:',c)
+#             continue
+#         if dsid in IDs[sig_var]:
+#             dsid_list[mc_run]['Signal'].append(str(dsid))
+#             for variable in variables:
+#                 histogram = myfile.Get(variable)
+#                 histogram.SetDirectory(0)
+#                 # print(histogram)
+#                 BigDic[mc_run]["Signal"][variable].append(histogram)
+data = {}
+# print(BigDic['mc16a']['Signal'][variable])
+# print(dsid_list['mc16a']['Signal'])
+# print(dsid_list['mc16d']['Signal'])
+# print(dsid_list['mc16e']['Signal'])
+# exit()
 for variable in variables:
     data[variable] = []
 
@@ -88,15 +125,18 @@ for subdir, dirs, files in os.walk(rootdird):
         for variable in variables:
             data[variable].append(myfile.Get(variable))
             
-sow_susy_file = open('SOW_SUSY.json')
-SOW_SUSY = json.load(sow_susy_file)
-SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_SUSY['mc16a'].items()) )
-# SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()) )
+# sow_susy_file = open('SOW_SIG_SUSY.json')
+# SOW_SUSY = json.load(sow_susy_file)
+# SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_SUSY['mc16a'].items()) )
+# SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_SUSY['mc16d'].items()) )
+# SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_SUSY['mc16e'].items()) )
+SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()) )
 SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()) )
 SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()) )
-sow_susy_file.close()
+# sow_susy_file.close()
 
-Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan', 'Signal']
+
+Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']#, 'Signal']
 
 Colors = {}
 Colors["Signal"] = R.TColor.GetColor('#F42069')
@@ -106,7 +146,7 @@ Colors["TTbar"] = R.TColor.GetColor('#F9E559')
 Colors["Diboson"] = R.TColor.GetColor('#6CCECB')
 Colors["W"] = R.TColor.GetColor('#218C8D')
 
-save_dir = "..Plots/Data_Analysis/50MET_FULL_SUSY"
+save_dir = "../Plots/Data_Analysis/New_Variables"
 try:
     os.makedirs(save_dir)
 
@@ -124,11 +164,14 @@ thist = {}
 
 for vari in variables:
     lep[vari] = vari.split('_')[1]
-    charge[vari] = vari.split('_')[2]
+    if 'jet' in vari:
+        charge[vari] = 'Jet'
+    else:
+        charge[vari] = vari.split('_')[2]
     hist[vari] = vari.split('_')[-1]
     if hist[vari] == 'sig':
         hist[vari] = vari.split('_')[-2]+'_'+hist[vari]
-    
+
     stack[vari] = R.THStack()
     stack2[vari] = R.THStack()
     thist[vari] = {}
@@ -138,8 +181,8 @@ for vari in variables:
             if BigDic[mc][i][vari] == []: 
                 print('No events in',i,' on ',mc,'!')
                 continue  
-                
-            id = dsid_list[mc][i][0]
+            
+            id = dsid_list[mc][i][0]  
             if mc == 'mc16a':
                 w = 36.2/SOW_a[id]
                 
@@ -164,7 +207,6 @@ for vari in variables:
                     w = 58.5/SOW_e[id]
                     
                 thist[vari][mc][i].Add(BigDic[mc][i][vari][j], w)
-
 
 data_hist = {}
 for vari in variables:
@@ -197,4 +239,5 @@ for vari in variables:
                 stack[vari].Add(thist[vari][mc][bkg])      
         legend.AddEntry(thist[vari][mc][bkg], bkg)
     legend.AddEntry(data_hist[vari], 'Data')
-    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir, stack2[vari])
+    print(hist[vari])
+    Plot_Maker(stack[vari], legend, lep[vari], charge[vari], hist[vari], data_hist[vari], save_dir)#, stack2[vari])

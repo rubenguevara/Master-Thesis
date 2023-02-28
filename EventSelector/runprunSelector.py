@@ -2,19 +2,24 @@ import os, time
 
 t0 = time.time()
 
-mc_cmps = ["mc16a"]#, "mc16d", "mc16e"]
-data_cmps =['data15', 'data16']#, 'data17', 'data18']
+mc_cmps = ["mc16a", "mc16d", "mc16e"]
+data_cmps =['data15', 'data16', 'data17', 'data18']
 
-sig = 1
+sig = 0
 
-data = 0
-
+data = 1
+data_file = "newdata"
+"""
+CANNOT USE UNDERSCORE ON FILE NAMES
+"""
 if sig == 1:
-    ml_file = "SUSYxDMx50MET"
-    bkg = "SUSY"
+    # ml_file = "SUSYxDMx50MET"
+    # bkg = "SUSY"
+    ml_file = "ZpxDMx50METxFR"
+    bkg = "dm_sig"
 
 else:
-    ml_file = "Run2x50MET"
+    ml_file = "NewRun2X50MET"
     bkg = "all_bkg"
 
 for mc_cmp in mc_cmps: 
@@ -22,14 +27,13 @@ for mc_cmp in mc_cmps:
 
 if data == 1:
     for data_cmp in data_cmps: 
-        os.system("python3 prunSelector.py --data "+data_cmp+" --bkgs "+data_cmp+" --ml_file data")
+        os.system("python3 prunSelector.py --data "+data_cmp+" --bkgs "+data_cmp+" --ml_file "+data_file)
 
 t = "{:.2f}".format(int( time.time()-t0 )/60.)
 print( "---"*40)
 print( "TOTAL time spent: "+str(t)+" min")  
 print( "---"*40)
 
-exit()
 import ROOT
 from ROOT import *
 
@@ -50,7 +54,7 @@ for file in os.listdir("."):
         outfiles_mc = file.replace("-"+extra, ".root")
         files_mc += (" "+file)
         
-    if type == 'data':
+    if 'data' in type:
         outfiles_d = file.replace("-"+extra, ".root")
         files_d += (" "+file)
 
@@ -69,8 +73,9 @@ if outfiles_d!="":
 os.remove(ml_file+"-mc16a.root")
 os.remove(ml_file+"-mc16d.root")
 os.remove(ml_file+"-mc16e.root")
+
 if data == 1: 
-    os.remove("data-data15.root")
-    os.remove("data-data16.root")
-    os.remove("data-data17.root")
-    os.remove("data-data18.root")
+    os.remove(data_file+"-data15.root")
+    os.remove(data_file+"-data16.root")
+    os.remove(data_file+"-data17.root")
+    os.remove(data_file+"-data18.root")

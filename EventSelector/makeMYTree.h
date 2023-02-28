@@ -43,7 +43,7 @@ class makeMYTree  {
   std::vector<TString>  bMY_MM_key;
                                     
   Float_t                                    bMY_Weight;                                             
-  Float_t                                    bMY_lep1Pt;                    // was vector<float> untill jet m                            
+  Float_t                                    bMY_lep1Pt;                                                
   Float_t                                    bMY_lep1Eta;                                                
   Float_t                                    bMY_lep1Phi;                                                
   Float_t                                    bMY_lep1Et;                                              
@@ -56,13 +56,17 @@ class makeMYTree  {
   Float_t                                    bMY_jet1Phi;                                                 
   Float_t                                    bMY_jet2Pt;                                                 
   Float_t                                    bMY_jet2Eta;                                                
-  Float_t                                    bMY_jet2Phi;                                              
+  Float_t                                    bMY_jet2Phi;                                                 
+  Float_t                                    bMY_jet3Pt;                                                 
+  Float_t                                    bMY_jet3Eta;                                                
+  Float_t                                    bMY_jet3Phi;                                              
   Float_t                                    bMY_jetB;                                             
   Float_t                                    bMY_jetLight;                                             
   // Float_t                                    bMY_jetTot;                                              
   Float_t                                    bMY_met;                                               
   Float_t                                    bMY_met_sig;                                              
-  Float_t                                    bMY_ht;                                              
+  Float_t                                    bMY_ht;                                               
+  Float_t                                    bMY_rt;                                              
   Float_t                                    bMY_mt;                                              
   Float_t                                    bMY_mt2;                                              
   Float_t                                    bMY_et;                                              
@@ -70,25 +74,17 @@ class makeMYTree  {
   Float_t                                    bMY_dPhiLLMet;                                              
   Float_t                                    bMY_dPhiCloseMet;                                              
   Float_t                                    bMY_dPhiLeadMet;                                                         
-  Float_t                                    bMY_mll;                                                             
+  Float_t                                    bMY_mll;                                                               
+  Float_t                                    bMY_mjj;                                                             
   TString                                    bMY_Dileptons;                                                    
   Float_t                                    bMY_CrossSection;                                                   
   ULong64_t                                  bMY_EventID;                                           
   Int_t                                      bMY_RunNumber;                                             
-  TString                                    bMY_RunPeriod;                                       
-  Int_t                                      bMY_Sample_Weight;       
+  TString                                    bMY_RunPeriod;           
   Int_t                                      bMY_n_bjetPt20;
-  Int_t                                      bMY_n_bjetPt30;
-  Int_t                                      bMY_n_bjetPt40;
-  Int_t                                      bMY_n_bjetPt50;
-  Int_t                                      bMY_n_bjetPt60;  
-  Int_t                                      bMY_n_ljetPt20;
-  Int_t                                      bMY_n_ljetPt30;
-  Int_t                                      bMY_n_ljetPt40;
-  Int_t                                      bMY_n_ljetPt50;
-  Int_t                                      bMY_n_ljetPt60; 
+  Int_t                                      bMY_n_ljetPt40; 
   Int_t                                      bMY_jetEtaCentral;  
-  Int_t                                      bMY_jetEtaForward;                                              
+  Int_t                                      bMY_jetEtaForward50;                                              
 
                                                
 

@@ -78,14 +78,23 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
     elif hist =='pt2':
         xaxis = 'p_{T}^{2} [GeV]'
         
+    elif hist =='pt3':
+        xaxis = 'p_{T}^{3} [GeV]'
+        
     elif hist =='eta1':
         xaxis = '#eta_{1}'
         
     elif hist =='eta2':
         xaxis = '#eta_{2}'
         
+    elif hist =='eta3':
+        xaxis = '#eta_{3}'
+        
     elif hist =='mll':
         xaxis = 'm_{ll} [GeV]'
+        
+    elif hist =='mjj':
+        xaxis = 'm_{jj} [GeV]'
         
     elif hist =='met':
         xaxis = 'E_{T}^{miss} [GeV]'
@@ -98,6 +107,9 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
         
     elif hist =='ht':
         xaxis = 'H_{T} [GeV]'
+        
+    elif hist =='rt':
+        xaxis = 'E_{T}^{miss} / H_{T}'
         
     elif hist =='dPhiLeps':
         xaxis = '|#Delta#phi(l_{1}, l_{2})|'
@@ -132,41 +144,20 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
     elif hist =='phi2':
         xaxis = '#phi_{2}'
         
+    elif hist =='phi3':
+        xaxis = '#phi_{3}'
+        
     elif hist =='bjetsPt20':
         xaxis = 'Num. of b-jet with p_{T} > 20 GeV'
-        
-    elif hist =='bjetsPt30':
-        xaxis = 'Num. of b-jets with p_{T} > 30 GeV'
-        
-    elif hist =='bjetsPt40':
-        xaxis = 'Num. of b-jets with p_{T} > 40 GeV'
-        
-    elif hist =='bjetsPt50':
-        xaxis = 'Num. of b-jets with p_{T} > 50 GeV'
-        
-    elif hist =='bjetsPt60':
-        xaxis = 'Num. of b-jets with p_{T} > 60 GeV'
-        
-    elif hist =='ljetsPt20':
-        xaxis = 'Num. of light-jets with p_{T} > 20 GeV'
-        
-    elif hist =='ljetsPt30':
-        xaxis = 'Num. of light-jets with p_{T} > 30 GeV'
-        
+            
     elif hist =='ljetsPt40':
         xaxis = 'Num. of light-jets with p_{T} > 40 GeV'
-        
-    elif hist =='ljetsPt50':
-        xaxis = 'Num. of light-jets with p_{T} > 50 GeV'
-        
-    elif hist =='ljetsPt60':
-        xaxis = 'Num. of light-jets with p_{T} > 60 GeV'
         
     elif hist =='jetEtaCentral':
         xaxis = 'Num. of jets with |#eta| < 2.5'
         
-    elif hist =='jetEtaForward':
-        xaxis = 'Num. of jets with |#eta| > 2.5'
+    elif hist =='jetEtaForward50':
+        xaxis = 'Num. of jets with |#eta| > 2.5 and p_{T} > 50 GeV'
         
     # Add ATLAS label?
     text = R.TLatex()
@@ -176,7 +167,7 @@ def Plot_Maker(stack, legend, lep, charge, hist, data, dir, sig=None):
     text.DrawLatex(0.21, 0.82, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
     text.DrawLatex(0.21, 0.77, "> 50GeV E_{T}^{miss}, " + lepp)
     stack.SetMinimum(1e-2)
-    if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'phi2' or hist=='dPhiLeps' or hist=='dPhiCloseMet' or hist=='dPhiLeadMet' or hist=='dPhiLLmet': 
+    if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'eta3' or hist == 'phi3' or hist == 'phi2' or hist=='dPhiLeps' or hist=='dPhiCloseMet' or hist=='dPhiLeadMet' or hist=='dPhiLLmet': 
         stack.SetMaximum(5e8)
     else:
         stack.SetMaximum(2e7)

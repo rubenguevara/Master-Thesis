@@ -42,9 +42,10 @@ vector<TString> channel_names, of_channel_names, all_channels, passed_channels, 
 map<TString, Int_t> weight_indices, weight_indices_Sh2211; 
 
 // Kinematic variables
-Float_t mll, met, met_phi, met_sig, met_sig_rel, met_ht, dphi, dR_ll, dphi_ll, ptll, ht, met_rel, dphi_rel, met_res, met_soft, met_elec, met_muon, met_jet, pt_lep1, pt_lep2;
+Float_t mll, met, met_phi, met_sig, met_sig_rel, met_ht, dphi, dR_ll, dphi_ll, ptll, ht, mjj, rt, met_rel, dphi_rel, met_res, met_soft, met_elec, met_muon, met_jet, pt_lep1, pt_lep2;
 Float_t met_truth, met_rel_truth, dphi_rel_truth, mll_truth, dphi_truth;
 Int_t njets, ncjets, nfjets, nljets, nbjets, n_bjet77, n_bjet85, n_bjetPt20, n_bjetPt30, n_bjetPt40, n_bjetPt50, n_bjetPt60, n_ljetPt20, n_ljetPt30, n_ljetPt40, n_ljetPt50, n_ljetPt60, jetEtaCentral, jetEtaForward;
+Int_t jetEtaForward20, jetEtaForward30, jetEtaForward40, jetEtaForward50, jetEtaCalorimeter20, jetEtaCalorimeter30, jetEtaCalorimeter40, jetEtaCalorimeter50; 
 
 // Weights and SFs
 Float_t wgt, wgt_mc, wgt_pu, wgt_kf, wgt_ttbar, wgt_nlo_ew, wgt_xs, wgt_lsf, wgt_jsf, wgt_tsf, g_eff, xs, wgt_jet, wgt_bjet, wgt_fakes, LLwgt_noSF, wgt_lsf_lep1Loose, wgt_lsf_lep1Tight, wgt_lsf_lep2Loose, wgt_lsf_lep2Tight, wgt_lsf_lep3Loose, wgt_lsf_lep3Tight; 
@@ -142,6 +143,7 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_mt[h_name] = new TH1D("h_"+h_name+"_mt", h_name+"_mt", 74, 20, 3500);
       h_mt2[h_name] = new TH1D("h_"+h_name+"_mt2", h_name+"_mt2", 74, 20, 1500);
       h_ht[h_name] = new TH1D("h_"+h_name+"_ht", h_name+"_ht", 74, 20, 3500);
+      h_rt[h_name] = new TH1D("h_"+h_name+"_rt", h_name+"_rt", 50, -0.1, 10);
       h_met_sig[h_name] = new TH1D("h_"+h_name+"_met_sig", h_name+"_met_sig", 74, 0, 100);
       h_et[h_name] = new TH1D("h_"+h_name+"_et", h_name+"_et", 74, 20, 3000);
       h_phi1[h_name] = new TH1D("h_"+h_name+"_phi1", h_name+"_phi1", 50, -M_PI, M_PI);   
@@ -152,26 +154,21 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_dPhiLLmet[h_name] = new TH1D("h_"+h_name+"_dPhiLLmet", h_name+"_dPhiLLpmet", 30, 0, M_PI);  
       h_nBJet[h_name] = new TH1D("h_jet_nBJet","jet_nBJet", 8, 0, 7); 
       h_nLJet[h_name] = new TH1D("h_jet_nLJet","jet_nLJet", 8, 0, 7); 
+      h_mjj[h_name] = new TH1D("h_jet_mjj", "jet_mjj", 74, 20, 3500);
       h_nTJet[h_name] = new TH1D("h_jet_nTJet","jet_nTJet", 8, 0, 7); 
       h_jetpt1[h_name] = new TH1D("h_jet_pt1", "jet_pt1", 74, 20, 3500);  
       h_jetpt2[h_name] = new TH1D("h_jet_pt2", "jet_pt2", 74, 20, 3500);  
+      h_jetpt3[h_name] = new TH1D("h_jet_pt3", "jet_pt3", 74, 20, 3500);  
       h_jeteta1[h_name] = new TH1D("h_jet_eta1", "jet_eta1", 50, -3, 3);  
       h_jeteta2[h_name] = new TH1D("h_jet_eta2", "jet_eta2", 50, -3, 3);  
+      h_jeteta3[h_name] = new TH1D("h_jet_eta3", "jet_eta3", 50, -3, 3);  
       h_jetphi1[h_name] = new TH1D("h_jet_phi1", "jet_phi1", 50, -M_PI, M_PI);   
       h_jetphi2[h_name] = new TH1D("h_jet_phi2", "jet_phi2", 50, -M_PI, M_PI);  
-      
-      h_n_bjetsPt20[h_name] = new TH1D("h_n_bjetsPt20", "n_bjetsPt20", 21, 0, 20); 
-      h_n_bjetsPt30[h_name] = new TH1D("h_n_bjetsPt30", "n_bjetsPt30", 21, 0, 20); 
-      h_n_bjetsPt40[h_name] = new TH1D("h_n_bjetsPt40", "n_bjetsPt40", 21, 0, 20); 
-      h_n_bjetsPt50[h_name] = new TH1D("h_n_bjetsPt50", "n_bjetsPt50", 21, 0, 20); 
-      h_n_bjetsPt60[h_name] = new TH1D("h_n_bjetsPt60", "n_bjetsPt60", 21, 0, 20); 
-      h_n_ljetsPt20[h_name] = new TH1D("h_n_ljetsPt20", "n_ljetsPt20", 21, 0, 20); 
-      h_n_ljetsPt30[h_name] = new TH1D("h_n_ljetsPt30", "n_ljetsPt30", 21, 0, 20); 
+      h_jetphi3[h_name] = new TH1D("h_jet_phi3", "jet_phi3", 50, -M_PI, M_PI);  
+      h_n_bjetsPt20[h_name] = new TH1D("h_n_bjetsPt20", "n_bjetsPt20", 21, 0, 20);  
       h_n_ljetsPt40[h_name] = new TH1D("h_n_ljetsPt40", "n_ljetsPt40", 21, 0, 20); 
-      h_n_ljetsPt50[h_name] = new TH1D("h_n_ljetsPt50", "n_ljetsPt50", 21, 0, 20); 
-      h_n_ljetsPt60[h_name] = new TH1D("h_n_ljetsPt60", "n_ljetsPt60", 21, 0, 20); 
-      h_jetEtaCentral[h_name] = new TH1D("h_jetEtaCentral", "jetEtaCentral", 21, 0, 20); 
-      h_jetEtaForward[h_name] = new TH1D("h_jetEtaForward", "jetEtaForward", 21, 0, 20); 
+      h_jetEtaCentral[h_name] = new TH1D("h_jetEtaCentral", "jetEtaCentral", 31, 0, 30);  
+      h_jetEtaForward50[h_name] = new TH1D("h_jetEtaForward50", "jetEtaForward50", 31, 0, 30); 
       
   }
   filename2 = "../../../storage/racarcam/ML_files/"+ml_file+"-"+dataset+"-"+file_dsid+"-"+file_nr+".root";   // ML FILE
@@ -418,14 +415,19 @@ Bool_t EventSelector::Process(Long64_t entry){
     if(mu_charge[lep1]!=el_charge[lep2]){ isOS = 1; } 
   } 
 
-  TLorentzVector totalj, ajet, j1, j2;
+  TLorentzVector totalj, ajet, j1, j2, j3;
   n_bjet77 = 0; n_bjet85 = 0; nljets = 0; nbjets = 0;
   n_bjetPt20 = 0; n_bjetPt30 = 0; n_bjetPt40 = 0; n_bjetPt50 = 0; n_bjetPt60 = 0;
   n_ljetPt20 = 0; n_ljetPt30 = 0; n_ljetPt40 = 0; n_ljetPt50 = 0; n_ljetPt60 = 0; 
-  jetEtaCentral = 0; jetEtaForward = 0;
+  jetEtaCentral = 0; jetEtaForward20 = 0; jetEtaForward30 = 0; jetEtaForward40 = 0; jetEtaForward50 = 0;
+  jetEtaCalorimeter20 = 0; jetEtaCalorimeter30 = 0; jetEtaCalorimeter40 = 0; jetEtaCalorimeter50 = 0; 
 
   for(Int_t i = 0; i<n_jet; i++){
-    if(n_jet >= 2){
+    if(n_jet >= 3){
+      j1.SetPtEtaPhiM(jet_pt[0]/1000., jet_eta[0], jet_phi[0], jet_m[0]/1000.);
+      j2.SetPtEtaPhiM(jet_pt[1]/1000., jet_eta[1], jet_phi[1], jet_m[1]/1000.);
+      j3.SetPtEtaPhiM(jet_pt[2]/1000., jet_eta[2], jet_phi[2], jet_m[2]/1000.);}
+    else if(n_jet >= 2){
       j1.SetPtEtaPhiM(jet_pt[0]/1000., jet_eta[0], jet_phi[0], jet_m[0]/1000.);
       j2.SetPtEtaPhiM(jet_pt[1]/1000., jet_eta[1], jet_phi[1], jet_m[1]/1000.);}
     else if(n_jet == 1){
@@ -436,23 +438,15 @@ Bool_t EventSelector::Process(Long64_t entry){
     if(jet_DL1r_score[i]>2.195){n_bjet77++;} 
     if(jet_DL1r_score[i]>0.665){
       n_bjet85++; nbjets++; 
-      if (jet_pt[i]/1000 >= 60){n_bjetPt60++;} 
-      if (jet_pt[i]/1000 >= 50){n_bjetPt50++;}
-      if (jet_pt[i]/1000 >= 40){n_bjetPt40++;} 
-      if (jet_pt[i]/1000 >= 30){n_bjetPt30++;}
       if (jet_pt[i]/1000 >= 20){n_bjetPt20++;} 
       if (abs(jet_eta[i]) <= 2.5){jetEtaCentral++;}
-      if (abs(jet_eta[i]) > 2.5){jetEtaForward++;}
+      if (abs(jet_eta[i]) > 2.5 && jet_pt[i]/1000 >= 50){jetEtaForward50++;}
       } 
     if(jet_DL1r_score[i]<0.665){
       nljets++;
-      if (jet_pt[i]/1000 >= 60){n_ljetPt60++;} 
-      if (jet_pt[i]/1000 >= 50){n_ljetPt50++;}
       if (jet_pt[i]/1000 >= 40){n_ljetPt40++;} 
-      if (jet_pt[i]/1000 >= 30){n_ljetPt30++;}
-      if (jet_pt[i]/1000 >= 20){n_ljetPt20++;} 
       if (abs(jet_eta[i]) <= 2.5){jetEtaCentral++;}
-      if (abs(jet_eta[i]) > 2.5){jetEtaForward++;}
+      if (abs(jet_eta[i]) > 2.5 && jet_pt[i]/1000 >= 50){jetEtaForward50++;}
       } 
     
 
@@ -461,6 +455,9 @@ Bool_t EventSelector::Process(Long64_t entry){
   }
 
   ll = l1+l2; 
+  if(n_jet >= 2){
+    mjj = (j1+j2).M();}
+  else if(n_jet < 2){mjj = 0;}
   mll = ll.M(); 
   met = *met_tst_et/1000.;
   met_lor.SetPtEtaPhiE(met, 0.0, *met_tst_phi, 0.0);
@@ -469,6 +466,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   float_t mt2, ht, dPhiLeps, dPhiLLmet, dPhiCloseMet, dPhiLeadMet;
   mt2 = ComputeMT2(l1,l2,met_lor,0.,0.).Compute();
   ht = (ll+totalj).Pt();
+  rt = met/ht;
   dPhiLeps = abs(l1.DeltaPhi(l2)); 
   dPhiLLmet = abs(ll.DeltaPhi(met_lor)); 
 
@@ -524,7 +522,7 @@ Bool_t EventSelector::Process(Long64_t entry){
   if( isAFII ){ return kTRUE; }
 
   passed_channels = {}; isTreeChannel=0; 
-
+  
   if(dileptons=="ee" && isOS == 0){passed_channels.push_back("ee_SS_50MET");}   
   if(dileptons=="uu" && isOS == 0){passed_channels.push_back("uu_SS_50MET");} 
   if(dileptons=="eu" && isOS == 0){passed_channels.push_back("eu_SS_50MET");}   
@@ -664,11 +662,13 @@ Bool_t EventSelector::Process(Long64_t entry){
     h_eta1[this_name]->Fill(l1.Eta(), wgt); 
     h_eta2[this_name]->Fill(l2.Eta(), wgt); 
     h_mll[this_name]->Fill(mll, wgt); 
+    h_mjj[this_name]->Fill(mjj, wgt); 
     h_met[this_name]->Fill(met, wgt);  
     h_met_sig[this_name]->Fill(met_sig, wgt); 
     h_mt[this_name]->Fill(ll.Mt(), wgt);
     h_mt2[this_name]->Fill(mt2, wgt);
     h_ht[this_name]->Fill(ht, wgt);
+    h_rt[this_name]->Fill(rt, wgt);
     h_et[this_name]->Fill(ll.Et(), wgt);   
     h_phi1[this_name]->Fill(l1.Phi(), wgt); 
     h_phi2[this_name]->Fill(l2.Phi(), wgt); 
@@ -679,30 +679,24 @@ Bool_t EventSelector::Process(Long64_t entry){
     h_nTJet[this_name]->Fill(nbjets + nljets, wgt);
     h_jetpt1[this_name]->Fill(j1.Pt(), wgt);
     h_jetpt2[this_name]->Fill(j2.Pt(), wgt);
+    h_jetpt3[this_name]->Fill(j3.Pt(), wgt);
     h_jeteta1[this_name]->Fill(j1.Eta(), wgt);
     h_jeteta2[this_name]->Fill(j2.Eta(), wgt);
+    h_jeteta3[this_name]->Fill(j3.Eta(), wgt);
     h_jetphi1[this_name]->Fill(j1.Phi(), wgt);
     h_jetphi2[this_name]->Fill(j2.Phi(), wgt);
+    h_jetphi3[this_name]->Fill(j3.Phi(), wgt);
     h_dPhiCloseMet[this_name]->Fill(abs(dPhiCloseMet), wgt);
     h_dPhiLeadMet[this_name]->Fill(abs(dPhiLeadMet), wgt);
 
     h_n_bjetsPt20[this_name]->Fill(n_bjetPt20, wgt);
-    h_n_bjetsPt30[this_name]->Fill(n_bjetPt30, wgt);
-    h_n_bjetsPt40[this_name]->Fill(n_bjetPt40, wgt);
-    h_n_bjetsPt50[this_name]->Fill(n_bjetPt50, wgt);
-    h_n_bjetsPt60[this_name]->Fill(n_bjetPt60, wgt);
-    h_n_ljetsPt20[this_name]->Fill(n_ljetPt20, wgt);
-    h_n_ljetsPt30[this_name]->Fill(n_ljetPt30, wgt);
     h_n_ljetsPt40[this_name]->Fill(n_ljetPt40, wgt);
-    h_n_ljetsPt50[this_name]->Fill(n_ljetPt50, wgt);
-    h_n_ljetsPt60[this_name]->Fill(n_ljetPt60, wgt);
     h_jetEtaCentral[this_name]->Fill(jetEtaCentral, wgt);
-    h_jetEtaForward[this_name]->Fill(jetEtaForward, wgt);
-  }
+    h_jetEtaForward50[this_name]->Fill(jetEtaForward50, wgt);
+    }
   
   // ML FILE
   MY->bMY_Weight = (wgt);  
-  MY->bMY_Sample_Weight = (wgt_mc);  
   MY->bMY_lep1Pt = (l1.Pt());  
   MY->bMY_lep1Eta = (l1.Eta());  
   MY->bMY_lep1Phi = (l1.Phi());
@@ -711,51 +705,64 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_lep2Phi = (l2.Phi());
   MY->bMY_jetB = (nbjets);  
   MY->bMY_jetLight = (nljets);   
-  // MY->bMY_jetTot = (nbjets+nljets);  
   
 
   // Skip padding, hopefully
   MY->bMY_n_bjetPt20 = (n_bjetPt20);
-  MY->bMY_n_bjetPt30 = (n_bjetPt30);
-  MY->bMY_n_bjetPt40 = (n_bjetPt40);
-  MY->bMY_n_bjetPt50 = (n_bjetPt50);
-  MY->bMY_n_bjetPt60 = (n_bjetPt60);  
-  MY->bMY_n_ljetPt20 = (n_ljetPt20);
-  MY->bMY_n_ljetPt30 = (n_ljetPt30);
   MY->bMY_n_ljetPt40 = (n_ljetPt40);
-  MY->bMY_n_ljetPt50 = (n_ljetPt50);
-  MY->bMY_n_ljetPt60 = (n_ljetPt60); 
   MY->bMY_jetEtaCentral = (jetEtaCentral);  
-  MY->bMY_jetEtaForward = (jetEtaForward); 
+  MY->bMY_jetEtaForward50 = (jetEtaForward50); 
 
-  if(n_jet >=2){
+  if(n_jet >=3){  
   MY->bMY_jet1Pt = (j1.Pt());  
   MY->bMY_jet1Eta = (j1.Eta());  
   MY->bMY_jet1Phi = (j1.Phi());
   MY->bMY_jet2Pt = (j2.Pt());  
   MY->bMY_jet2Eta = (j2.Eta());  
-  MY->bMY_jet2Phi = (j2.Phi());}
+  MY->bMY_jet2Phi = (j2.Phi());
+  MY->bMY_jet3Pt = (j3.Pt());  
+  MY->bMY_jet3Eta = (j3.Eta());  
+  MY->bMY_jet3Phi = (j3.Phi());}
+  
+  else if(n_jet >=2){
+  MY->bMY_jet1Pt = (j1.Pt());  
+  MY->bMY_jet1Eta = (j1.Eta());  
+  MY->bMY_jet1Phi = (j1.Phi());
+  MY->bMY_jet2Pt = (j2.Pt());  
+  MY->bMY_jet2Eta = (j2.Eta());  
+  MY->bMY_jet2Phi = (j2.Phi());
+  MY->bMY_jet2Pt = (0);  
+  MY->bMY_jet2Eta = (-999);  
+  MY->bMY_jet2Phi = (-999);}
   else if(n_jet ==1){
   MY->bMY_jet1Pt = (j1.Pt());  
   MY->bMY_jet1Eta = (j1.Eta());  
   MY->bMY_jet1Phi = (j1.Phi());
-  MY->bMY_jet2Pt = (-999);  
+  MY->bMY_jet2Pt = (0);  
   MY->bMY_jet2Eta = (-999);  
-  MY->bMY_jet2Phi = (-999);}
-  else{
-  MY->bMY_jet1Pt = (-999);  
+  MY->bMY_jet2Phi = (-999);
+  MY->bMY_jet3Pt = (0);  
+  MY->bMY_jet3Eta = (-999);  
+  MY->bMY_jet3Phi = (-999);}
+  else{  
+  MY->bMY_jet1Pt = (0);  
   MY->bMY_jet1Eta = (-999);  
   MY->bMY_jet1Phi = (-999);
-  MY->bMY_jet2Pt = (-999);  
+  MY->bMY_jet2Pt = (0);  
   MY->bMY_jet2Eta = (-999);  
-  MY->bMY_jet2Phi = (-999);}
+  MY->bMY_jet2Phi = (-999);
+  MY->bMY_jet3Pt = (0);  
+  MY->bMY_jet3Eta = (-999);  
+  MY->bMY_jet3Phi = (-999);}
 
-  MY->bMY_met = (met);  
+  MY->bMY_met = (met);
+  MY->bMY_mjj = (mjj);    
   MY->bMY_mll = (mll);
   MY->bMY_met_sig = (met_sig);
   MY->bMY_mt = (ll.Mt());  
   MY->bMY_mt2 = (mt2);  
   MY->bMY_ht = (ht);  
+  MY->bMY_rt = (rt);  
   MY->bMY_et = (ll.Et());  
   MY->bMY_dPhiLeps = (l1.DeltaPhi(l2));  
   MY->bMY_dPhiLLMet = (ll.DeltaPhi(met_lor));  
@@ -810,11 +817,13 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_eta1[h_name]->Write(); 
     h_eta2[h_name]->Write(); 
     h_mll[h_name]->Write(); 
+    h_mjj[h_name]->Write(); 
     h_met[h_name]->Write(); 
     h_met_sig[h_name]->Write(); 
     h_mt[h_name]->Write(); 
     h_mt2[h_name]->Write(); 
     h_ht[h_name]->Write(); 
+    h_rt[h_name]->Write(); 
     h_et[h_name]->Write(); 
     h_phi1[h_name]->Write(); 
     h_phi2[h_name]->Write();
@@ -827,24 +836,18 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_nTJet[h_name]->Write();
     h_jetpt1[h_name]->Write();
     h_jetpt2[h_name]->Write();
+    h_jetpt3[h_name]->Write();
     h_jeteta1[h_name]->Write();
     h_jeteta2[h_name]->Write();
+    h_jeteta3[h_name]->Write();
     h_jetphi1[h_name]->Write();
     h_jetphi2[h_name]->Write();
+    h_jetphi3[h_name]->Write();
 
     h_n_bjetsPt20[h_name]->Write(); 
-    h_n_bjetsPt30[h_name]->Write();
-    h_n_bjetsPt40[h_name]->Write();
-    h_n_bjetsPt50[h_name]->Write();
-    h_n_bjetsPt60[h_name]->Write();
-    h_n_ljetsPt20[h_name]->Write();
-    h_n_ljetsPt30[h_name]->Write();
-    h_n_ljetsPt40[h_name]->Write();
-    h_n_ljetsPt50[h_name]->Write();
-    h_n_ljetsPt60[h_name]->Write(); 
+    h_n_ljetsPt40[h_name]->Write(); 
     h_jetEtaCentral[h_name]->Write();
-    h_jetEtaForward[h_name]->Write();
-
+    h_jetEtaForward50[h_name]->Write();    
     }
 
   // Reset histograms
@@ -855,11 +858,13 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_eta1[h_name]->Reset(); 
     h_eta2[h_name]->Reset(); 
     h_mll[h_name]->Reset();
+    h_mjj[h_name]->Reset();
     h_met[h_name]->Reset(); 
     h_met_sig[h_name]->Reset(); 
     h_mt[h_name]->Reset(); 
     h_mt2[h_name]->Reset(); 
     h_ht[h_name]->Reset(); 
+    h_rt[h_name]->Reset(); 
     h_et[h_name]->Reset(); 
     h_phi1[h_name]->Reset(); 
     h_phi2[h_name]->Reset(); 
@@ -872,23 +877,18 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_nTJet[h_name]->Reset(); 
     h_jetpt1[h_name]->Reset(); 
     h_jetpt2[h_name]->Reset(); 
+    h_jetpt3[h_name]->Reset(); 
     h_jeteta1[h_name]->Reset(); 
     h_jeteta2[h_name]->Reset(); 
+    h_jeteta3[h_name]->Reset(); 
     h_jetphi1[h_name]->Reset(); 
     h_jetphi2[h_name]->Reset(); 
+    h_jetphi3[h_name]->Reset(); 
 
     h_n_bjetsPt20[h_name]->Reset(); 
-    h_n_bjetsPt30[h_name]->Reset();
-    h_n_bjetsPt40[h_name]->Reset();
-    h_n_bjetsPt50[h_name]->Reset();
-    h_n_bjetsPt60[h_name]->Reset();
-    h_n_ljetsPt20[h_name]->Reset();
-    h_n_ljetsPt30[h_name]->Reset();
-    h_n_ljetsPt40[h_name]->Reset();
-    h_n_ljetsPt50[h_name]->Reset();
-    h_n_ljetsPt60[h_name]->Reset(); 
+    h_n_ljetsPt40[h_name]->Reset(); 
     h_jetEtaCentral[h_name]->Reset();
-    h_jetEtaForward[h_name]->Reset();
+    h_jetEtaForward50[h_name]->Reset();
   }
   
   cout << "Done with file: " << name << endl; 

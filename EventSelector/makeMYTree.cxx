@@ -41,11 +41,16 @@ makeMYTree::makeMYTree(TString MCID, TString syst, TString fileName, TString tre
   tree->Branch("jet1Phi",                                            &bMY_jet1Phi);                                           
   tree->Branch("jet2Pt",                                             &bMY_jet2Pt);                                            
   tree->Branch("jet2Eta",                                            &bMY_jet2Eta);                                           
-  tree->Branch("jet2Phi",                                            &bMY_jet2Phi);                                   
-  tree->Branch("mll",                                                &bMY_mll);                                                
+  tree->Branch("jet2Phi",                                            &bMY_jet2Phi);                                           
+  tree->Branch("jet3Pt",                                             &bMY_jet3Pt);                                            
+  tree->Branch("jet3Eta",                                            &bMY_jet3Eta);                                           
+  tree->Branch("jet3Phi",                                            &bMY_jet3Phi);                                   
+  tree->Branch("mll",                                                &bMY_mll);                                      
+  tree->Branch("mjj",                                                &bMY_mjj);                                                
   tree->Branch("met",                                                &bMY_met);                                           
   tree->Branch("met_sig",                                            &bMY_met_sig);                                           
-  tree->Branch("ht",                                                 &bMY_ht);                                            
+  tree->Branch("ht",                                                 &bMY_ht);                                               
+  tree->Branch("rt",                                                 &bMY_rt);                                            
   tree->Branch("mt",                                                 &bMY_mt);                                           
   tree->Branch("mt2",                                                &bMY_mt2);                                           
   tree->Branch("et",                                                 &bMY_et);                                                  
@@ -57,20 +62,11 @@ makeMYTree::makeMYTree(TString MCID, TString syst, TString fileName, TString tre
   tree->Branch("Dileptons",                                          &bMY_Dileptons);                                   
   tree->Branch("CrossSection",                                       &bMY_CrossSection);                                     
   tree->Branch("RunNumber",                                          &bMY_RunNumber);                                        
-  tree->Branch("RunPeriod",                                          &bMY_RunPeriod);                                       
-  tree->Branch("Sample_Weight",                                      &bMY_Sample_Weight);       
+  tree->Branch("RunPeriod",                                          &bMY_RunPeriod);           
   tree->Branch("n_bjetPt20",                                         &bMY_n_bjetPt20);
-  tree->Branch("n_bjetPt30",                                         &bMY_n_bjetPt30);
-  tree->Branch("n_bjetPt40",                                         &bMY_n_bjetPt40);
-  tree->Branch("n_bjetPt50",                                         &bMY_n_bjetPt50);
-  tree->Branch("n_bjetPt60",                                         &bMY_n_bjetPt60);  
-  tree->Branch("n_ljetPt20",                                         &bMY_n_ljetPt20);
-  tree->Branch("n_ljetPt30",                                         &bMY_n_ljetPt30);
-  tree->Branch("n_ljetPt40",                                         &bMY_n_ljetPt40);
-  tree->Branch("n_ljetPt50",                                         &bMY_n_ljetPt50);
-  tree->Branch("n_ljetPt60",                                         &bMY_n_ljetPt60); 
+  tree->Branch("n_ljetPt40",                                         &bMY_n_ljetPt40); 
   tree->Branch("jetEtaCentral",                                      &bMY_jetEtaCentral);  
-  tree->Branch("jetEtaForward",                                      &bMY_jetEtaForward);            
+  tree->Branch("jetEtaForward50",                                    &bMY_jetEtaForward50);            
 
   ClearOutputBranches();
 }

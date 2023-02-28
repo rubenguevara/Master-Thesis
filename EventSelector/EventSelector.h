@@ -41,10 +41,12 @@ public :
   map<TString, TH1*> h_phi2; //!    
   map<TString, TH1*> h_met; //! 
   map<TString, TH1*> h_met_sig; //! 
-  map<TString, TH1*> h_mll; //!  
+  map<TString, TH1*> h_mll; //!   
+  map<TString, TH1*> h_mjj; //!  
   map<TString, TH1*> h_mt; //!    
   map<TString, TH1*> h_mt2; //!    
   map<TString, TH1*> h_ht; //!    
+  map<TString, TH1*> h_rt; //!    
   map<TString, TH1*> h_et; //!
   map<TString, TH1*> h_dPhiLeps; //!
   map<TString, TH1*> h_dPhiLLmet; //!
@@ -55,23 +57,33 @@ public :
   map<TString, TH1*> h_nTJet; //!
   map<TString, TH1*> h_jetpt1; //!
   map<TString, TH1*> h_jetpt2; //!
+  map<TString, TH1*> h_jetpt3; //!
   map<TString, TH1*> h_jeteta1; //!
   map<TString, TH1*> h_jeteta2; //!
+  map<TString, TH1*> h_jeteta3; //!
   map<TString, TH1*> h_jetphi1; //!
   map<TString, TH1*> h_jetphi2; //!
+  map<TString, TH1*> h_jetphi3; //!
 
   map<TString, TH1*> h_n_bjetsPt20; //!
-  map<TString, TH1*> h_n_bjetsPt30; //!
-  map<TString, TH1*> h_n_bjetsPt40; //!
-  map<TString, TH1*> h_n_bjetsPt50; //!
-  map<TString, TH1*> h_n_bjetsPt60; //!
-  map<TString, TH1*> h_n_ljetsPt20; //!
-  map<TString, TH1*> h_n_ljetsPt30; //!
+  // map<TString, TH1*> h_n_bjetsPt30; //!
+  // map<TString, TH1*> h_n_bjetsPt40; //!
+  // map<TString, TH1*> h_n_bjetsPt50; //!
+  // map<TString, TH1*> h_n_bjetsPt60; //!
+  // map<TString, TH1*> h_n_ljetsPt20; //!
+  // map<TString, TH1*> h_n_ljetsPt30; //!
   map<TString, TH1*> h_n_ljetsPt40; //!
-  map<TString, TH1*> h_n_ljetsPt50; //!
-  map<TString, TH1*> h_n_ljetsPt60; //!
+  // map<TString, TH1*> h_n_ljetsPt50; //!
+  // map<TString, TH1*> h_n_ljetsPt60; //!
   map<TString, TH1*> h_jetEtaCentral; //!
-  map<TString, TH1*> h_jetEtaForward; //!
+  // map<TString, TH1*> h_jetEtaForward20; //!
+  // map<TString, TH1*> h_jetEtaForward30; //!
+  // map<TString, TH1*> h_jetEtaForward40; //!
+  map<TString, TH1*> h_jetEtaForward50; //!
+  // map<TString, TH1*> h_jetEtaCalorimeter20; //!
+  // map<TString, TH1*> h_jetEtaCalorimeter30; //!
+  // map<TString, TH1*> h_jetEtaCalorimeter40; //!
+  // map<TString, TH1*> h_jetEtaCalorimeter50; //!
 
   // Readers to access the data (delete the ones you do not need).
   TTreeReaderValue<Float_t> mconly_weight = {fReader, "mconly_weight"};
