@@ -1,0 +1,69 @@
+\documentclass[14pt, a4paper]{book}
+\begin{document}
+
+
+\section{Background Estimation}
+\section{Kinematic Variables}
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{l|r}\midrule\midrule
+        Kinematic variable                                                  & Feature name          \\\midrule
+        $p_T$ of both leptons                                               & lep1pt \& lep2pt      \\
+        $\phi$ of both leptons                                              & lep1phi \& lep2phi    \\
+        $\eta$ of both leptons                                              & lep1eta \& lep2eta    \\
+        Invariant mass of dilepton pair, $m_{ll}$                           & mll \\
+        Missing transverse energy in event, $E_T^{miss}$                    & met \\
+        Missing transverse energy significance in event, $E_T^{miss}/\sigma$& met\_sig \\
+        Transverse mass in in event, $m_T$                                  & mt \\
+        Stransverse mass in in event, $m_{T2}$                              & mt2\\
+        Transverse energy in in event, $E_T$                                & et \\
+        $\phi$ between leption pair, $\Delta\Phi(l_1,l_2)$                  & dPhiLeps \\
+        $\phi$ between leption pair and MET jet, $\Delta\Phi(ll,met)$       & dPhiLLMet \\
+        $\phi$ between leading lepton and MET jet, $\Delta\Phi(l_l,met)$    & dPhiLeadMet \\
+        $\phi$ between closest lepton and MET jet, $\Delta\Phi(l_c,met)$    & dPhiCloseMet \\
+        $H_T$                                                               & ht\\
+        Number of b-jets                                                    & nbjets         \\
+        Number of light jets                                                & nljets         \\\midrule\midrule
+    \end{tabular}
+    \caption[Kinematic variables used as features]{Table showcasing the kinematic variables that will be used as features}
+    \label{tab:variables}
+\end{table}
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{l|r}\midrule\midrule
+        Kinematic variable                                                  & Feature name          \\\midrule
+        $p_T$ of two jets with highest $p_T$                                & jet1pt \& jet2pt\\
+        $\phi$ of two jets with highest $p_T$                               & jet1phi \& jet2phi\\
+        $\eta$ of two jets with highest $p_T$                               & jet1eta \& jet2eta\\
+    \end{tabular}
+    \caption[Kinematic variables that need padding]{Table showcasing the kinematic variables that need padding.}
+    \label{tab:paddable_variables}
+\end{table}
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{l|r}\midrule\midrule
+        Kinematic variable                              & Feature name          \\\midrule
+        Number of b-jets with $p_T > 20$ GeV            & n\_bjetPt20\\
+        Number of b-jets with $p_T > 30$ GeV            & n\_bjetPt30\\
+        Number of b-jets with $p_T > 40$ GeV            & n\_bjetPt40\\
+        Number of b-jets with $p_T > 50$ GeV            & n\_bjetPt50\\
+        Number of b-jets with $p_T > 60$ GeV            & n\_bjetPt60\\
+        Number of light-jets with $p_T > 20$ GeV        & n\_ljetPt20\\
+        Number of light-jets with $p_T > 30$ GeV        & n\_ljetPt30\\
+        Number of light-jets with $p_T > 40$ GeV        & n\_ljetPt40\\
+        Number of light-jets with $p_T > 50$ GeV        & n\_ljetPt50\\
+        Number of light-jets with $p_T > 60$ GeV        & n\_ljetPt60\\
+        Number of jets recorded in Central calorimeter  &n\_jetsetaCentral\\
+        Number of jets recorded in Forward calorimeter  &n\_jetsetaForward\\\midrule\midrule
+    \end{tabular}
+    \caption[New kinematic variables that need no padding]{Table showcasing plausible kinematic variables that will not need padding.}
+    \label{tab:paddable_variables}
+\end{table}
+
+\section{Dark Matter samples}
+
+
+
+\end{document}

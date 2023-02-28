@@ -1,39 +1,70 @@
 \documentclass[14pt, a4paper]{book}
 \begin{document}
+As mentioned \todo{check if you DO mention it} there are other ways to try to isolate signal from background. The main approach of this thesis will be to use Machine Learning (ML) as it popular rise has proven to be effective at binary classification\todo{cite papers}.  
+In this thesis we will study two forms of ML to classify our new DM signal. We will use Neural Networks (NN) and Boosted Decision Trees (BDT). This project will take from granted that the reader is comfortable with linear algebra and jump straight into ML. \\
+\\To give a a short description of the essence of ML we can start by considering a general parameter $\bm{\beta} = \{\beta_1,\beta_2,\cdots,\beta_n\}$ for a n-dimensional problem, the goal is to choose these parameters 
+$\bm{\beta}$ such that we minimize a cost (also called loss) function $C(\bm{\beta})$ with respect to a set of data points given by a matrix $\mathbf{X}$. Since this project will only focus on Supervised Learning, meaning that we know what the output should be, we can use target values $\mathbf{t}$. 
+Then we give the network depending on how close the predicted output is to $\bm t $. Then we repeat the process after tweaking the parameters $\bm \beta $ and see if the score gets better.\\
+\\The general parameter $\bm\beta$ for our purposes can be seen as what are called \textit{weights} and \textit{biases}. The matrix $\bm X$ is a matrix with all the kinematic variables of every event. 
+Lastly the target value $\bm t$ is for our binary classification task the label stating whether an event is signal or background.\\
+\\Before getting into more details I will explain the theory behind both NNs and BDTs.
+
 
 \graphicspath{{../../figures/}}
-
+\newpage
 \section{Neural Networks}\label{sec:theory_nn}
-Since the goal is to use ML to get a high accuracy to distinguish signal from background we have to start from the ML basics.  This project will take from granted that the reader is comfortable with linear algebra and jump straight into ML. The essence of machine learning is to use cost functions to tweak some parameters until it gives satisfactory predictions for the task given. In this project we will do Supervised Learning (meaning we know what the output should be) and only look at Neural Networks (NN) as our ML algorithm, since the ultimate goal is to "upgrade" this to run it on a quantum computer. The parameters mentioned above are called \textit{weights} and \textit{biases} for NNs. Considering a general parameter $\bm{\beta} = \{\beta_1,\beta_2,\cdots,\beta_n\}$ for a n-dimensional problem, the goal is to choose these parameters $\bm{\beta}$ such that we minimize a cost function $C(\bm{\beta})$ with respect to a set of data points given by a matrix $\mathbf{X}$, which in the case of the HiggsML are the features. And target values $\mathbf{t}$, which on the HiggsML are the labels. Before we get into that we can start by looking at Stochastic Gradient Descent (SDG).
-
-\subsection{Stochastic Gradient Descent}
-Before explaining the SDG we have to look at the Regular GD. Given a cost function $C(\bm{\beta})$ we can get closer to the minimum by calculating the gradient $\nabla_{\beta}C(\bm{\beta})$ wrt. the unknown parameters from the NN $\bm\beta$. If we were to calculate the gradient at a specific point $\bm{\beta}_i$ in the parameter space, the negative gradient would correspond to the direction where a small change $d\bm\beta$ in the parameter space would result in the biggest decrease in the cost function. In the same way we in physics would determine where the local (or global) minima at a complex multidimensional potential numerically. In GD we can chose a step size $\eta$ to choose how much we want to iterate in the parameter space, this is called the \textit{learning rate}. The mathematical function for an iteration to choose the parameter $\bm{\beta}$ such that it decreases the cost function is given as
-\begin{equation}\label{eq:GD}
-    \bm{\beta}_{i+1}=\bm{\beta}_{i} -\eta\nabla_{\beta}C(\bm{\beta}_i)
-\end{equation}
-To converge towards a minimum we should choose a learning rate $\eta$ small enough to not "step over" the minimum point of the cost-function-space. One thing to note here is that we could get trapped on a local minima rather than the global minima which is the ultimate goal. So choosing the learning rate as a hyperparameter to be changed in a grid search is a good way to find the best one.\\
-\\In GD one computes the cost function and its gradient for all data points together. This quickly becomes computationally heavy when dealing with large datasets. Thus a common approach is to compute the gradient over batches of the data. For example in the HiggsML, instead of making a $30\times250,000$ matrix we could rather split it into smaller batches of maybe $30\times1,000$ to then perform a parameter update, making the computation faster. This is where SGD comes in, for each step, or epoch the data is divided randomly into \textit{N} batches of size \textit{n}. Then for each batch we use Eq. (\ref{eq:GD}) to update the parameters, thus updating $\bm{\beta}_{i+1}$ \textit{N}-times for each epoch. The idea of SGD comes from the observation that the cost function can almost always be written as a sum over \textit{n} data points. As mentioned above the main advantage of SGD is the computation time, but it also reduce the risk of getting stuck in a local minima since it introduces a randomness of which part of the parameter space we move through.
-
-\subsection{Artificial neurons}
-As stated by Hjorth-Jensen in \cite{MORTYY1}:
+As I already have written in great detail how NNs on a project I did as the curriculum for this masters, I will borrow most material from the theory section of the paper \todo{cite?}.\\
+\\Before begining we can briefly explain the idea behind NNs. As stated by Hjorth-Jensen in \cite{MORTYY1}:
 \begin{quote}
     \textit{The idea of NN is to to mimic the neural networks in the human brain, which is composed of billions of neurons that communicate with each other by sending electrical signals. Each neuron accumulates its incoming signals, which must exceed an activation threshold to yield and output. If the threshold is not overcome, the neuron remains inactive, i.e. has zero output}
 \end{quote}
+That takes us to what a \textit{neuron} is.
+
+
+\subsection{Artificial neurons}
 To describe the behaviour of a neuron mathematically we can use the following model
 \begin{equation}\label{eq:neurons}
     y=f\left(\sum_{i=1}^{n}w_ix_i\right)=f(u)
 \end{equation}
-Where $y$, the output of the neuron, is the value of its \textit{activation function}, which has the weighted ($w_i$) sum of signals $x_i,\cdots,x_n$ received by $n$ neurons.\\
-\\Since the goal of NNs is to mimic the biological nervous system by letting each neuron interact with each other by sending signals, which for us is of the form of a mathematical function between each layer. Most NNs consist of an input layer, an output layer and maybe layers in-between, called hidden layers. All the layers can contain an arbitrary number of neurons, and each connection between two neurons is associated with a weight variable $w_i$. The goal of using NNs is to teach the network the patterns of the data to then predict something. In the context of the HiggML, by giving a NN our data as its input layer, we can then train the network to distinguish signal from background.\\ \\Explained in greater detail if we were to look at a single event of the data, we start with an input with all 30 features of the event. Using Eq. (\ref{eq:neurons}) on every neuron on the next layer we can teach the network if there is are any connections between the features, we can repeat this process for \textit{n} layers. As an output we want a single neuron to see if it has predicted the event to be a signal or background, since this is binary output. After seeing the prediction we can use the labels to tell the network whether it predicted correctly or wrong since we are doing Supervised Learning. We can then use a \textit{cost function} and a specific \textit{metric} to evaluate numerically how network the predicted the output with a score. Seeing how the results fare we can then back-propagate to shift the weights and biases and repeat the process until we are satisfied with our result. Each of these iterations is called an epoch.\\
-\\To generalize our artificial neuron to a whole network we can look at a Multilayer Perceptron (MLP). An MLP is a network consisting of at least three layers of neurons, the input, one or more hidden layers, and an output. The number of neurons can vary for each layer. The above explanation is a very dense and simplified one. In reality it is complicated to find out which cost function, activation function, metric, etc. is best suited the problem. But before we get into the details we can explore the mathematical model that illustrates what was tried to be explained above. 
+Where $y$, the output of the neuron, is the value of its \textit{activation function}, which has the weighted ($w_i$ or $\beta_1$) sum of signals $x_i,\cdots,x_n$ received by $n$ neurons.\\
+\\Since the goal of NNs is to mimic the biological nervous system by letting each neuron interact with each other by sending signals, which for us is of the form of a mathematical function between each layer. 
+Most NNs consist of an input layer, an output layer and maybe layers in-between, called hidden layers. All the layers can contain an arbitrary number of neurons, and each connection between two neurons is associated with a weight variable $w_i$.
+The goal of using NNs is to teach the network the patterns of the data to then predict something. In the context of our search for DM, by giving a NN our data as its input layer, we can then train the network to distinguish signal from background.\\
+\\Explained in greater detail if we were to look at a single event of the data, we start with an input with all the high level features of the event, $\bm X$. Using Eq. (\ref{eq:neurons}) on every neuron on the next layer we can teach the network if there 
+are any connections between the features, we can repeat this process for \textit{n} layers. As an output we want a single neuron to see if it has predicted the event to be a signal or background, since this is binary output. After seeing the prediction we can use the labels on the target data $\bm t$ 
+to tell the network whether it predicted correctly or wrong. We can then use a \textit{cost function} and a specific \textit{metric} to evaluate numerically how well the network predicted the output by giving it a score. 
+Seeing how the results fare we can then back-propagate to shift the weights and biases and repeat the process until we are satisfied with our result. Each of these iterations is called an epoch.\\
+\\To generalize our artificial neuron to a whole network we can look at a Multilayer Perceptron (MLP). An MLP is a network consisting of at least three layers of neurons, the input, one or more hidden layers, and an output. 
+The number of neurons can vary for each layer. The above explanation is a very dense and simplified one. In reality it is complicated to find out which cost function, activation function, metric, etc. is best suited the problem. 
+But before we get into the gory details we can explore the mathematical model that illustrates what was tried to be explained above. 
+
+\subsection{Stochastic Gradient Descent}
+The way we "tweak the parameters $\bm \beta $ to see if the network prediction gets better" is by using something called the \textit{Stochastic Gradient Descent} (SDG). Before explaining the SDG we have to look at the Regular GD. \\
+\\Given a cost function $C(\bm{\beta})$ we can get closer to the minimum by calculating the gradient $\nabla_{\beta}C(\bm{\beta})$ wrt. the unknown parameters from the NN $\bm\beta$. If we were to calculate the gradient at a specific 
+point $\bm{\beta}_i$ in the parameter space, the negative gradient would correspond to the direction where a small change $d\bm\beta$ in this parameter space would result in the biggest decrease in the cost function. 
+In the same way we in physics would determine where the local (or global) minima at a complex multidimensional potential numerically. In GD we can chose a step size $\eta$ to choose how much we want to iterate in the parameter space, 
+this is called the \textit{learning rate}. The mathematical function for an iteration to choose the parameter $\bm{\beta}$ such that it decreases the cost function is given as
+\begin{equation}\label{eq:GD}
+    \bm{\beta}_{i+1}=\bm{\beta}_{i} -\eta\nabla_{\beta}C(\bm{\beta}_i)
+\end{equation}
+To converge towards a minimum we should choose a learning rate $\eta$ small enough to not "step over" the minimum point of the cost-function-space, but also not too small to get stuck on a local minima rather than the global minima. 
+Thus choosing the learning rate as a hyperparameter to be changed in a grid search is a good way to find the best one for our given task.\\
+\\In GD one computes the cost function and its gradient for all data points together. This quickly becomes computationally heavy when dealing with large datasets. Thus a common approach is to compute the gradient over batches of the data. 
+For our purposes it is better to do everything as one single batch, but our data size is massive (of the order of $10^{8}$) this simply becomes too comupationally heavy. Thus we have to instead of making a $20\times10^8$ matrix 
+we could for example split it into ten smaller matrices of $20\times10^7$ to then perform a parameter update, making the computation possible. This is where SGD comes in, for each step, or epoch the data is divided randomly into 
+\textit{N} batches of size \textit{n}. Then for each batch we use Eq. (\ref{eq:GD}) to update the parameters, thus updating $\bm{\beta}_{i+1}$ \textit{N}-times for each epoch. The idea of SGD comes from the observation that the 
+cost function can almost always be written as a sum over \textit{n} data points. As mentioned above the main advantage of SGD for our purposes is that it will make the computation possible, however it is also helpful regarding 
+computation time on other cases. Using more batches also reduces the risk of getting stuck in a local minima since it introduces a randomness of which part of the parameter space we move through, 
+but this is at the cost of reducing statistics which might not be ideal for every problem.
 
 
 \subsection{Activation functions}
-As seen above, an important aspect of NNs are activation functions and cost functions. As shall become apparent soon, when evaluating an activation function we get the neuron output, but what are these activation functions? Mathematically speaking, activation functions are: Non-constant, Bounded, Monotonically-increasing and continuous functions. For this project we utilize both a sigmoid activation function
+As seen already, an important aspect of NNs are activation functions and cost functions. As shall become apparent soon, when evaluating an activation function we get the neuron output, but what are these activation functions? 
+Mathematically speaking, activation functions are: Non-constant, Bounded, Monotonically-increasing and continuous functions. For this project I utilize a sigmoid activation function
 \begin{equation}\label{eq:sig}
     f(x) = \frac{1}{1+e^{-x}}
 \end{equation}
-which is the most basic activation function. We also utilise a Rectified Linear Unit (ReLU)
+which is the most basic activation function. I will also utilise a Rectified Linear Unit (ReLU)
 \begin{equation}\label{eq:ReLU}
     f(x) = x^+ = \text{max}(0,x) = \begin{cases}x&{\text{if }}x>0,\\0.&{\text{otherwise}}.\end{cases}
 \end{equation}
@@ -41,11 +72,14 @@ which has better gradient propagation, meaning that there are fewer vanishing gr
 
 
 \subsection{Cost functions}
-Another aspect are cost functions. Cost functions are what we will utilize to evaluate how well the output of the network fares against the target, i.e. if our network "guesses" right whether a event is signal or background, thus making this a very important part of our network! Before getting into this we first have to look at logistic regression. For the HiggsML we will study a binary case where the output is either $t_i=0\vee 1$, meaning background or signal. We can introduce a polynomial model of order $n$ as
+Cost functions have been mentioned a lot already, but what are they? Cost functions are what we will utilize to evaluate how well the output of the network fares against the target, i.e. if our network "guesses" right whether an event is signal or background, 
+thus making this a very important part of our network! Before getting into this we first have to look at logistic regression. Since we are studing a binary classification task where the output is either $t_i=0\vee 1$, meaning background or signal. 
+We can introduce a polynomial model of order $n$ as
 $$
 \hat{y}_i=\beta_0+\beta_1x_i+\beta_2x_i^2+\cdots+\beta_nx_i^n
 $$
-where we then can define the probabilities of getting $t_i=0\vee1$ given our input $x_i$ and $\bm{\beta}$ with the help of a logistic function. Using the same sigmoid function as in Eq. (\ref{eq:sig}) as a logistic function, only calling it $p(t)$. We get the probability as
+where we then can define the probabilities of getting $t_i=0\vee1$ given our input $x_i$ and $\bm{\beta}$ with the help of a logistic function. This logistic function is the same as the sigmoid function in Eq. (\ref{eq:sig}). 
+Using this we get the probability as
 $$
 p(t_i=1\vert x_i,\bm{\beta})=\frac{1}{1+e^{-\hat{y}_i}}
 $$
@@ -53,7 +87,8 @@ and
 $$
 p(t_i=0\vert x_i,\bm{\beta})=1- p(y_i=1\vert x_i,\bm{\beta})
 $$
-We want to then define the total likelihood for all possible outcomes from a dataset $\mathcal{D}=\{(t_i,x_i)\}$, with the binary labels $t_i\in\{0,1\}$, to do this we use the Maximum Likelihood Estimation (MLE) principle. This gives us
+We want to then define the total likelihood for all possible outcomes from a dataset $\mathcal{D}=\{(t_i,x_i)\}$, with the binary labels $t_i\in\{0,1\}$, to do this we use the Maximum Likelihood Estimation (MLE) principle. 
+This gives us
 $$
 P(\mathcal{D}\vert\bm{\beta})=\prod_{i=1}^n\left[p(t_i=1\vert x_i,\bm{\beta})\right]^{t_i}\left[1-p(t_i=1\vert x_i,\bm{\beta})\right]^{1-t_i}
 $$
@@ -65,21 +100,25 @@ By taking the parameter $\bm{\beta}$ to second order and reordering the logarith
 \begin{equation}\label{eq:CrossEntropy}
     C(\bm{\beta})=-\sum_{i=1}^n(y_i(\beta_0+\beta_1x_i)-\log(1+\exp(\beta_0+\beta_1x_i)))
 \end{equation}
-This equation is known as the \textit{cross entropy} which we will use in this project. The two beta parameters used are the weight and biases as will come apparent later.
-The goal is to change these parameters such that it minimizes the cost function as we will see later. \\
-\\Something else we will include in this project is to add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they don't grow out of control, this is to reduce \textit{overfitting}. In this project we will use the so called \textit{L2-norm} where the cost function becomes
-\begin{equation}\label{eq:reg}
+This equation is known as the \textit{cross entropy} which we will use in this project. The two beta parameters used are the weight and biases as will come apparent later. The goal is to change these parameters such that it minimizes the cost function as we will see later. \\
+\\Something else we will include in this project is to add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they don't grow out of control, 
+this is to reduce \textit{overfitting}. In this project we will use the so called \textit{L2-norm} where the cost function becomes
+\begin{equation}\label{eq:L2-reg}
     C(\bm\beta)=\frac{1}{N}\sum_{i=1}^N\mathcal{L}_i(\bm\beta)\rightarrow \frac{1}{N}\sum_{i=1}^N\mathcal{L}_i(\bm\beta)+\lambda\sum_{ij}w_{ij}^2
 \end{equation}
-Meaning we add a term where we sum up all the weights squared. The factor $\lambda$ is called the regularization parameter. The L2-norm combats overfitting by forcing the weights to be small, but not making them exactly zero. This is so that less significant features still have some influence over the final prediction, although small.
+Meaning we add a term where we sum up all the weights squared. The factor $\lambda$ is called the regularization parameter. The L2-norm combats overfitting by forcing the weights to be small, but not making them exactly zero. 
+This is so that less significant features still have some influence over the final prediction, although small.
 
 
 \subsection{Feed Forward network}
-To describe how the network "guesses" outputs in a mathematical model we can compute we can start by looking at Eq. (\ref{eq:neurons}) where we got an output $y$ from an activation function $f$ that receives $x_i$ as input. We can expand the function as as following
+To describe how the network "guesses" outputs in a mathematical model we can start by looking at Eq. (\ref{eq:neurons}) where we got an output $y$ from an activation function $f$ that receives $x_i$ as input. 
+We can expand the function as as following
 \begin{equation}\label{eq:activation}
     y=f\left(\sum_{i=1}^nw_ix_i+b_i\right)=f(z)
 \end{equation} 
-where $w_i$ is still the weight and we introduced a bias $b_i$ which is normally needed in case of zero activation weights or inputs. The difference comes now in the interpretation where in the activation $z=(\sum_{i=1}^nw_ix_i+b_i)$ the inputs $x_i$ are the outputs of the neurons in the preceding layer. Furthermore an MLP is fully-connected, meaning that each neuron received a weighted sum of the output of \textbf{all} neurons in the previous layer. To expand Eq. (\ref{eq:activation}) we can first look at the output of every neuron $i$ in a weighted sum $z^1_i$ for each input $x_j$ on a layer
+where $w_i$ is still the weight and we now introduce a bias $b_i$ which is normally needed in case of zero activation weights or inputs. The difference comes now in the interpretation; where in the activation 
+$z=(\sum_{i=1}^nw_ix_i+b_i)$ the inputs $x_i$ are the outputs of the neurons in the preceding layer. Furthermore an MLP is fully-connected, meaning that each neuron received a weighted sum of the output of \textbf{all} 
+neurons in the previous layer. To expand Eq. (\ref{eq:activation}) we can first look at the output of every neuron $i$ in a weighted sum $z^1_i$ for each input $x_j$ on a layer
 \begin{equation}\label{eq:weightedsum}
     z_i^1=\sum_{j=1}^Mw_{ij}^1x_j + b^1_i
 \end{equation}
@@ -87,19 +126,25 @@ Such that if we evaluate the weighted sum in an activation function $f_i$ for ea
 $$
     y^1_i=f(z_i^1)=f\left(\sum_{j=1}^Mw_{ij}^1x_j + b^1_i\right)
 $$
-Where \textit{M} stands for all possible inputs in a given neuron $i$ in the first layer, we have also assumed that we utilize the same activation function in the layer. To generalize this for $l$-layers, which may have different activation functions, we write it as
+Where \textit{M} stands for all possible inputs in a given neuron $i$ in the first layer, we have also assumed that we utilize the same activation function in the layer. To generalize this for $l$-layers, 
+which may have different activation functions, we write it as
 $$
     y^l_i=f^l(u_i^l)=f^l\left(\sum_{j=1}^{N_{l-1}}w_{ij}^ly^{l-1}_j + b^l_i\right)
 $$
-Where $N_l$ is the number of neurons in layer $l$. Thus when the output of all the nodes in the first hidden layer is computed, the values of the subsequent layer can be calculated and so forth until the output is obtained. With this we can show that we only need the the inputs $x_n$ to calculate the output with $l$ hidden layers
+Where $N_l$ is the number of neurons in layer $l$. Thus when the output of all the nodes in the first hidden layer is computed, the values of the subsequent layer can be calculated and so forth until the output is obtained. 
+With this we can show that we only need the the inputs $x_n$ to calculate the output with $l$ hidden layers
 \begin{equation}\label{eq:MLP}
     y^{l+1}=f^{l+1}\left[\sum_{j=1}^{N_l}w^{l+1}_{ij}f^l\left(\sum_{k=1}^{N_{l-1}}w^{l}_{jk}\left(\cdots f^{1}\left(\sum_{n=1}^{N_0}w^1_{mn}x_n+b_m^1\right)\cdots\right)+b_j^{l}\right)+b^{l+1}_i   \right]
 \end{equation}
-This shows that an MLP is nothing more than an analytic function, specifically a mapping of real-valued vectors $\hat{x}\in\mathbb{R}^n\rightarrow\hat{y}\in\mathbb{R}^m$. We can also see that the above equation is essentially a nested sum of scaled activation functions of the form
+This shows that an MLP is nothing more than an analytic function, specifically a mapping of real-valued vectors $\hat{x}\in\mathbb{R}^n\rightarrow\hat{y}\in\mathbb{R}^m$. We can also see that the above equation is essentially 
+a nested sum of scaled activation functions of the form
 $$
   f(x)=c_1f(c_2x+c_3)+c_4  
 $$
-where the parameters $c_i$ are the weight and biases. By adjusting these parameters we shift the activation function to better match the label we are training the data on, this is the flexibility of a NN. Something else we can note is that Eq. (\ref{eq:MLP}) can easily be changed into matrix notation, since this is trivial for high energy physicists I will spare myself the writing of matrix form on this project. However this realization can help make computing the values a much easier task by for example utilizing TensorFlow or other mathematical packages in Python. An illustration taken from \cite{MORTYY1} shows the main idea of how a Feed forward network is set up, this is shown in Figure \ref{fig:NN}.
+where the parameters $c_i$ are the weight and biases. By adjusting these parameters we shift the activation function to better match the label we are training the data on, this is the flexibility of a NN. 
+Something else we can note is that Eq. (\ref{eq:MLP}) can easily be changed into matrix notation, since this is trivial \todo{drop this comment?}for high energy physicists I will spare myself the writing of matrix form on this thesis. 
+However this realization can help make computing the values a much easier task by for example utilizing TensorFlow or other mathematical packages in Python. An illustration taken from \cite{MORTYY1} shows the main idea of how a 
+Feed forward network is set up, this is shown in Figure \ref{fig:NN}.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.5\linewidth]{NN.png}
@@ -109,15 +154,18 @@ where the parameters $c_i$ are the weight and biases. By adjusting these paramet
 
 
 \subsection{Back Propagation algorithm}
-So far we have only explained Feed Forward networks, which helps us to compute the output of the NN in term of basic vector multiplications. It has also been mentioned that we can adjust the weight and biases, but never explained how. Now is the time to dive into that subject, as we will explain the back propagation algorithm. What we want to know is how do changes in the biases and the weights in the network change the cost function, and how we could use the final output to modify the weights? Before we derive these equations we an start by a plain regression problem and using the Mean Squared Error (MSE) as a cost function for pedagogical reasons
+So far we have only explained Feed Forward networks, which helps us to compute the output of the NN in term of basic vector multiplications. It has also been mentioned that we can adjust the weight and biases, but never explained how. 
+Now is the time to dive into that subject, as we will explain the back propagation algorithm. What we want to know is how the changes in the biases and weights in the network change the cost function, and how we could use the final 
+output to modify the weights? Before we derive these equations we an start by a plain regression problem and using the Mean Squared Error (MSE) as a cost function for pedagogical reasons
 \begin{equation}\label{eq:cost}
     C(\hat{W})=\frac{1}{2}\sum_{i=1}^n(y_i-t_i)^2
 \end{equation}
-where $\hat{W}$ is the matrix containing all the weights and more importantly $t_i$ are our targets, which is in the HiggsML are the labels of events telling us whether we have a signal or background event. To generalise this we first have to go back to Eq. (\ref{eq:weightedsum}) generalize it for a layer $l$
+where $\hat{W}$ is the matrix containing all the weights and more importantly $t_i$ are our targets, which are the labels of events telling us whether we have a signal or background event. To generalise this we 
+first have to go back to Eq. (\ref{eq:weightedsum}) generalize it for a layer $l$
 $$
     z_i^l=\sum_{j=1}^Mw^l_{ij}y^{l-1}_j + b^l_i \Leftrightarrow \hat{z}^l=\left(\hat{W}^l\right)^T\hat{y}^{l-1} + \hat{b}^l
 $$
-where the right side is written on matrix notation. From the definition of $z_j^l$ with an activation function, i.e. Eq. (\ref{eq:activation}), we have
+where the right side is written on matrix notation. From the definition of $z_j^l$ with an activation function, Eq. (\ref{eq:activation}), we have
 \begin{equation}\label{eq:partzw}
     \frac{\partial z_j^l}{\partial w_{ij}^l} = y_i^{l-1}
 \end{equation}
@@ -129,7 +177,7 @@ which again, with the definition of the activation function gives us
 \begin{equation}\label{eq:partyz}
     \frac{\partial y^l_j}{\partial z_j^{l}} = y_j^l(1-a_j^l)=f(z_j^l)(1-f(z_j^l))
 \end{equation}
-We also need to take the derivative of Eq. (\ref{eq:cost}) with respect to the weights, doing so for a respective layer $l=L$ we have
+Furthermore, we need to take the derivative of Eq. (\ref{eq:cost}) with respect to the weights, doing so for a respective layer $l=L$ we have
 $$
     \frac{\partial C(\hat W ^L) }{\partial w_{jk}^L}=\left(y_j^L-t_j\right)\frac{\partial y_j^L}{\partial w_{jk}^L}
 $$
@@ -149,18 +197,25 @@ or in matrix form
 $$
 \delta^L = f'(\hat z ^L)\circ \frac{\partial C}{\partial \hat y ^L}
 $$
-where on the right hand side we wrote this as a Hadamard product. This error $\delta^L$ is an important expression, since as we can see on the index form of this expression on Eq. (\ref{eq:delta}), we can measure how fast the cost function is changing as a function of the $j$-th output activation. This means that if the cost function doesn't depend on a particular neuron $j$, then $\delta_j^L$ would be small.  \\
-\\We also notice that everything in Eq. (\ref{eq:delta}) is easily computed. Thus we can also see how the weight changes the cost function using Eq. (\ref{eq:CostW}) quite easily. One thing else we can compute with Eq. (\ref{eq:delta}) is
+where on the right hand side we wrote this as a Hadamard product. This error $\delta^L$ is an important expression, since as we can see on the index form of this expression in Eq. (\ref{eq:delta}), we can measure how fast 
+the cost function is changing as a function of the $j$-th output activation. This means that if the cost function doesn't depend on a particular neuron $j$, then $\delta_j^L$ would be small.  \\
+\\We also notice that everything in Eq. (\ref{eq:delta}) is easily computed. Thus we can also see how the weight changes the cost function using Eq. (\ref{eq:CostW}) quite easily. 
+Another thing we can compute with Eq. (\ref{eq:delta}) is
 $$
 \delta_j^L=\frac{\partial C}{\partial z_j^L} =\frac{\partial C}{\partial y_j^L}\frac{\partial y_j^L}{\partial z_j^L}
 $$
-which can be interpreted in terms of the biases $b_j^L$
+which can be interpreted in terms of the biases $b_j^L$ as
 \begin{equation}\label{eq:bias}
     \delta_j^L=\frac{\partial C}{\partial b_j^L}\frac{\partial b_j^L}{\partial z_j^L} = \frac{\partial C}{\partial b_j^L} 
 \end{equation}
 where we see that the error $\delta_j^L$ is exactly equal to the rate of change of the cost function as a function of the bias.\\
-\\Somerhing interesting as briefly mentioned above is that when using Eq. (\ref{eq:CostW} - \ref{eq:bias}) we see that if a neuron output $y_j^L$ is small, then the gradient term, Eq. (\ref{eq:CostW}), will also be small. We say then that the weight learns slowly, meaning that the contribution of said neuron is less important "to fix" than those that have a higher weight. Of course this example is a very simple one to wrap our heads around, but the magic comes when the algorithm is evaluating a random neuron in layer 20 on a deep learning algorithm, after so many layers it all becomes a \textbf{black box} for us to wrap our heads around!\\
-\\It is also worth noting that when the activation function is flat at some specific values (depend on the chosen function) the derivative will tend towards zero making the gradient small meaning the network is learning slow as well. To finish up our back propagation algorithm we still need one more equation. We are now going to propagate backwards in order to determine the weight and biases. We start by representing the error in the layer before the final one $L-1$ in term of the errors of the output layer. If we try to express Eq. (\ref{eq:delta}) in terms of the output layer $l+1$. Using the chain rule and summing over all $k$ entries we get
+\\Something interesting is that when using Eq. (\ref{eq:CostW} - \ref{eq:bias}) we see that if a neuron output $y_j^L$ is small, then the gradient term, Eq. (\ref{eq:CostW}), will also be small. We say then that the weight learns 
+slowly, meaning that the contribution of said neuron is less important "to fix" than those that have a higher weight. Of course this example is a very simple one to wrap our heads around, but the magic comes when the algorithm is 
+evaluating a random neuron in a layer $n$, after using many layers the NN becomes a \textbf{black box} for us to wrap our heads around!\\
+\\It is also worth noting that when the activation function is flat at some specific values (which also varies on the chosen function!) the derivative will tend towards zero making the gradient small, 
+meaning the network is learning slow as well. To finish up our back propagation algorithm we still need one more equation. We are now going to propagate backwards in order to determine the weight and biases. 
+We start by representing the error in the layer before the final one $L-1$ in term of the errors of the output layer. If we try to express Eq. (\ref{eq:delta}) in terms of the output layer $l+1$, 
+using the chain rule and summing over all $k$ entries we get
 $$
 \delta_j^l=\sum_k\frac{\partial C}{\partial z_k^{l+1}}\frac{\partial z_k^{l+1}}{\partial z_j^l} =\sum_k \delta_k^{l+1}\frac{\partial z_k^{l+1}}{\partial z_j^l}
 $$
@@ -188,8 +243,16 @@ To summarize the whole process of the NN
 \end{itemize}
 This whole procedure is usually called an epoch, which we can repeat as many times as we want to better reduce the cost function in hopes of getting to the global minima.
 
-\section{Boosted Decision Trees}
+\clearpage
 
-\section{Ensemble modeling?}
+
+
+
+\section{Boosted Decision Trees}
+While the idea behind neural networks is to mimic the human brain, Boosted Decision Trees (BDTs) are different in the sense that they are not trying to mimic a brain, but rather split data sets. The idea of BDTs has been proposed as early as 2001 by Friedmann \cite{BDT_Friedman}, 
+where bla bla.
+
+
+\section{The declaration of model indpedence}
 
 \end{document}
