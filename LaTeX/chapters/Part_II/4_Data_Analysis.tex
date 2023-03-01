@@ -1,41 +1,86 @@
 \documentclass[14pt, a4paper]{book}
 \begin{document}
 
+Before making our ML networks we need to make the dataset that will be used to clasify signal from background. On this section we will discuss which kinematic cuts are used to define our signal region search. 
+\todo{more fluff}
+
+
+
 
 \section{Background Estimation}
-\section{Kinematic Variables}
+The backgrounds we will look at are W, TTbar, Drell Yan (Z + jets), Diboson, Signle top. Since we are doing a dilepton DM search, which we expect to behave similarly to a neutrino, 
+we need to make a cut on the missing transverse energy (MET) and require the final state to have a lepton pair. As we are conductin a model independent search, we want to use minimal cuts.\\
+\\The MET cut made in this thesis was chosen to be of 50 GeV, meaning we will \textit{only} look at events where the MET is greater than this. 
+This both because of the amount of events that are in a dilepton final state, and also because most models studied in this thesis have roughly more MET than 50 GeV.\\
+\\The way we define our lepton pairs is not by just looking at Same Flavour Opposite Sign (SFOS) leptons ($e^\pm e^\mp, \mu^\pm\mu^\mp$), but also all other possible combinations as these might be important for theories such as SUSY.
+We will also look at the not so well defined by MC; Different Flavour Same Sign (DFSS), DFOS and SFSS lepton pairs. \\
+\\Other than the standard criteria cuts, these are the only cuts that will be used in this search.
 \begin{table}[!h]
     \centering
     \begin{tabular}{l|r}\midrule\midrule
-        Kinematic variable                                                  & Feature name          \\\midrule
-        $p_T$ of both leptons                                               & lep1pt \& lep2pt      \\
-        $\phi$ of both leptons                                              & lep1phi \& lep2phi    \\
-        $\eta$ of both leptons                                              & lep1eta \& lep2eta    \\
-        Invariant mass of dilepton pair, $m_{ll}$                           & mll \\
-        Missing transverse energy in event, $E_T^{miss}$                    & met \\
-        Missing transverse energy significance in event, $E_T^{miss}/\sigma$& met\_sig \\
-        Transverse mass in in event, $m_T$                                  & mt \\
-        Stransverse mass in in event, $m_{T2}$                              & mt2\\
-        Transverse energy in in event, $E_T$                                & et \\
-        $\phi$ between leption pair, $\Delta\Phi(l_1,l_2)$                  & dPhiLeps \\
-        $\phi$ between leption pair and MET jet, $\Delta\Phi(ll,met)$       & dPhiLLMet \\
-        $\phi$ between leading lepton and MET jet, $\Delta\Phi(l_l,met)$    & dPhiLeadMet \\
-        $\phi$ between closest lepton and MET jet, $\Delta\Phi(l_c,met)$    & dPhiCloseMet \\
-        $H_T$                                                               & ht\\
-        Number of b-jets                                                    & nbjets         \\
-        Number of light jets                                                & nljets         \\\midrule\midrule
+                                                                                & Selection criteria        \\\midrule
+        Dilepton final state                                                    & $\ell^\pm \ell^\mp$, $\ell^\pm \ell^\pm$, $\ell^\pm \ell'^\mp$ and $\ell^\pm \ell'^\pm$    \\
+        Missing Transverse Energy                                               & $E_T^{miss} > 50$ GeV     \\\midrule\midrule
     \end{tabular}
-    \caption[Kinematic variables used as features]{Table showcasing the kinematic variables that will be used as features}
-    \label{tab:variables}
+    \caption[Cuts for model-indepentent search]{Table showcasing the cuts used for this search.}
+    \label{tab:MI_Cuts}
 \end{table}
 
+
+
+
+\clearpage
+\section{Kinematic Variables}
+For this thesis there are many possible kinematic variables that can be used \todo{check if you write this as "variables for ML" or not} as features for our ML algorithms.\\
+\\As we require the final state to only have two leptons it is therefore natural to look at the kinematics for both of these. The first thing we will look at is the transverse momentum, $p_T$, of each lepton. 
+We will also look at the azimuthal angle, $\phi$, to know where in the detector the leptons are located. In addition we will look at the pseudorapidity, $\eta$, to know how close to the beam the leptons are. 
+Given that we have two leptons in the final state it is natural to look at the invariant mass, $m_{ll}$, of these. \\
+\\There are other kinematic variables of interest that arent directly related to the lepton pair. The most important for this kind this search is the missing transverse energy, $E_T^{miss}$, as this how we expect DM to be recorded.
+Another variation of this that takes into account the uncerainty of the detector is of interest, this is called for MET-significance, $E_T^{miss}/\sigma$. We will also study the transverse mass, $m_T$, and tranverse energy, $E_T$, recorded in the events.
+In addition we will look at a variable called \textit{hadronic activity}, $H_T$, which is the scalar sum of the all the jets (including leptonic jets) in an event. We will also look at the ratio between the missing transverse energy and hadronic activity.\\
+\\ We willl also look at the number of b- and light jets\todo{write criteria for both}. We will also look at a SUSY variable called the stransverse mass, $m_{T2}$, which as defined by Barr et.al. \cite{Barr_2003}. 
+We will also look at the difference in azimuthal angle between: the lepton pair, $\Delta\Phi(l_1,l_2)$, the dilepton jet and MET jet, $\Delta\Phi(ll,E_T^{miss})$, the leading lepton and MET jet, $\Delta\Phi(l_l,E_T^{miss})$, 
+and the lepton closest to the MET jet and the MET jet, $\Delta\Phi(l_c,E_T^{miss})$\\
+\\The kinematic variables used are summarized in Table \ref{tab:variables} and the distribution showing the agreement between MC and data is shown in Appendix A.
 \begin{table}[!h]
     \centering
     \begin{tabular}{l|r}\midrule\midrule
-        Kinematic variable                                                  & Feature name          \\\midrule
-        $p_T$ of two jets with highest $p_T$                                & jet1pt \& jet2pt\\
-        $\phi$ of two jets with highest $p_T$                               & jet1phi \& jet2phi\\
-        $\eta$ of two jets with highest $p_T$                               & jet1eta \& jet2eta\\
+        Kinematic variable                                                              & Feature name          \\\midrule
+        $p_T$ of both leptons                                                           & lep1pt \& lep2pt      \\
+        $\phi$ of both leptons                                                          & lep1phi \& lep2phi    \\
+        $\eta$ of both leptons                                                          & lep1eta \& lep2eta    \\
+        Invariant mass of dilepton pair, $m_{ll}$                                       & mll \\
+        Missing transverse energy in event, $E_T^{miss}$                                & met \\
+        Missing transverse energy significance in event, $E_T^{miss}/\sigma$            & met\_sig \\
+        Transverse mass in in event, $m_T$                                              & mt \\
+        Stransverse mass in in event, $m_{T2}$                                          & mt2\\
+        Transverse energy in in event, $E_T$                                            & et \\
+        $\phi$ between leption pair, $\Delta\Phi(l_1,l_2)$*                             & dPhiLeps \\
+        $\phi$ between leption pair and MET jet, $\Delta\Phi(ll,E_T^{miss})$            & dPhiLLMet \\
+        $\phi$ between leading lepton and MET jet, $\Delta\Phi(l_l,E_T^{miss})$         & dPhiLeadMet \\
+        $\phi$ between closest lepton and MET jet, $\Delta\Phi(l_c,E_T^{miss})$*        & dPhiCloseMet \\
+        Hadronic activity, $H_T$                                                        & ht\\
+        Ratio between $E_T^{miss}$ and $H_T$                                            & rt\\
+        Number of b-jets                                                                & nbjets         \\
+        Number of light jets                                                            & nljets         \\\midrule\midrule
+    \end{tabular}
+    \caption[Kinematic variables used as features]{Table showcasing the kinematic variables that will be used as features.\\ * These have poor MC and data agreement.}
+    \label{tab:variables}
+\end{table}
+\clearpage\noindent There is also the possibility to include jet-related kinematic variables. But these will become a problem as they will create \textit{jagged arrays}, these are arrays that might not always have a value in them.
+For instance, if we were to look at the $\eta$ of the three jets with highest $p_T$ in all of Run II then it becomes clear why this is a problem. The reason being that there might not always be three jets in an event!
+The problem with these jagged arrays is one that is better suited when discussing how to prepare our ML netoworks and will be discussed furhter there. \\
+\\As of the jet kinematics, we will look at the $p_T, \phi$ and $\eta$ of the three jets with highest $p_T$, we will also look at the invariant mass of the two jets with highest $p_T$, 
+to not confuse this with the invariant of the dilepton pair, I will call this variable for $m_{jj}$. The jet kinematic variables used are summarized in Table \ref{tab:paddable_variables} 
+and the distribution showing the agreement between MC and data is shown in Appendix A.
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{l|r}\midrule\midrule
+        Kinematic variable                                                      & Feature name          \\\midrule
+        $p_T$ of two jets with highest $p_T$                                    & jet1pt \& jet2pt\\
+        $\phi$ of two jets with highest $p_T$                                   & jet1phi \& jet2phi\\
+        $\eta$ of two jets with highest $p_T$                                   & jet1eta \& jet2eta\\
+        Invariant mass of two jets with highest $p_T$, $m_{jj}$                 & mjj\\\midrule\midrule
     \end{tabular}
     \caption[Kinematic variables that need padding]{Table showcasing the kinematic variables that need padding.}
     \label{tab:paddable_variables}
@@ -44,22 +89,14 @@
 \begin{table}[!h]
     \centering
     \begin{tabular}{l|r}\midrule\midrule
-        Kinematic variable                              & Feature name          \\\midrule
-        Number of b-jets with $p_T > 20$ GeV            & n\_bjetPt20\\
-        Number of b-jets with $p_T > 30$ GeV            & n\_bjetPt30\\
-        Number of b-jets with $p_T > 40$ GeV            & n\_bjetPt40\\
-        Number of b-jets with $p_T > 50$ GeV            & n\_bjetPt50\\
-        Number of b-jets with $p_T > 60$ GeV            & n\_bjetPt60\\
-        Number of light-jets with $p_T > 20$ GeV        & n\_ljetPt20\\
-        Number of light-jets with $p_T > 30$ GeV        & n\_ljetPt30\\
-        Number of light-jets with $p_T > 40$ GeV        & n\_ljetPt40\\
-        Number of light-jets with $p_T > 50$ GeV        & n\_ljetPt50\\
-        Number of light-jets with $p_T > 60$ GeV        & n\_ljetPt60\\
-        Number of jets recorded in Central calorimeter  &n\_jetsetaCentral\\
-        Number of jets recorded in Forward calorimeter  &n\_jetsetaForward\\\midrule\midrule
+        Kinematic variable                                                      & Feature name          \\\midrule
+        Number of b-jets with $p_T > 20$ GeV                                    & n\_bjetPt20\\
+        Number of light-jets with $p_T > 40$ GeV                                & n\_ljetPt40\\
+        Number of jets recorded in Central calorimeter                          &n\_jetsetaCentral\\
+        Number of jets recorded in Forward calorimeter with $p_T > 50$ GeV      & n\_jetsetaForward50\\\midrule\midrule
     \end{tabular}
     \caption[New kinematic variables that need no padding]{Table showcasing plausible kinematic variables that will not need padding.}
-    \label{tab:paddable_variables}
+    \label{tab:padding_variables}
 \end{table}
 
 \section{Dark Matter samples}
