@@ -3,14 +3,28 @@
 
 \graphicspath{{../../figures/}}
 \section{Data Preparation/LOG}
-We are dropping $\Delta\Phi(l_1,l_2)$ and $\Delta\Phi(l_c,E_T^{miss})$ due poor overenstemmelse with data. The first one is most likely due us not including fake leptons (and also for all non SFOS final states). The latter is a problem that PhD. Even is being haunted by. There is also the problem of missing variables. For the dataset being used I only look at, at least, two jets in the final state. This does however not always happen, to "fill the gaps" I made the $p_T$ of the jets equal to zero if there are less than two events, which is physically reasonable. And more problematic, I set the $\eta$ and $\phi$ to 10, which has no physical meaning. Luckily this does not seem to be an important feature when training the network using XGBoost. There is also another problem, albeit less problematic than the previous ones, with the final states that are not SFOS, as the background on these tend to be lower than the data. The number of events that are not SFOS are minimal though, and we think the reason it doesn't fit the data is because we are not including fake leptons.
+We are dropping $\Delta\phi(l_1,l_2)$ and $\Delta\phi(l_c,E_T^{miss})$ due the poor agreement between MC and data. The first one is most likely due us not including fake leptons (and also for all non SFOS final states). \todo{I will remove this sentence, but its just so we know}The latter is a problem that PhD. Even is being haunted by. 
+There is also the problem of missing variables. For this theis, as shown in Table \ref{tab:paddable_variables}, we will record events with up to three jets in the final state. As mentioned earlier, there isn't 
+always three jets in the final state, to mediate this problem I chose to set the $p_T$ to zero for the missing jets and $m_{jj}$ to zero if there are less than two jets, this is something that is physically reasonable as it doesn't violate any conservation laws. 
+More problematic however is the $\eta$ and $\phi$ when there aren't jets. To mediate this I've set the values to -999, which has no physical meaning and is impossible to achieve, this I did so it becomes easier for us to identify the jagged arrays further in the network preparation. 
+The missing variables is not a problem when making BDTs with XGBoost. There is also another problem, albeit less problematic than the previous ones, with the final states that are not SFOS, as the MC generated background 
+on these tend to be lower than the recorded data. The number of events that are not SFOS are minimal though, and we think the reason it doesn't fit the data is because we are not including fake leptons. \todo{something more to add?}
 
-\subsection{Full Dark Matter dataset}
-To train the networks I will utilize two methods. The first one being this where the dataset being sent into the ML network will contain every single DM MC sample available. So far there are 154 different MC samples, these are based on three theories. A Light Vector(LV), Dark Higgs (DH) and Effective Field Theory (EFT) vertex/propagator which produces the WIMP DM particles. As well as a new theoretical particle, $Z'$, and decays into the lepton pair observed. The three theories are divided further into MC samples with a Light Dark Sector (LDS) and High Dark Sector (HDS) which tells us the \todo{is this true?}range of the Dark Matter candidate mass. And lastly it is divided further into more MC samples with different masses for $Z'$. This dataset includes all of these samples such that the network learns Dark Matter in a model independent way.
+\subsection{Zp Dark Matter dataset}
+To train the networks I will utilize two methods\todo{see next comment for the two methods}. The first one being this where the dataset being sent into the ML network will contain every single DM MC sample available. 
+So far there are 154 different MC samples, these are based on three theories. A Light Vector (LV), Dark Higgs (DH) and Effective Field Theory (EFT) which produces the WIMP DM particles, and a new theoretical particle, $Z'$, 
+that decays into a lepton pair. The three theories are divided further into MC samples with a Light Dark Sector (LDS) and High Dark Sector (HDS) which tells us therange of the Dark Matter candidate mass. 
+And lastly it is divided further into more MC samples with different masses for $Z'$. This dataset includes all of these samples such that the network learns Dark Matter in a model independent way.
 
-\subsection{"Ensemble" dataset}
-Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when teaching a network using the full dataset it might only focus on a few special ones that stand out more than others on the massive dataset. Also, every different DM sample has different phenomenology, specially in the future when I will be receiving SUSY samples, meaning that it also won't teach the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights (i.e. cross sections) gives us an extremely low statistics dataset, even in the full DM dataset. \\
-\\Thus making the approach to teach the networks one MC sample at a time is impossible \todo{for NN}. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600 \cap\le 1100$ GeV and the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. Will try DSID now...
+\subsection{"Ensemble" dataset}\todo{This section and the next one are outdated with our current plan, and this will change when we discuss further how to implement the model-independent aspect.}
+Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when 
+training a network using the full dataset it might only focus on a the more resonant models with fixed masses. Also, every different DM sample has different phenomenology, specially in the future when I will 
+be receiving SUSY samples, meaning that it also might not train the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. 
+However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, 
+and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights to re-weight the MC events to expected events gives us an extremely low statistics dataset, which punishes the network for guessing correctly. \\
+\\\textit{\textbf{THIS IS OUTDATED AND WILL MOST LIKELY BE CHANGED TO THE SIGNAL REGION APPROACH, WHERE WE STATISTICALLY COMBINE WHAT THE NETWORKS LEARN IN A MODEL DEPENDENT WAY}} Thus making the approach to teach the networks one MC sample at a time is impossible. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. 
+Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600$ $\cap\le 1100$ GeV and 
+the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. 
 
 
 
@@ -18,25 +32,89 @@ Another approach is to make multiple datasets and combine the results of every n
 
 
 \section{Neural Network Training}
-For this thesis we purely utilize \verb|TensorFlow v. 2.7.1 GPU| for NN. Before implementing everything into a real NN we need to first prepare the data in a special way when.
-The first and most important thing for this whole project is that the \verb|batch_size| should be as big as possible whenever we try \textbf{anything} when using the dataset.
-This is because of both the size of the dataset and because of the imbalance between signal and background.\\
+For this thesis we purely utilize \verb|TensorFlow v. 2.7.1 GPU| for NN. Before implementing everything into a real NN we need to first prepare the data in a special way. The first and most important thing for 
+this whole project is that the \verb|batch_size| should be as big as possible whenever we try \textbf{anything} when using the dataset. This is because of both the size of the dataset and because of the imbalance between signal 
+and background, as explained in section \ref{sec:SGD}.\\
 \\The highest possible batch size that could be used for this thesis was $2^{24}$ which means that there are roughly 17 million samples pr. batch. This is the best that a dedicated GPU, \verb|NVIDIA A100-PCIE-40GB|, could handle. 
 The batch size also decreases the more complex the NN becomes, as this takes greater computational power.\\
 \\With this out of the way there are still a few things that needs to be done to get the best NN for our purposes. These have their own section as they are more difficult to tackle than the batch size.
 
 \subsection{Padding of data}\label{sec:padding_NN}
-There are two problems that need to be adressed when utilizing NNs as compared to BDTs. The first one which is the hardest one to solve, as no one has found a reliabe solution yet is the padding of the missing values.
-Padding is the process of filling missing values on a dataset that goes into a network. This is a problem that doesn't usually appear in other fields than physics, especially with the type of data we look at in HEP.
-As an example, in the dataset being used in this thesis we include two six kinematic variables that might not even be there, these are the $p_T$, $\eta$ and $\phi$ of the two highest $p_T$ jets in an event. The obvious reason for this is that there might not be two jets in every event, thus we have missing variables. \todo{remember to do this}As previously mentioned, the way that the dataset was made made sure that there where two jets before recording the actual values of the variables on the dataset. If there weren't at least two jets the $p_T$ was set to zero while $\eta$ and $\phi$ were set to 10.\\
-\\The jet $p_T$ being 0 is a valid form of padding the dataset, as this doesn't break any fundemental law of physics. However setting $\phi$ as something outside of $[-\pi,\pi]$ doesn't make much sense as this is the angle around the detector. Setting a high value of $\eta$ might be physically possible (in the future) but as of today the ATLAS detector has a $\abs{\eta}<4.9$\todo{this is from 2010, new source needed} as the pseudorapidity states how close to the beamline the event is recorded.
-However having a $p_T$ of a jet equal to zero and still recording the $\eta$ and $\phi$ breaks the laws of physics, so this is a problem that needs to be fixed.\\
-\\As mentioned before, there is no general consensus of how the padding should be done, and there are many different methods of doing so. The classical data scientist way of solving this problem would be to just take the mean of every feature and use that as a variable for every event with missing values. That means replacing every $p_T = 0$ and $\eta,\phi=10$ with the mean of every $p_T$, $\eta$ and $\phi$ (excluding those values). However this is not popular among physicists since it breaks conservation laws when we say there are jets when there really isn't.
-Another approach is to use Bayesian statistics or ML to estimate the missing values, these options will not be pursued in this thesis due to time. 
-Another approach, perhaps a naive one, is setting all the missing values to zero, as this might mean that there isn't anything there, but this also breaks conservation laws since $\eta,\phi=0$ have physical meaning, this is also highly looked down upon by data scientists since this would affect the weighting when training the network. 
-Another approach is to just remove all events that have a missing value completely getting rid of the problem, but this reduces the statistics of the dataset which is not desired when searching for new physis, as this might remove precious signal events.
-One could also just remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss. \textit{\textbf{For this project it is still up to discussion what approach should be used, and so far only the latest method has been applied.}}\\
-
+There are two problems that need to be adressed when utilizing NNs as compared to BDTs. The first one which is the hardest one to solve, as no one has found a reliabe solution yet, is the padding of jagged arrays.
+Padding is the process of filling missing values on a dataset that goes into a network. This is a problem that doesn't usually appear in other fields than high energy particle physics.
+To repeat the problem, in the dataset being used in this thesis, we include seven kinematic variables that might not even be there, these are the $p_T$, $\eta$ and $\phi$ of the three highest $p_T$ jets and the invariant mass $m_{jj}$ of the two highest $p_T$ jets. 
+The obvious reason for this is that there might not be a jet in every event, thus we have missing variables. As previously mentioned, the way that the dataset was made, set the missing values of $p_T$ and $m_{jj}$ to zero and the values of $\eta$ and $\phi$ to -999 
+if the jet of the variable was not present.\\
+\\The jet $p_T$ and $m_{jj}$ being 0 is a valid form of padding the dataset, as this doesn't break any fundemental law of physics. However setting $\phi$ as something outside of $[-\pi,\pi]$ doesn't make much sense 
+as this is the angle around the detector. Setting a high value of $\eta$ might be physically possible (in the future) but as of today the ATLAS detector has a $\abs{\eta}<4.9$\todo{source needed} as the pseudorapidity 
+states how close to the beamline the particles recorded are. However having a $p_T$ of a jet equal to zero and still recording the $\eta$ and $\phi$ breaks the laws of physics, so this is a problem that needs to be fixed.\\
+\\As mentioned before, there is no general consensus of how the padding should be done, and there are many different methods of doing so. The classical data scientist way of solving this problem would be to just take 
+the mean of every feature and use that as a variable for every event with missing values. That means replacing every $p_T, m_{jj} = 0$ and $\eta,\phi=-999$ with the mean of every $p_T$, $m_{jj}$, $\eta$ and $\phi$ (excluding the "missing" values set). 
+However this is not popular among physicists since it breaks conservation laws when we say there are jets when there really isn't. Another approach is to use Bayesian statistics or ML to estimate the missing values, 
+these options will not be pursued in this thesis due to time, but might be of interest for future projects. Another approach, is setting all the missing values to zero, as this might mean that there isn't anything there, 
+but this also breaks conservation laws since $\eta,\phi=0$ have physical meaning, this is also highly looked down upon by data scientists since this would affect the weighting when training the network and create a pattern for the network which might lead to a bias.\\ 
+\\Another approach is to just remove all events that have a missing value completely getting rid of the problem, but this reduces the statistics of the dataset which is not desired when searching for new physis, as this might remove precious signal events.
+One could also just remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss, but this is also not a desirable mitigation.\\
+\\For this project we have tried to create new kinematic variables that work around the need of padding. These features are just \textit{counting features}, meaning that they only count the number of jets that furful the criteria. 
+In this project we decided to look at the number of b-jets with $p_T > 20$ GeV, the number of light jets with $p_T>40$ GeV, the number of jets recorded in the central calorimeter ($\abs{\eta} < 2.5$), and the number of 
+jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$). \todo{should I write this at all}The reason why the light jets and forward calorimeter jets have a higher $p_T$ criteria than the standard 20 GeV, is for the data and MC to agree. 
+A summary of these variables is shown in Table \ref{tab:padding_variables}.\\
+\begin{table}[!h]
+   \centering
+   \begin{tabular}{l|r}\midrule\midrule
+      Kinematic variable                                                      & Feature name          \\\midrule
+      Number of b-jets with $p_T > 20$ GeV                                    & n\_bjetPt20\\
+      Number of light-jets with $p_T > 40$ GeV                                & n\_ljetPt40\\
+      Number of jets recorded in Central calorimeter                          &n\_jetsetaCentral\\
+      Number of jets recorded in Forward calorimeter with $p_T > 50$ GeV      & n\_jetsetaForward50\\\midrule\midrule
+   \end{tabular}
+   \caption[New kinematic variables that need no padding]{Table showcasing plausible kinematic variables that will not need padding.}
+   \label{tab:padding_variables}
+\end{table}
+\\When training our NN with these new variables we would hope that it learns more physics by hopefully recognising patters between all high level features. I have however tested this and the 
+difference in a optimized network (more info on this later) is minimal, and depending on our binning choice might make these new features less suited for our task. The resulta using 100 bins and using 50 bins 
+can be seen in Figure \ref{fig:New_var_pad}. For the remainder of our NN endevaours we will opt to not use these new features, and just remove the features that have missing variables all togheter.
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/padding/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/finer_binning/VAL.pdf}
+      \caption{When including new variables and using 100 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/finer_binning/EXP_SIG.pdf}
+      \caption{Expected significance of a)}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/VAL.pdf}
+      \caption{When including new variables and using 50 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/EXP_SIG.pdf}
+      \caption{Expected significance of c)}
+   \end{subfigure}
+   \hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{no_pad/VAL.pdf}
+      \caption{When excluding new variables and using 50 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{no_pad/EXP_SIG.pdf}
+      \caption{Expected significance of e)}
+   \end{subfigure}
+   \caption[Network performace when testing new variables to avoid padding]{NN prediction when using new features to avoid padding. This is testing a dataset with a Z' DM model.}\label{fig:New_var_pad}
+\end{figure}
+\clearpage
 
 
 \subsection{Normalization of data}\label{sec:normie_NN}
@@ -45,17 +123,17 @@ A way to fix this problem is to normalize all features. There are many ways to d
 \begin{equation}\label{eq:minmax}
    X_{norm} = \frac{X - X_{min}}{X_{max}-X_{min}}
 \end{equation}
-Where $X$ is the array containing all features, while $X_{min}$ and $X_{max}$ is the lowest and highest value in said array. Another way to normalize the data is to make the mean of the data 0 and the standard deviation to one, this is called \textit{Z-score normalization} \todo{is it?}
+Where $X$ is the array containing all features, while $X_{min}$ and $X_{max}$ is the lowest and highest value in said array. Another way to normalize the data is to make the mean of the data 0 and the standard deviation to one, this is called \textit{Z-score normalization}
 \begin{equation}\label{eq:Z-score}
    X_{norm} = \frac{X - \bar{X}}{\sqrt{\sigma_X^2}}
 \end{equation}
 where $\bar{X}$ is the mean of said array and $\sigma_X^2$ is the variance. One could also use pre-built functions in TensorFlow that do this normalization for you, one is called \verb|Batch_normalization| which normalizes the data that enters the network pr. batch, this is usually used in Convolutional NNs as it improves computational speed. 
-And another one is simply \verb|Normalize| which does the same a Eq. (\ref{eq:Z-score}) for the whole training set going in, this is however very slow to use. There is also \verb|Layer_normalization|, where you normalize the activations of the previous layer in a batch \textit{independently}, rather than \textit{across} a batch like \verb|Batch_Normalization|. But of these methods are also based on Z-score normaliazation. \\
-\\There is a big difference when normalizing data ourselves and using TensorFlow, and that is that TensorFlow will remember how the data was normalized when training and will normalize the testing data in the same way (using the same variables). However we by not using TensorFlow to normalize we could normalize the whole dataset before splitting, which might \todo{thoughts?}make for more a more model independent normalization than doing it in bacthes that might not include all models.
+And another one is simply \verb|Normalize| which does the same a Eq. (\ref{eq:Z-score}) for the whole training set going in, this is however computationally heavy to use. There is also \verb|Layer_normalization|, where you normalize the activations of the previous layer in a batch \textit{independently}, rather than \textit{across} a batch like \verb|Batch_Normalization|. But of these methods are also based on Z-score normaliazation. \\
+\\There is a big difference when normalizing data ourselves and using TensorFlow, and that is that TensorFlow will remember how the data was normalized when training and will normalize the testing data in the same way (using the same variables), making testing easier.
 These different normalization methods have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. 
-We can see that the best results come from Z-score and Batch normalization. We can see how the significance differs on both cases in Figure \ref{fig:BestNormie}.\\
-\\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? \textit{\textbf{For the following examples I have used the Z-score method, but I might change to use Batch normaliazation in the future.}}\\
-\\\textit{\textbf{EDIT:}} The reason batch normalization might work best for our case is because when we divide the data by bacthes it might unevenly represent the SM / signal and their ratio. But by using batch normalization it \todo{check if true} takes the average of all the batches creating an closer to real data representation. 
+We can see that the best results come from Z-score and Batch normalization. We can see how the expected significance differs on both cases in Figure \ref{fig:BestNormie}.\\
+\\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? The reason batch normalization might work best for our case is because when we divide the data by bacthes it might unevenly represent the SM / signal and their ratio. But by using batch normalization it takes the average of all the batches creating an closer to real distribution. 
+For the following examples in this section I have used the Z-score method, \todo{should I even mention this if I will not use NNs further?}but I will use Batch normaliazation for the signal search.\\ 
 \graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
 \begin{figure}[!ht]
 	\centering

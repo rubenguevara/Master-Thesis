@@ -38,7 +38,7 @@ Seeing how the results fare we can then back-propagate to shift the weights and 
 The number of neurons can vary for each layer. The above explanation is a very dense and simplified one. In reality it is complicated to find out which cost function, activation function, metric, etc. is best suited the problem. 
 But before we get into the gory details we can explore the mathematical model that illustrates what was tried to be explained above. 
 
-\subsection{Stochastic Gradient Descent}
+\subsection{Stochastic Gradient Descent}\label{sec:SGD}
 The way we "tweak the parameters $\bm \beta $ to see if the network prediction gets better" is by using something called the \textit{Stochastic Gradient Descent} (SDG). Before explaining the SDG we have to look at the Regular GD. \\
 \\Given a cost function $C(\bm{\beta})$ we can get closer to the minimum by calculating the gradient $\nabla_{\beta}C(\bm{\beta})$ wrt. the unknown parameters from the NN $\bm\beta$. If we were to calculate the gradient at a specific 
 point $\bm{\beta}_i$ in the parameter space, the negative gradient would correspond to the direction where a small change $d\bm\beta$ in this parameter space would result in the biggest decrease in the cost function. 
