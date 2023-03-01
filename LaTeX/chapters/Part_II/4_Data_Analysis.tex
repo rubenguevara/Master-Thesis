@@ -72,7 +72,7 @@ For instance, if we were to look at the $\eta$ of the three jets with highest $p
 The problem with these jagged arrays is one that is better suited when discussing how to prepare our ML netoworks and will be discussed furhter there. \\
 \\As of the jet kinematics, we will look at the $p_T, \phi$ and $\eta$ of the three jets with highest $p_T$, we will also look at the invariant mass of the two jets with highest $p_T$, 
 to not confuse this with the invariant of the dilepton pair, I will call this variable for $m_{jj}$. The jet kinematic variables used are summarized in Table \ref{tab:paddable_variables} 
-and the distribution showing the agreement between MC and data is shown in Appendix A.
+and the distribution showing the agreement between MC and data is shown in Appendix A\todo{Should I have an appendix showing the distribution of over 30 variables?}.
 \begin{table}[!h]
     \centering
     \begin{tabular}{l|r}\midrule\midrule
@@ -86,18 +86,6 @@ and the distribution showing the agreement between MC and data is shown in Appen
     \label{tab:paddable_variables}
 \end{table}
 
-\begin{table}[!h]
-    \centering
-    \begin{tabular}{l|r}\midrule\midrule
-        Kinematic variable                                                      & Feature name          \\\midrule
-        Number of b-jets with $p_T > 20$ GeV                                    & n\_bjetPt20\\
-        Number of light-jets with $p_T > 40$ GeV                                & n\_ljetPt40\\
-        Number of jets recorded in Central calorimeter                          &n\_jetsetaCentral\\
-        Number of jets recorded in Forward calorimeter with $p_T > 50$ GeV      & n\_jetsetaForward50\\\midrule\midrule
-    \end{tabular}
-    \caption[New kinematic variables that need no padding]{Table showcasing plausible kinematic variables that will not need padding.}
-    \label{tab:padding_variables}
-\end{table}
 
 \section{Dark Matter samples}
 
