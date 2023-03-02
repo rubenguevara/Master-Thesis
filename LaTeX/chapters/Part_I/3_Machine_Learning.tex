@@ -252,6 +252,12 @@ This whole procedure is usually called an epoch, which we can repeat as many tim
 While the idea behind neural networks is to mimic the human brain, Boosted Decision Trees (BDTs) are different in the sense that they are not trying to mimic a brain, but rather split data sets. The idea of BDTs has been proposed as early as 2001 by Friedmann \cite{BDT_Friedman}, 
 where bla bla.
 
+\section{Sample weight}\label{sec:sample_weight}
+An extra term added to the derivative of the loss function, Eq. (\ref{eq:delta}), 
+\begin{equation}
+    \delta^L \rightarrow \delta^L + C\sum_i \xi^i
+\end{equation} 
+where this $C$ is a constant term we will add to each sample in the dataset. This extra term is called the \textit{sample weight} and it is used to "even out" unbalanced data sets. \todo{will add more details later!}
 
 \section{The declaration of model indpedence}
 
