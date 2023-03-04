@@ -3,14 +3,28 @@
 
 \graphicspath{{../../figures/}}
 \section{Data Preparation/LOG}
-We are dropping $\Delta\Phi(l_1,l_2)$ and $\Delta\Phi(l_c,E_T^{miss})$ due poor overenstemmelse with data. The first one is most likely due us not including fake leptons (and also for all non SFOS final states). The latter is a problem that PhD. Even is being haunted by. There is also the problem of missing variables. For the dataset being used I only look at, at least, two jets in the final state. This does however not always happen, to "fill the gaps" I made the $p_T$ of the jets equal to zero if there are less than two events, which is physically reasonable. And more problematic, I set the $\eta$ and $\phi$ to 10, which has no physical meaning. Luckily this does not seem to be an important feature when training the network using XGBoost. There is also another problem, albeit less problematic than the previous ones, with the final states that are not SFOS, as the background on these tend to be lower than the data. The number of events that are not SFOS are minimal though, and we think the reason it doesn't fit the data is because we are not including fake leptons.
+We are dropping $\Delta\phi(l_1,l_2)$ and $\Delta\phi(l_c,E_T^{miss})$ due the poor agreement between MC and data. The first one is most likely due us not including fake leptons (and also for all non SFOS final states). \todo{I will remove this sentence, but its just so we know}The latter is a problem that PhD. Even is being haunted by. 
+There is also the problem of missing variables. For this theis, as shown in Table \ref{tab:paddable_variables}, we will record events with up to three jets in the final state. As mentioned earlier, there isn't 
+always three jets in the final state, to mediate this problem I chose to set the $p_T$ to zero for the missing jets and $m_{jj}$ to zero if there are less than two jets, this is something that is physically reasonable as it doesn't violate any conservation laws. 
+More problematic however is the $\eta$ and $\phi$ when there aren't jets. To mediate this I've set the values to -999, which has no physical meaning and is impossible to achieve, this I did so it becomes easier for us to identify the jagged arrays further in the network preparation. 
+The missing variables is not a problem when making BDTs with XGBoost. There is also another problem, albeit less problematic than the previous ones, with the final states that are not SFOS, as the MC generated background 
+on these tend to be lower than the recorded data. The number of events that are not SFOS are minimal though, and we think the reason it doesn't fit the data is because we are not including fake leptons. \todo{something more to add?}
 
-\subsection{Full Dark Matter dataset}
-To train the networks I will utilize two methods. The first one being this where the dataset being sent into the ML network will contain every single DM MC sample available. So far there are 154 different MC samples, these are based on three theories. A Light Vector(LV), Dark Higgs (DH) and Effective Field Theory (EFT) vertex/propagator which produces the WIMP DM particles. As well as a new theoretical particle, $Z'$, and decays into the lepton pair observed. The three theories are divided further into MC samples with a Light Dark Sector (LDS) and High Dark Sector (HDS) which tells us the \todo{is this true?}range of the Dark Matter candidate mass. And lastly it is divided further into more MC samples with different masses for $Z'$. This dataset includes all of these samples such that the network learns Dark Matter in a model independent way.
+\subsection{Zp Dark Matter dataset}
+To train the networks I will utilize two methods\todo{see next comment for the two methods}. The first one being this where the dataset being sent into the ML network will contain every single DM MC sample available. 
+So far there are 154 different MC samples, these are based on three theories. A Light Vector (LV), Dark Higgs (DH) and Effective Field Theory (EFT) which produces the WIMP DM particles, and a new theoretical particle, $Z'$, 
+that decays into a lepton pair. The three theories are divided further into MC samples with a Light Dark Sector (LDS) and High Dark Sector (HDS) which tells us therange of the Dark Matter candidate mass. 
+And lastly it is divided further into more MC samples with different masses for $Z'$. This dataset includes all of these samples such that the network learns Dark Matter in a model independent way.
 
-\subsection{"Ensemble" dataset}
-Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when teaching a network using the full dataset it might only focus on a few special ones that stand out more than others on the massive dataset. Also, every different DM sample has different phenomenology, specially in the future when I will be receiving SUSY samples, meaning that it also won't teach the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights (i.e. cross sections) gives us an extremely low statistics dataset, even in the full DM dataset. \\
-\\Thus making the approach to teach the networks one MC sample at a time is impossible \todo{for NN}. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600 \cap\le 1100$ GeV and the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. Will try DSID now...
+\subsection{"Ensemble" dataset / Model indepedence}\todo{This subsection and is outdated with our current plan, and this will change when we discuss further how to implement the model-independent aspect.}
+Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when 
+training a network using the full dataset it might only focus on a the more resonant models with fixed masses. Also, every different DM sample has different phenomenology, specially in the future when I will 
+be receiving SUSY samples, meaning that it also might not train the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. 
+However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, 
+and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights to re-weight the MC events to expected events gives us an extremely low statistics dataset, which punishes the network for guessing correctly. \\
+\\\textit{\textbf{THIS IS OUTDATED AND WILL MOST LIKELY BE CHANGED TO THE SIGNAL REGION APPROACH, WHERE WE STATISTICALLY COMBINE WHAT THE NETWORKS LEARN IN A MODEL DEPENDENT WAY}} Thus making the approach to teach the networks one MC sample at a time is impossible. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. 
+Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600$ $\cap\le 1100$ GeV and 
+the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. 
 
 
 
@@ -18,25 +32,89 @@ Another approach is to make multiple datasets and combine the results of every n
 
 
 \section{Neural Network Training}
-For this thesis we purely utilize \verb|TensorFlow v. 2.7.1 GPU| for NN. Before implementing everything into a real NN we need to first prepare the data in a special way when.
-The first and most important thing for this whole project is that the \verb|batch_size| should be as big as possible whenever we try \textbf{anything} when using the dataset.
-This is because of both the size of the dataset and because of the imbalance between signal and background.\\
+For this thesis we purely utilize \verb|TensorFlow v. 2.7.1 GPU| for NN. Before implementing everything into a real NN we need to first prepare the data in a special way. The first and most important thing for 
+this whole project is that the \verb|batch_size| should be as big as possible whenever we try \textbf{anything} when using the dataset. This is because of both the size of the dataset and because of the imbalance between signal 
+and background, as explained in section \ref{sec:SGD}.\\
 \\The highest possible batch size that could be used for this thesis was $2^{24}$ which means that there are roughly 17 million samples pr. batch. This is the best that a dedicated GPU, \verb|NVIDIA A100-PCIE-40GB|, could handle. 
 The batch size also decreases the more complex the NN becomes, as this takes greater computational power.\\
 \\With this out of the way there are still a few things that needs to be done to get the best NN for our purposes. These have their own section as they are more difficult to tackle than the batch size.
 
 \subsection{Padding of data}\label{sec:padding_NN}
-There are two problems that need to be adressed when utilizing NNs as compared to BDTs. The first one which is the hardest one to solve, as no one has found a reliabe solution yet is the padding of the missing values.
-Padding is the process of filling missing values on a dataset that goes into a network. This is a problem that doesn't usually appear in other fields than physics, especially with the type of data we look at in HEP.
-As an example, in the dataset being used in this thesis we include two six kinematic variables that might not even be there, these are the $p_T$, $\eta$ and $\phi$ of the two highest $p_T$ jets in an event. The obvious reason for this is that there might not be two jets in every event, thus we have missing variables. \todo{remember to do this}As previously mentioned, the way that the dataset was made made sure that there where two jets before recording the actual values of the variables on the dataset. If there weren't at least two jets the $p_T$ was set to zero while $\eta$ and $\phi$ were set to 10.\\
-\\The jet $p_T$ being 0 is a valid form of padding the dataset, as this doesn't break any fundemental law of physics. However setting $\phi$ as something outside of $[-\pi,\pi]$ doesn't make much sense as this is the angle around the detector. Setting a high value of $\eta$ might be physically possible (in the future) but as of today the ATLAS detector has a $\abs{\eta}<4.9$\todo{this is from 2010, new source needed} as the pseudorapidity states how close to the beamline the event is recorded.
-However having a $p_T$ of a jet equal to zero and still recording the $\eta$ and $\phi$ breaks the laws of physics, so this is a problem that needs to be fixed.\\
-\\As mentioned before, there is no general consensus of how the padding should be done, and there are many different methods of doing so. The classical data scientist way of solving this problem would be to just take the mean of every feature and use that as a variable for every event with missing values. That means replacing every $p_T = 0$ and $\eta,\phi=10$ with the mean of every $p_T$, $\eta$ and $\phi$ (excluding those values). However this is not popular among physicists since it breaks conservation laws when we say there are jets when there really isn't.
-Another approach is to use Bayesian statistics or ML to estimate the missing values, these options will not be pursued in this thesis due to time. 
-Another approach, perhaps a naive one, is setting all the missing values to zero, as this might mean that there isn't anything there, but this also breaks conservation laws since $\eta,\phi=0$ have physical meaning, this is also highly looked down upon by data scientists since this would affect the weighting when training the network. 
-Another approach is to just remove all events that have a missing value completely getting rid of the problem, but this reduces the statistics of the dataset which is not desired when searching for new physis, as this might remove precious signal events.
-One could also just remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss. \textit{\textbf{For this project it is still up to discussion what approach should be used, and so far only the latest method has been applied.}}\\
-
+There are two problems that need to be adressed when utilizing NNs as compared to BDTs. The first one which is the hardest one to solve, as no one has found a reliabe solution yet, is the padding of jagged arrays.
+Padding is the process of filling missing values on a dataset that goes into a network. This is a problem that doesn't usually appear in other fields than high energy particle physics.
+To repeat the problem, in the dataset being used in this thesis, we include seven kinematic variables that might not even be there, these are the $p_T$, $\eta$ and $\phi$ of the three highest $p_T$ jets and the invariant mass $m_{jj}$ of the two highest $p_T$ jets. 
+The obvious reason for this is that there might not be a jet in every event, thus we have missing variables. As previously mentioned, the way that the dataset was made, set the missing values of $p_T$ and $m_{jj}$ to zero and the values of $\eta$ and $\phi$ to -999 
+if the jet of the variable was not present.\\
+\\The jet $p_T$ and $m_{jj}$ being 0 is a valid form of padding the dataset, as this doesn't break any fundemental law of physics. However setting $\phi$ as something outside of $[-\pi,\pi]$ doesn't make much sense 
+as this is the angle around the detector. Setting a high value of $\eta$ might be physically possible (in the future) but as of today the ATLAS detector has a $\abs{\eta}<4.9$\todo{source needed} as the pseudorapidity 
+states how close to the beamline the particles recorded are. However having a $p_T$ of a jet equal to zero and still recording the $\eta$ and $\phi$ breaks the laws of physics, so this is a problem that needs to be fixed.\\
+\\As mentioned before, there is no general consensus of how the padding should be done, and there are many different methods of doing so. The classical data scientist way of solving this problem would be to just take 
+the mean of every feature and use that as a variable for every event with missing values. That means replacing every $p_T, m_{jj} = 0$ and $\eta,\phi=-999$ with the mean of every $p_T$, $m_{jj}$, $\eta$ and $\phi$ (excluding the "missing" values set). 
+However this is not popular among physicists since it breaks conservation laws when we say there are jets when there really isn't. Another approach is to use Bayesian statistics or ML to estimate the missing values, 
+these options will not be pursued in this thesis due to time, but might be of interest for future projects. Another approach, is setting all the missing values to zero, as this might mean that there isn't anything there, 
+but this also breaks conservation laws since $\eta,\phi=0$ have physical meaning, this is also highly looked down upon by data scientists since this would affect the weighting when training the network and create a pattern for the network which might lead to a bias.\\ 
+\\Another approach is to just remove all events that have a missing value completely getting rid of the problem, but this reduces the statistics of the dataset which is not desired when searching for new physis, as this might remove precious signal events.
+One could also just remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss, but this is also not a desirable mitigation.\\
+\\For this project we have tried to create new kinematic variables that work around the need of padding. These features are just \textit{counting features}, meaning that they only count the number of jets that furful the criteria. 
+In this project we decided to look at the number of b-jets with $p_T > 20$ GeV, the number of light jets with $p_T>40$ GeV, the number of jets recorded in the central calorimeter ($\abs{\eta} < 2.5$), and the number of 
+jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$). \todo{should I write this at all}The reason why the light jets and forward calorimeter jets have a higher $p_T$ criteria than the standard 20 GeV, is for the data and MC to agree. 
+A summary of these variables is shown in Table \ref{tab:padding_variables}.\\
+\begin{table}[!h]
+   \centering
+   \begin{tabular}{l|r}\midrule\midrule
+      Kinematic variable                                                      & Feature name          \\\midrule
+      Number of b-jets with $p_T > 20$ GeV                                    & n\_bjetPt20\\
+      Number of light-jets with $p_T > 40$ GeV                                & n\_ljetPt40\\
+      Number of jets recorded in Central calorimeter                          &n\_jetsetaCentral\\
+      Number of jets recorded in Forward calorimeter with $p_T > 50$ GeV      & n\_jetsetaForward50\\\midrule\midrule
+   \end{tabular}
+   \caption[New kinematic variables that need no padding]{Table showcasing plausible kinematic variables that will not need padding.}
+   \label{tab:padding_variables}
+\end{table}
+\\When training our NN with these new variables we would hope that it learns more physics by hopefully recognising patters between all high level features. I have however tested this and the 
+difference in a optimized network (more info on this later) is minimal, and depending on our binning choice might make these new features less suited for our task. The resulta using 100 bins and using 50 bins 
+can be seen in Figure \ref{fig:New_var_pad}. For the remainder of our NN endevaours we will opt to not use these new features, and just remove the features that have missing variables all togheter.
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/padding/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/finer_binning/VAL.pdf}
+      \caption{When including new variables and using 100 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/finer_binning/EXP_SIG.pdf}
+      \caption{Expected significance of a)}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/VAL.pdf}
+      \caption{When including new variables and using 50 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/EXP_SIG.pdf}
+      \caption{Expected significance of c)}
+   \end{subfigure}
+   \hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{no_pad/VAL.pdf}
+      \caption{When excluding new variables and using 50 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{no_pad/EXP_SIG.pdf}
+      \caption{Expected significance of e)}
+   \end{subfigure}
+   \caption[Network performace when testing new variables to avoid padding]{NN prediction when using new features to avoid padding. This is testing a dataset with a Z' DM model.}\label{fig:New_var_pad}
+\end{figure}
+\clearpage
 
 
 \subsection{Normalization of data}\label{sec:normie_NN}
@@ -45,17 +123,17 @@ A way to fix this problem is to normalize all features. There are many ways to d
 \begin{equation}\label{eq:minmax}
    X_{norm} = \frac{X - X_{min}}{X_{max}-X_{min}}
 \end{equation}
-Where $X$ is the array containing all features, while $X_{min}$ and $X_{max}$ is the lowest and highest value in said array. Another way to normalize the data is to make the mean of the data 0 and the standard deviation to one, this is called \textit{Z-score normalization} \todo{is it?}
+Where $X$ is the array containing all features, while $X_{min}$ and $X_{max}$ is the lowest and highest value in said array. Another way to normalize the data is to make the mean of the data 0 and the standard deviation to one, this is called \textit{Z-score normalization}
 \begin{equation}\label{eq:Z-score}
    X_{norm} = \frac{X - \bar{X}}{\sqrt{\sigma_X^2}}
 \end{equation}
 where $\bar{X}$ is the mean of said array and $\sigma_X^2$ is the variance. One could also use pre-built functions in TensorFlow that do this normalization for you, one is called \verb|Batch_normalization| which normalizes the data that enters the network pr. batch, this is usually used in Convolutional NNs as it improves computational speed. 
-And another one is simply \verb|Normalize| which does the same a Eq. (\ref{eq:Z-score}) for the whole training set going in, this is however very slow to use. There is also \verb|Layer_normalization|, where you normalize the activations of the previous layer in a batch \textit{independently}, rather than \textit{across} a batch like \verb|Batch_Normalization|. But of these methods are also based on Z-score normaliazation. \\
-\\There is a big difference when normalizing data ourselves and using TensorFlow, and that is that TensorFlow will remember how the data was normalized when training and will normalize the testing data in the same way (using the same variables). However we by not using TensorFlow to normalize we could normalize the whole dataset before splitting, which might \todo{thoughts?}make for more a more model independent normalization than doing it in bacthes that might not include all models.
+And another one is simply \verb|Normalize| which does the same a Eq. (\ref{eq:Z-score}) for the whole training set going in, this is however computationally heavy to use. There is also \verb|Layer_normalization|, where you normalize the activations of the previous layer in a batch \textit{independently}, rather than \textit{across} a batch like \verb|Batch_Normalization|. But of these methods are also based on Z-score normaliazation. \\
+\\There is a big difference when normalizing data ourselves and using TensorFlow, and that is that TensorFlow will remember how the data was normalized when training and will normalize the testing data in the same way (using the same variables), making testing easier.
 These different normalization methods have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. 
-We can see that the best results come from Z-score and Batch normalization. We can see how the significance differs on both cases in Figure \ref{fig:BestNormie}.\\
-\\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? \textit{\textbf{For the following examples I have used the Z-score method, but I might change to use Batch normaliazation in the future.}}\\
-\\\textit{\textbf{EDIT:}} The reason batch normalization might work best for our case is because when we divide the data by bacthes it might unevenly represent the SM / signal and their ratio. But by using batch normalization it \todo{check if true} takes the average of all the batches creating an closer to real data representation. 
+We can see that the best results come from Z-score and Batch normalization. We can see how the expected significance differs on both cases in Figure \ref{fig:BestNormie}.\\
+\\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? The reason batch normalization might work best for our case is because when we divide the data by bacthes it might unevenly represent the SM / signal and their ratio. But by using batch normalization it takes the average of all the batches creating an closer to real distribution. 
+For the following examples in this section I have used the Z-score method, \todo{should I even mention this if I will not use NNs further?}but I will use Batch normaliazation for the signal search.\\ 
 \graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
 \begin{figure}[!ht]
 	\centering
@@ -127,41 +205,63 @@ We can see that the best results come from Z-score and Batch normalization. We c
 
 \subsection{Weights}\label{sec:wgts}
 \graphicspath{{../../figures/}}
-The results so far (my \textit{OLD} interpretation with only three different DM theories) show that the network is completely capable of distinguishing signal from background in the unweighted training, however if we were to scale the predictions (the networks output) with the weights (sample weights * luminosity / sum of weights) we would see that the signal is hidden underneath the background. Both validation plots are shown in Figure \ref{fig:OLD_FULL_DM_VAL}. If we train the network using the weights of the MC samples we see that the network still gets the same accuracy, and an even lower loss function score. But the AUC becomes exactly 0.5. When looking at the ROC curve and validation plots (plots showing how well the network sorts signal from background) we see that everything "is messed up" the ROC is 0.5, and there is only \textbf{one} background bin. When printing how many signal events the weighted network predicted it is easy to understand why, it is because it says there is not a single dark matter event. Which I first interpreted as being in agreement with Figure \ref{fig:OLD_W_FULL_DM_VAL}.\\
+A big problem that needs to be adressed in this thesis is what we should use as \textit{sample weights} (see Section \ref{sec:sample_weight}). If we were to not use any form of sample weights to mitigate the unbalance in our data set 
+it could potentially lead to \todo{is it called undertraining?}undertraining where the networks could get "lazy" and guess that everything is background. If we were to split the full Z' data set into a training and test set, where 80\% is used for training, and trained a network without any weights then it seems as if the network excels in identifying our signal. 
+This is however misleading as we need to keep in mind two things.\\
+\\The first one, which \textbf{always} will be applied, is that we need to re-weight the MC events the networks trains on to the expected events, this we do by applying the weights explained in Setion \todo{will add this later!}... as well as factoring for the train-test split we made, 
+that means that since our testing set is 20\% of the whole data set then we need to multiply this by 5 so we are back at 100\%. The difference is shown in Figure \ref{fig:OLD_FULL_DM_VAL}.\\ 
 \begin{figure}[!ht]
 	\centering
-	\begin{subfigure}[b]{0.8\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{OLD_DM_FULL_VAL_UNW.pdf}
         \caption{Unscaled validation plot.}\label{fig:OLD_UNW_FULL_DM_VAL}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.8\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{OLD_DM_FULL_VAL_W.pdf}
         \caption{Scaled validation plot using MC weights.}\label{fig:OLD_W_FULL_DM_VAL}
      \end{subfigure}
-	\caption{Validation plot of uwweighted network on the first version of the FULL DM dataset.}\label{fig:OLD_FULL_DM_VAL}
+	\caption[Importane of correctly scaling MC events to expected events]{Validation plot of uwweighted network on the first version of the FULL Z' DM dataset.}\label{fig:OLD_FULL_DM_VAL}
 \end{figure}
-\\\todo{The italics were my thoughts at the time}\textit{From my understanding it is preferable to train the network with weights, because then we can use it to predict data events, which have physical significance compared to MC events. This will be specially useful in my head when we predict how many dark matter events there are using real data, as this cannot be "scaled up" at a later point.}\\
-\\\textit{As to which weights one shall use I am unsure, I like the physical weights for the reason above. But I know that for uneven datasets one could "weight down" the background events such that it "looks to be a 50-50 ratio" between background in signal. This sounds like making a bias in my head, and I would not know how to interpret the network predictions (if it predicts samples or events), but this appears to be a "standard" technique used in data science.}\\
-\\T\textit{o check whether the network is working as intended I will now try to sort out "Diboson" events from other SM backgrounds, since we know this is real. If it works as intended I am unsure as to where to go next.} One thing worth noting is that the weights for the dark matter models being used may not necessarily be correct, as we don't have any empirical proof for the variables being used when calculating the weights (i.e. the cross section). \\
-\\It seems that my interpretation was wrong, the weighted network for the Diboson search also predicted "0 Diboson events" (meaning my interpretation of the network predicting number of events is wrong), something we can empirically say is wrong (i.e. literally every figure of the kinematic variables). The scaled validation plot of the unweighted signal still "shows" that the network struggles a bit to see the difference between signal and background, overlapping almost all the way to 0.8. However it is still capable of sorting it out. Now I will try the "data analysts" way to weight the samples. That means weighting all background samples by $\frac{N_{sig}}{N_{bkg}}$, as is a common practice of weighting unbalanced datasets in data analysis.\\
-\\The new weighting works! This is the method that will be used in the further studies using NNs. The \textit{Validation plots} showing the results of the network when trying to sort out the "Diboson" channel from the other are shown in Figure \ref{fig:DibosonVAL} and the ROC scores in Figure \ref{fig:DibosonROC}. A table showing how unbalanced the data is is showcased in Table \ref{tab:UnbalancedDibosonTraining}.\\
+\\The second thing, which is more important, is that we are not going to be testing our network on a "full data set", but rather on on one model with fixed parameters. For the purposes of most examples in this chapter, 
+we will conduct our testing on one of the Z' models, more specially it will be a Dark Higgs (DH) with Heavy Dark Sector (HDS) and $m_{Z'}=130$ GeV. The reason I mention this here, and highlight its importance, is because 
+the data imbalance \textbf{will} become a problem when we are studying just one specific model with fixed parameters. To put some numbers, the whole SM background we are studying has roughly 87 million MC events, 
+the whole Z' signal has roughly 3 million MC events, and the DH HDS $m_{Z'} = 130$ GeV model has 40,000 MC events! So if the network were to say that every event is a background event when testing on the small model with fixed parameters, 
+it would be correct over 99.9\% of the time. This is obviously something we do not want, as our goal is to make a ML algorithm that actually learns DM signatures.\\
+\\I trained a network to find the Diboson background channel among the other SM backgrounds to find a general solution to what weights will be used to balance using the sample weight feature, as this is something we know exists. 
+The imbalance of this data set can be seen in Table \ref{tab:UnbalancedDibosonTraining}.
+\begin{table}[!h]
+   \centering
+   \begin{tabular}{l|r|r|r}\midrule\midrule
+                   & Number of MC events  & Number of expected events   & MC events $\times$ expected events [$10^{11}$]\\\midrule
+        Signal     & 8,813,716            & 93,304.9                    & 8.2\\
+        Background & 61,201,010           & 2,621,498.9                 & 1,604.4 \\ \midrule\midrule
+   \end{tabular}
+   \caption[Unbalanced Diboson training dataset]{Table Showcasing how uneven the training dataset is between signal and background. This is on the Diboson dataset which incorporates all the SM MC samples}
+   \label{tab:UnbalancedDibosonTraining}
+\end{table}
+\\The reason for this choice and not a DM signal, is because I \todo{should I write this or skip it entirely?}wrongly assumed when first testing the network, that the network \textit{correctly} predicted that there were no DM events. 
+Put in rougher words, I thought that the network completely dismissed the model by claiming it did not exist, and thus excluding the whole model, a very bold, pretentious and wrong claim. 
+As my first attempt to use weights used the same weights used to re-weight MC events to expected events, which included the cross section of every event... this will become important later.\\
+\\As expected, my interpretation was wrong, the network trained using the weights to re-weight MC events on the Diboson search also predicted that there were "0 Diboson events", something we can empirically and confidently say is wrong. 
+Moreover, the validation plot of the unweighted network works, but gives poor results. As a method to balance the signal and background, I made a new weight array to be used as sample weight. This array weights down all background events 
+with the ratio of MC signal events over MC background events, $\frac{N_{sig}}{N_{bkg}}$. The results are shown in Figure \ref{fig:DibosonVAL} and the ROC scores in Figure \ref{fig:DibosonROC}.\\
 \begin{figure}[!ht]
 	\centering
-	\begin{subfigure}[b]{0.8\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{VAL_uw.pdf}
         \caption{Validation plot for the unweighted training.}\label{fig:DibosonVALUW}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.8\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{VAL_mc.pdf}
         \caption{Validation plot for the weighted training using MC weights.}\label{fig:DibosonVALMC}
      \end{subfigure}
-     \begin{subfigure}[b]{0.8\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{VAL_w.pdf}
         \caption{Validation plot for the weighted training using $\frac{N_{sig}}{N_{bkg}}$ as weights on the background.}\label{fig:DibosonVALW}
@@ -188,22 +288,17 @@ The results so far (my \textit{OLD} interpretation with only three different DM 
      \end{subfigure}
 	\caption{Result of the different network training weighting.}\label{fig:DibosonROC}
 \end{figure}
-\begin{table}[!h]
-    \centering
-    \begin{tabular}{l|r|r|r}\midrule\midrule
-                    & Number of events & Sum of weights & Events $\times$ SOW [$10^{11}$]\\\midrule
-         Signal     & 8,813,716        & 93,304.9       & 8.2\\
-         Background & 61,201,010       & 2,621,498.9    & 1,604.4 \\ \midrule\midrule
-    \end{tabular}
-    \caption[Unbalanced Diboson training dataset]{Table Showcasing how uneven the training dataset is between signal and background. This is on the Diboson dataset which incorporates all the SM MC samples}
-    \label{tab:UnbalancedDibosonTraining}
-\end{table}
+\\From the results we see that the new weighting method has a poorer result than the unweighted one, and the weighting method that re-weight MC events to expected events just crashes the whole network. 
+The reason for why the latter does not work might be since the network gets punished by guessing "too easily" that an event is signal, and instead of trying harder to learn the patterns and predict with "more confidence" 
+signal events just guesses that everything is a background event and still get a high \textit{accuracy}\footnote{Not to be confused with AUC!}. Something else to mention, as to why the network does such a poor job at classifying the diboson background, is that the network here was not optimized for the search, and rather just used the 
+defaul NN settings on TensorFlow. \todo{mention this or remove completely}And to make matters worse, when testing this I had a bug where I used zero hidden layers by accident, meaning that there was in fact no NN.
+
 
 \clearpage
 
 
 
-\subsection{Balanced weights}\label{sec:Balanced_wgts}
+\subsection{Balanced weights\todo{This whole section is my reasoning for trying to re-weight the MC events to expected events. But is just plain wrong.}}\label{sec:Balanced_wgts}
 Even if the weighting method previously described helps the network to give reasonable results. It most likely won't distinguish the importance between signal events that have high resonance and those that do not. 
 As an example, if we look at the Z' DH model in the HDS and compare how the network classifies a model with a $m_{Z'}$ of 130 GeV to one with a $m_{Z'}$ of 1500 GeV we might get an idea of how the network classifies things.
 We can see how the network predicts wether an event is signal or background using validation plots, this is seen in \ref{fig:PurelyBalanced_DH_HDS}.
@@ -352,8 +447,8 @@ If we now compare the correctly scaled validation plots of DH HDS $m_{Z'}$ = 130
 \end{figure}
 \\From this we can see that the the network that trained when balancing the data is better at classifying the DH HDS $m_{Z'}$ = 130 GeV model correctly as signal than the other network. We also observe that it wrongly classifies more background as signal than the other network, but even if this is the case the expected significance is greater in the new network.
 The reason that the new network wrongly classifies more background as signal might be becuse I utilized the same hyperparameters when training both newtworks, when it might be better to use different hyperparameters on each. 
-Another thing that might be of significance is that I used the ratio of the training set, it might make a difference (better or worse) to use the ratio of the full dataset when training as this is more general. Since the ratio most likely differs for the training and testing set. \textit{\textbf{Both of this options are up to discussion to further pursue. As well as if this appreoach is worth pursuing if it only learns the models with higher cross section.}}
-
+Another thing that might be of significance is that I used the ratio of the training set, it might make a difference (better or worse) to use the ratio of the full dataset when training as this is more general. 
+Since the ratio most likely differs for the training and testing set. \todo{Should I add here that this will not be pursued further? Or rather include it on the "results" part of the thesis}
 \clearpage
 
 
@@ -573,7 +668,7 @@ For our neural network we will mainly focus on four hyperparameters explained on
 \end{itemize}
 The metrics that will be used to estimate the best hyperparameters are \textbf{AUC}, \textbf{binary accuracy} and most importantly \textbf{expected significance}. 
 The expected significance for this section has been calculated using the low statistics formula Eq. (\ref{eq:low_stat_Z}) just in case there is too few events after the network prediction.
-The expected significance will also be calculcated when making a cut on \todo{not 100, so we have many background events!}0.85 on the netowrk prediction, meaning only looking at events which the network rates as signal with 85\% confidence and above.\\
+The expected significance will also be calculcated when making a cut on 0.85 on the netowrk prediction, meaning only looking at events which the network rates as signal with 85\% confidence and above.\\
 \\The dataset on which I've trained so far is the FULL Z' DM dataset including DH, LV and EFT. The raw number of events on this dataset is roughly 3 million signal events to 70 million background events,
 I have however split this into a 80\% training set and 20\% testing set. \textit{\textbf{The reason for doing this, is so we get the best hyperparameters for doing a model independant search}}.\\
 \\The full results of the gridsearch when setting \verb|n_layers| = 2 (one hidden layer) and $\eta \in [0.001, 0.01, 0.1, 1]$, $\lambda\in[10^{-5},10^{-4},10^{-3},10^{-2}]$ and \verb|n_neuron|$\in[1, 10, 50, 100]$ can be found in my GitHub under \\\verb|Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons|, 
@@ -664,8 +759,8 @@ The first and smallest one is that we could have used batch normalization instea
 \\The third one which is more technical is that since more complex networks require more computational power, then this leads to us decreasing the batch size. Which lowers the statistics of signal, 
 and might even lead to the network training on batches without any signal sample at all. So the trade off is also something to be discussed.\\
 \\The last thing to be noted is that having a DNN completely removes the possibility of combining the results of multiple networks trained on a single model, as the imbalance becomes too much for the network to see anything.
-A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, we could try the Parametrized NN approach, which could potentially avoid the imbalance problem.
-This is obviously something we have to discuss further.
+A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach, which could potentially avoid the imbalance problem, but this is 
+proposed as a plausible new research project due to time constrain on this thesis.
 \clearpage
 \graphicspath{{../../figures/}}
 
@@ -678,25 +773,50 @@ This is obviously something we have to discuss further.
 When working with BDTs we do not run into as many problems as we do with NNs. For example the padding and normalization of data can be completely avoided, making the whole procedure a lot easier when one uses "weird data" as we do in HEPP.
 There is however one other problem that need to be dealt with when working with this type of ML, this is the weights, which will be discussed in the next section.\\
 \\For this project we will as mentioned \todo{remember to mention it} utilize the Extreme Gradient Boosting, or XGBoost for short, package made for the HiggsML\todo{add source/remove this comment?} whenever we mention BDTs.
-This project utilized version \verb|1.5.0| without GPU \todo{might change?}adaptability. XGBoost also helps to avoid padding as it is integrated with a \verb|missing_variable| variable where we can simply write the number of the variable that is missing.
+This project utilized version \verb|1.5.0| without GPU adaptability. XGBoost also helps to avoid padding as it is integrated with a \verb|missing_variable| variable where we can simply write the number of the variable that is missing.
 
 \subsection{Weights}
 For XGBoost there is a different problem when it comes to weights. XGBoost has a variable called \verb|scale_pos_weight| where we can help the network deal with unbalanced data, such as the one we have. 
 Meaning that the whole problem of section \ref{sec:Balanced_wgts} completely dissapears, meaning we could use the \textit{real} weights calculated in the MC generators.
 Sadly it is not that easy, XGBoost does not have to possibility to include negative weights, which this dataset has a few of. Some MC generators generate events with negative weights, such as Sherpa \todo{cite sherpa?}, that take into acount higher order diagrams and needs to add 
 negative weights to "counter" the overcounting of diagrams \cite{Negative_Weights_article}, which are important to correctly scale the simulated events to real data.
-In the future this might no longer be a problem, as XGBoost might add an update that tackles negative weights, or \todo{I have no other sources to this other than spoken words at conferenes...} future MC generators might only have positive weights.\\
-\\In this project I have opted to using the absolute value of the weights when training to solve, or rather avoid, this problem. 
-This is however not generally accepted as a solution, and some even say it should be avoided. \\
-\\There are other options however, one is to not include events with negative weights on the training set. This is not desirable for this thesis since it would lower our statistics.\\
-\\Another one \todo{Soruce: William} is to normalize the weights when using the absolute value with respect to the sum of weights over the sum of absolute weights. The reason behind this is because the sum of weights is obviously not the same when we take the absolute value. 
+In the future this might no longer be a problem as \todo{I have no other sources to this other than spoken words at conferenes...} future MC generators might only have positive weights.\\
+\\A method to mitigate this problem is to use the absolute value of the weights when training to solve, or rather avoid, this problem. 
+This is however not generally accepted as a solution, and some even say it should be avoided. There are other options however, one is to not include events with negative weights on the training set. \\
+\\Another one that has been used on a published ATLAS (internal) article (chapter 9.3) \cite{Abbott:2714377} is to normalize the weights when using the absolute value with respect to the sum of weights over the sum of absolute weights. The reason behind this is because the sum of weights is obviously not the same when we take the absolute value. 
 Mathemathically speaking, if we have an array of weights $W$, we can update this like
-$$
-W \rightarrow \abs{W}\frac{\sum_i W_i}{\sum_i\abs{W_i}}
-$$
-such that the weights are at least in the same scale. \textit{\textbf{I have used both this and only the absolute value, and the difference is negligible}}. 
-If there are others method to fix this problem it is still up to discussion.
+\begin{equation}\label{eq:ATLAS_wgt}
+   W \rightarrow \abs{W}\frac{\sum_i W_i}{\sum_i\abs{W_i}}
+\end{equation}
+such that the weights are at least in the same scale. I have tried all of these options and the results can be seen in Figure \ref{fig:BDT_wgts}.\\
+\\As we can see it makes a significant difference whether we use the weights to re-weight MC events to expected events. But there is no mathematical reason as to why we should 
+include this re-weighting weight as sample weights, as the reason to use sample weights is to \textit{only} balance signal and bacgkround. In theory it makes no sense whatsoevert to include these weights either 
+as the network doesn't really care for cross sections or luminosity, and what we are doing in principle is making it harder for the network to learn anything. But as seen on the results, the BDT learns the background 
+extremely well when using the weights, while it also does a poorer job in learning the signal we are testing.\\ 
+\\In a sense this is not a negative thing for our purposes, but stricly speaking we are invoking a semi-unsupervised learning method by punishing the network if it learns the signal too quickly. 
+To get to the point as why this is good for our purposes, we are indirectly making our network more model indepentent! Because of this, the method that will be pursued further in this thesis will be to 
+take the positive weights and balance the data.\todo{Add that ATLAS used it, so because of that so can I?}
 
+\graphicspath{{../../../Plots/XGBoost/WEIGHT_TEST/DH_HDS_mZp_130/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{ATLAS_ABS/VAL.pdf}
+      \caption{Using the scaled absolute value of the weights}
+   \end{subfigure}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{POS/VAL.pdf}
+      \caption{Using only positive weights}
+   \end{subfigure}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{NONE/VAL.pdf}
+      \caption{Using no weights}
+   \end{subfigure}
+   \caption{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:wgts}}\label{fig:BDT_wgts}
+\end{figure}
 
 
 % \subsection{General structure of the network}
@@ -722,18 +842,19 @@ If there are others method to fix this problem it is still up to discussion.
 % \end{lstlisting}
 
 
-
+\clearpage
 \subsection{Grid Search}\label{sec:BDTGriddy}
 To get the best performance on our BDT we have to do a grid search here as well. The trainable hyperparameters here are different than for NNs though. 
 With XGBoost we have the following hyperparameters
 \begin{itemize}
    \item Tree depth: how many times we split the data
-   \item Number of estimators: how many estimators we use to do out gradient boosting \todo{write BDT theory...}
+   \item Number of estimators: how many estimators we use to do out gradient boosting
    \item The learning rate $\eta$
    \item L2-regressor $\lambda$, to stop overtraning
 \end{itemize}
 The data set used for this grid search is the same one used in the NN grid search. That is the FULL Z' DM data set containing DH, LV and EFT models. 
-The metrics used to evaluate the score for this case was again the \textbf{AUC} and \textbf{expected significance}.\\
+The metrics used to evaluate the score for this case was again the \textbf{AUC} and \textbf{expected significance}. One thing to note, for this section I did not include the weighting method showcased in the previous section,
+I only used the data balancing method, as this is its intended purpose.\\
 \\At first I set the number of estimators to be 120 and fixed the L2 $\lambda$ to $10^{-5}$. Then conducted a grid search on the tree depth and learning rate only. 
 I used the same range on the learning rate as I did with the NNs, $\eta \in [0.001, 0.01, 0.1, 1]$, and first did a treee depth from 3-6. 
 This showed however a trend hinting to the expected significance only increasing with more depth, because of this I ended up continuing the grid search up to a depth of 30.
@@ -794,10 +915,10 @@ When testing the network trained on the FULL Z' DM data set on a DH HDS $m_{Z'}=
 When using the "coverage" metric, which as stated is defined as the number of samples affected by the split, we get the features we physically expect to be important when trying to single out a DM model.
 And this metric is arguably the one we need to use to define what features are important. Since the more samples a feature split, the more powerful it is to separate signal from background.\\
 \\We can see however that when we use "weight" as a metric, which is the XGBoost standard metric, we get completely unexpected features that we physically don't expect to be important when trying to single out a DM model.
-But as described by the metric, the "weight" is the number of times a feature appears in a tree. This \todo{my opinion!}leads me to believe that the reason the pseudorapidity and $\phi$ range so high on this list, 
+But as described by the metric, the "weight" is the number of times a feature appears in a tree. Which might explain that the reason the pseudorapidity and $\phi$ range so high on this list, 
 is simply because the tree is struggling to find a pattern here and is trying extra hard to single out DM from SM. \\
 \newpage\noindent As the previous results are to be taken with a heavy grain of salt, I conducted another grid search. On the second grid search I set the values of $\eta=0.1$ as the trend showed this giving the best results with less overtraining, 
-and $\lambda=10^{-5}$ \todo{should conduct a new grid search with different $\lambda$ and loss functions}. This grid search had \verb|n_estimators| $\in[10, 100, 500, 1000]$ and depth $\in[3,4,5,6]$. 
+and $\lambda=10^{-5}$ \todo{should I conduct a new grid search with different $\lambda$ and loss functions?}. This grid search had \verb|n_estimators| $\in[10, 100, 500, 1000]$ and depth $\in[3,4,5,6]$. 
 The expected significance is shown in Figure \ref{fig:BDT_sig}. The testing and training AUC can be seen in Figure \ref{fig:BDT_GRID_AUC}.
 \graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000}}
 \begin{figure}[!ht]
@@ -875,114 +996,6 @@ We can however see that the data and background do not agree to the same degree 
 These data points are points the network classified as signal, so if we completely trusted the network this would be a hint of new physics! 
 However this is the last thing we should assume, and rather take this as a hint that the network is doing something fishy.\\
 \\If I had access to XGBoost with built GPU support, I would increase the number of estimators even more to check if this increases the significance while still having a depth of maximum 6.
-However as of now this is not possible. So to this point we are still uncertain as of which approach we should take further.
+However as of now this is not possible. As the weighting method explained in the previous section was not included here, we will drop going to a tree depth of 30, and have a maximum of 6.
 
-
-\clearpage
-\graphicspath{{../../figures/}}
-
-
-
-
-
-
-\section{Pure log}
-Some problems that have happened is that I had previously made a Deep Neural Network, using three hidden layers. This is however not optimal as the DM statistics is non existent compared to the SM background. Another big problem I had was that I used small bacth sizes when training the Neural Networks. A batch being a portion of the data which is used when training. The reason we batch is to reduce computational power and divide the task of learning. I had a batch size of around 30,000 MC events pr batch. To remind ourselves of our data size, we have around 90,000,000 MC events, from which roughly 40,000 corresponds to a single DM MC DSID. So when batching we trained the network to recognize DM, when there most likely wasn't a single DM sample in the batch itself... this explain the abrupt end, and peak of backgrounds on the signal region seen in Fig. \ref{fig:NN_EXP_SIG:uu}. Thankfully, since I have the supercomputer \verb|hepp03| available I could increase the batch size to a massive amount such as $2^24$ which gives roughly 16 million MC events pr bacth. This is the highest the GPU of the supercomputer can handle!\\
-\\With this fixed there was still a big problem, the expected significance of both NN's and XGB is at best half of what a very rough cut and count gives. As mentioned in section 5.1.2, we can split the data in different forms. While splitting it pr DSID works with one hidden layer now it doesn't make much physical sense to do it the way I'm currently doing it when looking at the Z' DM models, since the DM MC samples are splitted into $ee$ and $\mu\mu$ final states. However if we train the network on either final state we are removing the model independent part of the plan (although this increases the significance!). The plan fowards so far is to combine the final states of the Z' DM models as long as they only differ in final lepton state. And compare the significance of these to a statistically combined significance of cut and count.\\
-\\One last thing to add as to why the significance might be so much lower for our networks is that I have not yet done a grid search for the best hyperparameters and loss functions. Doing this with XGBoost is easy, but there is a memory leak in the codebase of TensorFlow that makes the process tedious... This is where I am at in the present time, as well as waiting for more DM data.
-
-
-
-
-
-
-\section{Comparison to cut and count}
-Testing three models using the classical data analysis way we apply cuts to kinematic variables and try to isolate the signal from the background to then calculated the expected significance. The three models I chose to test are all High Dark Sector models with $m_{Z'}=130$GeV. They are a Light Vector (LV), Dark Higgs (DH) and Effective Field Theory (EFT) models. The cuts I made on these are shown in Table \ref{tab:cuts}.
-\begin{table}[!h]
-    \centering
-    \begin{tabular}{l|r}\midrule\midrule
-                                & Cut\\\midrule
-         $E_T^{miss}/\sigma$    & > 10      \\
-         $m_T$                  & > 160 GeV \\
-         $m_{ll}$               & > 120 GeV \\
-         Number of B-jets       & 0         \\
-         $m_{T2}$               & > 110 GeV \\\midrule\midrule
-    \end{tabular}
-    \caption[Cut and count cuts]{Table showcasing the cuts used when doing the cut and count method.}
-    \label{tab:cuts}
-\end{table}
-\\ Since the cross section to find Dark Matter is really small we have to use the low-statistics expected significance formula to find the closest to correct significance. The formula is
-\begin{equation}\label{eq:low_stat_Z}
-    Z = \sqrt{2\left[(s + b)\ln(1 + \frac{s}{b}) - s \right]}
-\end{equation}
-Where $s$ is the number of signal events and $b$ is the number of background events. Using this we get the results shown in Table \ref{tab:cutsigee} for the electron channel and Table \ref{tab:cutsiguu} for the muon channel. Also included on the tables are the number of events. One thing worth mentioning is that when adding another cut on the maximum invariant mass increases the significance. The significance for LV on the electron channel was at $1.2\sigma$ when adding a cut stating that $m_{ll}<150$ GeV. This makes sense since the models in question all have a $m_{Z'}=130$GeV. This cut was not added since we do not want to put a cap on the mass of the propagator, as we don't know what the real mass is.
-\begin{table}[!h]
-    \centering
-    \begin{tabular}{l|c|c|c|r}\midrule\midrule
-                                          & LV  & DH  & EFT & Background \\\midrule
-         Events before cuts               & 15  & 20  & 0   & 1,256,624    \\
-         Events after cuts                & 4   & 6   & 0   & 117 \\
-         Expected significance [$\sigma$] & 0.4 & 0.6 & 0   & \\\midrule\midrule
-    \end{tabular}
-    \caption[Cut and count significance ee]{Table showcasing the result of the cut and count method for the electron channel.}
-    \label{tab:cutsigee}
-\end{table}
-\begin{table}[!h]
-    \centering
-    \begin{tabular}{l|c|c|c|r}\midrule\midrule
-                                          & LV  & DH  & EFT & Background \\\midrule
-         Events before cuts               & 14  & 19  & 0   & 1,626,098    \\
-         Events after cuts                & 3   & 5   & 0   & 108 \\
-         Expected significance [$\sigma$] & 0.36 & 0.51 & 0   & \\\midrule\midrule
-    \end{tabular}
-    \caption[Cut and count significance uu]{Table showcasing the result of the cut and count method for the muon channel.}
-    \label{tab:cutsiguu}
-\end{table}
-\\If we were to compare these results with what our NN and BDT that trained on the full dataset we see that we can calculate the expected significance in different locations for the validation plots. Testing on the networks that trained using the data scientist method on the full DM dataset we get the results shown in Figure \ref{fig:XGB_SIG_FULL} for XGBoost and Figure \ref{fig:NN_SIG_FULL} for the Neural Network.
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{XGB_VAL_uu.pdf}
-        \caption{Validation plot.}\label{fig:XGB_VAL_UU}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{XGB_EXP_SIG_uu.pdf}
-        \caption{Expected significance when looking at bins and forth.}\label{fig:XGB_EXP_SIG:uu}
-     \end{subfigure}
-	\caption{Expected significance of XGBoost when trained on the Full DM dataset for the DH HDS $m_{Z'}$ = 130 GeV muon model.}\label{fig:XGB_SIG_FULL}
-\end{figure}
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{NN_VAL_uu.pdf}
-        \caption{Validation plot.}\label{fig:NN_VAL_UU}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{NN_EXP_SIG_uu.pdf}
-        \caption{Expected significance when looking at bins and forth.}\label{fig:NN_EXP_SIG:uu}
-     \end{subfigure}
-	\caption{Expected significance of the Neural Network when trained on the Full DM dataset for the DH HDS $m_{Z'}$ = 130 GeV muon model.}\label{fig:NN_SIG_FULL}
-\end{figure}
-\clearpage As we can see the expected significance is lower using ML than a rough cut and count. My theory for why this is the case is because we are testing just \textit{\textbf{one}} sample out of 154 different ones that are included for the three different theories I have acquired so far. And the ML networks shown above have both trained on a dataset including all 154 DM samples. The models that I tested might also not have been one of the "important" models the network learned from. Thus if I were to train the network individually based on the theory it might give better results.
-
-\clearpage
-\begin{table}[!h]
-   \centering
-   \begin{tabular}{l|c|c|c|r}\midrule\midrule
-                                                & Signal     & Background \\\midrule
-        MC events                               & 2,990,986  & 69,664,902 \\
-        Sum of "Weight"                         & 388.75     & 2,714,091.3 \\
-        Sum of generator weights                & 236.3      & 55,446,228,776,354.8 \\
-        Sum of (generator weights*lumi / SOW)   & 9,167.1    & 61.1 \\
-        Sum of (generator weights/SOW)          & 199.21    & 1.52 \\\midrule\midrule
-   \end{tabular}
-   \caption[Cut and count significance ee]{Table showcasing the result of the cut and count method for the electron channel.}
-   \label{tab:cutsigee}
-\end{table}
 \end{document}
