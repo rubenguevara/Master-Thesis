@@ -24,7 +24,8 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[backend = biber, style = vancouver]{biblatex}
-\bibliography{refs.bib}
+\usepackage{biblatex}
+\addbibresource{refs.bib}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -32,7 +33,7 @@
     filecolor=magenta,      
     urlcolor=cyan,
     citecolor=cyan,
-    pdftitle={Model\_independent\_search\_for\_Dark\_Matter},
+    pdftitle={Model\_independent\_search\_for\_Dark\_Matter\_using\_Machine\_Learning},
     pdfpagemode=FullScreen,
     }
 \usepackage{tikz}
@@ -65,9 +66,9 @@
 \usepackage{subfiles} 
 
 
-\title{Model independent search for Dark Matter
-% }\subtitle{
-in dilepton + MET final states with the ATLAS detector at the LHC 
+\title{Model independent search for Dark Matter using Machine Learning
+}\subtitle{
+With dilepton and Missing Transverse Energy final states with the ATLAS detector at the LHC 
 }
 \author{Ruben Guevara}
 \date{Spring 2023}
@@ -227,7 +228,7 @@ Where $s$ is the number of signal events and $b$ is the number of background eve
         Sum of (generator weights/SOW)          & 199.21    & 1.52 \\\midrule\midrule
    \end{tabular}
    \caption[Cut and count significance ee]{Table showcasing the result of the cut and count method for the electron channel.}
-   \label{tab:cutsigee}
+%    \label{tab:cutsigee}
 \end{table}
 
 \begin{table}[!h]
@@ -241,6 +242,8 @@ Where $s$ is the number of signal events and $b$ is the number of background eve
     \label{tab:UnbalancedDMTraining}
 \end{table}
 in spacetime.
-%\printbibliography
+
+\clearpage
+\printbibliography
 
 \end{document}

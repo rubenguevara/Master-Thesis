@@ -1,7 +1,7 @@
 \documentclass[14pt, a4paper]{book}
 \begin{document}
 
-Before making our ML networks we need to make the dataset that will be used to clasify signal from background. On this section we will discuss which kinematic cuts are used to define our signal region search. 
+Before preparing the ML networks we need to make the dataset that will be used to classify signal and background events, in this section we will discuss which kinematical cuts are used to define the signal region search. 
 \todo{more fluff}
 
 
@@ -77,9 +77,9 @@ and the distribution showing the agreement between MC and data is shown in Appen
     \centering
     \begin{tabular}{l|r}\midrule\midrule
         Kinematic variable                                                      & Feature name          \\\midrule
-        $p_T$ of two jets with highest $p_T$                                    & jet1pt \& jet2pt\\
-        $\phi$ of two jets with highest $p_T$                                   & jet1phi \& jet2phi\\
-        $\eta$ of two jets with highest $p_T$                                   & jet1eta \& jet2eta\\
+        $p_T$ of three jets with highest $p_T$                                  & jet1pt \& jet2pt \& jet3pt\\
+        $\phi$ of three jets with highest $p_T$                                 & jet1phi \& jet2phi \& jet3phi\\
+        $\eta$ of three jets with highest $p_T$                                 & jet1eta \& jet2eta \& jet3eta\\
         Invariant mass of two jets with highest $p_T$, $m_{jj}$                 & mjj\\\midrule\midrule
     \end{tabular}
     \caption[Kinematic variables that need padding]{Table showcasing the kinematic variables that need padding.}
