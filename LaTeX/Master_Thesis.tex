@@ -25,6 +25,7 @@
 \usepackage{subcaption}
 \usepackage[backend = biber, style = vancouver]{biblatex}
 \usepackage{biblatex}
+\usepackage[printonlyused,withpage]{acronym}
 \addbibresource{refs.bib}
 \usepackage{hyperref}
 \hypersetup{
@@ -105,36 +106,40 @@ Something something
 \listoffigures
 \listoftables
 
+\chapter*{List of Acronyms}
+\textbf{SM} Standard Model\\\\
+\textbf{DM} Dark Matter\\\\
+\textbf{LHC} Large Hadron Collider\\\\
+\textbf{MET} Missing Transverse Energy\\\\
+\textbf{ML} Machine Learning\\\\
+\textbf{NN} Neural Network\\\\
+\textbf{BDT} Bosted Decision Tree\\\\
 \newpage
 \pagenumbering{arabic}
+
+
 \part{The theory behind modern particle physics}
 
 
 \chapter{The Standard Model of Particle Physics and Beyond}
-\subfile{chapters/Part_I/1_The_Standard_Model_of_Particle_Physics_and_Beyond}
+\subfile{chapters/Part_I/1_The_Standard_Model_of_Particle_Physics_and_Beyond.tex}
 
 
 
 
-\chapter{Detection and Analysis}
-
-
-\section{The ATLAS Detector}
-
-
-\section{Classical Data Analysis}
-
+\chapter{Production, Detection and Analysis}
+\subfile{chapters/Part_I/2_Production_Detection_and_Analysis.tex}
 
 
 \chapter{Machine Learning}
-\subfile{chapters/Part_I/3_Machine_Learning}
+\subfile{chapters/Part_I/3_Machine_Learning.tex}
 
 \part{Implementation}
 \chapter{Data Analysis}
 \subfile{chapters/Part_II/4_Data_Analysis.tex}
 
 \chapter{Machine Learning}
-\subfile{chapters/Part_II/5_Machine_Learning}
+\subfile{chapters/Part_II/5_Machine_Learning.tex}
 
 \part{Results}
 
