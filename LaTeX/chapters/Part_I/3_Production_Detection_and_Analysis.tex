@@ -1,0 +1,104 @@
+\documentclass[14pt, a4paper]{book}
+\begin{document}
+Now that we have established the necessary theoretical groundwork of particle physics, it's time to explore how this knowledge can be applied. This leads us to ask important questions such as, 
+how can we measure what we have learned? How do we put it into practice? Most importantly, how can we use this understanding to uncover new discoveries?\\
+\\To answer these questions, we have divided this chapter into three sections, each of which will focus on a different aspect of experimental particle physics. The first section will delve into particle production, 
+followed by a examination of particle detection with the ATLAS detector at the LHC, and finally, we will explore the intricacies of data analysis in particle physics.\\
+\\By exploring these areas, we hope to provide a comprehensive understanding of the theoretical underpinnings of particle physics, while also highlighting the practical applications of this knowledge. 
+
+\clearpage
+\section{Particle production}
+As we have already seen the shape of the SM we are now ready to dive into the subject of how we can produce the particles that we wish to detect. In this chapter we will start from the basic kinematics of particles 
+and then move to more complex variables that will be of use when analysing data from detectors. The material for the first section is based on Thomson book Modern Particle Physics \cite{THOMSON}, Jacksons "Kinematics" \cite{Jackson_kin}.
+and Vadla's PhD. thesis \cite{KNUT_VADLA}.
+
+\subsection{Particle Kinematics}
+As proved by Einstein, everything in spacetime can be described by four-vectors\todo{Is this comment unnecesary?}. For the purposes of particle physics, where we are mainly interested in the motion of particles, 
+we will look at the four momentum. Instead of using general variables as Einstein did, we will describe the particles using the four momentum in terms of the geometry of the decetors, that means we will use 
+the polar angle, $\theta$, and the azimuthal angle, $\phi$, such that we have
+\begin{equation}\label{eq:four-momentum}
+    p^\mu = (E, p_x, p_y, p_z) \overset{Lab}{\longrightarrow} (E, p_T\cos\phi, p_T\sin\phi, \abs{\mathbf{p}}\cos\theta)
+\end{equation}
+where $p_T$ is the \textit{transverse momentum} expressed as
+\begin{equation}\label{eq:transverse_momentum}
+    p_T \equiv\sqrt{p_x^2 +p_y^2} = \abs{\mathbf{p}}\sin\theta
+\end{equation}
+The energy and momentum can be expressed in relativisic quantities, $E=\gamma\beta$ and $\mathbf{p}=\gamma m\bm\beta$, where $\gamma = 1/\sqrt{1-\beta^2}$ and $\bm\beta = \mathbf{v}/c$\footnote{As this is a particle physics thesis I will convert to Natural Units where we set $c=1$} 
+where $m$ is the mass of the particle 
+and $c$ is the speed of light in vacuum. By contracting\footnote{Using the particle physicists convention of the minkowsky metric tensor $\eta_{\mu\nu}$,  (+, -, -, -)} two four-momentum we get the important Lorentz invariant 
+square of the \textit{invariant mass}
+$$
+    m^2 = p_\mu p^\mu = E^2 - \abs{\mathbf{p}}^2 
+$$
+which can be generalized for a system containing $n$ particles as
+\begin{equation}\label{eq:invariant_mass}
+    m^2 = p_\mu p^\mu = \left(\sum_{i=1}^n E_i\right)^2 - \left(\sum_{i=1}^n\mathbf{p}_i\right)^2
+\end{equation}
+As this thesis will focus on a dilepton final (and missing transverse energy) final state, which is of the type $2\rightarrow2$ $(+MET)$ then the invariant mass of the two leptons in the final state will be of interest 
+we will denote this as $m_{ll}$. From this we can also get another interesting variable, the \textit{transverse energy}. This follows diretly from the same equation
+\begin{equation}\label{eq:transverse_energy}
+    E_T = \sqrt{m^2 + p_T^2}
+\end{equation}
+The invariant mass is what we measure in the final state only. But as we are going to use data\footnote{And mostly simmulations mimicking the ATLAS detector} from the LHC, from which the initial state is made controlled by us, 
+it will be of interest to see what the total energy and momentum of the two protons is. The term for this is called the \textit{centre-of-mass} energy, $\sqrt s$, where $s$ is defined by the same formula in Eq. (\ref{eq:invariant_mass}), 
+with the difference beeing that we look at the initial particles. For this thesis we will look at data and simmulations of Run II from the LHC, which had $\sqrt s = 13$ TeV. \\
+\\As this thesis aims to search for DM, which we know does not interact with matter in the same way as neutrinos \todo{add sources}, meaning it leaves no signal in detectors. 
+As we know both the centre of mass energy, $\sqrt s$, and the invariant mass of all particles in the final state, Eq. (\ref{eq:invariant_mass}). Then the presence of the non-interacting particles can often be 
+inferred from the presence of \textit{missing transverse energy}\footnote{Also called \textit{missing momentum}} (MET), which is defined by
+\begin{equation}\label{eq:MET}
+    E_T^{miss} = \mathbf{p}_{miss} \equiv -\sum_i \mathbf{p}_{T,i}
+\end{equation}
+where the sum extends over the measured momenta of all the observed particles in an event. From this formula, if all particles produced in the collision have been detected, then this sum should be zero. Meaning that 
+siginifiant MET is therefore indicative of the presence of an undetected particle. \\
+\\Another useful kinematic variable is the \textit{hadronic activity} which is the scalar sum of the transverse momentum of all jets in an event, defined as
+\begin{equation}
+    H_T = \sum_{i\in\{jets\}} \vert\vert \mathbf{p}_{T,i}\vert\vert
+\end{equation}
+this gives a measurement of the hadronic energy scale of an event. Another handy trick comes from the reailization that since the centre-of-mass frame is between the hadrons, where the total momentum is given as a function of the energy of the hadron\todo{This sentence is inspired from Elizabeth Christensen, but I don't want to repeat what she said...}. 
+Meaning that the final state particles are boosted along the beam axis. With this realization we can now introduce a Lorentz invariant\footnote{Under boosts along the beam axis} kinematic property known as the \textit{rapidity, y} used to express the lepton angles
+\begin{equation}\label{eq:rapidity}
+    y \equiv \frac{1}{2}\ln\left(\frac{E+p_z}{E-p_z}\right)  
+\end{equation} 
+where we can use $p_Z = E\cos\theta$ as we neglect the mass in the high-energy limit. In this limit we can use the \textit{pseudorapidity}, $\eta$, defined By
+\begin{equation}\label{eq:pseudorapidity}
+    \eta \equiv -\ln\left(\tan\frac{\theta}{2}\right)
+\end{equation}
+The pseudorapidity is an interesting variable as it can tell us how close to the beam the final state particles are, where the higher $\vert\eta\vert$ means closer to the beam. This variable can also be negative, meaning backwards scattering. 
+Another interesting variable is the \textit{transverse mass}, defined as
+\begin{equation}\label{eq:transverse_mass}
+    m_T^2 = m^2 + p_T^2
+\end{equation}
+where $m^2$ is the invraiant mass defined in Eq. (\ref{eq:invariant_mass}). What is interesting with this variable is that it is the equivalent of the invariant mass equation, that takes into account invisible particles! 
+We can take this further by looking at a supersymmetric version of the transverse mass, which calculates a transverse mass for two leptons by distributing the total $p_T^{miss}$ among the two systems, 
+and minimizing the maximum of the two transverse masses by varying the distribution of the $p_T^{miss}$-vector in terms of the size of $q_T$. This is called the \textit{stransverse mass} and is defined by
+\begin{equation}
+    m_{T2}^2(\chi) = \underset{\slashed{\mathbf{q}}^{(1)}_T + \slashed{\mathbf{q}}^{(2)}_T = \slashed{\mathbf{p}}_T}{\min}
+    \left[\max \left\{m_T^2\left(\mathbf{p}_T^{\ell_1}, \slashed{\mathbf{q}}^{(1)}_T;\chi\right), m_T^2\left(\mathbf{p}_T^{\ell_2}, \slashed{\mathbf{q}}^{(2)}_T;\chi\right) 
+    \right\}\right] 
+\end{equation}
+where $\slashed{\mathbf{q}}_T$ are "dummy 2-vectors", $\chi$ is a free parameter used to "guess" the mass of the invisible particle, and $m_T^2\left(\mathbf{p}_T, \mathbf{q}_T\right)$ is an application of 
+Eq. (\ref{eq:transverse_mass}) using two particles:
+$$
+m_T^2 \left(\mathbf{p}_T, \mathbf{q}_T\right) = 2(p_T q_T - \mathbf{p}_T\cdot\mathbf{q}_T)
+$$
+For a more detailed explanation and interpretation of the stransverse mass I refer the reader to the paper by Barr et.al. \cite{Barr_2003}. Even though the stransverse mass was made with neutralinos in mind, it can still 
+be used to calculate SM processes. For example, if we want to reduce $WW$ background events, we can first recall that each boson can decay as $W\rightarrow l+\nu_l$ with the $W$ mass as an endpoint. 
+Meaning that we can use $m_{T2}$ to reduce the $WW$ events in a dilepton final state by requiring that $m_{T2} > m_W$.
+
+\clearpage
+\subsection{Proton-proton collisions}
+With all the kinematics out of the way the question of how the particles are produces still remains. The answer to that is protons. The way we produce elementary particles to study is by colliding two protons togheter.
+The reason as to why this works is because protons are also made of elementary particles, two \textit{up} and one \textit{down} to be specific\footnote{As well as gluons and partons exisiting inside of it}.
+Because of this it is not hard to realize that the Feynman rules aquired from the SM also apply here.  
+
+\clearpage
+\section{The ATLAS Detector}
+
+
+\clearpage
+\section{Classical Data Analysis}
+\subsection{Cut and count}
+\subsection{Statistical analysis}
+
+
+\end{document}

@@ -8,7 +8,7 @@ For our purposes it will be a powerful tool to attempt to classify events as SM 
 ($\bm \beta = \{w, b\}$), 
 the goal is to choose these parameters $\bm{\beta}$ such that we minimize a cost (also called loss) function $C(\bm{\beta})$ with respect to a set of data points given by a matrix $\mathbf{X}$. This matrix $\mathbf{X}$ will be 
 our dataset containing $n$ \textit{features} for each event $m$, and is of the following form 
-\begin{equation}\label{eq:dataser}
+\begin{equation}\label{eq:dataset}
     \bf X = \begin{pmatrix}
         x_{11} & x_{21} & x_{31} & \cdots & x_{n1}\\
         x_{12} & x_{22} & x_{32} & \cdots & x_{n2}\\
@@ -65,7 +65,7 @@ this is called the \textit{learning rate}. The mathematical function for an iter
 To converge towards a minimum we should select a learning rate $\eta$ small enough to not "step over" the minimum point of the cost-function-space, but also not too small to get stuck on a local minimum rather than the global minimum. 
 Thus using the learning rate as a hyperparameter in a grid search is a good way to optimize a NN for a given task.\\
 \\In GD one computes the cost function and its gradient globally for all data points. This quickly becomes computationally heavy when dealing with large datasets. Thus a common approach is to compute the gradient over batches of the data. 
-For our purposes it would be optimal to use GD, but our data size is massive, of the order of $10^{8}$ events (13 GB), becoming comupationally impossible. Thus instead of making a $n\times10^8$ matrix (see Eq. (\ref(eq:dataset))), 
+For our purposes it would be optimal to use GD, but our data size is massive, of the order of $10^{8}$ events (13 GB), becoming comupationally impossible. Thus instead of making a $n\times10^8$ matrix (see Eq. (\ref{eq:dataset})), 
 we could for example split it into ten smaller matrices of $n\times10^7$ to then perform a parameter update, making the computation possible. This is where SGD comes in, for each step, or epoch the data is divided randomly into 
 \textit{N} batches of size \textit{n}. Then for each batch we use Eq. (\ref{eq:GD}) to update the parameters, thus updating $\bm{\beta}_{i+1}$ \textit{N}-times for each epoch. The idea of SGD comes from the observation that the 
 cost function can almost always be written as a sum over \textit{n} data points. The main advantage of SGD is not to ease the computation however, as using more batches also reduces the risk of getting stuck in a local minimum since it introduces a randomness of which part of the parameter space we move through, 
@@ -157,7 +157,7 @@ $$
   f(x)=c_1f(c_2x+c_3)+c_4  
 $$
 where the parameters $c_i$ are the weights and biases. By adjusting these parameters we shift the activation function to better match the label we are training the data on, this is the flexibility of a NN. 
-Something else we can note is that Eq. (\ref{eq:MLP}) can easily be changed into matrix notation, as hinted with Eq. (\ref{eq:dataser}). However this realization can help make computing the values a much easier 
+Something else we can note is that Eq. (\ref{eq:MLP}) can easily be changed into matrix notation, as hinted with Eq. (\ref{eq:dataset}). However this realization can help make computing the values a much easier 
 task by for example utilizing TensorFlow or other mathematical packages in Python. An illustration showing the main idea of how a Feed forward network is set up is shown in Figure \ref{fig:FFN}.
 \begin{figure}[!ht]
     \centering
