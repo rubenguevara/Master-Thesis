@@ -41,6 +41,12 @@ In addition we will look at a variable called \textit{hadronic activity}, $H_T$,
 \\ We willl also look at the number of b- and light jets\todo{write criteria for both}. We will also look at a SUSY variable called the stransverse mass, $m_{T2}$, which as defined by Barr et.al. \cite{Barr_2003}. 
 We will also look at the difference in azimuthal angle between: the lepton pair, $\Delta\Phi(l_1,l_2)$, the dilepton jet and MET jet, $\Delta\Phi(ll,E_T^{miss})$, the leading lepton and MET jet, $\Delta\Phi(l_l,E_T^{miss})$, 
 and the lepton closest to the MET jet and the MET jet, $\Delta\Phi(l_c,E_T^{miss})$\\
+\\Another version of the MET is the so-called \textit{Object-based $E_T^{miss}$ significance}, or $E_T^{miss,sig}$ for short, this variable is used tto deal with artifical or fake $E_T^{miss}$. The way $E_T^{miss,sig}$ works is by 
+weighing the the value of $E_T^{miss}$ by the precision of its reconstruction. It is defined as
+\begin{equation}\label{eq:METsig}
+    E_T^{miss,sig} = \frac{E_T^{miss}}{\sigma(E_T^{miss})}
+\end{equation}
+where $\sigma(E_T^{miss})$ is the uncertainty of the reconstruction of the $E_T^{miss}$, which consider the indidual uncerainties of the objects that enter the $E_T^{miss}$ calcuation.\\
 \\The kinematic variables used are summarized in Table \ref{tab:variables} and the distribution showing the agreement between MC and data is shown in Appendix A.
 \begin{table}[!h]
     \centering

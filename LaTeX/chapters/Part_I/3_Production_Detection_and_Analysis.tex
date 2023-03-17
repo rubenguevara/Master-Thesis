@@ -10,9 +10,9 @@ followed by a examination of particle detection with the ATLAS detector at the L
 \section{Particle production}
 As we have already seen the shape of the SM we are now ready to dive into the subject of how we can produce the particles that we wish to detect. In this chapter we will start from the basic kinematics of particles 
 and then move to more complex variables that will be of use when analysing data from detectors. The material for the first section is based on Thomson book Modern Particle Physics \cite{THOMSON}, Jacksons "Kinematics" \cite{Jackson_kin}.
-and Vadla's PhD. thesis \cite{KNUT_VADLA}.
+and Vadlas PhD. thesis \cite{KNUT_VADLA}.
 
-\subsection{Particle Kinematics}
+\subsection{Particle kinematics}\label{sec:particle_kinematics}
 As proved by Einstein, everything in spacetime can be described by four-vectors\todo{Is this comment unnecesary?}. For the purposes of particle physics, where we are mainly interested in the motion of particles, 
 we will look at the four momentum. Instead of using general variables as Einstein did, we will describe the particles using the four momentum in terms of the geometry of the decetors, that means we will use 
 the polar angle, $\theta$, and the azimuthal angle, $\phi$, such that we have
@@ -64,6 +64,10 @@ where we can use $p_Z = E\cos\theta$ as we neglect the mass in the high-energy l
     \eta \equiv -\ln\left(\tan\frac{\theta}{2}\right)
 \end{equation}
 The pseudorapidity is an interesting variable as it can tell us how close to the beam the final state particles are, where the higher $\vert\eta\vert$ means closer to the beam. This variable can also be negative, meaning backwards scattering. 
+From this we can define a new variable which will come handy with particle identification, which is called the \textit{R-cone}, that defines a cirlce in $(\eta,\phi)$-space surrounding the object of interest. It is defined as
+\begin{equation}\label{eq:R-cone}
+    \Delta R = \sqrt{(\Delta\eta)^2+(\Delta\phi)^2}
+\end{equation}
 Another interesting variable is the \textit{transverse mass}, defined as
 \begin{equation}\label{eq:transverse_mass}
     m_T^2 = m^2 + p_T^2
@@ -91,12 +95,67 @@ With all the kinematics out of the way the question of how the particles are pro
 The reason as to why this works is because protons are also made of elementary particles, two \textit{up} and one \textit{down} to be specific\footnote{As well as gluons and partons exisiting inside of it}.
 Because of this it is not hard to realize that the Feynman rules aquired from the SM also apply here.  
 
-\clearpage
-\section{The ATLAS Detector}
+
+
 
 
 \clearpage
-\section{Classical Data Analysis}
+\section{The ATLAS detector}
+We have so far on this chapter discussed how particles are produces. But we so far not yet explained how we actually detect them, arguably the most important matter in the field of high energy particle physics!
+This section of the chapter is just about that, and we will explain how the detection happens in A Toroidal LHC ApparatuS, or more commonly know as the ATLAS detector. Figure \ref{fig:ATLAS_detector} showcases 
+the detector and its size. The information of this section is largely based on the original ATLAS Collaboration introduction\todo{from my understanding, correct me if wrong!} paper presented to CERN 
+\cite{Aad:1129811}. (and Knuts thesis \cite{KNUT_VADLA} that described it in a more undertand able way ). \\
+\\The ATLAS (A Toroidal LHC ApparatuS) detector is a general multi-purpose\footnote{Probing \textit{p-p} and \textit{A-A} (heavy ions) collisions.} detector located at the LHC and covers nearly the entire solid angle 
+around the collision point, as described with $(\eta,\phi)-$coordinates in Section \ref{sec:particle_kinematics}. The ATLAS detector consists of four main subdetectors; ($i$) an inner tracking detector (ID), 
+an ($ii$) electromgetic calorimeter (ECAL), and a ($iii$) hadronic calorimeter (HCAL), and lastly ($iv$) a muon spectrometer (MS). Figure \ref{fig:ATLAS_layers} visualises the four $(i)-(iv)$ main sub-detectors, 
+along with how the different particle types interact with each layer. A brief description of each layer is explained through Section \ref{sec:ID}-\ref{sec:MS}, and how the particles interact is explained in Section \ref{sec:particle_identification}.
+\graphicspath{{../../figures/}}
+\begin{figure}[!ht]
+	\centering
+    \includegraphics[width=1\textwidth]{ATLAS_detector.jpg}
+    \caption[The ATLAS detector]{Cut-away view of the ATLAS detector, image taken from Ref. \cite{Aad:1129811}}\label{fig:ATLAS_detector}
+\end{figure}
+\begin{figure}[!ht]
+	\centering
+    \includegraphics[width=0.75\textwidth]{ATLAS_detection.jpg}
+    \caption[Illustration of the ATLAS detector layers]{Illustration of the ATLAS detector layers, image taken from Ref. \cite{Pequenao:1505342}}\label{fig:ATLAS_layers}
+\end{figure}
+
+\subsection{Inner detector}\label{sec:ID} 
+The inner-detector (ID) system is immersed in a 2T axial magnetic field and provides charged-particle tracking in the range $\abs{\eta}<2.5$. The ID provides the first measurements of the 
+momentum and identification of electrically charged particles, as these can be determined by the curvature of their reconstructed tracks. 
+The ID is made of three independent systems; the pixel detector, the semiconductor tracker (SCT) and 
+the transition radiation tracker (TRT). \\
+\\The pixel detector is made up of 80 million sillicon pixel sensors, each of size $50\times400\mu$m$^2$, %with a resolution of $14\times155\mu$m$^2$, 
+and spread over multiple layers. Outside the pixel layers 
+are the SCTs, which consist of sillicon microstrips trackers, also placed on multiple layers. The SCT covers the pseudorapidity region $\abs{\eta}<2.5$. Furthest away from the interaction point lies the TRTs, 
+they consist of 4mm in diameter straw tubes, which enables track-following up to $\abs{\eta}=2.0$ 
+
+\subsection{The calorimeters}\label{sec:calories}
+The ATLAS detector has two types of calorimeters, the \textit{electromagnetic calorimeter} (ECAL) and the \textit{hadronic calorimeter} (HCAL), both designed to fully stop certain types of particles. 
+Both calorimeters covers a pseudorapidity range $\abs{\eta}<4.9$. The ECAL is immidiately surroinding the inner detector and is divided into a barrel part ($\abs{\eta}<1.475$) and two end-cap components ($1.375<\abs{\eta}<3.2$). 
+The ECAL consists of absorbing lead plates, with liquid Argon (LAr) in between. The thickness of the calorimeter is made to fully measure the shower of photons and electron/positrons. The muons will only lose 
+a small fraction of their energy as they have longer interaction lenghts with lead.\\
+\\The HCAL is immediatelly surroinding the ECAL on all sides and consists of two types of detectors. In the barrel ($\abs{\eta}<1.0$) and the extended barrel regions ($0.8<\abs{\eta}<1.7$), the HCAL is made of 
+steel plates with plastic scintillator tiles as active material. While on the end-cap regions ($1.5<\abs{\eta}<3.2$) there are hadronic LAr detectors, with absorbing copper plates as active material; in the 
+forward region ($3.1<\abs{\eta}<4.9$) a combination of copper and tungsted plates are used as active material. The active materials are chosen to maximze the ineraction cross-section with hadrons, such as neutrons, 
+protons and pions. The depth of the HCALs is also designed to fully stop the particles and their showers in order to measure their total energies. Hadrons are efficiently stopped at the HCALs, meaning that only 
+muons and invisible particles, such as neutrinos and potentially dark matter, leave the HCAL.
+
+\subsection{Muon spectrometer}\label{sec:MS}
+The outermost layer of the ATLAS detector is the \textit{muon spectometer} (MS), dedicated to the measurement of the muons momenta. The MS, similar to the ID, consists of multiple layers of detector material. yes
+
+
+% The muon spectrometer comprises separate trigger and high-precision tracking chambers measuring the deflection of muons in a magnetic field generated by the superconducting air-core toroids. 
+% The field integral of the toroids ranges between 2.0 and 6.0 T m across most of the detector. A set of precision chambers covers the region $\abs{\eta}<2.7$ with three layers of monitored drift tubes, 
+% complemented by cathode-strip chambers in the forward region, where the background is highest. The muon trigger system covers the range $\abs{\eta}<2.4$ with resistive-plate chambers in the barrel, 
+% and thin-gap chambers in the endcap regions.
+%incrporating three large superconducting toroidal magnets
+
+\subsection{Particle identification}\label{sec:particle_identification}
+
+\clearpage
+\section{Data analysis}
 \subsection{Cut and count}
 \subsection{Statistical analysis}
 

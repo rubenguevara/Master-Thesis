@@ -19,8 +19,8 @@ our dataset containing $n$ \textit{features} for each event $m$, and is of the f
 \end{equation}
 This project will only focus on Supervised Learning, meaning that we know what the output is a binary representation of signal and background, such that we can use target values $\bm{t}$. 
 Then we give the network a score depending on how close the predicted output is to real values $\bm t $. Then we repeat the process after tweaking the parameters $\bm \beta $ and see if the score gets better.\\
-\\To this end, we will first provide a mathematical foundation for ML, starting with a brief overview of the different types of ML algorithms, such as Neural Networks (NN) and Boosted Decision Trees (BDT). 
-Other aspects such as the importance of feature selection and feature engineering in preparing the data for ML algorithms, as well as the concept of model evaluation and optimization will be discussed in Chapter \ref{chap:Method_ML}. 
+\\To this end, we will first provide a mathematical foundation for ML, starting with a brief overview of the different types of ML algorithms we will study, such as Neural Networks (NN) and Boosted Decision Trees (BDT). 
+Other aspects such as the importance of feature selection and feature engineering in preparing the data for ML algorithms we will, as well as the concept of model evaluation and optimization will be discussed in Chapter \ref{chap:Method_ML}. 
 This project will take from granted that the reader is comfortable with linear algebra and jump straight into the mathematical fundations of ML. \\
 
 
@@ -72,7 +72,7 @@ cost function can almost always be written as a sum over \textit{n} data points.
 but this is at the cost of reducing statistics which might not be ideal for every problem.
 
 
-\subsection{Activation functions\todo{move this to chapter 3.3?}}\label{sec:act}
+\subsection{Activation functions\todo{move this to chapter 4.3?}}\label{sec:act}
 As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 
 Mathematically speaking, activation functions are: Non-constant, Bounded, Monotonically-increasing and continuous functions. In this project we will utilize two different activation functions at different layers. 
 The first one is a sigmoid activation function
@@ -86,7 +86,7 @@ which is the most basic activation function, this will be used from the input la
 which has better gradient propagation, meaning that there are fewer vanishing gradient problems compared to the sigmoidial function.
 
 
-\subsection{Cost functions\todo{move this to chapter 3.3?}}
+\subsection{Cost functions\todo{move this to chapter 4.3?}}
 Cost functions have been mentioned throughout this chapter, but what are they? Cost functions are what we will utilize to evaluate how well the output of the network fares against the target, i.e. if our network "guesses" right whether an event is signal or background, 
 thus making this a very important part of our network! Before getting into this we first have to look at logistic regression. Since we are studing a binary classification task where the output is either $t_i=0$ or $t_i = 1$, meaning background or signal. 
 We can introduce a polynomial model of order $n$ as
@@ -444,5 +444,5 @@ It is commonly used in imbalanced classification problems (the idea being to giv
 where $C$ is a constant term we will add to each sample in the dataset. This extra term is called the \textit{sample weight} and is used to "even out" unbalanced data sets. \todo{will add more details later!}
 
 \section{The declaration of model indpedence}
-
+Should I make this a whole chapter instead? As it is a central part of my thesis. And maybe move it into part 2, "Methods"
 \end{document}
