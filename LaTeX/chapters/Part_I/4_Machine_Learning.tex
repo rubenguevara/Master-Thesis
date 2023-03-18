@@ -437,7 +437,7 @@ where bla bla.
 \subsection{Sample weight}\label{sec:sample_weight}
 A "sample weights" array is an array of numbers that specify how much weight each sample in a batch should have in computing the total loss. 
 It is commonly used in imbalanced classification problems (the idea being to give more weight to rarely-seen classes). Taken from the original \href{https://www.tensorflow.org/guide/keras/train_and_evaluate#sample_weights}{documentation}\\
-\\An extra term is added to the derivative of the loss function, Eq. (\ref{eq:delta}), \href{https://scikit-learn.org/stable/modules/svm.html#svc}{Source}
+\\An extra term is added to the derivative of the loss function, Eq. (\ref{eq:delta}), \href{https://scikit-learn.org/stable/modules/svm.html#svc}{Source} and \href{https://stats.stackexchange.com/questions/362987/how-do-sample-weights-work-in-classification-models}{forum}
 \begin{equation}
     \delta^L \rightarrow \delta^L + C\sum_i \xi^i
 \end{equation} 
