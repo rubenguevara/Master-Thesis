@@ -72,59 +72,6 @@ cost function can almost always be written as a sum over \textit{n} data points.
 but this is at the cost of reducing statistics which might not be ideal for every problem.
 
 
-\subsection{Activation functions\todo{move this to chapter 4.3?}}\label{sec:act}
-As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 
-Mathematically speaking, activation functions are: Non-constant, Bounded, Monotonically-increasing and continuous functions. In this project we will utilize two different activation functions at different layers. 
-The first one is a sigmoid activation function
-\begin{equation}\label{eq:sig}
-    f(x) = \frac{1}{1+e^{-x}}
-\end{equation}
-which is the most basic activation function, this will be used from the input layer to our fist hidden layer as the risks of having little neuron activation is minimal here. On all other layers I will utilise a Rectified Linear Unit (ReLU)
-\begin{equation}\label{eq:ReLU}
-    f(x) = x^+ = \text{max}(0,x) = \begin{cases}x&{\text{if }}x>0,\\0.&{\text{otherwise}}.\end{cases}
-\end{equation}
-which has better gradient propagation, meaning that there are fewer vanishing gradient problems compared to the sigmoidial function.
-
-
-\subsection{Cost functions\todo{move this to chapter 4.3?}}
-Cost functions have been mentioned throughout this chapter, but what are they? Cost functions are what we will utilize to evaluate how well the output of the network fares against the target, i.e. if our network "guesses" right whether an event is signal or background, 
-thus making this a very important part of our network! Before getting into this we first have to look at logistic regression. Since we are studing a binary classification task where the output is either $t_i=0$ or $t_i = 1$, meaning background or signal. 
-We can introduce a polynomial model of order $n$ as
-$$
-\hat{y}_i=\beta_0+\beta_1x_i+\beta_2x_i^2+\cdots+\beta_nx_i^n
-$$
-where the hat notation, $\hat y$, symbolises a condensed matrix form of the output of a layer. We can define the probabilities of getting $t_i=0$ or 1 given our input $x_i$ and $\bm{\beta}$ with the help of a logistic function. 
-Using this we get the probability as
-$$
-p(t_i=1\vert x_i,\bm{\beta})=\frac{1}{1+e^{-t_i}}
-$$
-and
-$$
-p(t_i=0\vert x_i,\bm{\beta})=1- p(t_i=1\vert x_i,\bm{\beta})
-$$
-We want to then define the total likelihood for all possible outcomes from a dataset $\mathcal{D}=\{(t_i,x_i)\}$, with the binary labels $t_i\in\{0,1\}$, applying the Maximum Likelihood Estimation (MLE) principle. 
-This gives us
-$$
-P(\mathcal{D}\vert\bm{\beta})=\prod_{i=1}^n\left[p(t_i=1\vert x_i,\bm{\beta})\right]^{t_i}\left[1-p(t_i=1\vert x_i,\bm{\beta})\right]^{1-t_i}
-$$
-from which we obtain the log-likelihood
-$$
-C(\bm{\beta})=\sum_{i=1}^n\left(t_i\log p(t_i=1\vert x_i,\bm{\beta})+(1-t_i)\log[1-p(t_i=1\vert x_i,\bm{\beta})]\right)
-$$
-By taking the parameter $\bm{\beta}$ to first order in $x_i$ and reordering the logarithm we get
-\begin{equation}\label{eq:CrossEntropy}
-    C(\bm{\beta})=-\sum_{i=1}^n(y_i(\beta_0+\beta_1x_i)-\log(1+\exp(\beta_0+\beta_1x_i)))
-\end{equation}
-This equation we will use throughtout the thesis and is known as the \textit{cross entropy}. The two beta parameters used are the weight and biases, $\beta_1 = w$ and $\beta_0 = b$. The goal is to change these parameters such that it minimizes the cost function. \\
-\\Furthermire we will add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they don't grow out of control, 
-this is to reduce \textit{overfitting}. We will use the so-called \textit{L2-norm} \todo{add source for article?}where the cost function becomes
-\begin{equation}\label{eq:L2-reg}
-    C(\bm\beta)\rightarrow C(\bm\beta)+\lambda\sum_{ij}w_{ij}^2
-\end{equation}
-meaning that we add a term where we sum up \textbf{all} the weights squared. The factor $\lambda$ is called the regularization parameter. The L2-norm combats overfitting by forcing the weights to be small, but not making them exactly zero. 
-This is so that less significant features still have some influence over the final prediction, although small.
-
-
 \subsection{Feed Forward network}\label{sec:FFN}
 To describe how the network "guesses" outputs in a mathematical model we can start by looking at Eq. (\ref{eq:neurons}) where we got an output $y$ from an activation function $f$ that receives $x_i$ as input. 
 We can expand the function as as following
@@ -434,15 +381,76 @@ While the idea behind neural networks is to mimic the human brain, Boosted Decis
 where bla bla.
 
 \section{Tools used for both algorithms}
+
+\subsection{Activation functions}\label{sec:act}
+As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 
+Mathematically speaking, activation functions are: Non-constant, Bounded, Monotonically-increasing and continuous functions. In this project we will utilize two different activation functions at different layers. 
+The first one is a sigmoid activation function
+\begin{equation}\label{eq:sig}
+    f(x) = \frac{1}{1+e^{-x}}
+\end{equation}
+which is the most basic activation function, this will be used from the input layer to our fist hidden layer as the risks of having little neuron activation is minimal here. On all other layers I will utilise a Rectified Linear Unit (ReLU)
+\begin{equation}\label{eq:ReLU}
+    f(x) = x^+ = \text{max}(0,x) = \begin{cases}x&{\text{if }}x>0,\\0.&{\text{otherwise}}.\end{cases}
+\end{equation}
+which has better gradient propagation, meaning that there are fewer vanishing gradient problems compared to the sigmoidial function.
+
+
+\subsection{Cost functions}
+Cost functions have been mentioned throughout this chapter, but what are they? Cost functions are what we will utilize to evaluate how well the output of the network fares against the target, i.e. if our network "guesses" right whether an event is signal or background, 
+thus making this a very important part of our network! Before getting into this we first have to look at logistic regression. Since we are studing a binary classification task where the output is either $t_i=0$ or $t_i = 1$, meaning background or signal. 
+We can introduce a polynomial model of order $n$ as
+$$
+\hat{y}_i=\beta_0+\beta_1x_i+\beta_2x_i^2+\cdots+\beta_nx_i^n
+$$
+where the hat notation, $\hat y$, symbolises a condensed matrix form of the output of a layer. We can define the probabilities of getting $t_i=0$ or 1 given our input $x_i$ and $\bm{\beta}$ with the help of a logistic function. 
+Using this we get the probability as
+$$
+p(t_i=1\vert x_i,\bm{\beta})=\frac{1}{1+e^{-t_i}}
+$$
+and
+$$
+p(t_i=0\vert x_i,\bm{\beta})=1- p(t_i=1\vert x_i,\bm{\beta})
+$$
+We want to then define the total likelihood for all possible outcomes from a dataset $\mathcal{D}=\{(t_i,x_i)\}$, with the binary labels $t_i\in\{0,1\}$, applying the Maximum Likelihood Estimation (MLE) principle. 
+This gives us
+$$
+P(\mathcal{D}\vert\bm{\beta})=\prod_{i=1}^n\left[p(t_i=1\vert x_i,\bm{\beta})\right]^{t_i}\left[1-p(t_i=1\vert x_i,\bm{\beta})\right]^{1-t_i}
+$$
+from which we obtain the log-likelihood
+$$
+C(\bm{\beta})=\sum_{i=1}^n\left(t_i\log p(t_i=1\vert x_i,\bm{\beta})+(1-t_i)\log[1-p(t_i=1\vert x_i,\bm{\beta})]\right)
+$$
+By taking the parameter $\bm{\beta}$ to first order in $x_i$ and reordering the logarithm we get
+\begin{equation}\label{eq:CrossEntropy}
+    C(\bm{\beta})=-\sum_{i=1}^n(y_i(\beta_0+\beta_1x_i)-\log(1+\exp(\beta_0+\beta_1x_i)))
+\end{equation}
+This equation we will use throughtout the thesis and is known as the \textit{cross entropy}. The two beta parameters used are the weight and biases, $\beta_1 = w$ and $\beta_0 = b$. The goal is to change these parameters such that it minimizes the cost function. \\
+\\Furthermire we will add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they don't grow out of control, 
+this is to reduce \textit{overfitting}. We will use the so-called \textit{L2-norm} \todo{add source for article?}where the cost function becomes
+\begin{equation}\label{eq:L2-reg}
+    C(\bm\beta)\rightarrow C(\bm\beta)+\lambda\sum_{ij}w_{ij}^2
+\end{equation}
+meaning that we add a term where we sum up \textbf{all} the weights squared. The factor $\lambda$ is called the regularization parameter. The L2-norm combats overfitting by forcing the weights to be small, but not making them exactly zero. 
+This is so that less significant features still have some influence over the final prediction, although small.
+
+
 \subsection{Sample weight}\label{sec:sample_weight}
 A "sample weights" array is an array of numbers that specify how much weight each sample in a batch should have in computing the total loss. 
-It is commonly used in imbalanced classification problems (the idea being to give more weight to rarely-seen classes). Taken from the original \href{https://www.tensorflow.org/guide/keras/train_and_evaluate#sample_weights}{documentation}\\
-\\An extra term is added to the derivative of the loss function, Eq. (\ref{eq:delta}), \href{https://scikit-learn.org/stable/modules/svm.html#svc}{Source} and \href{https://stats.stackexchange.com/questions/362987/how-do-sample-weights-work-in-classification-models}{forum}
-\begin{equation}
-    \delta^L \rightarrow \delta^L + C\sum_i \xi^i
-\end{equation} 
-where $C$ is a constant term we will add to each sample in the dataset. This extra term is called the \textit{sample weight} and is used to "even out" unbalanced data sets. \todo{will add more details later!}
+It is commonly used in imbalanced classification problems (the idea being to give more weight to rarely-seen classes). Taken from the original \href{https://www.tensorflow.org/guide/keras/train_and_evaluate#sample_weights}{documentation}. To mathematically illustrate how this 
+weight works is by multiplying a constant term $\chi$ into the cost/loss function that is used further on the error propagation. As an example we can extend the simple MSE, Eq. (\ref{eq:cost}) to
+\begin{equation}\label{eq:sample_weight}
+    C(\hat{W})=\frac{1}{2}\sum_{i=1}^n\chi_i(y_i-t_i)^2
+\end{equation}
+This will become an important feature when discussing network optimization in chapter \ref{chap:ML}, and especially for particle physists as we want to re-weight Monte Carlo events to expected events to correctly showcase kinematical distributions.
+% An extra term is added to the derivative of the loss function, Eq. (\ref{eq:delta}), \href{https://scikit-learn.org/stable/modules/svm.html#svc}{Source} and \href{https://stats.stackexchange.com/questions/362987/how-do-sample-weights-work-in-classification-models}{forum}
+% \begin{equation}
+%     \delta^L \rightarrow \delta^L + C\sum_i \xi^i
+% \end{equation} 
+% where $C$ is a constant term we will add to each sample in the dataset. This extra term is called the \textit{sample weight} and is used to "even out" unbalanced data sets. \todo{will add more details later!}
 
+\subsection{ROC curves}
+To evaluate how well our networks do we will not only use the acuracy, which literally tells us how many events it guessed right. But also take into account a more advanced method, this is the ROC method.
 \section{The declaration of model indpedence}
 Should I make this a whole chapter instead? As it is a central part of my thesis. And maybe move it into part 2, "Methods"
 \end{document}

@@ -171,8 +171,8 @@ which both consume energy and time. As this is not the focus of my thesis I will
 \clearpage
 \section{Data analysis}
 The time has come to explore how we can search for new physics phenomena, now that it has been established how particles are produced and how we detect them. In this section we will take into account the classic way of searching for new phyics which is called 
-the \textit{cut and count method}\todo{that is the informal name, what is the real one?}, but there are other methods to search for new physics, such as Machine Learning (ML) which is the method pursued in this thesis. There might be other methods, such as 
-Quantum ML, but as of today we are still in an early stage of the technology \cite{QML} \todo{should I drop this?}. To give a short description of the cut and count method, it makes kinematial \textit{cuts} such that we isolate signal from background. The way 
+the \textit{cut and count method}\todo{cut n' count is the informal name, what is the real one?}, but there are other methods to search for new physics, such as Machine Learning (ML) which is the method pursued in this thesis. There might be other methods, such as 
+Quantum ML, but as of today we are still in an early stage of the technology \cite{QML} \todo{can I include this?}. To give a short description of the cut and count method, it makes kinematial \textit{cuts} such that we isolate signal from background. The way 
 the signal and background are made is by Monte Carlo (MC) simmulations, such that we can more easily identify SM background from DM and then compare our results with real data. As it wouldn't be a real expreimental physics discovery without making a statistical 
 analysis of the \textit{significance} of the \textit{cut signal region} we will also explain how we measure these. To guide us through this process I will use the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the sucess of these methods.
 
@@ -184,60 +184,67 @@ The cut and count...
 
 
 \subsection{Statistical analysis}
-This project is following the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat}. Here a Bayesian analysis is performed to 
-set limits on the studied processes. For each candidate mass and decay channel, events are counted above a MET threshold, which as seen in the signal event selection criteria on Table 2 is $E_{\text{T,min}}^{\text{miss}}=60$GeV. For this project this threshold is the same for 
-each candidate mass and decay channel. The expected number of events in each channel is 
-\begin{equation}
+To make any sort of claim in modern physics we should be absolutely certain that what we are claiming is true, as just making the cuts and isolating a signal to background is not enough. To be specific we need to be \textit{at least $5\sigma$ sure} to claim any new discoveries \todo{add source to why 5?}. 
+What $5\sigma$ means, and how we can get there is what this subection is all about. But as not everything in experimantal high energy particle physics is a new discovery, but is in fact for the most part \textit{exclusions}. Then we need to explain what an exlusion is, and how to make them. \\ 
+\\This thesis is following Dr. Bugges lecture notes on statistics [\textbf{how do I cite his powerpoint from FYS5555}] and the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
+where a Bayesian analysis is performed to set limits on the studied processes. Going back to the discovery of the Higgs boson, for each candidate mass and decay channel, events are counted above a $m_{ll}$ threshold. Using the signal+backround hypotesis, the expected number of events in each channel is 
+\begin{equation}\label{eq:expected_events}
     N_{\text{exp}} = \varepsilon_{\text{sig}}L_{\text{int}}\sigma B + N_{\text{bkg}}
 \end{equation}
-where $L_{\text{int}}$ is the integrated luminosity, $\varepsilon_{\text{sig}}$ is the signal selection efficiency defined as the fraction of signal events that satisfy the event selection criteria, $N_{\text{bkg}}$ is the expected number of background events, and $\sigma B$ is 
-the cross-section times branching ratio. Then using Poisson statistics, the likelihood to observe $N_{\text{obs}}$ events is
-\begin{equation}
+where $L_{\text{int}}$ is the integrated luminosity, $\varepsilon_{\text{sig}}$ is the signal selection efficiency defined as the fraction of signal events that satisfy the event selection criteria, $N_{\text{bkg}}$ is the expected number of background events, and $\sigma B$ is the 
+cross-section times branching ratio of the process. Using Poisson statistics, the likelihood to observe $N_{\text{obs}}$ events is
+\begin{equation}\label{eq:observed_events_prob}
     \mathcal{L}(N_{\text{obs}}\vert \sigma B) = \frac{(N_{\text{exp}})^{N_{\text{obs}}}e^{-N_{\text{exp}}}}{N_{\text{obs}}!}
 \end{equation}
 We include uncertainties by introducing nuisance parameters $\theta_i$, each with a probability density function $g_i(\theta_i)$, and integrating the product of the Poisson likelihood with the probability density function. The integrated likelihood is
-\begin{equation}
+\begin{equation}\label{eq:observed_events_nuisance}
     \mathcal{L}_B(N_{\text{obs}}\vert \sigma B)=\int\mathcal{L}(N_{\text{obs}}\vert \sigma B)\prod g_i(\theta_i)d\theta_i
 \end{equation}
-where a log-normal distribution is used for the $g_i(\theta_i)$. The nuisance parameters are taken to be: $L_{\text{int}}, \varepsilon_{\text{sig}}$ and $N_{\text{bkg}}$, with the appropriate correlation accounted for between the first and the third parameters. The measurements in 
-the two decay channels of the \textit{Z} boson are combined assuming the same branching fraction for each, thus Eq. (6) remains valid with the Poisson likelihood replaced by the product of the Poisson likelihoods for the two channels. The integrated luminosities for the electron 
-and muon channels are fully correlated. We can further use Bayes’ theorem which gives the posterior probability that the signal has signal strength $\sigma B$:
-\begin{equation}
+where a log-normal distribution is used for the $g_i(\theta_i)$. The nuisance parameters are taken to be: $L_{\text{int}}, \varepsilon_{\text{sig}}$ and $N_{\text{bkg}}$, with the appropriate correlation accounted for between the first and the third parameters. The measurements of 
+the two decay channels (muon or electron final state for $H\rightarrow lll'l'$) are combined assuming the same branching fraction for each, thus Eq. \ref{eq:observed_events_nuisance} remains valid with the Poisson likelihood replaced by the product of the Poisson likelihoods for the two channels. 
+The integrated luminosities for the electron and muon channels are fully correlated. We can further use Bayes' theorem which gives the posterior probability that the signal has signal strength $\sigma B$:
+\begin{equation}\label{eq:prior_prob}
     P_{\text{post}}(\sigma B\vert N_{\text{obs}}) = N \mathcal{L}_B (N_{\text{obs}}\vert\sigma B) P_{\text{prior}}(\sigma B)
 \end{equation}
 where $P_{\text{prior}}(\sigma B)$ is the assumed prior probability, here chosen to be flat in $\sigma B$, for $\sigma B$ > 0. The constant factor $N$ normalises the total probability to one. The posterior probability is evaluated for each mass and decay channel as well as for their 
 combination, and then used to set a limit on $\sigma B$.\\
 \\As we can see, the inputs for the evaluation of $\mathcal{L}_B$ (and $P_{\text{post}}$) are $\varepsilon_{\text{sig}}$, $L_{\text{int}}$, $N_{\text{bkg}}$ and $N_{\text{obs}}$ and the uncertainties of the first three. The uncertainties for these should account for experimental 
-and theoretical systematic effects as well as the statistics of the simulated samples. However now comes a significant problem, there is no way to find any systematic uncertainty from the ATLAS Open Data. It is only possible to find the statistical uncertainty from the MC simulations. 
-The relative uncertainties are shown in Table 3.
-\begin{table}[!ht]\centering\caption{Relative uncertainties on the selection efficiency $\varepsilon_{\text{sig}}$ and expected number of background events $N_{\text{bkg}}$ for $m_V= 10$ GeV, the relative uncertainty on $\varepsilon_{\text{sig}}$ is in the same range for higher masses.}
-    \begin{tabular}{@{}l|cc|cc@{}}
-    \midrule\midrule
-    & \multicolumn{2}{c}{$\varepsilon_{\text{sig}}$} \vline &\multicolumn{2}{c}{$N_{\text{bkg}}$}\\
-    Source & $e^+e^-$ & $\mu^+\mu^-$ & $e^+e^-$ & $\mu^+\mu^-$  \\ \midrule
-    Systematics & ? & ? & ? & ?                                 \\ 
-    Monte Carlo statistics & 24.6\% & 28.3\% & 4.36\% & 5.27\%                       \\\midrule\midrule
-    \end{tabular}
-\end{table}
-\\Since there are no systematic errors we can look at the discovery significance of the process for fun, using the low statistics formula for the observed significance we have
-\begin{equation}
+and theoretical systematic effects as well as the statistics of the simulated samples. For this thesis the systematic uncertainties will not be calculated, but will rather be asumed to be $\pm$ 30\% of the background, as this is roughly the standard value of other ATLAS papers.\\
+\\To make exclusions we can use Eq. (\ref{eq:prior_prob}) to establish a \textit{confidence limit} (CL). CLs are deined as the probablity to observe the number of events observed in an experiment, $N_{\text{obs}}$, or \textit{less} given singal+background. We usually define a signal+background 
+hypothesis to be excluded whene CL$_{s+b}$ < 5\%. Meaning a 95\% CL. Such that the probability to falsely exclude an existing signal(+background) is 5\%. The standard practice in particle physics when using CL is to \textit{set limits} on theoretical models, rahter than exclude them.\\
+\\On the other side, to claim any discovery in particle physics we need to know the \textit{significance} of any statistical fluctiation. Before getting to the significance we can discuss the \textit{p-value}, defined as the probability to observe the number of events observed in the experiment, $n_{\text{obs}}$, 
+or \textit{more} given only background
+\begin{equation}\label{eq:p-value}
+    p = P(N\ge N_{\text{obs}}\vert \lambda = N_{\text{bkg}}) = \sum_{k=N_{\text{obs}}}^{\infty}\mathcal{L}(k\vert N_{\text{bkg}})
+\end{equation}
+The smaller the $p-$value, the less compatible an observation is with the background only hypothesis, meaning more likely to be a discovery! From this we can define the significance $Z$ By
+$$
+    p = \int_{-\infty}^{-Z} \frac{e^{-x^2/2}}{\sqrt{2\pi}}dx
+$$
+As mentioned in the start of this subsection, a discovery in particle physics is defined to be at least a $Z=5\sigma$ deviation from the background hypothesis, meaning that we would have a $p-$value of $p\le2.87\times10^{-7}$. In other words, with a $5\sigma$ deviation, the probabilty to 
+falsely discover something is at worst \textbf{one in roughly 3.5 million}.\\ 
+\\As the significance is an interesting quantity we can give it its own definition. In this thesis we will use the low statistics formula for the significance, as this is the most general one. We can either define the significance as the \textit{observed significance} by
+\begin{equation}\label{eq:obs_sig}
     Z = \sqrt{2\left[N_{\text{obs}}\ln\frac{N_{\text{obs}}}{N_{\text{bkg}}}-N_{\text{obs}}+N_{\text{bkg}}\right]}
 \end{equation}
-However, we want to express this formula with the uncertainty of the background. From "Discovery sensitivity for a counting experiment with background uncertainty" from Glen Cowan 
-\cite{Cowan_Uncertainty_in_sig}, we can use Eq. (17) 
+or as the \textit{expected significance} by changing $N_{\text{obs}} \rightarrow N_{\text{sig}}+N_{\text{bkg}}$, where $N_{\text{sig}}$ is the number of signal events
+\begin{equation}\label{eq:exp_sig}
+    Z = \sqrt{2\left[(N_{\text{sig}}+N_{\text{bkg}})\ln\left(1+\frac{N_{\text{sig}}}{N_{\text{bkg}}}\right)-N_{\text{sig}}\right]}
+\end{equation}
+However, Eq. (\ref{eq:p-value}) did not include any nuisance parameters, it used Eq. (\ref{eq:observed_events_prob}) instead of Eq. (\ref{eq:observed_events_nuisance}). We want to express the significance with uncertainties. From "Discovery sensitivity for a counting experiment with background uncertainty" from Glen Cowan 
+\cite{Cowan_Uncertainty_in_sig}, we can use Eq. (17) on his paper that reads
 $$
 Z = \left[-2\left(N_{\text{obs}}\ln\left[\frac{N_{\text{obs}}+m}{(1+\tau)N_{\text{obs}}}\right] + m\ln\left[\frac{\tau(N_{\text{obs}}+m)}{(1+\tau)m}\right]\right)\right]^{1/2}
 $$
-where $m=\tau N_{\text{bkg}}$ and Eq. (19)
+where $m=\tau N_{\text{bkg}}$ and Eq. (19) that reads
 $$
 \tau=\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}
 $$
 where $\sigma_{\text{bkg}}$ is the uncertainty of the background. This gives us
-\begin{equation}
+\begin{equation}\label{eq:significance}
     Z = \sqrt{-2\left(N_{\text{obs}}\ln\left[\frac{N_{\text{obs}}+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} }{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})N_{\text{obs}}}\right] + \frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} \ln\left[\frac{\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}(N_{\text{obs}}+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} )}{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2}}\right]\right)}
 \end{equation}
-Keeping in mind that 5$\sigma$ is the limit to claim discovery, we can now see how well the cuts do.
-
+Which makes for a better estimate of the significance one has in reality. 
 
 
 \clearpage
