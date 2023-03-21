@@ -174,23 +174,34 @@ The time has come to explore how we can search for new physics phenomena, now th
 the \textit{cut and count method}\todo{cut n' count is the informal name, what is the real one?}, but there are other methods to search for new physics, such as Machine Learning (ML) which is the method pursued in this thesis. There might be other methods, such as 
 Quantum ML, but as of today we are still in an early stage of the technology \cite{QML} \todo{can I include this?}. To give a short description of the cut and count method, it makes kinematial \textit{cuts} such that we isolate signal from background. The way 
 the signal and background are made is by Monte Carlo (MC) simmulations, such that we can more easily identify SM background from DM and then compare our results with real data. As it wouldn't be a real expreimental physics discovery without making a statistical 
-analysis of the \textit{significance} of the \textit{cut signal region} we will also explain how we measure these. To guide us through this process I will use the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the sucess of these methods.
+analysis of the \textit{significance} of the \textit{cut signal region} we will also explain how we measure these. To guide us through this process I will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the sucess of these methods.
 
 \subsection{Cut and count}
-The cut and count...
-
-
-
-
+The cut and count method is what is curently the standard method of doing data analysis with CERN related research. As the name implies, the cut and count method works by making cuts on kinematical variables and afterwards counting how many events are left. 
+If we take the Higgs discovery, in particular the $H\rightarrow ZZ^{(*)} \rightarrow 4l$ channel, then we can as example straight away make one kinematical cut that will decrease most SM backgrounds, that is requiring that there are four leptons in the final state!
+We can also check with the detector (and simulation) that there needs to specifically be muons and/or electrons in the final state. Furthermore the four leptons should respectively have a tranvserse momentum greater than 25, 15, 10, 7 GeV \textit{\textbf{why? these cuts are from ATLAS Open Data, can I find a source for the actual cuts used in the 2012 discovery?}} To summarize the cuts made in the cut and count method, we have:
+\begin{itemize}
+    \item Single-electron or single muon trigger satisfied
+    \item Exacctly four leptons with $p_T >25,15,10,7$ GeV, respectively
+    \item Higgs-boson candidates are formed by selecting two same flavour opposite charge lepton pairs
+\end{itemize}
+Using these cuts, as well as the standard criteria cuts (see Chapter \ref{chap:data_anal}) what remains is to count the remaining events. When counting the events that pass the event selection one usually counts the background events that pass, the data points that pass, and 
+also the signal events that pass. For the 2012 Higgs discovery, the Higgs channel with a Higgs mass of 125 GeV was used. The remaning events after these cuts is shown in Figure \ref{fig:Higgs_ZZ}.
+\begin{figure}[!ht]
+	\centering
+    \includegraphics[width=0.5\textwidth]{Higgs_ZZ_discovery.png}
+    \caption[The Higgs discovery on the $ZZ^{(*)}$ channel]{The Higgs discovery on the $ZZ^{(*)}$ channel, image taken from Ref. \cite{Higgs_discovery_2012}}\label{fig:Higgs_ZZ}
+\end{figure}
+\\
 
 \subsection{Statistical analysis}
 To make any sort of claim in modern physics we should be absolutely certain that what we are claiming is true, as just making the cuts and isolating a signal to background is not enough. To be specific we need to be \textit{at least $5\sigma$ sure} to claim any new discoveries \todo{add source to why 5?}. 
 What $5\sigma$ means, and how we can get there is what this subection is all about. But as not everything in experimantal high energy particle physics is a new discovery, but is in fact for the most part \textit{exclusions}. Then we need to explain what an exlusion is, and how to make them. \\ 
-\\This thesis is following Dr. Bugges lecture notes on statistics [\textbf{how do I cite his powerpoint from FYS5555}] and the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
+\\This thesis is following Bugges lecture notes on statistics [\textbf{how do I cite his powerpoint from FYS5555}] and the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
 where a Bayesian analysis is performed to set limits on the studied processes. Going back to the discovery of the Higgs boson, for each candidate mass and decay channel, events are counted above a $m_{ll}$ threshold. Using the signal+backround hypotesis, the expected number of events in each channel is 
-\begin{equation}\label{eq:expected_events}
+$$
     N_{\text{exp}} = \varepsilon_{\text{sig}}L_{\text{int}}\sigma B + N_{\text{bkg}}
-\end{equation}
+$$
 where $L_{\text{int}}$ is the integrated luminosity, $\varepsilon_{\text{sig}}$ is the signal selection efficiency defined as the fraction of signal events that satisfy the event selection criteria, $N_{\text{bkg}}$ is the expected number of background events, and $\sigma B$ is the 
 cross-section times branching ratio of the process. Using Poisson statistics, the likelihood to observe $N_{\text{obs}}$ events is
 \begin{equation}\label{eq:observed_events_prob}
@@ -246,6 +257,14 @@ where $\sigma_{\text{bkg}}$ is the uncertainty of the background. This gives us
 \end{equation}
 Which makes for a better estimate of the significance one has in reality. 
 
+
+
+
+\begin{figure}[!ht]
+	\centering
+    \includegraphics[width=0.8\textwidth]{CL_Higgs.jpg}
+    \caption[Confidence Limit on the Higgs discovery]{Confidence limit on the 2012 Higgs discovery, excerpt taken from Ref. \cite{Higgs_discovery_2012}}\label{fig:HIGGS_CL}
+\end{figure}
 
 \clearpage
 \section{Summary}

@@ -380,8 +380,9 @@ This whole procedure is usually called an epoch, which we can repeat as many tim
 While the idea behind neural networks is to mimic the human brain, Boosted Decision Trees (BDTs) are different in the sense that they are not trying to mimic a brain, but rather split data sets. The idea of BDTs has been proposed as early as 2001 by Friedmann \cite{BDT_Friedman}, 
 where bla bla.
 
+\clearpage
 \section{Tools used for both algorithms}
-
+Now that we have explained how both NNs and BDTs work, we will explain how tools used by both algorithms work. \todo{more motivation}
 \subsection{Activation functions}\label{sec:act}
 As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 
 Mathematically speaking, activation functions are: Non-constant, Bounded, Monotonically-increasing and continuous functions. In this project we will utilize two different activation functions at different layers. 
@@ -425,8 +426,9 @@ By taking the parameter $\bm{\beta}$ to first order in $x_i$ and reordering the 
 \begin{equation}\label{eq:CrossEntropy}
     C(\bm{\beta})=-\sum_{i=1}^n(y_i(\beta_0+\beta_1x_i)-\log(1+\exp(\beta_0+\beta_1x_i)))
 \end{equation}
-This equation we will use throughtout the thesis and is known as the \textit{cross entropy}. The two beta parameters used are the weight and biases, $\beta_1 = w$ and $\beta_0 = b$. The goal is to change these parameters such that it minimizes the cost function. \\
-\\Furthermire we will add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they don't grow out of control, 
+This equation we will use throughtout the thesis and is known as the \textit{cross entropy}. The two beta parameters used are the weight and biases, $\beta_1 = w$ and $\beta_0 = b$. The goal is to change these parameters such that it minimizes the cost function. 
+\subsubsection*{L2-regularization}
+Furthermore we will add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they don't grow out of control, 
 this is to reduce \textit{overfitting}. We will use the so-called \textit{L2-norm} \todo{add source for article?}where the cost function becomes
 \begin{equation}\label{eq:L2-reg}
     C(\bm\beta)\rightarrow C(\bm\beta)+\lambda\sum_{ij}w_{ij}^2
@@ -449,8 +451,40 @@ This will become an important feature when discussing network optimization in ch
 % \end{equation} 
 % where $C$ is a constant term we will add to each sample in the dataset. This extra term is called the \textit{sample weight} and is used to "even out" unbalanced data sets. \todo{will add more details later!}
 
-\subsection{ROC curves}
-To evaluate how well our networks do we will not only use the acuracy, which literally tells us how many events it guessed right. But also take into account a more advanced method, this is the ROC method.
+
+\subsection{Network evaluation methods}
+There are many ways to evaluate how well a ML network does. For this thesis, we will mainly use two methods. As the empasis of the thesis is to conduct a binary search (DM or not). We will utilise the Area Under the "Receiver Operating Characteristic"-Curve as well as validation plots.
+\todo{write more motivation?}
+
+
+\subsubsection*{Area under the ROC-curve}
+To evaluate how well our networks do. We will use the acuracy, which literally tells us how many events it guessed right. But also take into account a more advanced metrics, this is the Area Under the "Receiver Operating Characteristic (ROC)" Curve (AUC). 
+Before explaining what the AUC is we first need to expclote the ROC curves. The ROC curves helps us illustrate how successfull a network is a \textit{binary classification} (only). The ROC curve, as the name states is a curve, where we plot the \textit{True Positive Rate} (TPR) against 
+the \textit{False Positive Rate} (FPR). The TPR is defined by dividing the \textit{True Positive} (TP), which is when the netowrk correctly guesses a signal event to be a signal event, by the \textit{Positive} (P), which is the total number of signal events in the data. 
+$$
+\text{TPR} =\frac{\text{TP}}{\text{P}}
+$$
+On the other hand, the FPR is when we divide the \textit{False Positive} (FP), when the network guesses a background event to be signal event, divided by the \textit{Negatives} (N), the total number of background events in the data.
+$$
+\text{FPR} =\frac{\text{FP}}{\text{N}}
+$$
+To get a numerical value of how well a network classifies data we thus calculate the AUC. The TP and the FP are both going to be predictions from the networks, which for this thesis will gave an event a score from 0 to 1\footnote{Where 0 means that the network believes an event has 0\% chance of being a signal event, and 1 means that the networks believes with 100\% certainty that an event is a signal event.}, 
+meaning that if we had a perfect network which guesses everything correctly we would only get TPs and thus an AUC of 1. If we were to get an area of 0.5 this would mean that the network is randomly guessing whether an event is a signal or background, practically making a coin toss for every event. 
+The goal is to have a network to give an AUC score as closely to 1 as possible. \\
+\\While only using the accuracy as a metric is not a bad start, it is not favorable to use as a metric if datasets are ubalanced. As en example, if we had a dataset with 100 events, where 95 were background events and 5 were signal events, if we only used accuracy as a metric we would 
+be inlcined to think that an accuracy of 95\% is great. However, as the dataset is unbalanced, the network could easily take a shortcut and guess every event to be a background event. Meaning that the network learned nothing.
+This is where the AUC comes into play, as this metric highlights whenever a network guesses wrongly in a binary classification. Meaning that if we used the worst case scenario with 95\% accuracy when guessing everything to be background, we would have a TPR = 0 and a FPR = 0, 
+if we were to plot this we would get a flat line on the FPR and TPR axis, meaning that it would give us an AUC of 0.5. Highlighting that our network is randomly guessing, and that it needs to be optimized further.\\
+\textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, should I cite that?}
+
+\subsubsection*{Validation plots}
+Another tool that we will use to evaluate how well a network does is by making so-called \textit{validation plots}\todo{Is this the real name of the plots?}. The way these plots work is by first dividing the \textit{already predicted} data set into background and signal. Then making histograms from 0-1 
+with the prediction score of the network for each event. As a score closer to 1 means that the network predicts an event to be a signal event, and 0 means that the network predicts a background event. Then we would ideally have all the signal events shoved to the right and all the background events shoved to the left. 
+Usually this is not the case in high energy particle physics, as some background events might be similar to signal events. We will therefore utilize this kind of plots to see the ditribution of the network predictions. \\
+\\It is standard practice to make fill the histrograms with semi-transparent colors, such that one can visualise the whole spectra for both background and signal. In this thesis we will use this, as well as validation plots where we divide the SM events into their respective background channels and fill them with opaque 
+colors, while leaving the signal unfilled. We will in adition include real data points in the latter plots, to see how well SM simulations agree with the data. Ideally we want our data to not agree with the SM simulations when the network 
+predicts a score close to one, as this discrepancy could be a hint of new physics. 
+
 \section{The declaration of model indpedence}
 Should I make this a whole chapter instead? As it is a central part of my thesis. And maybe move it into part 2, "Methods"
 \end{document}
