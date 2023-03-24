@@ -267,11 +267,11 @@ task by for example utilizing TensorFlow or other mathematical packages in Pytho
  
        \end{minipage}};
        % Text Node
-       \draw (80.17,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
+    %    \draw (80.17,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
        % Text Node
-       \draw (295.11,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
+    %    \draw (295.11,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
        % Text Node
-       \draw (528.6,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = Sigmoid}};
+    %    \draw (528.6,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = Sigmoid}};
  
  
     \end{tikzpicture}
@@ -352,7 +352,7 @@ recalling Eq. (\ref{eq:weightedsum}) (replacing $1$ with $l+1$) we get
 \end{equation}
 Which is the final equation we needed to start back propagating. 
 
-\subsection{Summary of idea}
+\subsection{Summary}
 To summarize the whole process of the NN
 \begin{itemize}
     \item First take the input data $\mathbf{x}$ and the activation $\mathbf{z}_1$ of the input later, and then compute the activation function $f(z)$ to get the next neuron outputs $\mathbf{y}^1$. 
@@ -457,7 +457,7 @@ There are many ways to evaluate how well a ML network does. For this thesis, we 
 \todo{write more motivation?}
 
 
-\subsubsection*{Area under the ROC-curve}
+\subsubsection{Area under the ROC-curve}
 To evaluate how well our networks do. We will use the acuracy, which literally tells us how many events it guessed right. But also take into account a more advanced metrics, this is the Area Under the "Receiver Operating Characteristic (ROC)" Curve (AUC). 
 Before explaining what the AUC is we first need to expclote the ROC curves. The ROC curves helps us illustrate how successfull a network is a \textit{binary classification} (only). The ROC curve, as the name states is a curve, where we plot the \textit{True Positive Rate} (TPR) against 
 the \textit{False Positive Rate} (FPR). The TPR is defined by dividing the \textit{True Positive} (TP), which is when the netowrk correctly guesses a signal event to be a signal event, by the \textit{Positive} (P), which is the total number of signal events in the data. 
@@ -477,7 +477,7 @@ This is where the AUC comes into play, as this metric highlights whenever a netw
 if we were to plot this we would get a flat line on the FPR and TPR axis, meaning that it would give us an AUC of 0.5. Highlighting that our network is randomly guessing, and that it needs to be optimized further.\\
 \textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, should I cite that?}
 
-\subsubsection*{Validation plots}
+\subsubsection{Validation plots}
 Another tool that we will use to evaluate how well a network does is by making so-called \textit{validation plots}\todo{Is this the real name of the plots?}. The way these plots work is by first dividing the \textit{already predicted} data set into background and signal. Then making histograms from 0-1 
 with the prediction score of the network for each event. As a score closer to 1 means that the network predicts an event to be a signal event, and 0 means that the network predicts a background event. Then we would ideally have all the signal events shoved to the right and all the background events shoved to the left. 
 Usually this is not the case in high energy particle physics, as some background events might be similar to signal events. We will therefore utilize this kind of plots to see the ditribution of the network predictions. \\

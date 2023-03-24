@@ -37,6 +37,7 @@
     pdftitle={Model\_independent\_search\_for\_Dark\_Matter\_using\_Machine\_Learning},
     pdfpagemode=FullScreen,
     }
+
 \usepackage{tikz}
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
 
@@ -117,28 +118,26 @@ Something something
 \pagenumbering{arabic}
 
 
+
 \part{The theory behind modern particle physics / Background}
 
 
-\chapter{The Standard Model of Particle Physics}
+\chapter{The Standard Model of Particle Physics}\label{chap:SM}
 \subfile{chapters/Part_I/1_The_Standard_Model_of_Particle_Physics.tex}
 
-
-
-\chapter{Dark Matter}
+\chapter{Dark Matter}\label{chap:DM}
 \subfile{chapters/Part_I/2_Dark_Matter.tex}
 
-
-
-
-\chapter{Production, Detection and Analysis}
+\chapter{Production, Detection and Analysis}\label{chap:CERN_method}
 \subfile{chapters/Part_I/3_Production_Detection_and_Analysis.tex}
-
 
 \chapter{Machine Learning}
 \subfile{chapters/Part_I/4_Machine_Learning.tex}
 
+
 \part{Implementation / Methods}
+
+
 \chapter{Data Analysis}\label{chap:data_anal}
 \subfile{chapters/Part_II/5_Data_Analysis.tex}
 
