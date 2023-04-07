@@ -1,5 +1,5 @@
 \documentclass[14pt, a4paper]{book}
-\begin{document}
+\begin{document}\label{chap:Method_ML}
 
 \graphicspath{{../../figures/}}
 \section{Data Preparation/LOG}
@@ -759,7 +759,7 @@ The first and smallest one is that we could have used batch normalization instea
 \\The third one which is more technical is that since more complex networks require more computational power, then this leads to us decreasing the batch size. Which lowers the statistics of signal, 
 and might even lead to the network training on batches without any signal sample at all. So the trade off is also something to be discussed.\\
 \\The last thing to be noted is that having a DNN completely removes the possibility of combining the results of multiple networks trained on a single model, as the imbalance becomes too much for the network to see anything.
-A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach, which could potentially avoid the imbalance problem, but this is 
+A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach used by Baldi et. al. \cite{Baldi_2016}, which could potentially avoid the imbalance problem, but this is 
 proposed as a plausible new research project due to time constrain on this thesis.
 \clearpage
 \graphicspath{{../../figures/}}
