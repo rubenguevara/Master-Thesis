@@ -78,7 +78,7 @@ Another interesting variable is the \textit{transverse mass}, defined as
 where $m^2$ is the invraiant mass defined in Eq. (\ref{eq:invariant_mass}). What is interesting with this variable is that it is the equivalent of the invariant mass equation, that takes into account invisible particles! 
 We can take this further by looking at a supersymmetric version of the transverse mass, which calculates a transverse mass for two leptons by distributing the total $p_T^{miss}$ among the two systems, 
 and minimizing the maximum of the two transverse masses by varying the distribution of the $p_T^{miss}-$vector in terms of the size of $p_T$. This is called the \textit{stransverse mass} and is defined by
-\begin{equation}
+\begin{equation}\label{eq:stransverse_mass}
     m_{T2}^2(\chi) = \underset{\slashed{\mathbf{q}}^{(1)}_T + \slashed{\mathbf{q}}^{(2)}_T = \slashed{\mathbf{p}}_T}{\min}
     \left[\max \left\{m_T^2\left(\mathbf{p}_T^{\ell_1}, \slashed{\mathbf{q}}^{(1)}_T;\chi\right), m_T^2\left(\mathbf{p}_T^{\ell_2}, \slashed{\mathbf{q}}^{(2)}_T;\chi\right) 
     \right\}\right] 
@@ -220,7 +220,7 @@ which both consume energy and time. As this is not the focus of my thesis I will
 
 
 \clearpage
-\section{Data analysis}
+\section{Data analysis}\label{sec:data_anal}
 The time has come to explore how we can search for new physics phenomena, now that it has been established how particles are produced and how we detect them. In this section we will take into account the classic way of searching for new phyics which is called 
 the \textit{cut and count method}, but there are other methods to search for new physics, such as Machine Learning (ML) which is the method pursued in this thesis. There might be other methods, such as 
 Quantum ML, but as of today we are still in an early stage of the technology \cite{QML}\todo{can I include this?}. To give a short description of the cut and count method, it makes kinematial \textit{cuts} such that we isolate signal from background. The way 
@@ -233,7 +233,7 @@ The goal of using this method is to make cuts such that we remove as many backgr
 then a good kinematical cut to remove many background processes would be to require that $m_{ll}>100$ GeV, as this would remove the majority of $Z$-resonance from the final state, making it easier to "find" the new physics model. \\
 \\To more thouroughly explore the cut and count method we can look at the Higgs discovery, in particular the $H\rightarrow ZZ^{(*)} \rightarrow 4l$\footnote{where $l$ is for lepton, but only means $e^\pm$ or $\mu^\pm$. \textit{question: should i explain why not $\tau$?}} channel. 
 In section 4.1 of the original article \cite{Higgs_discovery_2012} there is something called \textit{event selection}. The event selection are the kinematical cuts used. The kinematical cuts used in the article, aside from the \textit{standard selection critera} 
-(see Chapter \ref{chap:data_anal}\todo{Will write about this later!}), were:
+(see Chapter \ref{sec:obj_sel}), were:
 \begin{itemize}
     \item Single-lepton or dilepton triggers
     \item Four leptons on final state with $p_T >20,15,10,7$ GeV, in the order of most energetic to least

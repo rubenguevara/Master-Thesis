@@ -61,6 +61,7 @@ jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$).
 A summary of these variables is shown in Table \ref{tab:padding_variables}.\\
 \begin{table}[!h]
    \centering
+   \caption[New kinematic variables that need no padding]{Table showcasing plausible kinematic variables that will not need padding.}
    \begin{tabular}{l|r}\midrule\midrule
       Kinematic variable                                                      & Feature name          \\\midrule
       Number of b-jets with $p_T > 20$ GeV                                    & n\_bjetPt20\\
@@ -68,7 +69,6 @@ A summary of these variables is shown in Table \ref{tab:padding_variables}.\\
       Number of jets recorded in Central calorimeter                          &n\_jetsetaCentral\\
       Number of jets recorded in Forward calorimeter with $p_T > 50$ GeV      & n\_jetsetaForward50\\\midrule\midrule
    \end{tabular}
-   \caption[New kinematic variables that need no padding]{Table showcasing plausible kinematic variables that will not need padding.}
    \label{tab:padding_variables}
 \end{table}
 \\When training our NN with these new variables we would hope that it learns more physics by hopefully recognising patters between all high level features. I have however tested this and the 
@@ -234,12 +234,12 @@ it would be correct over 99.9\% of the time. This is obviously something we do n
 The imbalance of this data set can be seen in Table \ref{tab:UnbalancedDibosonTraining}.
 \begin{table}[!h]
    \centering
+   \caption[Unbalanced Diboson training dataset]{Table Showcasing how uneven the training dataset is between signal and background. This is on the Diboson dataset which incorporates all the SM MC samples}
    \begin{tabular}{l|r|r|r}\midrule\midrule
                    & Number of MC events  & Number of expected events   & MC events $\times$ expected events [$10^{11}$]\\\midrule
         Signal     & 8,813,716            & 93,304.9                    & 8.2\\
         Background & 61,201,010           & 2,621,498.9                 & 1,604.4 \\ \midrule\midrule
    \end{tabular}
-   \caption[Unbalanced Diboson training dataset]{Table Showcasing how uneven the training dataset is between signal and background. This is on the Diboson dataset which incorporates all the SM MC samples}
    \label{tab:UnbalancedDibosonTraining}
 \end{table}
 \\The reason for this choice and not a DM signal, is because I \todo{should I write this or skip it entirely?}wrongly assumed when first testing the network, that the network \textit{correctly} predicted that there were no DM events. 
@@ -342,12 +342,12 @@ However there is a bug in TensorFlow (up to version \verb|GPU 2.7.1|) that makes
 \\We can see in Table \ref{tab:MC_imbalance} how uneven the data (FULL Z') is. To balance the data we have four options. We can either \textit{weigh up the signal} events by the ratio of background over signal. Or \textit{weigh down the bacgkround} with the ratio of signal over background. However this ratio might differ a lot when using the MC raw event ratio or the SOW events ratio. I have tested all four possibilities and these can be see below.\\
 \begin{table}[!h]
    \centering
+   \caption[Imbalance raw events and SOW]{Table showcasing the data imbalance between background and signal in both raw MC events and actual events. By actual events it is meant weighted events. This is for the training dataset on the FULL Z' dataset.}
    \begin{tabular}{l|c|c}\midrule\midrule
                         & Actual events   & MC events \\\midrule
          Background     & 2,715,280.4     & 69,664,290  \\
          Signal         & 388.4           & 2,991,598   \\\midrule\midrule
    \end{tabular}
-   \caption[Imbalance raw events and SOW]{Table showcasing the data imbalance between background and signal in both raw MC events and actual events. By actual events it is meant weighted events. This is for the training dataset on the FULL Z' dataset.}
    \label{tab:MC_imbalance}
 \end{table}
 \graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_SIG_UP/}}
