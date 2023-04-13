@@ -11,7 +11,8 @@ achieving our goal of using ML to classify DM from SM events using ATLAS data, a
 
 \clearpage
 \section{Standard Model background estimation}
-As we are going to look at dilepton final states with missing trasnverse energy to try to teach our ML to learn DM signatures, then we need to take into account all possible SM background event that have these kind of final states. The SM backgrounds processes we will look at are explained in the next subsections.
+As we are going to look at dilepton final states with missing trasnverse energy to try to teach our ML to learn DM signatures, then we need to take into account all possible SM background event that have these kind of final states. The SM backgrounds processes we will look at are explained in the next subsections. 
+In Appendix \ref{appendix:DSIDs} is the full list of dataset IDs for background process used in this thesis.
 
 \subsection{W and Drell Yan}
 $W/Z/\gamma^*$+jets as all of these can directly decay into two leptons, $W/Z/\gamma\rightarrow ll'$, where the prime marks a different flavour. All the production mechanism for these background processes can 
@@ -108,7 +109,7 @@ or $W\rightarrow l\nu_l$, where the prime means a different lepton flavour. The 
 \section{Dark Matter samples}
 
 \section{Object selection}\label{sec:obj_sel}
-Before getting into our DM search and regions we will study we have to define how standard objects are defined. By standard objects it is meant leptons, jets, etc. As this thesis is made using ATLAS data and simulations we will use the same standard crietria 
+Before getting into our DM search and regions we will study we have to define how standard objects are defined. By standard objects we mean electron, muons and jets. As this thesis is made using ATLAS data and simulations we will use the same standard crietria 
 cuts they choose.\\
 \\The electrons are selected using the criteria on Table \ref{tab:E_selec}.
 \begin{table}[!h]
@@ -117,8 +118,8 @@ cuts they choose.\\
         Feature                                                                 & Selection criteria        \\\midrule
         Transverse momentum                                                     & $p_T > 25$ GeV     \\
         Pseudorapidity range                                                    & $\abs{\eta}<1.37$ or  $1.52<\abs{\eta}<2.47$ \\
-        $d_0$ significance cut                                                  & $\abs{d_0^{BL}(\sigma)}<5$    \\
-        $z_0$ cut                                                               & $\abs{\Delta z_0^{BL}\sin\theta}<0.5$mm    \\\midrule\midrule
+        $d_0$ significance cut                                                  & $\abs{d_0(\sigma)}<5$    \\
+        $z_0$ cut                                                               & $\abs{\Delta z_0\sin\theta}<0.5$mm    \\\midrule\midrule
     \end{tabular}
     \label{tab:E_selec}
 \end{table}
@@ -129,8 +130,8 @@ cuts they choose.\\
         Feature                                                                 & Selection criteria        \\\midrule
         Transverse momenum                                                      & $p_T > 27(20)$ GeV for leading (subleading)     \\
         Pseudorapidity cut                                                      & $\abs{\eta}<2.5$ \\
-        $d_0$ significance cut                                                  & $\abs{d_0^{BL}(\sigma)}<5$    \\
-        $z_0$ cut                                                               & $\abs{\Delta z_0^{BL}\sin\theta}<0.5$mm    \\\midrule\midrule
+        $d_0$ significance cut                                                  & $\abs{d_0(\sigma)}<5$    \\
+        $z_0$ cut                                                               & $\abs{\Delta z_0\sin\theta}<0.5$mm    \\\midrule\midrule
     \end{tabular}
     \label{tab:mu_selec}
 \end{table}
@@ -149,7 +150,7 @@ cuts they choose.\\
     \end{tabular}
     \label{tab:jet_selec}
 \end{table}
-% \\The missing transverse energy is reconstructed from jets selected and calibrated according to the information in Table \ref{tab:jet_selec}
+\\The missing transverse energy is reconstructed from jets selected and calibrated according to the information in Table \ref{tab:jet_selec}. In addition to these a kinematical cut of $m_{ll}>10$ GeV will be made to exclude hadron productions.
 
 
 
@@ -159,32 +160,44 @@ our kinematical cuts to be minimal and as general as possible. As we are looking
 Same Flavour Opposite Sign (SFOS) leptons ($e^\pm e^\mp, \mu^\pm\mu^\mp$). However to stay as general, and model independet, as possible we will also study other possible combinations as these might be important for theories such as SUSY or Lepton Flavour Violating 
 (LFV) models. These are Different Flavour Same Sign (DFSS), DFOS and SFSS lepton pairs.\\
 \\Since we are looking for DM, which we expect to behave similarly to a neutrino, then a nice kinematical variable to set a general cut to isolate signal from background is the MET, we can see the 
-distribution of MET on all of Run II in a dilepton final state in Figure \ref{fig:uncut_met}.
+distribution of MET on all of Run II in a dilepton final state in Figure \ref{fig:uncut_met}.\\
+\\As we are conducting a model independent search, we want to use minimal cuts. The MET cut made in this thesis was chosen to be of 50 GeV (violet line in plot), meaning we will \textit{only} look at events where the MET is greater than this. As we can see from Figure \ref{fig:uncut_met} 
+by making a kinematical cut on 50 GeV we are cutting out a massive part of the background processes while only losing a small part of the signal. \\
 \graphicspath{{../../../Plots/Data_Analysis/SRs/Uncut/}} 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1\textwidth]{met.pdf}
-    \caption[MET dilepton final state Run II]{Distribution of MET when looking at a dilepton final state in all of Run II}\label{fig:uncut_met}
+    \includegraphics[width=0.8\textwidth]{met.pdf}
+    \caption[$E_T^{miss}$ distribution in dilepton final state Run II]{Distribution of MET when looking at a dilepton final state in all of Run II. The violet line shows where we will make out MET cut to create a control region. The DM models here have the highest cross section making them the most visible to our purposes.}\label{fig:uncut_met}
 \end{figure}
-\\As we are conducting a model independent search, we want to use minimal cuts. The MET cut made in this thesis was chosen to be of 50 GeV, meaning we will \textit{only} look at events where the MET is greater than this. 
-This both because of the amount of events that are in a dilepton final state, and also because most models studied in this thesis have roughly more MET than 50 GeV.\\
 \\Another kinematical cut that will be included in this thesis is another jet $p_T$ on top of the one from Table \ref{tab:jet_selec}. This is because jet reconstruction is already a hard task, but when pushing the limits of our selection criteria with a MET cut 
-becomes even harder. And the worse the reconstruction of the jets the worse the agreement between MC simulations and real data is, and as we already know, the SM agrees with what we observe with an incredible accuracy. In Figure \todo{MAKE THE IMAGE} we can see 
-how the data and MC simulations of the SM agree when ounting the number of jets with different $p_T$ cuts. \\
+becomes even harder. And the worse the reconstruction of the jets the worse the agreement between MC simulations and real data is, and as we already know, the SM agrees with what we observe with an incredible accuracy. In Figure \ref{fig:jetcuts} we can see 
+how the data and MC simulations of the SM agree when ounting the number of b- and light jets with a $p_T$ cut of $\ge30$ GeV and $\ge40$ GeV respectively. The agreement with different $p_T$ cuts can be seen in Appendix \ref{appendix:JetSelection} \\
+\graphicspath{{../../../Plots/Data_Analysis/JetSelection/Control_region/}} 
+\begin{figure}[!ht]
+    \centering
+    \hfill\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{bjetsPt30.pdf}
+    \end{subfigure}
+    \hfill\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ljetsPt40.pdf}
+    \end{subfigure}
+    \caption[b- and light jet distributions in control region]{b- and light jet distributions with $p_T \ge30$ and $\ge40$ GeV, respectively.}\label{fig:jetcuts}
+\end{figure}
 \\Other than the object selection criteria, these are the only cuts that will be used to define the control region. Their summary can be seen in Table \ref{tab:CR_cuts}
 \begin{table}[!h]
-    \centering\caption[Control Region for model-indepentent search]{Table showcasing the cuts used to define our model independent search.}
+    \centering\caption[Control region for model-indepentent search]{Table showcasing the cuts used to define the control region for our model independent search.}
     \begin{tabular}{l|r}\midrule\midrule
         Feature                                                                 & Selection criteria        \\\midrule
         Dilepton final state                                                    & $\ell^\pm \ell^\mp$, $\ell^\pm \ell^\pm$, $\ell^\pm \ell'^\mp$ and $\ell^\pm \ell'^\pm$    \\
         Missing Transverse Energy                                               & $E_T^{miss} > 50$ GeV     \\
-        Light jets                                                              & $p_T > 40$ GeV     \\\midrule\midrule
+        b- (light) jets                                                         & $p_T \ge 30(40)$ GeV     \\\midrule\midrule
     \end{tabular}
     \label{tab:CR_cuts}
 \end{table}
 
 
-\clearpage
 \section{Feature selection for ML}
 For this thesis there are many possible kinematic variables that can be used as features for our ML algorithms, in this section we will make use of the kinematical variables presented in Section \ref{sec:particle_kinematics} as well as introduce new variables that 
 might help our ML algorithm to correctly learn the patters of SM bacgkround and DM signal events. \\
@@ -216,24 +229,24 @@ which of these is of more importance.
 \\To keep the trend of variables for invisible particles, we will also study the transverse mass, $m_T$ defined in Eq. (\ref{eq:transverse_mass}), and stransverse mass, $m_{T2}$ defined in Eq. (\ref{eq:stransverse_mass}) which might help our ML algorithm to sort i.e. 
 W backgrounds from the signal. The distribution of the stransverse mass can be seen in Figure \ref{fig:mt2_dist}. Moving on to more jet related variables, we will look at the $p_T$, $\eta$ and $\phi$ of the three most energetic jets, the invariant mass of the two most energetic jets $m_{jj}$, as well as count the number of b- and light jets. Altough these jet 
 variables might not sound like the most useful when singleing out DM signal from SM background, there is always the possibility that our ML algorithm sees a pattern which is overlooked by us when conducting these kind of searches. 
-Another varible we will look at is the hadronic activity, $H_T$ defined in Eq. (\ref{eq:HT}), from which we will also look at the ratio between the MET and hadronic activity as this can help the ML algorithm sort out DM events from background events.\\
+Another varible we will look at is the hadronic activity, $H_T$ defined in Eq. (\ref{eq:HT}), from which we will also look at the ratio between the MET and hadronic activity, $E_T^{miss}/H_T$, as this can help the ML algorithm sort out DM events from background events.\\
 \begin{figure}[!ht]
     \centering
         \includegraphics[width=0.8\textwidth]{mt2.pdf}
     \caption{Distribution of $m_{T2}$ in control region.}\label{fig:mt2_dist}
 \end{figure}
-\\To know the distance between the "lepton-jet" and "MET-jet" we will look at the difference in azimuthal angle between: the lepton pair, $\Delta\Phi(l_1,l_2)$, the dilepton jet and MET jet, $\Delta\Phi(ll,E_T^{miss})$, the leading lepton and MET jet, $\Delta\Phi(l_l,E_T^{miss})$, 
-and the lepton closest to the MET jet and the MET jet, $\Delta\Phi(l_c,E_T^{miss})$. In some of the models we are studying it is expected for DM and the leptons pair to be back to back. The distribution of $\Delta\Phi(ll,E_T^{miss})$ can be seen in Figure \ref{fig:dPhiLLMET_dist}.
+\\To know the distance between the "lepton-jet" and "MET-jet" we will look at the difference in azimuthal angle between: the lepton pair, $\Delta\phi(l_1,l_2)$, the dilepton jet and MET jet, $\Delta\phi(ll,E_T^{miss})$, the leading lepton and MET jet, $\Delta\phi(l_l,E_T^{miss})$, 
+and the lepton closest to the MET jet and the MET jet, $\Delta\phi(l_c,E_T^{miss})$. In some of the models we are studying it is expected for DM and the leptons pair to be back to back. The distribution of $\Delta\phi(ll,E_T^{miss})$ can be seen in Figure \ref{fig:dPhiLLMET_dist}.
 \begin{figure}[!ht]
     \centering
         \includegraphics[width=0.8\textwidth]{dPhiLLMET.pdf}
-    \caption{Distribution of $\Delta\Phi(ll,E_T^{miss})$ in control region.}\label{fig:dPhiLLMET_dist}
+    \caption{Distribution of $\Delta\phi(ll,E_T^{miss})$ in control region.}\label{fig:dPhiLLMET_dist}
 \end{figure}
 
 \clearpage\noindent The kinematic variables used are summarized in Table \ref{tab:variables} and the distribution of the remaining kinematical variables are shown in Appendix \ref{apendix:Kin_var_in_CR}.
 \begin{table}[!h]
     \centering
-    \caption[Kinematic variables used as features]{Table showcasing the kinematic variables that will be used as features on our ML algorithm.\\ * These have poor MC and data agreement. $^\dagger$ These will become a problem when \textit{padding}.}
+    \caption[Kinematic variables used as features]{Table showcasing the kinematic variables that will be used as features on our ML algorithm.\\ * These have poor MC and data agreement. $^\dagger$ These create \textit{jagged arrays}.}
     \begin{tabular}{l|r}\midrule\midrule
         Kinematic variable                                                              & Feature name          \\\midrule
         $p_T$ of both leptons                                                           & lep1pt \& lep2pt      \\
@@ -245,14 +258,14 @@ and the lepton closest to the MET jet and the MET jet, $\Delta\Phi(l_c,E_T^{miss
         Transverse mass in in event, $m_T$                                              & mt \\
         Stransverse mass in in event, $m_{T2}$                                          & mt2\\
         Transverse energy of lepton pair, $E_T$                                         & et \\
-        $\phi$ between leption pair, $\Delta\Phi(l_1,l_2)$*                             & dPhiLeps \\
-        $\phi$ between leption pair and MET jet, $\Delta\Phi(ll,E_T^{miss})$            & dPhiLLMet \\
-        $\phi$ between leading lepton and MET jet, $\Delta\Phi(l_l,E_T^{miss})$         & dPhiLeadMet \\
-        $\phi$ between closest lepton and MET jet, $\Delta\Phi(l_c,E_T^{miss})$*        & dPhiCloseMet \\
+        $\phi$ between leption pair, $\Delta\phi(l_1,l_2)$*                             & dPhiLeps \\
+        $\phi$ between leption pair and MET jet, $\Delta\phi(ll,E_T^{miss})$            & dPhiLLMet \\
+        $\phi$ between leading lepton and MET jet, $\Delta\phi(l_l,E_T^{miss})$         & dPhiLeadMet \\
+        $\phi$ between closest lepton and MET jet, $\Delta\phi(l_c,E_T^{miss})$*        & dPhiCloseMet \\
         Hadronic activity, $H_T$                                                        & ht\\
-        Ratio between $E_T^{miss}$ and $H_T$                                            & rt\\
+        Ratio between $E_T^{miss}$ and $H_T$, $E_T^{miss}/H_T$                          & rt\\
         Number of b-jets                                                                & nbjets         \\
-        Number of light jets                                                            & nljets         \\
+        Number of light jets*                                                           & nljets         \\
         $p_T$ of three jets with highest $p_T$$^\dagger$                                & jet1pt \& jet2pt \& jet3pt\\
         $\phi$ of three jets with highest $p_T$$^\dagger$                               & jet1phi \& jet2phi \& jet3phi\\
         $\eta$ of three jets with highest $p_T$$^\dagger$                               & jet1eta \& jet2eta \& jet3eta\\
@@ -260,5 +273,34 @@ and the lepton closest to the MET jet and the MET jet, $\Delta\Phi(l_c,E_T^{miss
     \end{tabular}
     \label{tab:variables}
 \end{table}
+
+\section{Transfer to ML friendly syntax}
+We have so far explained how the data will be used and carefully selected, however the question of how the data is made, and the number of samples we will work with still remains unanswered. \\
+\\As mentioned when defining what our background and signal is, we will mainly look at MC simulations.The MC simulations are made into \verb|ROOT| \cite{ROOT}\todo{Check version and fix bib DOI} NTuples which already have passed the object selection criteria on section \ref{sec:obj_sel}. What remains is to set the kinematical cuts so we have our control region. 
+To do this as well as saving the remaining events into a new file which will be used for our ML algorithm I utilized the algorithms on \verb|EventSelector|\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/EventSelector}{https://github.com/rubenguevara/Master-Thesis/tree/master/EventSelector}}, 
+which also saved the event that passed the event selection crieria as \verb|ROOT| histrograms to make plotting the distributions easier. After saving the events that passed the selection critera I used the algorithms on \verb|DataPrep|\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/DataPrep}{https://github.com/rubenguevara/Master-Thesis/tree/master/DataPrep}} 
+to plot the actual distributions of kinematical variables, and more importantly converting all of the events that passed the event selection into a ML friendly syntax. For this thesis we are converting from \verb|ROOT| NTuples to \verb|pandas DataFrame| \cite{pd.DataFrame} 
+which can furhtermore be saved as \verb|h5| files to be read more efficiently. The reason we chose \verb|pandas DataFrame| is because of the easily readable kinematics per event, the easily aplicable kinematical cuts to the whole dataset 
+(to more effectively create signal regions), and most importantly because of the compatibility with \verb|XGBoost| \cite{XGBoost} and \verb|TensorFlow| \cite{TensorFlow} which will be the ML packages we will utilize for both BDTs and NNs.
+
+\section{Problems}
+There are however still problems when we....
+\subsection{Missing variables}
+For this theis, as shown in Table \ref{tab:variables} with the $^\dagger$, we will record events with up to three jets in the final state. However, there isn't always three jets in the recorded events that we will be studying, 
+this creates \textit{jagged arrays} which we can interpret as arrays with missing values. This is an unwanted feature that we need to avoid when training a ML algorithm, and is a problem that is not common in other ML tasks aside from HEPP.
+To mediate this problem we chose to set the $p_T$ to zero for the missing jets and $m_{jj}$ to zero if there are less than two jets, this is something that is physically reasonable as it doesn't violate any conservation laws. 
+More problematic however is the $\eta$ and $\phi$ when there aren't jets. To mediate this I've set the values to -999, which has no physical meaning and is impossible to achieve, this we did so it becomes easier for us to identify the jagged arrays that 
+need different interventions when preparing both NNs and BDTs. The methods we explored to mediate the jagged array problem is further explained in Chapter \ref{chap:Method_ML}. 
+
+\subsection{MC and data disagreement} 
+There is also another problem,with the final states that are not SFOS, as the MC generated background 
+on these tend to be lower than the recorded data. The number of events that are not SFOS are minimal though, and we think the reason it doesn't fit the data is because we are not including fake leptons. \todo{something more to add?}
+
+
+\section{Summary}
+Now that we have explained how the data has been prepared and the problems that arise with this we are ready to start playing around with ML!
+\textbf{Question: Anything else to add to this chapter?}
+
+
 
 \end{document}

@@ -1,36 +1,40 @@
 \documentclass[14pt, a4paper]{book}
 \begin{document}\label{chap:Method_ML}
+Something something Time to prepare our ML algorithms, statistics etc..
+
+\section{The datasets}
+The way we are making datasets in this project, to keep it as close to model independent as possible, will be of the following format
+\begin{itemize}
+   \item Make a dataset with all of the SM backgrounds and one DM model.
+   \item Make a dataset with all of the SM backgrounds and all of the DM models, divided into different signal regions.
+\end{itemize}
+The idea behind the first one is to start with a model dependent approach, where we train a ML algorithm to learn just one model at a time. The reason for taking this approach and not just having one dataset with all the models included, which would indeed make it 
+a model independent approach, is because of the different phenomenology and experiemntal signatures of the models we are studying. \textbf{Question: Should I give concrete examples on how SUSY vs Z' differs or is this sentence enough?} To achieve model indepence 
+with this dataset, the plan is to combine the results of the different networks into one. \textbf{Question: Is it correct to say statisticslly combine the results? Or what exactly are we thinking of combining using this method?} \\
+\\For the second one, even if we were to include models with different signatures it would work out in our favour. For example, if we created Signal Regions (SR) in different regions of the $m_{ll}$ phasespace, \textit{and} trained a ML network in each respective SR, 
+then the network would learn the DM resonance appearing in each area, instead of learning the model resonance. Indeed, achieving model indepence. Furthermore, the plan is to combine the results of each respective region to get an overall view of all of Run II.\\
+\\In Table \ref{tab:dataset} we can see the overall number of MC samples and expected events for all background channels as well as DM models.
+\begin{table}[!h]
+   \centering
+    \caption[Dataset used for ML]{Table showcasing the number of MC samples and expected events for every background channel and DM model that will be used in this thesis.\\ * The expected number of events for any BSM model has prefixed assumptions about for example 
+      cross section, decay width, etc. As we do not empirically know if any of these assumptions are correct, these are not set in stone.}
+   \begin{tabular}{l|r|r}\midrule\midrule
+      Channel                                                                         & MC samples            & Expected events  \\\midrule
+      W                                                                               & 38,684                & 5,436.325        \\
+      Drell Yan                                                                       & 47,201,697            & 2,198,257.648    \\
+      TTbar                                                                           & 28,126,697            & 978,530.817      \\
+      Single top                                                                      & 729,624               & 93,898.462       \\
+      Diboson                                                                         & 10,983,689            & 116,653.466      \\\midrule
+      Standard model total                                                            & 87,080,391            & 3,392,776.718    \\\midrule
+      $Z'$ Dark Higgs                                                                 & 1,390,986             & *210.286         \\
+      $Z'$ Light Vector                                                               & 992,111               & *275.518         \\
+      $Z'$ Effective Field Theory                                                     & 1,356,372             & *0.001           \\\midrule\midrule
+   \end{tabular}
+   \label{tab:dataset}
+\end{table}
+
 
 \graphicspath{{../../figures/}}
-\section{Data Preparation/LOG}
-We are dropping $\Delta\phi(l_1,l_2)$ and $\Delta\phi(l_c,E_T^{miss})$ due the poor agreement between MC and data. The first one is most likely due us not including fake leptons (and also for all non SFOS final states). \todo{I will remove this sentence, but its just so we know}The latter is a problem that PhD. Even is being haunted by. 
-There is also the problem of missing variables. For this theis, as shown in Table \ref{tab:paddable_variables}, we will record events with up to three jets in the final state. As mentioned earlier, there isn't 
-always three jets in the final state, to mediate this problem I chose to set the $p_T$ to zero for the missing jets and $m_{jj}$ to zero if there are less than two jets, this is something that is physically reasonable as it doesn't violate any conservation laws. 
-More problematic however is the $\eta$ and $\phi$ when there aren't jets. To mediate this I've set the values to -999, which has no physical meaning and is impossible to achieve, this I did so it becomes easier for us to identify the jagged arrays further in the network preparation. 
-The missing variables is not a problem when making BDTs with XGBoost. There is also another problem, albeit less problematic than the previous ones, with the final states that are not SFOS, as the MC generated background 
-on these tend to be lower than the recorded data. The number of events that are not SFOS are minimal though, and we think the reason it doesn't fit the data is because we are not including fake leptons. \todo{something more to add?}
-
-\subsection{Zp Dark Matter dataset}
-To train the networks I will utilize two methods\todo{see next comment for the two methods}. The first one being this where the dataset being sent into the ML network will contain every single DM MC sample available. 
-So far there are 154 different MC samples, these are based on three theories. A Light Vector (LV), Dark Higgs (DH) and Effective Field Theory (EFT) which produces the WIMP DM particles, and a new theoretical particle, $Z'$, 
-that decays into a lepton pair. The three theories are divided further into MC samples with a Light Dark Sector (LDS) and High Dark Sector (HDS) which tells us therange of the Dark Matter candidate mass. 
-And lastly it is divided further into more MC samples with different masses for $Z'$. This dataset includes all of these samples such that the network learns Dark Matter in a model independent way.
-
-\subsection{"Ensemble" dataset / Model indepedence}\todo{This subsection and is outdated with our current plan, and this will change when we discuss further how to implement the model-independent aspect.}
-Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when 
-training a network using the full dataset it might only focus on a the more resonant models with fixed masses. Also, every different DM sample has different phenomenology, specially in the future when I will 
-be receiving SUSY samples, meaning that it also might not train the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. 
-However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, 
-and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights to re-weight the MC events to expected events gives us an extremely low statistics dataset, which punishes the network for guessing correctly. \\
-\\\textit{\textbf{THIS IS OUTDATED AND WILL MOST LIKELY BE CHANGED TO THE SIGNAL REGION APPROACH, WHERE WE STATISTICALLY COMBINE WHAT THE NETWORKS LEARN IN A MODEL DEPENDENT WAY}} Thus making the approach to teach the networks one MC sample at a time is impossible. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. 
-Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600$ $\cap\le 1100$ GeV and 
-the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. 
-
-
-
-
-
-
 \section{Neural Network Training}
 For this thesis we purely utilize \verb|TensorFlow v. 2.7.1 GPU| for NN. Before implementing everything into a real NN we need to first prepare the data in a special way. The first and most important thing for 
 this whole project is that the \verb|batch_size| should be as big as possible whenever we try \textbf{anything} when using the dataset. This is because of both the size of the dataset and because of the imbalance between signal 

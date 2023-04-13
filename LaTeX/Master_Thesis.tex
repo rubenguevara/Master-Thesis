@@ -70,7 +70,7 @@
 
 \title{Model independent search for Dark Matter using Machine Learning
 } \subtitle{
-    In dilepton and Missing Transverse Energy final states with the ATLAS detector at the LHC 
+    In final states with dileptons and Missing Transverse Energy with the ATLAS detector at the LHC 
 }
 \author{Ruben Guevara}
 \date{Spring 2023}
@@ -255,137 +255,41 @@ balance re-weighted bkg with raw MC signal. chatgpt was right about sample weigh
 
 
 \appendix
-\chapter{Kinematical variables distribution in control region}\label{apendix:Kin_var_in_CR}
-\graphicspath{{../Plots/Data_Analysis/SRs/Control_region/}} 
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{dPhiCloseMet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{dPhiLeadMet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{dPhiLeps.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mjj.pdf}
-    \end{subfigure}
-    \caption{$\Delta\Phi(l_c,E_T^{miss})$, $\Delta\Phi(l_l,E_T^{miss})$, $\Delta\Phi(l_1,l_2)$ and $m_{jj}$ distribution in control region.}
-\end{figure}
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt1_ll.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt2_ll.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi1_ll.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi2_ll.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta1_ll.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta2_ll.pdf}
-    \end{subfigure}
-    \caption{Leptons $p_T, \phi$ and $\eta$ distribution in control region.}
-\end{figure}
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt1_jet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt2_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi1_jet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi2_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta1_jet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta2_jet.pdf}
-    \end{subfigure}
-    \caption{Leading jets $p_T, \phi$ and $\eta$ distribution in control region.}
-\end{figure}
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{et.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt3_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi3_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta3_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{ht.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mt.pdf}
-    \end{subfigure}
-    \caption{$p_T^3, \phi^3$ and $\eta^3$ of jet, dilepton pair $E_T$, $H_T$ and $m_T$ distribution in control region.}
-\end{figure}
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{nBJet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{nLJet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{rt.pdf}
-    \end{subfigure}
-    \caption{Number of b- and light jets and $E_T^{miss}/H_T$ distribution in control region.}
-\end{figure}
+
+\subfile{chapters/DSIDs.tex}
+
+\subfile{chapters/Distributions_CR.tex}
+
+\subfile{chapters/Distributions_jets.tex}
+
+
+
+
+
+\chapter*{Logbook}
+
+We are dropping $\Delta\phi(l_1,l_2)$ and $\Delta\phi(l_c,E_T^{miss})$ due the poor agreement between MC and data. The first one is most likely due us not including fake leptons (and also for all non SFOS final states). \todo{I will remove this sentence, but its just so we know}The latter is a problem that PhD. Even is being haunted by. 
+There is also the problem of missing variables. For this theis, as shown in Table \ref{tab:paddable_variables}, we will record events with up to three jets in the final state. As mentioned earlier, there isn't 
+always three jets in the final state, to mediate this problem I chose to set the $p_T$ to zero for the missing jets and $m_{jj}$ to zero if there are less than two jets, this is something that is physically reasonable as it doesn't violate any conservation laws. 
+More problematic however is the $\eta$ and $\phi$ when there aren't jets. To mediate this I've set the values to -999, which has no physical meaning and is impossible to achieve, this I did so it becomes easier for us to identify the jagged arrays further in the network preparation. 
+The missing variables is not a problem when making BDTs with XGBoost. There is also another problem, albeit less problematic than the previous ones, with the final states that are not SFOS, as the MC generated background 
+on these tend to be lower than the recorded data. The number of events that are not SFOS are minimal though, and we think the reason it doesn't fit the data is because we are not including fake leptons. \todo{something more to add?}
+
+\subsection*{Zp Dark Matter dataset}
+To train the networks I will utilize two methods\todo{see next comment for the two methods}. The first one being this where the dataset being sent into the ML network will contain every single DM MC sample available. 
+So far there are 154 different MC samples, these are based on three theories. A Light Vector (LV), Dark Higgs (DH) and Effective Field Theory (EFT) which produces the WIMP DM particles, and a new theoretical particle, $Z'$, 
+that decays into a lepton pair. The three theories are divided further into MC samples with a Light Dark Sector (LDS) and High Dark Sector (HDS) which tells us therange of the Dark Matter candidate mass. 
+And lastly it is divided further into more MC samples with different masses for $Z'$. This dataset includes all of these samples such that the network learns Dark Matter in a model independent way.
+
+\subsection*{"Ensemble" dataset / Model indepedence}\todo{This subsection and is outdated with our current plan, and this will change when we discuss further how to implement the model-independent aspect.}
+Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when 
+training a network using the full dataset it might only focus on a the more resonant models with fixed masses. Also, every different DM sample has different phenomenology, specially in the future when I will 
+be receiving SUSY samples, meaning that it also might not train the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. 
+However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, 
+and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights to re-weight the MC events to expected events gives us an extremely low statistics dataset, which punishes the network for guessing correctly. \\
+\\\textit{\textbf{THIS IS OUTDATED AND WILL MOST LIKELY BE CHANGED TO THE SIGNAL REGION APPROACH, WHERE WE STATISTICALLY COMBINE WHAT THE NETWORKS LEARN IN A MODEL DEPENDENT WAY}} Thus making the approach to teach the networks one MC sample at a time is impossible. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. 
+Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600$ $\cap\le 1100$ GeV and 
+the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. 
 
 
 \clearpage
