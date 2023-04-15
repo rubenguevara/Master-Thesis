@@ -227,7 +227,7 @@ which of these is of more importance.
     \caption{Distribution of $E_{T}^{miss,sig}$ in control region.}\label{fig:met_sig_dist}
 \end{figure}
 \\To keep the trend of variables for invisible particles, we will also study the transverse mass, $m_T$ defined in Eq. (\ref{eq:transverse_mass}), and stransverse mass, $m_{T2}$ defined in Eq. (\ref{eq:stransverse_mass}) which might help our ML algorithm to sort i.e. 
-W backgrounds from the signal. The distribution of the stransverse mass can be seen in Figure \ref{fig:mt2_dist}. Moving on to more jet related variables, we will look at the $p_T$, $\eta$ and $\phi$ of the three most energetic jets, the invariant mass of the two most energetic jets $m_{jj}$, as well as count the number of b- and light jets. Altough these jet 
+W backgrounds from the signal. The distribution of the stransverse mass can be seen in Figure \ref{fig:mt2_dist}. Moving on to more jet related variables, we will look at the $p_T$, $\eta$ and $\phi$ of the three most energetic jets, as these have the best MC and data agreement (see Figure \ref{fig:jetcuts}), the invariant mass of the two most energetic jets $m_{jj}$, as well as count the number of b- and light jets. Altough these jet 
 variables might not sound like the most useful when singleing out DM signal from SM background, there is always the possibility that our ML algorithm sees a pattern which is overlooked by us when conducting these kind of searches. 
 Another varible we will look at is the hadronic activity, $H_T$ defined in Eq. (\ref{eq:HT}), from which we will also look at the ratio between the MET and hadronic activity, $E_T^{miss}/H_T$, as this can help the ML algorithm sort out DM events from background events.\\
 \begin{figure}[!ht]
@@ -285,7 +285,7 @@ which can furhtermore be saved as \verb|h5| files to be read more efficiently. T
 
 \section{Problems}
 There are however still problems when we....
-\subsection{Missing variables}
+\subsection{Missing variables}\label{sec:jagged_arrays}
 For this theis, as shown in Table \ref{tab:variables} with the $^\dagger$, we will record events with up to three jets in the final state. However, there isn't always three jets in the recorded events that we will be studying, 
 this creates \textit{jagged arrays} which we can interpret as arrays with missing values. This is an unwanted feature that we need to avoid when training a ML algorithm, and is a problem that is not common in other ML tasks aside from HEPP.
 To mediate this problem we chose to set the $p_T$ to zero for the missing jets and $m_{jj}$ to zero if there are less than two jets, this is something that is physically reasonable as it doesn't violate any conservation laws. 
