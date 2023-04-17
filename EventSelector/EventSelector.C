@@ -119,14 +119,19 @@ void EventSelector::Begin(TTree * /*tree*/)
 
   all_channels = {};
   for(const auto & chn:channel_names){
-    all_channels.push_back("ee_SS_"+chn); 
-    all_channels.push_back("uu_SS_"+chn); 
-    all_channels.push_back("eu_SS_"+chn); 
-    all_channels.push_back("ue_SS_"+chn);
-    all_channels.push_back("ee_OS_"+chn); 
-    all_channels.push_back("uu_OS_"+chn); 
-    all_channels.push_back("eu_OS_"+chn); 
-    all_channels.push_back("ue_OS_"+chn); 
+    // all_channels.push_back("ee_SS_"+chn); 
+    // all_channels.push_back("uu_SS_"+chn); 
+    // all_channels.push_back("eu_SS_"+chn); 
+    // all_channels.push_back("ue_SS_"+chn);
+    // all_channels.push_back("ee_OS_"+chn); 
+    // all_channels.push_back("uu_OS_"+chn); 
+    // all_channels.push_back("eu_OS_"+chn); 
+    // all_channels.push_back("ue_OS_"+chn); 
+    // all_channels.push_back("Uncut_"+chn);
+    all_channels.push_back("CtrlReg_"+chn);
+    all_channels.push_back("MetReg_50-100_"+chn);
+    all_channels.push_back("MetReg_100-150_"+chn);
+    all_channels.push_back("MetReg_150_"+chn);
   }
 
   // Define histograms
@@ -134,16 +139,16 @@ void EventSelector::Begin(TTree * /*tree*/)
   TString h_name, filename2; 
   for( const auto & chn:all_channels ){
       h_name = chn; 
-      h_mll[h_name] = new TH1D("h_"+h_name+"_mll", h_name+"_mll", 74, 20, 3500);
-      h_pt1[h_name] = new TH1D("h_"+h_name+"_pt1", h_name+"_pt1", 74, 20, 3500);  
-      h_pt2[h_name] = new TH1D("h_"+h_name+"_pt2", h_name+"_pt2", 74, 20, 3500);  
-      h_eta1[h_name] = new TH1D("h_"+h_name+"_eta1", h_name+"_eta1", 50, -3, 3);  
-      h_eta2[h_name] = new TH1D("h_"+h_name+"_eta2", h_name+"_eta2", 50, -3, 3);  
+      h_mll[h_name] = new TH1D("h_"+h_name+"_mll", h_name+"_mll", 74, 10, 3500);
+      h_pt1[h_name] = new TH1D("h_"+h_name+"_pt1", h_name+"_pt1", 74, 10, 3500);  
+      h_pt2[h_name] = new TH1D("h_"+h_name+"_pt2", h_name+"_pt2", 74, 10, 3500);  
+      h_eta1[h_name] = new TH1D("h_"+h_name+"_eta1", h_name+"_eta1", 50, -4.9, 4.9);  
+      h_eta2[h_name] = new TH1D("h_"+h_name+"_eta2", h_name+"_eta2", 50, -4.9, 4.9);  
       h_met[h_name] = new TH1D("h_"+h_name+"_met", h_name+"_met", 74, 0, 2500); 
-      h_mt[h_name] = new TH1D("h_"+h_name+"_mt", h_name+"_mt", 74, 20, 3500);
-      h_mt2[h_name] = new TH1D("h_"+h_name+"_mt2", h_name+"_mt2", 74, 20, 1500);
-      h_ht[h_name] = new TH1D("h_"+h_name+"_ht", h_name+"_ht", 74, 20, 3500);
-      h_rt[h_name] = new TH1D("h_"+h_name+"_rt", h_name+"_rt", 50, -0.1, 10);
+      h_mt[h_name] = new TH1D("h_"+h_name+"_mt", h_name+"_mt", 74, 10, 3500);
+      h_mt2[h_name] = new TH1D("h_"+h_name+"_mt2", h_name+"_mt2", 74, 10, 1500);
+      h_ht[h_name] = new TH1D("h_"+h_name+"_ht", h_name+"_ht", 74, 0, 3500);
+      h_rt[h_name] = new TH1D("h_"+h_name+"_rt", h_name+"_rt", 50, 0, 10);
       h_met_sig[h_name] = new TH1D("h_"+h_name+"_met_sig", h_name+"_met_sig", 74, 0, 100);
       h_et[h_name] = new TH1D("h_"+h_name+"_et", h_name+"_et", 74, 20, 3000);
       h_phi1[h_name] = new TH1D("h_"+h_name+"_phi1", h_name+"_phi1", 50, -M_PI, M_PI);   
@@ -152,23 +157,40 @@ void EventSelector::Begin(TTree * /*tree*/)
       h_dPhiCloseMet[h_name] = new TH1D("h_"+h_name+"_dPhiCloseMet", h_name+"_dPhiCloseMet", 30, 0, M_PI);
       h_dPhiLeadMet[h_name] = new TH1D("h_"+h_name+"_dPhiLeadMet", h_name+"_dPhiLeadMet", 30, 0, M_PI); 
       h_dPhiLLmet[h_name] = new TH1D("h_"+h_name+"_dPhiLLmet", h_name+"_dPhiLLpmet", 30, 0, M_PI);  
-      h_nBJet[h_name] = new TH1D("h_jet_nBJet","jet_nBJet", 8, 0, 7); 
-      h_nLJet[h_name] = new TH1D("h_jet_nLJet","jet_nLJet", 8, 0, 7); 
-      h_mjj[h_name] = new TH1D("h_jet_mjj", "jet_mjj", 74, 20, 3500);
-      h_nTJet[h_name] = new TH1D("h_jet_nTJet","jet_nTJet", 8, 0, 7); 
-      h_jetpt1[h_name] = new TH1D("h_jet_pt1", "jet_pt1", 74, 20, 3500);  
-      h_jetpt2[h_name] = new TH1D("h_jet_pt2", "jet_pt2", 74, 20, 3500);  
-      h_jetpt3[h_name] = new TH1D("h_jet_pt3", "jet_pt3", 74, 20, 3500);  
-      h_jeteta1[h_name] = new TH1D("h_jet_eta1", "jet_eta1", 50, -3, 3);  
-      h_jeteta2[h_name] = new TH1D("h_jet_eta2", "jet_eta2", 50, -3, 3);  
-      h_jeteta3[h_name] = new TH1D("h_jet_eta3", "jet_eta3", 50, -3, 3);  
-      h_jetphi1[h_name] = new TH1D("h_jet_phi1", "jet_phi1", 50, -M_PI, M_PI);   
-      h_jetphi2[h_name] = new TH1D("h_jet_phi2", "jet_phi2", 50, -M_PI, M_PI);  
-      h_jetphi3[h_name] = new TH1D("h_jet_phi3", "jet_phi3", 50, -M_PI, M_PI);  
-      h_n_bjetsPt20[h_name] = new TH1D("h_n_bjetsPt20", "n_bjetsPt20", 21, 0, 20);  
-      h_n_ljetsPt40[h_name] = new TH1D("h_n_ljetsPt40", "n_ljetsPt40", 21, 0, 20); 
-      h_jetEtaCentral[h_name] = new TH1D("h_jetEtaCentral", "jetEtaCentral", 31, 0, 30);  
-      h_jetEtaForward50[h_name] = new TH1D("h_jetEtaForward50", "jetEtaForward50", 31, 0, 30); 
+      // h_nBJet[h_name] = new TH1D("h_jet_nBJet","jet_nBJet", 8, 0, 7); 
+      // h_nLJet[h_name] = new TH1D("h_jet_nLJet","jet_nLJet", 8, 0, 7); 
+      // h_mjj[h_name] = new TH1D("h_jet_mjj", "jet_mjj", 74, 20, 3500);
+      // h_nTJet[h_name] = new TH1D("h_jet_nTJet","jet_nTJet", 8, 0, 7); 
+      // h_jetpt1[h_name] = new TH1D("h_jet_pt1", "jet_pt1", 74, 20, 3500);  
+      // h_jetpt2[h_name] = new TH1D("h_jet_pt2", "jet_pt2", 74, 20, 3500);  
+      // h_jetpt3[h_name] = new TH1D("h_jet_pt3", "jet_pt3", 74, 20, 3500);  
+      // h_jeteta1[h_name] = new TH1D("h_jet_eta1", "jet_eta1", 50, -3, 3);  
+      // h_jeteta2[h_name] = new TH1D("h_jet_eta2", "jet_eta2", 50, -3, 3);  
+      // h_jeteta3[h_name] = new TH1D("h_jet_eta3", "jet_eta3", 50, -3, 3);  
+      // h_jetphi1[h_name] = new TH1D("h_jet_phi1", "jet_phi1", 50, -M_PI, M_PI);   
+      // h_jetphi2[h_name] = new TH1D("h_jet_phi2", "jet_phi2", 50, -M_PI, M_PI);  
+      // h_jetphi3[h_name] = new TH1D("h_jet_phi3", "jet_phi3", 50, -M_PI, M_PI);  
+      // h_n_bjetsPt20[h_name] = new TH1D("h_n_bjetsPt20", "n_bjetsPt20", 21, 0, 20);  
+      // h_n_ljetsPt40[h_name] = new TH1D("h_n_ljetsPt40", "n_ljetsPt40", 21, 0, 20); 
+      // h_jetEtaCentral[h_name] = new TH1D("h_jetEtaCentral", "jetEtaCentral", 31, 0, 30);  
+      // h_jetEtaForward50[h_name] = new TH1D("h_jetEtaForward50", "jetEtaForward50", 31, 0, 30); 
+      h_nBJet[h_name] = new TH1D("h_"+h_name+"_jet_nBJet",h_name+"_nBJet", 11, 0, 10); 
+      h_nLJet[h_name] = new TH1D("h_"+h_name+"_jet_nLJet",h_name+"_nLJet", 21, 0, 20); 
+      h_mjj[h_name] = new TH1D("h_"+h_name+"_jet_mjj", h_name+"_mjj", 74, 20, 3500);
+      h_nTJet[h_name] = new TH1D("h_"+h_name+"_jet_nTJet",h_name+"_nTJet", 21, 0, 20); 
+      h_jetpt1[h_name] = new TH1D("h_"+h_name+"_jet_pt1", h_name+"_pt1", 74, 20, 3500);  
+      h_jetpt2[h_name] = new TH1D("h_"+h_name+"_jet_pt2", h_name+"_pt2", 74, 20, 3500);  
+      h_jetpt3[h_name] = new TH1D("h_"+h_name+"_jet_pt3", h_name+"_pt3", 74, 20, 3500);  
+      h_jeteta1[h_name] = new TH1D("h_"+h_name+"_jet_eta1", h_name+"_eta1", 50, -4.9, 4.9);  
+      h_jeteta2[h_name] = new TH1D("h_"+h_name+"_jet_eta2", h_name+"_eta2", 50, -4.9, 4.9);  
+      h_jeteta3[h_name] = new TH1D("h_"+h_name+"_jet_eta3", h_name+"_eta3", 50, -4.9, 4.9);  
+      h_jetphi1[h_name] = new TH1D("h_"+h_name+"_jet_phi1", h_name+"_phi1", 50, -M_PI, M_PI);   
+      h_jetphi2[h_name] = new TH1D("h_"+h_name+"_jet_phi2", h_name+"_phi2", 50, -M_PI, M_PI);  
+      h_jetphi3[h_name] = new TH1D("h_"+h_name+"_jet_phi3", h_name+"_phi3", 50, -M_PI, M_PI);  
+      // h_n_bjetsPt20[h_name] = new TH1D("h_"+h_name+"_n_bjetsPt20", "n_bjetsPt20", 21, 0, 20);  
+      // h_n_ljetsPt40[h_name] = new TH1D("h_"+h_name+"_n_ljetsPt40", "n_ljetsPt40", 21, 0, 20); 
+      // h_jetEtaCentral[h_name] = new TH1D("h_"+h_name+"_jetEtaCentral", "jetEtaCentral", 31, 0, 30);  
+      // h_jetEtaForward50[h_name] = new TH1D("h_"+h_name+"_jetEtaForward50", "jetEtaForward50", 31, 0, 30); 
       
   }
   filename2 = "../../../storage/racarcam/ML_files/"+ml_file+"-"+dataset+"-"+file_dsid+"-"+file_nr+".root";   // ML FILE
@@ -417,10 +439,6 @@ Bool_t EventSelector::Process(Long64_t entry){
 
   TLorentzVector totalj, ajet, j1, j2, j3;
   n_bjet77 = 0; n_bjet85 = 0; nljets = 0; nbjets = 0;
-  n_bjetPt20 = 0; n_bjetPt30 = 0; n_bjetPt40 = 0; n_bjetPt50 = 0; n_bjetPt60 = 0;
-  n_ljetPt20 = 0; n_ljetPt30 = 0; n_ljetPt40 = 0; n_ljetPt50 = 0; n_ljetPt60 = 0; 
-  jetEtaCentral = 0; jetEtaForward20 = 0; jetEtaForward30 = 0; jetEtaForward40 = 0; jetEtaForward50 = 0;
-  jetEtaCalorimeter20 = 0; jetEtaCalorimeter30 = 0; jetEtaCalorimeter40 = 0; jetEtaCalorimeter50 = 0; 
 
   for(Int_t i = 0; i<n_jet; i++){
     if(n_jet >= 3){
@@ -436,18 +454,11 @@ Bool_t EventSelector::Process(Long64_t entry){
     ajet.SetPtEtaPhiM(jet_pt[i]/1000., jet_eta[i], jet_phi[i], jet_m[i]/1000.);
     
     if(jet_DL1r_score[i]>2.195){n_bjet77++;} 
-    if(jet_DL1r_score[i]>0.665){
-      n_bjet85++; nbjets++; 
-      if (jet_pt[i]/1000 >= 20){n_bjetPt20++;} 
-      if (abs(jet_eta[i]) <= 2.5){jetEtaCentral++;}
-      if (abs(jet_eta[i]) > 2.5 && jet_pt[i]/1000 >= 50){jetEtaForward50++;}
-      } 
-    if(jet_DL1r_score[i]<0.665){
-      nljets++;
-      if (jet_pt[i]/1000 >= 40){n_ljetPt40++;} 
-      if (abs(jet_eta[i]) <= 2.5){jetEtaCentral++;}
-      if (abs(jet_eta[i]) > 2.5 && jet_pt[i]/1000 >= 50){jetEtaForward50++;}
-      } 
+    if(jet_DL1r_score[i]>0.665 && jet_pt[i]/1000 >= 30){n_bjet85++; nbjets++; } 
+    if(jet_DL1r_score[i]<=0.665 && jet_pt[i]/1000 >= 40){nljets++;} 
+    
+    if(jet_DL1r_score[i]>0.665 && jet_pt[i]/1000 < 30){return kTRUE; }                   // b-jet pt cut
+    if(jet_DL1r_score[i]<=0.665 && jet_pt[i]/1000 < 40){return kTRUE; }                  // light jet pt cut
     
 
     if(i==0)totalj = ajet;
@@ -523,14 +534,19 @@ Bool_t EventSelector::Process(Long64_t entry){
 
   passed_channels = {}; isTreeChannel=0; 
   
-  if(dileptons=="ee" && isOS == 0){passed_channels.push_back("ee_SS_50MET");}   
-  if(dileptons=="uu" && isOS == 0){passed_channels.push_back("uu_SS_50MET");} 
-  if(dileptons=="eu" && isOS == 0){passed_channels.push_back("eu_SS_50MET");}   
-  if(dileptons=="ue" && isOS == 0){passed_channels.push_back("ue_SS_50MET");} 
-  if(dileptons=="ee" && isOS == 1){passed_channels.push_back("ee_OS_50MET");}   
-  if(dileptons=="uu" && isOS == 1){passed_channels.push_back("uu_OS_50MET");} 
-  if(dileptons=="eu" && isOS == 1){passed_channels.push_back("eu_OS_50MET");}   
-  if(dileptons=="ue" && isOS == 1){passed_channels.push_back("ue_OS_50MET");} 
+  if(mll > 10 && met > 50){passed_channels.push_back("CtrlReg_50MET");}
+  if(mll > 120 && met < 100){passed_channels.push_back("MetReg_50-100_50MET");}
+  if(mll > 120 && met > 100 && met < 150){passed_channels.push_back("MetReg_100-150_50MET");}
+  if(mll > 120 && met > 150){passed_channels.push_back("MetReg_150_50MET");}
+
+  // if(dileptons=="ee" && isOS == 0){passed_channels.push_back("ee_SS_50MET");}   
+  // if(dileptons=="uu" && isOS == 0){passed_channels.push_back("uu_SS_50MET");} 
+  // if(dileptons=="eu" && isOS == 0){passed_channels.push_back("eu_SS_50MET");}   
+  // if(dileptons=="ue" && isOS == 0){passed_channels.push_back("ue_SS_50MET");} 
+  // if(dileptons=="ee" && isOS == 1){passed_channels.push_back("ee_OS_50MET");}   
+  // if(dileptons=="uu" && isOS == 1){passed_channels.push_back("uu_OS_50MET");} 
+  // if(dileptons=="eu" && isOS == 1){passed_channels.push_back("eu_OS_50MET");}   
+  // if(dileptons=="ue" && isOS == 1){passed_channels.push_back("ue_OS_50MET");} 
 
   //==============// 
   // Event weight //
@@ -688,11 +704,6 @@ Bool_t EventSelector::Process(Long64_t entry){
     h_jetphi3[this_name]->Fill(j3.Phi(), wgt);
     h_dPhiCloseMet[this_name]->Fill(abs(dPhiCloseMet), wgt);
     h_dPhiLeadMet[this_name]->Fill(abs(dPhiLeadMet), wgt);
-
-    h_n_bjetsPt20[this_name]->Fill(n_bjetPt20, wgt);
-    h_n_ljetsPt40[this_name]->Fill(n_ljetPt40, wgt);
-    h_jetEtaCentral[this_name]->Fill(jetEtaCentral, wgt);
-    h_jetEtaForward50[this_name]->Fill(jetEtaForward50, wgt);
     }
   
   // ML FILE
@@ -705,13 +716,6 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_lep2Phi = (l2.Phi());
   MY->bMY_jetB = (nbjets);  
   MY->bMY_jetLight = (nljets);   
-  
-
-  // Skip padding, hopefully
-  MY->bMY_n_bjetPt20 = (n_bjetPt20);
-  MY->bMY_n_ljetPt40 = (n_ljetPt40);
-  MY->bMY_jetEtaCentral = (jetEtaCentral);  
-  MY->bMY_jetEtaForward50 = (jetEtaForward50); 
 
   if(n_jet >=3){  
   MY->bMY_jet1Pt = (j1.Pt());  
@@ -842,12 +846,7 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_jeteta3[h_name]->Write();
     h_jetphi1[h_name]->Write();
     h_jetphi2[h_name]->Write();
-    h_jetphi3[h_name]->Write();
-
-    h_n_bjetsPt20[h_name]->Write(); 
-    h_n_ljetsPt40[h_name]->Write(); 
-    h_jetEtaCentral[h_name]->Write();
-    h_jetEtaForward50[h_name]->Write();    
+    h_jetphi3[h_name]->Write(); 
     }
 
   // Reset histograms
@@ -884,11 +883,6 @@ void EventSelector::WriteToFile(TString fileid, TString data_type, TString name)
     h_jetphi1[h_name]->Reset(); 
     h_jetphi2[h_name]->Reset(); 
     h_jetphi3[h_name]->Reset(); 
-
-    h_n_bjetsPt20[h_name]->Reset(); 
-    h_n_ljetsPt40[h_name]->Reset(); 
-    h_jetEtaCentral[h_name]->Reset();
-    h_jetEtaForward50[h_name]->Reset();
   }
   
   cout << "Done with file: " << name << endl; 
