@@ -70,7 +70,7 @@
 
 \title{Model independent search for Dark Matter using Machine Learning
 } \subtitle{
-    In dilepton and Missing Transverse Energy final states with the ATLAS detector at the LHC 
+    In final states with dileptons and Missing Transverse Energy with the ATLAS detector at the LHC 
 }
 \author{Ruben Guevara}
 \date{Spring 2023}
@@ -147,245 +147,54 @@ Something something
 
 \part{Results}
 
-\graphicspath{{figures/}}
-% \graphicspath{{../../figures/}}
+\chapter{Network opimization}\label{chap:network_opt}
+\subfile{chapters/Part_III/7_Machine_Learning.tex}
+\subfile{chapters/Part_III/8_Results.tex}
 
-\chapter{Comparison to cut and count}
-Testing three models using the classical data analysis way we apply cuts to kinematic variables and try to isolate the signal from the background to then calculated the expected significance. The three models I chose to test are all High Dark Sector models with $m_{Z'}=130$GeV. They are a Light Vector (LV), Dark Higgs (DH) and Effective Field Theory (EFT) models. The cuts I made on these are shown in Table \ref{tab:cuts}.
-\begin{table}[!h]
-    \centering
-    \caption[Cut and count cuts]{Table showcasing the cuts used when doing the cut and count method.}
-    \begin{tabular}{l|r}\midrule\midrule
-                                & Cut\\\midrule
-         $E_T^{miss}/\sigma$    & > 10      \\
-         $m_T$                  & > 160 GeV \\
-         $m_{ll}$               & > 120 GeV \\
-         Number of B-jets       & 0         \\
-         $m_{T2}$               & > 110 GeV \\\midrule\midrule
-    \end{tabular}
-    \label{tab:cuts}
-\end{table}
-\\ Since the cross section to find Dark Matter is really small we have to use the low-statistics expected significance formula to find the closest to correct significance. The formula is
-\begin{equation}\label{eq:low_stat_Z}
-    Z = \sqrt{2\left[(s + b)\ln(1 + \frac{s}{b}) - s \right]}
-\end{equation}
-Where $s$ is the number of signal events and $b$ is the number of background events. Using this we get the results shown in Table \ref{tab:cutsigee} for the electron channel and Table \ref{tab:cutsiguu} for the muon channel. Also included on the tables are the number of events. One thing worth mentioning is that when adding another cut on the maximum invariant mass increases the significance. The significance for LV on the electron channel was at $1.2\sigma$ when adding a cut stating that $m_{ll}<150$ GeV. This makes sense since the models in question all have a $m_{Z'}=130$GeV. This cut was not added since we do not want to put a cap on the mass of the propagator, as we don't know what the real mass is.
-\begin{table}[!h]
-    \centering
-    \caption[Cut and count significance ee]{Table showcasing the result of the cut and count method for the electron channel.}
-    \begin{tabular}{l|c|c|c|r}\midrule\midrule
-                                          & LV  & DH  & EFT & Background \\\midrule
-         Events before cuts               & 15  & 20  & 0   & 1,256,624    \\
-         Events after cuts                & 4   & 6   & 0   & 117 \\
-         Expected significance [$\sigma$] & 0.4 & 0.6 & 0   & \\\midrule\midrule
-    \end{tabular}
-    \label{tab:cutsigee}
-\end{table}
-\begin{table}[!h]
-    \centering
-    \caption[Cut and count significance uu]{Table showcasing the result of the cut and count method for the muon channel.}
-    \begin{tabular}{l|c|c|c|r}\midrule\midrule
-                                          & LV  & DH  & EFT & Background \\\midrule
-         Events before cuts               & 14  & 19  & 0   & 1,626,098    \\
-         Events after cuts                & 3   & 5   & 0   & 108 \\
-         Expected significance [$\sigma$] & 0.36 & 0.51 & 0   & \\\midrule\midrule
-    \end{tabular}
-    \label{tab:cutsiguu}
-\end{table}
-\\If we were to compare these results with what our NN and BDT that trained on the full dataset we see that we can calculate the expected significance in different locations for the validation plots. Testing on the networks that trained using the data scientist method on the full DM dataset we get the results shown in Figure \ref{fig:XGB_SIG_FULL} for XGBoost and Figure \ref{fig:NN_SIG_FULL} for the Neural Network.
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{XGB_VAL_uu.pdf}
-        \caption{Validation plot.}\label{fig:XGB_VAL_UU}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{XGB_EXP_SIG_uu.pdf}
-        \caption{Expected significance when looking at bins and forth.}\label{fig:XGB_EXP_SIG:uu}
-     \end{subfigure}
-	\caption{Expected significance of XGBoost when trained on the Full DM dataset for the DH HDS $m_{Z'}$ = 130 GeV muon model.}\label{fig:XGB_SIG_FULL}
-\end{figure}
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{NN_VAL_uu.pdf}
-        \caption{Validation plot.}\label{fig:NN_VAL_UU}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.8\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{NN_EXP_SIG_uu.pdf}
-        \caption{Expected significance when looking at bins and forth.}\label{fig:NN_EXP_SIG:uu}
-     \end{subfigure}
-	\caption{Expected significance of the Neural Network when trained on the Full DM dataset for the DH HDS $m_{Z'}$ = 130 GeV muon model.}\label{fig:NN_SIG_FULL}
-\end{figure}
-\clearpage As we can see the expected significance is lower using ML than a rough cut and count. My theory for why this is the case is because we are testing just \textit{\textbf{one}} sample out of 154 different ones that are included for the three different theories I have acquired so far. And the ML networks shown above have both trained on a dataset including all 154 DM samples. The models that I tested might also not have been one of the "important" models the network learned from. Thus if I were to train the network individually based on the theory it might give better results.
-
-\clearpage
-\begin{table}[!h]
-   \centering \caption[Cut and count significance ee]{Table showcasing the result of the cut and count method for the electron channel.}
-   \begin{tabular}{l|c|c|c|r}\midrule\midrule
-                                                & Signal     & Background \\\midrule
-        MC events                               & 2,990,986  & 69,664,902 \\
-        Sum of "Weight"                         & 388.75     & 2,714,091.3 \\
-        Sum of generator weights                & 236.3      & 55,446,228,776,354.8 \\
-        Sum of (generator weights*lumi / SOW)   & 9,167.1    & 61.1 \\
-        Sum of (generator weights/SOW)          & 199.21    & 1.52 \\\midrule\midrule
-   \end{tabular}
-%    \label{tab:cutsigee}
-\end{table}
-
-\begin{table}[!h]
-    \centering
-    \caption[Unbalanced DM training dataset]{Table Showcasing how uneven the training dataset is between signal and background. This is on the dataset which incorporates all the different DM MC samples}
-    \begin{tabular}{l|c|c|c}\midrule\midrule
-                    & Number of events & Sum of weights & Events $\times$ SOW [$10^{13}$]\\\midrule
-         Signal     & 2,991,543        & 36,327,943.99  & 1.08\\
-         Background & 69,664,345       & 36,327,944.03  & 25.3 \\ \midrule\midrule
-    \end{tabular}
-    \label{tab:UnbalancedDMTraining}
-\end{table}
 in spacetime.
-balance re-weighted bkg with raw MC signal. chatgpt was right about sample weights (its summed over though, keep that in mind)
+
+balance re-weighted bkg with raw MC signal.
 \clearpage
 
 
 \appendix
-\chapter{Kinematical variables distribution in control region}\label{apendix:Kin_var_in_CR}
-\graphicspath{{../Plots/Data_Analysis/SRs/Control_region/}} 
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{dPhiCloseMet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{dPhiLeadMet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{dPhiLeps.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mjj.pdf}
-    \end{subfigure}
-    \caption{$\Delta\Phi(l_c,E_T^{miss})$, $\Delta\Phi(l_l,E_T^{miss})$, $\Delta\Phi(l_1,l_2)$ and $m_{jj}$ distribution in control region.}
-\end{figure}
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt1_ll.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt2_ll.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi1_ll.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi2_ll.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta1_ll.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta2_ll.pdf}
-    \end{subfigure}
-    \caption{Leptons $p_T, \phi$ and $\eta$ distribution in control region.}
-\end{figure}
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt1_jet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt2_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi1_jet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi2_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta1_jet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta2_jet.pdf}
-    \end{subfigure}
-    \caption{Leading jets $p_T, \phi$ and $\eta$ distribution in control region.}
-\end{figure}
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{et.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{pt3_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{phi3_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{eta3_jet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{ht.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mt.pdf}
-    \end{subfigure}
-    \caption{$p_T^3, \phi^3$ and $\eta^3$ of jet, dilepton pair $E_T$, $H_T$ and $m_T$ distribution in control region.}
-\end{figure}
-\begin{figure}[!ht]
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{nBJet.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{nLJet.pdf}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{rt.pdf}
-    \end{subfigure}
-    \caption{Number of b- and light jets and $E_T^{miss}/H_T$ distribution in control region.}
-\end{figure}
+
+\subfile{chapters/DSIDs.tex}
+
+\subfile{chapters/Distributions_CR.tex}
+
+\subfile{chapters/Distributions_jets.tex}
+
+\subfile{chapters/New_features.tex}
+
+
+
+
+
+\chapter*{Logbook}
+
+We are dropping $\Delta\phi(l_1,l_2)$ and $\Delta\phi(l_c,E_T^{miss})$ due the poor agreement between MC and data. The first one is most likely due us not including fake leptons (and also for all non SFOS final states). \todo{I will remove this sentence, but its just so we know}The latter is a problem that PhD. Even is being haunted by. 
+There is also the problem of missing variables. For this theis, as shown in Table \ref{tab:paddable_variables}, we will record events with up to three jets in the final state. As mentioned earlier, there isn't 
+always three jets in the final state, to mediate this problem I chose to set the $p_T$ to zero for the missing jets and $m_{jj}$ to zero if there are less than two jets, this is something that is physically reasonable as it doesn't violate any conservation laws. 
+More problematic however is the $\eta$ and $\phi$ when there aren't jets. To mediate this I've set the values to -999, which has no physical meaning and is impossible to achieve, this I did so it becomes easier for us to identify the jagged arrays further in the network preparation. 
+The missing variables is not a problem when making BDTs with XGBoost. There is also another problem, albeit less problematic than the previous ones, with the final states that are not SFOS, as the MC generated background 
+on these tend to be lower than the recorded data. The number of events that are not SFOS are minimal though, and we think the reason it doesn't fit the data is because we are not including fake leptons. \todo{something more to add?}
+
+\subsection*{Zp Dark Matter dataset}
+To train the networks I will utilize two methods\todo{see next comment for the two methods}. The first one being this where the dataset being sent into the ML network will contain every single DM MC sample available. 
+So far there are 154 different MC samples, these are based on three theories. A Light Vector (LV), Dark Higgs (DH) and Effective Field Theory (EFT) which produces the WIMP DM particles, and a new theoretical particle, $Z'$, 
+that decays into a lepton pair. The three theories are divided further into MC samples with a Light Dark Sector (LDS) and High Dark Sector (HDS) which tells us therange of the Dark Matter candidate mass. 
+And lastly it is divided further into more MC samples with different masses for $Z'$. This dataset includes all of these samples such that the network learns Dark Matter in a model independent way.
+
+\subsection*{"Ensemble" dataset / Model indepedence}\todo{This subsection and is outdated with our current plan, and this will change when we discuss further how to implement the model-independent aspect.}
+Another approach is to make multiple datasets and combine the results of every network into a "big network". This is the second approach which I call ensemble modelling. The thought behind this is that when 
+training a network using the full dataset it might only focus on a the more resonant models with fixed masses. Also, every different DM sample has different phenomenology, specially in the future when I will 
+be receiving SUSY samples, meaning that it also might not train the network physics. Thus if we were to train a network one one sample at a time it would be the perfect scenario. 
+However as will become apparent in Section \ref{sec:wgts}, the datasets (even the full DM dataset) are extremely unbalanced. To put some numbers, on each DM MC sample there are roughly 40,000 MC events, 
+and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87,000,000 MC events. Factoring the weights to re-weight the MC events to expected events gives us an extremely low statistics dataset, which punishes the network for guessing correctly. \\
+\\\textit{\textbf{THIS IS OUTDATED AND WILL MOST LIKELY BE CHANGED TO THE SIGNAL REGION APPROACH, WHERE WE STATISTICALLY COMBINE WHAT THE NETWORKS LEARN IN A MODEL DEPENDENT WAY}} Thus making the approach to teach the networks one MC sample at a time is impossible. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. 
+Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600$ $\cap\le 1100$ GeV and 
+the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. 
 
 
 \clearpage

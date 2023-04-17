@@ -1,0 +1,649 @@
+\documentclass[14pt, a4paper]{book}
+\begin{document}\label{chap:Best_ML}
+Something something Time to prepare our ML algorithms, statistics etc..
+
+\section{Neural Network Training}
+\subsection{Padding of data}\label{sec:padding_NN}
+I have however tested this and the difference in a optimized network (more info on this later) is minimal, and depending on our binning choice might make these new features less suited for our task. The resulta using 100 bins and using 50 bins 
+can be seen in Figure \ref{fig:New_var_pad}. For the remainder of our NN endevaours we will opt to not use these new features, and just remove the features that have missing variables all togheter.
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/padding/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/finer_binning/VAL.pdf}
+      \caption{When including new variables and using 100 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/finer_binning/EXP_SIG.pdf}
+      \caption{Expected significance of a)}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/VAL.pdf}
+      \caption{When including new variables and using 50 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{new_variables/EXP_SIG.pdf}
+      \caption{Expected significance of c)}
+   \end{subfigure}
+   \hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{no_pad/VAL.pdf}
+      \caption{When excluding new variables and using 50 bins}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{no_pad/EXP_SIG.pdf}
+      \caption{Expected significance of e)}
+   \end{subfigure}
+   \caption[Network performace when testing new variables to avoid padding]{NN prediction when using new features to avoid padding. This is testing a dataset with a Z' DM model.}\label{fig:New_var_pad}
+\end{figure}
+\clearpage
+
+
+\subsection{Normalization of data}\label{sec:normie_NN}
+The different normalization methods have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. 
+We can see that the best results come from Z-score and Batch normalization. We can see how the expected significance differs on both cases in Figure \ref{fig:BestNormie}.\\
+\\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? The reason batch normalization might work best for our case is because when we divide the data by bacthes it might unevenly represent the SM / signal and their ratio. But by using batch normalization it takes the average of all the batches creating an closer to real distribution. 
+For the following examples in this section I have used the Z-score method, \todo{should I even mention this if I will not use NNs further?}but I will use Batch normaliazation for the signal search.\\ 
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{NO_NORM/VAL_unscaled.pdf}
+      \caption{No normalization}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Layer_norm/VAL_unscaled.pdf}
+      \caption{Layer normalization}
+   \end{subfigure}
+   \hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{minmax/VAL_unscaled.pdf}
+      \caption{Min max scaling}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Z_score/VAL_unscaled.pdf}
+      \caption{Z-score}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Batch_norm/VAL_unscaled.pdf}
+      \caption{Batch normalization}
+   \end{subfigure}
+   \caption{NN prediction when using different normalization methods. This is testing a dataset with a Z' DM model.}\label{fig:DifferentNormalizations}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Z_score/VAL.pdf}
+      \caption{Z-score}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Batch_norm/VAL.pdf}
+      \caption{Batch normalization}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Z_score/EXP_SIG.pdf}
+      \caption{The expected significance of a)}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Batch_norm/EXP_SIG.pdf}
+      \caption{The expected significance of b)}
+   \end{subfigure}
+   \caption{Comparison of the best normalization methods. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }\label{fig:BestNormie}
+\end{figure}
+
+
+\clearpage
+
+
+
+\subsection{Weights}\label{sec:wgts}
+\graphicspath{{../../figures/}}
+A big problem that needs to be adressed in this thesis is what we should use as \textit{sample weights} (see Section \ref{sec:sample_weight}). If we were to not use any form of sample weights to mitigate the unbalance in our data set 
+it could potentially lead to \todo{is it called undertraining?}undertraining where the networks could get "lazy" and guess that everything is background. If we were to split the full Z' data set into a training and test set, where 80\% is used for training, and trained a network without any weights then it seems as if the network excels in identifying our signal. 
+This is however misleading as we need to keep in mind two things.\\
+\\The first one, which \textbf{always} will be applied, is that we need to re-weight the MC events the networks trains on to the expected events, this we do by applying the weights explained in Setion \todo{will add this later!}... as well as factoring for the train-test split we made, 
+that means that since our testing set is 20\% of the whole data set then we need to multiply this by 5 so we are back at 100\%. The difference is shown in Figure \ref{fig:OLD_FULL_DM_VAL}.\\ 
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{OLD_DM_FULL_VAL_UNW.pdf}
+        \caption{Unscaled validation plot.}\label{fig:OLD_UNW_FULL_DM_VAL}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{OLD_DM_FULL_VAL_W.pdf}
+        \caption{Scaled validation plot using MC weights.}\label{fig:OLD_W_FULL_DM_VAL}
+     \end{subfigure}
+	\caption[Importane of correctly scaling MC events to expected events]{Validation plot of uwweighted network on the first version of the FULL Z' DM dataset.}\label{fig:OLD_FULL_DM_VAL}
+\end{figure}
+\\The second thing, which is more important, is that we are not going to be testing our network on a "full data set", but rather on on one model with fixed parameters. For the purposes of most examples in this chapter, 
+we will conduct our testing on one of the Z' models, more specially it will be a Dark Higgs (DH) with Heavy Dark Sector (HDS) and $m_{Z'}=130$ GeV. The reason I mention this here, and highlight its importance, is because 
+the data imbalance \textbf{will} become a problem when we are studying just one specific model with fixed parameters. To put some numbers, the whole SM background we are studying has roughly 87 million MC events, 
+the whole Z' signal has roughly 3 million MC events, and the DH HDS $m_{Z'} = 130$ GeV model has 40,000 MC events! So if the network were to say that every event is a background event when testing on the small model with fixed parameters, 
+it would be correct over 99.9\% of the time. This is obviously something we do not want, as our goal is to make a ML algorithm that actually learns DM signatures.\\
+\\I trained a network to find the Diboson background channel among the other SM backgrounds to find a general solution to what weights will be used to balance using the sample weight feature, as this is something we know exists. 
+The imbalance of this data set can be seen in Table \ref{tab:UnbalancedDibosonTraining}.
+\begin{table}[!h]
+   \centering
+   \caption[Unbalanced Diboson training dataset]{Table Showcasing how uneven the training dataset is between signal and background. This is on the Diboson dataset which incorporates all the SM MC samples}
+   \begin{tabular}{l|r|r|r}\midrule\midrule
+                   & Number of MC events  & Number of expected events   & MC events $\times$ expected events [$10^{11}$]\\\midrule
+        Signal     & 8,813,716            & 93,304.9                    & 8.2\\
+        Background & 61,201,010           & 2,621,498.9                 & 1,604.4 \\ \midrule\midrule
+   \end{tabular}
+   \label{tab:UnbalancedDibosonTraining}
+\end{table}
+\\The reason for this choice and not a DM signal, is because I \todo{should I write this or skip it entirely?}wrongly assumed when first testing the network, that the network \textit{correctly} predicted that there were no DM events. 
+Put in rougher words, I thought that the network completely dismissed the model by claiming it did not exist, and thus excluding the whole model, a very bold, pretentious and wrong claim. 
+As my first attempt to use weights used the same weights used to re-weight MC events to expected events, which included the cross section of every event... this will become important later.\\
+\\As expected, my interpretation was wrong, the network trained using the weights to re-weight MC events on the Diboson search also predicted that there were "0 Diboson events", something we can empirically and confidently say is wrong. 
+Moreover, the validation plot of the unweighted network works, but gives poor results. As a method to balance the signal and background, I made a new weight array to be used as sample weight. This array weights down all background events 
+with the ratio of MC signal events over MC background events, $\frac{N_{sig}}{N_{bkg}}$. The results are shown in Figure \ref{fig:DibosonVAL} and the ROC scores in Figure \ref{fig:DibosonROC}.\\
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL_uw.pdf}
+        \caption{Validation plot for the unweighted training.}\label{fig:DibosonVALUW}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL_mc.pdf}
+        \caption{Validation plot for the weighted training using MC weights.}\label{fig:DibosonVALMC}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL_w.pdf}
+        \caption{Validation plot for the weighted training using $\frac{N_{sig}}{N_{bkg}}$ as weights on the background.}\label{fig:DibosonVALW}
+     \end{subfigure}
+	\caption{Result of the different network training weighting.}\label{fig:DibosonVAL}
+\end{figure}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{ROC_uw.pdf}
+        \caption{ROC score for the unweighted training.}\label{fig:DibosonROCUW}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{ROC_mc.pdf}
+        \caption{ROC score for the weighted training using MC weights.}\label{fig:DibosonROCMC}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{ROC_w.pdf}
+        \caption{ROC score for the weighted training using $\frac{N_{sig}}{N_{bkg}}$ as weights on the background.}\label{fig:DibosonROCW}
+     \end{subfigure}
+	\caption{Result of the different network training weighting.}\label{fig:DibosonROC}
+\end{figure}
+\\From the results we see that the new weighting method has a poorer result than the unweighted one, and the weighting method that re-weight MC events to expected events just crashes the whole network. 
+The reason for why the latter does not work might be since the network gets punished by guessing "too easily" that an event is signal, and instead of trying harder to learn the patterns and predict with "more confidence" 
+signal events just guesses that everything is a background event and still get a high \textit{accuracy}\footnote{Not to be confused with AUC!}. Something else to mention, as to why the network does such a poor job at classifying the diboson background, is that the network here was not optimized for the search, and rather just used the 
+defaul NN settings on TensorFlow. \todo{mention this or remove completely}And to make matters worse, when testing this I had a bug where I used zero hidden layers by accident, meaning that there was in fact no NN.
+
+
+\clearpage
+
+
+
+\subsection{Balanced weights}\label{sec:Balanced_wgts}
+Even if the weighting method previously described helps the network to give reasonable results. It most likely won't distinguish the importance between signal events that have high resonance and those that do not. 
+As an example, if we look at the Z' DH model in the HDS and compare how the network classifies a model with a $m_{Z'}$ of 130 GeV to one with a $m_{Z'}$ of 1500 GeV we might get an idea of how the network classifies things.
+We can see how the network predicts wether an event is signal or background using validation plots, this is seen in \ref{fig:PurelyBalanced_DH_HDS}.
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:PurelyBalanced_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:PurelyBalanced_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN comparison of trained models in FULL Z' dataset}\label{fig:PurelyBalanced_DH_HDS}
+\end{figure}
+\\The result purely demonstrate the raw network output, meaning that the validation dataset has not been scaled up using MC weights (i.e. model cross section) or luminosity.\\
+\\We can see the network is better at classifying the events from the model with $m{Z'}$ = 1500 GeV than the other, even if this model has a much lower cross section, as seen in the correctly scaled plots below.
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}
+     \end{subfigure}
+     \caption{Correctly scaled plots.}\label{fig:SCALED_PurelyBalanced_DH_HDS}
+\end{figure}
+\\As we can clearly see, the better predicted model by the network does not even have one event when scaled up correctly. Therefore it is desirable to both take into account the data imbalance between the signal and background as well as the MC weights when training a network. To do this using TensorFlow we could make use of two parameters when training the network: \verb|class_weight| and \verb|sample_weight|.
+\\\\\verb|class_weight| works as a dictionary that weights events that are keys on the dictionary. For our purposes we can make a dictionary where we weight signal and background events differently, this is the same type of scaling that was done in the previous section. 
+\verb|sample_weight| takes in individual weights for every single event that goes into the netwrok, meaning that it is crucial that we know that the desired weight matches the desired event. Ideally we would use both weighting methods, \verb|class_weight| to balance the signal to background ratio and \verb|sample_weight| with the MC weights. 
+However there is a bug in TensorFlow (up to version \verb|GPU 2.7.1|) that makes it so the program doesn't run when using both parameters. This is not a big problem though, as when looking at the source code one can see that what TensorFlow does with both weights is multiply them togheter. Thus we could try to make use of this "balaned weighting" method to see if the network learns the different models better.\\
+\\We can see in Table \ref{tab:MC_imbalance} how uneven the data (FULL Z') is. To balance the data we have four options. We can either \textit{weigh up the signal} events by the ratio of background over signal. Or \textit{weigh down the bacgkround} with the ratio of signal over background. However this ratio might differ a lot when using the MC raw event ratio or the SOW events ratio. I have tested all four possibilities and these can be see below.\\
+\begin{table}[!h]
+   \centering
+   \caption[Imbalance raw events and SOW]{Table showcasing the data imbalance between background and signal in both raw MC events and actual events. By actual events it is meant weighted events. This is for the training dataset on the FULL Z' dataset.}
+   \begin{tabular}{l|c|c}\midrule\midrule
+                        & Actual events   & MC events \\\midrule
+         Background     & 2,715,280.4     & 69,664,290  \\
+         Signal         & 388.4           & 2,991,598   \\\midrule\midrule
+   \end{tabular}
+   \label{tab:MC_imbalance}
+\end{table}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_SIG_UP/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:MC_WGT_SIG_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:MC_WGT_SIG_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN prediction when weighting the signal with the SOW ratio.}\label{fig:MC_WGT_SIG_DH_HDS}
+\end{figure}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_EVENTS_SIG_UP/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:MC_EVT_SIG_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:MC_EVT_SIG_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN prediction when weighting the signal with the raw event ratio.}\label{fig:MC_EVT_SIG_DH_HDS}
+\end{figure}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_BKG_DOWN/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:MC_WGT_BKG_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:MC_WGT_BKG_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN prediction when weighting the background with the SOW ratio.}\label{fig:MC_WGT_BKG_DH_HDS}
+\end{figure}
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_EVENTS_BKG_DOWN/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 130 GeV}\label{fig:MC_EVT_BKG_DH_HDS_130}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_1500/VAL_unscaled.pdf}
+        \caption{NN prediction of DH HDS $m_{Z'}$ = 1500 GeV}\label{fig:MC_EVT_BKG_DH_HDS_1500}
+     \end{subfigure}
+     \caption{NN prediction when weighting the bacgkround with the raw event ratio.}\label{fig:MC_EVT_BKG_DH_HDS}
+\end{figure}
+\clearpage 
+As we can see almost every way of doing this balanced weighting gives poor results. The only one that seems to work is when we we scale up the MC weights with the ratio between the SOW of the bacgkround over signal, however it does not seem to learn the model with lower mass better compared to how it learned the model with higher mass. It seems to have generally learned both models better, which might be a hint that it learns other models worse, i.e. EFT models with much lower cross section.\\ 
+If we now compare the correctly scaled validation plots of DH HDS $m_{Z'}$ = 130 GeV.
+\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_SIG_UP/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL.pdf}
+        \caption{MC weights + scaling signal up with SOW ratio}%\label{fig:MC_EVT_BKG_DH_HDS_130}
+     \end{subfigure}
+     \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/}}
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/VAL.pdf}
+        \caption{Only using raw MC events weigh down bacgkround}%\label{fig:MC_EVT_BKG_DH_HDS_1500}
+     \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/MC_WGT_SIG_UP/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/EXP_SIG.pdf}
+      \caption{The expected significance of a)}%\label{fig:MC_EVT_BKG_DH_HDS_130}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/TESTING/NeuralNetwork/BALANCED_WEIGHTING/ONLY_BALANCE_MC_EVENTS_BKG_DOWN/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{DH_HDS_mZp_130/EXP_SIG.pdf}
+      \caption{The expected significance of b)}%\label{fig:MC_EVT_BKG_DH_HDS_1500}
+   \end{subfigure}
+     \caption{Comparison of the best balanced weighting method to the weighting method of the previous section. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }%\label{fig:MC_EVT_BKG_DH_HDS}
+\end{figure}
+\\From this we can see that the the network that trained when balancing the data is better at classifying the DH HDS $m_{Z'}$ = 130 GeV model correctly as signal than the other network. We also observe that it wrongly classifies more background as signal than the other network, but even if this is the case the expected significance is greater in the new network.
+The reason that the new network wrongly classifies more background as signal might be becuse I utilized the same hyperparameters when training both newtworks, when it might be better to use different hyperparameters on each. 
+Another thing that might be of significance is that I used the ratio of the training set, it might make a difference (better or worse) to use the ratio of the full dataset when training as this is more general. 
+Since the ratio most likely differs for the training and testing set. \todo{Should I add here that this will not be pursued further? Or rather include it on the "results" part of the thesis}
+\clearpage
+
+
+\subsection{Grid Search}\label{sec:NNGriddy}
+The full results of the gridsearch when setting \verb|n_layers| = 2 (one hidden layer) and $\eta \in [0.001, 0.01, 0.1, 1]$, $\lambda\in[10^{-5},10^{-4},10^{-3},10^{-2}]$ and \verb|n_neuron|$\in[1, 10, 50, 100]$ can be found in my GitHub under \\\verb|Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons|, 
+but for the sake of this thesis not being too long I will only show the significance plot as well as the AUC for the testing and training set when setting $\lambda=10^{-5}$. 
+The significance is seen in Figure \ref{fig:NN_GRID_SIG}, while the AUC is in Figure \ref{fig:NN_GRID_AUC}.\\
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons}}
+\begin{figure}[!ht]
+      \centering
+      \includegraphics[width=0.6\textwidth]{Significance_ne.pdf}
+      \caption{Grid search significance with $\lambda=10^{-5}$ and n\_layers = 2}\label{fig:NN_GRID_SIG}
+\end{figure}
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons/AUC}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{testing_ne.pdf}
+        \caption{Testing AUC}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{training_ne.pdf}
+        \caption{Training AUC}
+     \end{subfigure}
+     \caption{Grid search AUC with $\lambda=10^{-5}$ and n\_layers = 2}\label{fig:NN_GRID_AUC}
+\end{figure}
+\newpage\noindent Doing the same but with more hidden layers and setting $\lambda=10^{-5}$ we get the results shown in GitHub under \verb|Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons|, 
+for the sake of this thesis not being too long I will again only show the significance plot as well as the AUC for the testing and training set but this time when setting $\eta=0.01$. 
+The significance is seen in Figure \ref{fig:DNN_GRID_SIG}, while the AUC is in Figure \ref{fig:DNN_GRID_AUC}. 
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons}}
+\begin{figure}[!ht]
+      \centering
+      \includegraphics[width=0.6\textwidth]{Significance_nl.pdf}
+      \caption{Grid search significance with $\lambda=10^{-5}$ and and $\eta = 0.01$}\label{fig:DNN_GRID_SIG}
+\end{figure}
+
+\graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons/AUC}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{testing_nl.pdf}
+        \caption{Testing AUC}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{training_nl.pdf}
+        \caption{Training AUC}
+     \end{subfigure}
+     \caption{Grid search significance with $\lambda=10^{-5}$ and $\eta = 0.01$}\label{fig:DNN_GRID_AUC}
+\end{figure}
+\newpage\noindent I also made a test network with the same hyperparameters as the best one in Figure \ref{fig:DNN_GRID_SIG}, the only difference being that it has 10 hidden layers.
+I plotted the validation data to see how different the networks were at predicting the DH HDS $m_{Z'}=130$ GeV model. 
+These were trained and tested when using the Z-score normalization, Eq. (\ref{eq:Z-score}), and the weighting method explained in section \ref{sec:wgts}. The results are shown in the figure below.
+\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/BEST_GRID/DH_HDS_mZp_130/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL.pdf}
+        \caption{Four hidden layers}
+     \end{subfigure}
+     \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/10_HIDDEN_LAYERS/DH_HDS_mZp_130/}}
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL.pdf}
+        \caption{Ten hidden layers}
+     \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/BEST_GRID/DH_HDS_mZp_130/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
+      \caption{The expected significance of a)}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/10_HIDDEN_LAYERS/DH_HDS_mZp_130/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
+      \caption{The expected significance of b)}
+   \end{subfigure}
+     \caption{Comparison of the network performance when having four and ten hidden layers. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }
+\end{figure}
+\newpage\noindent This hints that we could be able to make a DNN with more hidden layers and get better results. However there are a few things that need to be noted when doing this, aside from the padding which is an even greater problem.
+The first and smallest one is that we could have used batch normalization instead of Z-score, but this is again something to be further discussed.\\
+\\The second being that I have not used the "balanced weighting" method when training the network, which might be for better or worse if the network really does ignore all EFT models...\\
+\\The third one which is more technical is that since more complex networks require more computational power, then this leads to us decreasing the batch size. Which lowers the statistics of signal, 
+and might even lead to the network training on batches without any signal sample at all. So the trade off is also something to be discussed.\\
+\\The last thing to be noted is that having a DNN completely removes the possibility of combining the results of multiple networks trained on a single model, as the imbalance becomes too much for the network to see anything.
+A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach used by Baldi et. al. \cite{Baldi_2016}, which could potentially avoid the imbalance problem, but this is 
+proposed as a plausible new research project due to time constrain on this thesis.
+\clearpage
+\graphicspath{{../../figures/}}
+
+
+
+
+
+
+\section{Boosted Desicion Tree Training}
+\subsection{Weights}
+I have tried all of these options and the results can be seen in Figure \ref{fig:BDT_wgts}.\\
+\\As we can see it makes a significant difference whether we use the weights to re-weight MC events to expected events. But there is no mathematical reason as to why we should 
+include this re-weighting weight as sample weights, as the reason to use sample weights is to \textit{only} balance signal and bacgkround. In theory it makes no sense whatsoevert to include these weights either 
+as the network doesn't really care for cross sections or luminosity, and what we are doing in principle is making it harder for the network to learn anything. But as seen on the results, the BDT learns the background 
+extremely well when using the weights, while it also does a poorer job in learning the signal we are testing.\\ 
+\\In a sense this is not a negative thing for our purposes, but stricly speaking we are invoking a semi-unsupervised learning method by punishing the network if it learns the signal too quickly. 
+To get to the point as why this is good for our purposes, we are indirectly making our network more model indepentent! Because of this, the method that will be pursued further in this thesis will be to 
+take the positive weights and balance the data.\todo{Add that ATLAS used it, so because of that so can I?}
+
+\graphicspath{{../../../Plots/XGBoost/WEIGHT_TEST/DH_HDS_mZp_130/}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{ATLAS_ABS/VAL.pdf}
+      \caption{Using the scaled absolute value of the weights}
+   \end{subfigure}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{POS/VAL.pdf}
+      \caption{Using only positive weights}
+   \end{subfigure}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{NONE/VAL.pdf}
+      \caption{Using no weights}
+   \end{subfigure}
+   \caption{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:wgts}}\label{fig:BDT_wgts}
+\end{figure}
+
+
+\clearpage
+\subsection{Grid Search}\label{sec:BDTGriddy}
+The results can be shown in Figure \ref{fig:BDT_deep_sig}. This is however highly radical as the convention is to normally not have a depth greater than 7, 
+the reason being that the network is highly likely to overtrain and give wrong predictions. However this was not the case for me as seen for example in Figure \ref{fig:DBDT_GRID_AUC}.
+\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_3-6}}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Expected_significance.pdf}
+   %   \caption{Testing AUC}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_24-30}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Expected_significance.pdf}
+   %   \caption{Training AUC}
+   \end{subfigure}
+   \caption{Grid search expected significance going to a depth of up to 30}\label{fig:BDT_deep_sig}
+\end{figure}
+\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_24-30}}
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Testing_AUC.pdf}
+      \caption{Testing AUC}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Training_AUC.pdf}
+      \caption{Training AUC}
+   \end{subfigure}
+   \caption{Grid search AUC going to a depth of up to 30}\label{fig:DBDT_GRID_AUC}
+\end{figure}
+\\ I understand however that this is controversial since we are splitting a data set, that is at best of size $2^{27}$, 30 times. That means that after a depth of 27 there is exaclty one event pr branch.
+So how does a depth of 30 make sense? To help with this we could use a feature in XGBoost to see which features are most important when evaluating a signal. 
+When testing the network trained on the FULL Z' DM data set on a DH HDS $m_{Z'}=130$ GeV model we get the features shown in Figure \ref{fig:DBDT_feat} as most important. 
+\graphicspath{{../../../Plots/XGBoost/FULL/DH_HDS_mZp_130/feature_importance}}
+\begin{figure}[!ht]
+	\centering
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{weight.pdf}
+      \caption{Using "weight" metric}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{total_cover.pdf}
+      \caption{Using "coverage" metric}
+   \end{subfigure}
+   \caption{Feature importance of depth 30 network trained on FULL Z' DM data set when testing it on DH HDS $m_{Z'}=130$ GeV model.}\label{fig:DBDT_feat}
+\end{figure}
+\newpage\noindent As we can see these features vary a lot depending on which metric we use to evaluate the importance. 
+When using the "coverage" metric, which as stated is defined as the number of samples affected by the split, we get the features we physically expect to be important when trying to single out a DM model.
+And this metric is arguably the one we need to use to define what features are important. Since the more samples a feature split, the more powerful it is to separate signal from background.\\
+\\We can see however that when we use "weight" as a metric, which is the XGBoost standard metric, we get completely unexpected features that we physically don't expect to be important when trying to single out a DM model.
+But as described by the metric, the "weight" is the number of times a feature appears in a tree. Which might explain that the reason the pseudorapidity and $\phi$ range so high on this list, 
+is simply because the tree is struggling to find a pattern here and is trying extra hard to single out DM from SM. \\
+\newpage\noindent As the previous results are to be taken with a heavy grain of salt, I conducted another grid search. On the second grid search I set the values of $\eta=0.1$ as the trend showed this giving the best results with less overtraining, 
+and $\lambda=10^{-5}$ \todo{should I conduct a new grid search with different $\lambda$ and loss functions?}. This grid search had \verb|n_estimators| $\in[10, 100, 500, 1000]$ and depth $\in[3,4,5,6]$. 
+The expected significance is shown in Figure \ref{fig:BDT_sig}. The testing and training AUC can be seen in Figure \ref{fig:BDT_GRID_AUC}.
+\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000}}
+\begin{figure}[!ht]
+   \centering
+   \includegraphics[width=0.6\textwidth]{Expected_significance.pdf}  
+   \caption{Grid search expected significance when setting $\lambda=10^{-5}$ and $\eta=0.1$}\label{fig:BDT_sig}
+\end{figure}
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Testing_AUC.pdf}
+      \caption{Testing AUC}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Training_AUC.pdf}
+      \caption{Training AUC}
+   \end{subfigure}
+   \caption{Grid search AUC when setting $\lambda=10^{-5}$ and $\eta=0.1$}\label{fig:BDT_GRID_AUC}
+\end{figure}
+\\When testing the best network with a depth of 6 and 1000 estimators on the same DH HDS $m_{Z'}=130$ GeV model we get the feature importance plots shown in Figure \ref{fig:BDT_feat}. 
+Here we see that the "weight" metric gives us the expected features as most important. But the "cover" metric seems to be less of what we expect since the jet kinematic variables score higher, 
+this might just be a curiosity rather than something to be suspect of.
+\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000/DH_HDS_mZp_130/feature_importance/}}
+\begin{figure}[!ht]
+	\centering
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{weight.pdf}
+      \caption{Using "weight" metric}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{total_cover.pdf}
+      \caption{Using "coverage" metric}
+   \end{subfigure}
+   \caption{Feature importance of depth 30 network trained on FULL Z' DM data set when testing it on DH HDS $m_{Z'}=130$ GeV model.}\label{fig:BDT_feat}
+\end{figure}
+
+\clearpage\noindent To showcase the difference in signal recognition between the monstrous 30 depth BDT to the more sensible 6 depth BDT, I again tested the networks on the good old DH HDS $m_{Z'}=130$ GeV model.
+The results as well as their expected significance can be seen below.
+\begin{figure}[!ht]
+	\centering
+   \graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000/DH_HDS_mZp_130/}}
+	\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL.pdf}
+        \caption{Depth of 6}
+     \end{subfigure}
+     \hfill\graphicspath{{../../../Plots/XGBoost/FULL/DH_HDS_mZp_130/}}
+     \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{VAL.pdf}
+        \caption{Depth of 30}
+     \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000/DH_HDS_mZp_130/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
+      \caption{The expected significance of a)}
+   \end{subfigure}
+   \hfill\graphicspath{{../../../Plots/XGBoost/FULL/DH_HDS_mZp_130/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
+      \caption{The expected significance of b)}
+   \end{subfigure}
+   \caption{Comparison of the network performance when having a depth of 6 and 30. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }
+\end{figure}
+\\The difference is extreme, when looking at the monster of depth 30 we can get an expected significance of 1.2 $\sigma$ (without uncertainties)\todo{when should I use them?} on our model of max 15 events, only having made a cut of 50 GeV on the missing transverse energy.
+We can however see that the data and background do not agree to the same degree of the network with depth 6. Using purely statistical uncertainty and assuming a systematic uncertainty of 30\%, we see that a few data ponts do not agree with the MC background.
+These data points are points the network classified as signal, so if we completely trusted the network this would be a hint of new physics! 
+However this is the last thing we should assume, and rather take this as a hint that the network is doing something fishy.\\
+\\If I had access to XGBoost with built GPU support, I would increase the number of estimators even more to check if this increases the significance while still having a depth of maximum 6.
+However as of now this is not possible. As the weighting method explained in the previous section was not included here, we will drop going to a tree depth of 30, and have a maximum of 6.
+
+\end{document}

@@ -477,7 +477,7 @@ This is where the AUC comes into play, as this metric highlights whenever a netw
 if we were to plot this we would get a flat line on the FPR and TPR axis, meaning that it would give us an AUC of 0.5. Highlighting that our network is randomly guessing, and that it needs to be optimized further.\\
 \textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, should I cite that?}
 
-\subsubsection{Validation plots}
+\subsubsection{Validation plots}\label{sec:validation}
 Another tool that we will use to evaluate how well a network does is by making so-called \textit{validation plots}\todo{Is this the real name of the plots?}. The way these plots work is by first dividing the \textit{already predicted} data set into background and signal. Then making histograms from 0-1 
 with the prediction score of the network for each event. As a score closer to 1 means that the network predicts an event to be a signal event, and 0 means that the network predicts a background event. Then we would ideally have all the signal events shoved to the right and all the background events shoved to the left. 
 Usually this is not the case in high energy particle physics, as some background events might be similar to signal events. We will therefore utilize this kind of plots to see the ditribution of the network predictions. \\
