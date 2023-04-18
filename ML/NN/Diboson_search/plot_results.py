@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from matplotlib import ticker as mticker
+from sklearn.metrics import roc_curve, auc
 
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 tf.debugging.set_log_device_placement(False)
@@ -84,9 +85,9 @@ data_scaler = 1/data_size
 
 model_dir = '../../Models/NN/Diboson/'
 plott_dir = '../../../Plots/NeuralNetwork/Diboson/'
-# model_type = 'Unweighted'
+model_type = 'Unweighted'
 # model_type = 'Weighted'
-model_type = 'Balanced'
+# model_type = 'Balanced'
 
 model = tf.keras.models.load_model(model_dir+model_type) 
     
@@ -190,3 +191,19 @@ ax2.set_xlabel('Tensorflow output')
 fig.suptitle('TensorFlow output, Diboson dataset, validation data with 20 % syst. unc.\n $\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, $>50$ GeV $E_{T}^{miss}$', fontsize='x-large')
 plt.savefig(plot_dir+'VAL.pdf')
 plt.clf()
+
+fpr, tpr, thresholds = roc_curve(Y_test, pred, pos_label=1)
+roc_auc = auc(fpr,tpr)
+plt.figure()
+lw = 2
+plt.plot(fpr, tpr, color='darkorange',
+        lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
+plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+plt.xlim([-0.01, 1.02])
+plt.ylim([-0.01, 1.02])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC for TensorFlow on Diboson dataset')
+plt.legend(loc="lower right")
+plt.savefig(plot_dir+'ROC.pdf')
+plt.show()
