@@ -155,7 +155,7 @@ Eq. (\ref{eq:Z-score}) ourselves, we have to make sure that we use the same valu
 
 
 
-\subsection{Sample Weights}\label{sec:wgts}
+\subsection{Balancing of signal and background}\label{sec:balance_NN}
 \graphicspath{{../../figures/}}
 A big problem that needs to be adressed in this thesis is what we should use as \textit{sample weights} (see Section \ref{sec:sample_weight}). If we were to not use any form of sample weights to mitigate the unbalance in our data set 
 it could potentially lead to \todo{is it called undertraining?}undertraining where the networks could get "lazy" and guess that everything is background. If we were to split the full Z' data set into a training and test set, where 80\% is used for training, and trained a network without any weights then it seems as if the network excels in identifying our signal. 
@@ -250,7 +250,7 @@ defaul NN settings on TensorFlow. \todo{mention this or remove completely}And to
 
 
 
-\subsection{Expected events sample weights}\label{sec:Balanced_wgts}
+\subsection{Sample weights to get expected events}\label{sec:sample_wgts_NN}
 Even if the weighting method previously described helps the network to give reasonable results. It most likely won't distinguish the importance between signal events that have high resonance and those that do not. 
 As an example, if we look at the Z' DH model in the HDS and compare how the network classifies a model with a $m_{Z'}$ of 130 GeV to one with a $m_{Z'}$ of 1500 GeV we might get an idea of how the network classifies things.
 We can see how the network predicts wether an event is signal or background using validation plots, this is seen in \ref{fig:PurelyBalanced_DH_HDS}.

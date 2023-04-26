@@ -3,7 +3,7 @@
 Something something Time to prepare our ML algorithms, statistics etc..
 
 \section{Neural Network Training}
-\subsection{Padding of data}\label{sec:padding_NN}
+\subsection{Padding of data}\label{sec:padding_NN_res}
 I have however tested this and the difference in a optimized network (more info on this later) is minimal, and depending on our binning choice might make these new features less suited for our task. The resulta using 100 bins and using 50 bins 
 can be seen in Figure \ref{fig:New_var_pad}. For the remainder of our NN endevaours we will opt to not use these new features, and just remove the features that have missing variables all togheter.
 \graphicspath{{../../../Plots/NeuralNetwork/FULL/padding/}}
@@ -49,9 +49,8 @@ can be seen in Figure \ref{fig:New_var_pad}. For the remainder of our NN endevao
 \clearpage
 
 
-\subsection{Normalization of data}\label{sec:normie_NN}
-The different normalization methods have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. 
-We can see that the best results come from Z-score and Batch normalization. We can see how the expected significance differs on both cases in Figure \ref{fig:BestNormie}.\\
+\subsection{Normalization of data}\label{sec:normie_NN_res}
+The different normalization methods have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. The best results come from Z-score and Batch normalization. The expected significance differs in both cases shown in Figure \ref{fig:BestNormie}.\\
 \\From these results it is clear that the best normalization method is Batch normalization, but is it reasonable to use this method when one is not using a CNN? The reason batch normalization might work best for our case is because when we divide the data by bacthes it might unevenly represent the SM / signal and their ratio. But by using batch normalization it takes the average of all the batches creating an closer to real distribution. 
 For the following examples in this section I have used the Z-score method, \todo{should I even mention this if I will not use NNs further?}but I will use Batch normaliazation for the signal search.\\ 
 \graphicspath{{../../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/}}
@@ -123,7 +122,7 @@ For the following examples in this section I have used the Z-score method, \todo
 
 
 
-\subsection{Weights}\label{sec:wgts}
+\subsection{Balancing of signal and background}\label{sec:NN_balance_rst}
 \graphicspath{{../../figures/}}
 A big problem that needs to be adressed in this thesis is what we should use as \textit{sample weights} (see Section \ref{sec:sample_weight}). If we were to not use any form of sample weights to mitigate the unbalance in our data set 
 it could potentially lead to \todo{is it called undertraining?}undertraining where the networks could get "lazy" and guess that everything is background. If we were to split the full Z' data set into a training and test set, where 80\% is used for training, and trained a network without any weights then it seems as if the network excels in identifying our signal. 
@@ -151,39 +150,30 @@ the data imbalance \textbf{will} become a problem when we are studying just one 
 the whole Z' signal has roughly 3 million MC events, and the DH HDS $m_{Z'} = 130$ GeV model has 40,000 MC events! So if the network were to say that every event is a background event when testing on the small model with fixed parameters, 
 it would be correct over 99.9\% of the time. This is obviously something we do not want, as our goal is to make a ML algorithm that actually learns DM signatures.\\
 \\I trained a network to find the Diboson background channel among the other SM backgrounds to find a general solution to what weights will be used to balance using the sample weight feature, as this is something we know exists. 
-The imbalance of this data set can be seen in Table \ref{tab:UnbalancedDibosonTraining}.
-\begin{table}[!h]
-   \centering
-   \caption[Unbalanced Diboson training dataset]{Table Showcasing how uneven the training dataset is between signal and background. This is on the Diboson dataset which incorporates all the SM MC samples}
-   \begin{tabular}{l|r|r|r}\midrule\midrule
-                   & Number of MC events  & Number of expected events   & MC events $\times$ expected events [$10^{11}$]\\\midrule
-        Signal     & 8,813,716            & 93,304.9                    & 8.2\\
-        Background & 61,201,010           & 2,621,498.9                 & 1,604.4 \\ \midrule\midrule
-   \end{tabular}
-   \label{tab:UnbalancedDibosonTraining}
-\end{table}
+The imbalance of this data set can be seen in Table \ref{tab:dataset}.\\
 \\The reason for this choice and not a DM signal, is because I \todo{should I write this or skip it entirely?}wrongly assumed when first testing the network, that the network \textit{correctly} predicted that there were no DM events. 
 Put in rougher words, I thought that the network completely dismissed the model by claiming it did not exist, and thus excluding the whole model, a very bold, pretentious and wrong claim. 
 As my first attempt to use weights used the same weights used to re-weight MC events to expected events, which included the cross section of every event... this will become important later.\\
 \\As expected, my interpretation was wrong, the network trained using the weights to re-weight MC events on the Diboson search also predicted that there were "0 Diboson events", something we can empirically and confidently say is wrong. 
 Moreover, the validation plot of the unweighted network works, but gives poor results. As a method to balance the signal and background, I made a new weight array to be used as sample weight. This array weights down all background events 
 with the ratio of MC signal events over MC background events, $\frac{N_{sig}}{N_{bkg}}$. The results are shown in Figure \ref{fig:DibosonVAL} and the ROC scores in Figure \ref{fig:DibosonROC}.\\
+\graphicspath{{../../../Plots/NeuralNetwork/Diboson/}} 
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{VAL_uw.pdf}
+        \includegraphics[width=1\textwidth]{Unweighted/VAL.pdf}
         \caption{Validation plot for the unweighted training.}\label{fig:DibosonVALUW}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{VAL_mc.pdf}
+        \includegraphics[width=1\textwidth]{Weighted/VAL.pdf}
         \caption{Validation plot for the weighted training using MC weights.}\label{fig:DibosonVALMC}
      \end{subfigure}
      \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{VAL_w.pdf}
+        \includegraphics[width=1\textwidth]{Balanced/VAL.pdf}
         \caption{Validation plot for the weighted training using $\frac{N_{sig}}{N_{bkg}}$ as weights on the background.}\label{fig:DibosonVALW}
      \end{subfigure}
 	\caption{Result of the different network training weighting.}\label{fig:DibosonVAL}
@@ -192,22 +182,23 @@ with the ratio of MC signal events over MC background events, $\frac{N_{sig}}{N_
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{ROC_uw.pdf}
+        \includegraphics[width=1\textwidth]{Unweighted/ROC.pdf}
         \caption{ROC score for the unweighted training.}\label{fig:DibosonROCUW}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{ROC_mc.pdf}
+        \includegraphics[width=1\textwidth]{Weighted/ROC.pdf}
         \caption{ROC score for the weighted training using MC weights.}\label{fig:DibosonROCMC}
      \end{subfigure}
      \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{ROC_w.pdf}
+        \includegraphics[width=1\textwidth]{Balanced/ROC.pdf}
         \caption{ROC score for the weighted training using $\frac{N_{sig}}{N_{bkg}}$ as weights on the background.}\label{fig:DibosonROCW}
      \end{subfigure}
 	\caption{Result of the different network training weighting.}\label{fig:DibosonROC}
 \end{figure}
+\graphicspath{{../../figures/}}
 \\From the results we see that the new weighting method has a poorer result than the unweighted one, and the weighting method that re-weight MC events to expected events just crashes the whole network. 
 The reason for why the latter does not work might be since the network gets punished by guessing "too easily" that an event is signal, and instead of trying harder to learn the patterns and predict with "more confidence" 
 signal events just guesses that everything is a background event and still get a high \textit{accuracy}\footnote{Not to be confused with AUC!}. Something else to mention, as to why the network does such a poor job at classifying the diboson background, is that the network here was not optimized for the search, and rather just used the 
@@ -218,7 +209,7 @@ defaul NN settings on TensorFlow. \todo{mention this or remove completely}And to
 
 
 
-\subsection{Balanced weights}\label{sec:Balanced_wgts}
+\subsection{Sample weights to get expected events}\label{sec:samp_wgts_NN_res}
 Even if the weighting method previously described helps the network to give reasonable results. It most likely won't distinguish the importance between signal events that have high resonance and those that do not. 
 As an example, if we look at the Z' DH model in the HDS and compare how the network classifies a model with a $m_{Z'}$ of 130 GeV to one with a $m_{Z'}$ of 1500 GeV we might get an idea of how the network classifies things.
 We can see how the network predicts wether an event is signal or background using validation plots, this is seen in \ref{fig:PurelyBalanced_DH_HDS}.
@@ -372,7 +363,7 @@ Since the ratio most likely differs for the training and testing set. \todo{Shou
 \clearpage
 
 
-\subsection{Grid Search}\label{sec:NNGriddy}
+\subsection{Grid Search}\label{sec:NNGriddy_res}
 The full results of the gridsearch when setting \verb|n_layers| = 2 (one hidden layer) and $\eta \in [0.001, 0.01, 0.1, 1]$, $\lambda\in[10^{-5},10^{-4},10^{-3},10^{-2}]$ and \verb|n_neuron|$\in[1, 10, 50, 100]$ can be found in my GitHub under \\\verb|Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons|, 
 but for the sake of this thesis not being too long I will only show the significance plot as well as the AUC for the testing and training set when setting $\lambda=10^{-5}$. 
 The significance is seen in Figure \ref{fig:NN_GRID_SIG}, while the AUC is in Figure \ref{fig:NN_GRID_AUC}.\\
@@ -505,7 +496,7 @@ take the positive weights and balance the data.\todo{Add that ATLAS used it, so 
 
 
 \clearpage
-\subsection{Grid Search}\label{sec:BDTGriddy}
+\subsection{Grid Search}\label{sec:BDTGriddy_res}
 The results can be shown in Figure \ref{fig:BDT_deep_sig}. This is however highly radical as the convention is to normally not have a depth greater than 7, 
 the reason being that the network is highly likely to overtrain and give wrong predictions. However this was not the case for me as seen for example in Figure \ref{fig:DBDT_GRID_AUC}.
 \graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_3-6}}

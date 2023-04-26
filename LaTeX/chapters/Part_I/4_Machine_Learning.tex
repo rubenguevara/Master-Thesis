@@ -1,9 +1,8 @@
 \documentclass[14pt, a4paper]{book}
 \begin{document}
 Machine Learning (ML) has emerged as a powerful tool for analyzing complex datasets and making accurate predictions. Its applications span across various fields, from natural language processing to image recognition, and it has been used successfully to solve a range of problems. \\
-The main approach of this thesis will be to use Machine Learning (ML) as its popular rise has proven to be effective at binary classification tasks \cite{Baldi_2016, DeepLearing} in High Energy Particle Physics. 
-For our purposes it will be a powerful tool to attempt to classify events as SM background or as DM signal. 
-\\
+\\The main approach of this thesis will be to use ML as its popular rise has proven to be effective at binary classification tasks \cite{Baldi_2016, DeepLearing} in High Energy Particle Physics. 
+For our purposes it will be a powerful tool to attempt to classify events as SM background or as DM signal.\\
 \\To give a a short description of the essence of ML we can start by considering a general parameter $\bm{\beta} = \{\beta_1,\beta_2,\cdots,\beta_n\}$ for a n-dimensional problem, which for our purposes can be seen as what are called \textit{weights} and \textit{biases} 
 ($\bm \beta = \{w, b\}$), 
 the goal is to choose these parameters $\bm{\beta}$ such that we minimize a cost (also called loss) function $C(\bm{\beta})$ with respect to a set of data points given by a matrix $\mathbf{X}$. This matrix $\mathbf{X}$ will be 
@@ -24,11 +23,9 @@ Other aspects such as the importance of feature selection and feature engineerin
 This project will take from granted that the reader is comfortable with linear algebra and jump straight into the mathematical fundations of ML. \\
 
 
-
-\graphicspath{{../../figures/}}
 \newpage
 \section{Neural Networks}\label{sec:theory_nn}
-Before begining we can briefly explain the idea behind NNs. As stated by Hjorth-Jensen in \cite{MORTYY1}:
+The theoretical foundation for this chapter is mainly based of Hjort-Jensen lecture notes \cite{MORTYY1, MORTYY2, MORTYY3}. Before begining we can briefly explain the idea behind NNs. As stated by Hjorth-Jensen in \cite{MORTYY1}:
 \begin{quote}
     \textit{The idea of NN is to to mimic the neural networks in the human brain, which is composed of billions of neurons that communicate with each other by sending electrical signals. 
     Each neuron accumulates its incoming signals, which must exceed an activation threshold to yield an output. If the threshold is not overcome, the neuron remains inactive, i.e. has zero output}
@@ -70,6 +67,19 @@ we could for example split it into ten smaller matrices of $n\times10^7$ to then
 \textit{N} batches of size \textit{n}. Then for each batch we use Eq. (\ref{eq:GD}) to update the parameters, thus updating $\bm{\beta}_{i+1}$ \textit{N}-times for each epoch. The idea of SGD comes from the observation that the 
 cost function can almost always be written as a sum over \textit{n} data points. The main advantage of SGD is not to ease the computation however, as using more batches also reduces the risk of getting stuck in a local minimum since it introduces a randomness of which part of the parameter space we move through, 
 but this is at the cost of reducing statistics which might not be ideal for every problem.
+
+\subsection{Activation functions}\label{sec:act}
+As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 
+Mathematically speaking, activation functions are: Non-constant, Bounded, Monotonically-increasing and continuous functions. In this project we will utilize two different activation functions at different layers. 
+The first one is a sigmoid activation function
+\begin{equation}\label{eq:sig}
+    f(x) = \frac{1}{1+e^{-x}}
+\end{equation}
+which is the most basic activation function, this will be used from the input layer to our fist hidden layer as the risks of having little neuron activation is minimal here. On all other layers I will utilise a Rectified Linear Unit (ReLU)
+\begin{equation}\label{eq:ReLU}
+    f(x) = x^+ = \text{max}(0,x) = \begin{cases}x&{\text{if }}x>0,\\0.&{\text{otherwise}}.\end{cases}
+\end{equation}
+which has better gradient propagation, meaning that there are fewer vanishing gradient problems compared to the sigmoidial function.
 
 
 \subsection{Feed Forward network}\label{sec:FFN}
@@ -377,27 +387,177 @@ This whole procedure is usually called an epoch, which we can repeat as many tim
 
 
 \section{Boosted Decision Trees}
-While the idea behind neural networks is to mimic the human brain, Boosted Decision Trees (BDTs) are different in the sense that they are not trying to mimic a brain, but rather split data sets. The idea of BDTs has been proposed as early as 2001 by Friedmann \cite{BDT_Friedman}, 
-where bla bla.
+In the previous chapter, we explored how NNs can aid in the task of signal and background classiciation, such as the one in this thesis where we are looking DM signal in the SM background. In this chapter, we will delve into Boosted Decision Trees (BDTs), 
+another powerful tool for binary classifications. BDTs, unlike neural networks, are not based on simulating biological neurons. Instead, they rely on decision trees, a simple yet powerful idea that has been around for decades. \cite{Morgan1963ProblemsIT, ID3_BDT} 
+Decision trees are built by recursively splitting data based on the values of features until a stopping condition is met. BDTs take this idea one step further by training an ensemble of decision trees, where each tree attempts to correct the mistakes of its predecessors.\\
+\\BDTs have several advantages over other machine learning algorithms, such as neural networks, for binary classification problems. They are highly interpretable, which allows us to understand how they arrived at their decisions. This is particularly important in this field, 
+high energy particle physics, where the ability to interpret results is crucial. BDTs are also highly resilient to overfitting and can handle missing data effectively. Given their strengths, BDTs have been widely used in particle physics for binary classification tasks, 
+such as distinguishing signal from background events. The idea of the BDTs used in high energy physics today was proposed as early as 2001 by Friedmann in the paper \textit{Greedy Function Approximation} \cite{BDT_Friedman}, and since then have become an indispensable tool in the field. 
+In particular, in the ATLAS collaboration challenge \textit{The Higgs boson machine learning challenge} \cite{HiggsChallenge} the creation of a BDT package called \verb|XGBoost| \cite{XGBoost} increased the popularity even more as they won the challenge. 
+Today \verb|XGBoost| has become a standard ML tool used in the field.\\
+\\In this chapter, we will explore the theory behind BDTs in the context of \textit{extreme gradient boosting}, for this we we are mainly interested in two ways of making DTs, a set of Classification And Regression Trees (CART). 
+The theory is mainly based of Hjort-Jensens lecture notes \cite{MORTYY4, MORTYY5} and section 2 on the original \verb|XGBoost| paper \cite{XGBoost}.
+
+\subsection{Decision trees}
+Starting with Decision Trees (DT) in the context of this DM search. The idea behind DTs is to find the most important features which contain the most information of signal (DM), and then split the dataset along the values of these features with the goal of creating a dataset containing pure signal. 
+As we are going to use kinematical variables as features we will use this to both augment and automate the classical cut and count method (Chapter \ref{sec:data_anal}), which is based of making kinematical cuts on the variables. To find which kinematical features are most important 
+in splitting the dataset we have to achieve a stopping criteria where we end up on a so-called \textit{leaf node}.\\
+\\A DT is typically divided into a \textit{root nodes}, \textit{interior nodes} and a final \textit{leaf nodes}, also called leaves, which are all connected by \textit{branches}, hence the name decision \textit{tree}. As mentioned in the start of this chapter, we will look at two ways of making DTs, 
+the first one we will look at is the \textit{regression tree}. 
+
+\subsection{Regression trees}
+As previously mentioned the leaves contain the prediction of a trained network, and are used to make new predictions on new datasets based on the information the DT learning in the branching process. As how to construct trees, there are mainly two steps we need to follow:
+\begin{enumerate}
+    \item Split the predictior space (set of possible values $x_1,x_2,\cdots,x_p$) into $J$ distinct and non-overlapping regions, $R_1,R_2,\cdots,R_J$\todo{is this too similar to 9.3 in \cite{MORTYY4}?}
+    \item For every observation that fals into the region $R_j$, we make the same prediction, which is the mean of the response values for the training observations in $R_J$
+\end{enumerate}
+But how do we construct the regions $R_1,R_2,\cdots,R_J$? In theory these regions could have any shape, but for simplicity and pedagogial reasons we will choose to divide the predictor shpe into high-dimensional rectangles, or boxes. This means that the goal is to find boxes 
+$R_1,R_2,\cdots,R_J$ that minimize a \textit{cost function}, which again, for pedagogical reasons will be the a MSE (Eq. (\ref{eq:cost})), defined as 
+$$
+\sum_{j=1}^{J}\sum_{i\in R_j}(y_i -\bar{y}_{R_j})^2
+$$
+where $\bar{y}_{R_j}$ is the mean response for the training observations withing box $j$. Ideally we would consider every possible partition of the feature space into $J$ boxes, but his is computationally infeasable. Thus the common apporach is to begin at the top of the tree, 
+where all observations belong to a single region, and then split the predictor space; where every split is indicated via two new branches down in the tree. This is greedy (as in \textit{Greedy Function Approximation} \cite{BDT_Friedman}) since the best split is mad in the first step, 
+rather than looking ahead and picking a split that might lead to a better tree in a future step.\\ 
+To make any split we start by selecting the predictor $x_j$ and a cutpoint $s$ that splits the predictor space into two regions $R_1$ and $R_2$
+$$
+\{X\vert x_j < s\} \quad\text{and}\quad \{X\vert x_j \ge s\}
+$$
+so that we obtain the lowest MSE, 
+$$
+\sum_{i:x_i\in R_1}(y_i-\bar{y}_{R_1})^2 + \sum_{i:x_i\in R_2}(y_i-\bar{y}_{R_2})^2
+$$
+where we consider all predictors $x_1,x_2,\cdots,x_p$ and each possible value $s$ for each of them, where these values can be randomly assigned numbers. For any $j$ and $s$ we define the pair of half-planes where $\bar{y}_{R_1}$ and $\bar{y}_{R_2}$ are the mean responses for the training 
+observations in $R_1(j,s)$ and $R_2(j,s)$ respectively. The goal is to find the value $j$ and $s$ such that we minimize the cost function, which can be done quickly depending on the number of predictors.\\
+\\Then we repeat the process looking for the best predictor and best cutpoint, but instead of stopping with two regions, we split one of the two into another two regions creating a total of three regions. This is called the depth of a tree, and we can in principle continue to split indefinetely, 
+however one usually sets a stopping criterion on how many events should be at a leaf.\\
+\\The method explored above is straight forward, but often leads to overfitting and unnecessarily large and complicated trees. To mediate this one usually uses a so-called \textit{Cost complexity} pruning algorithm. 
+For regression precedures, the algorithm, rather than considering every possible subtree, comnsiders a sequence of trees indexed by a nonnegative tuning parameter $\alpha$. For each value of this $\alpha$ there corresponds a subtree $T\in T_0$ such that
+\begin{equation}\label{eq:REG_tree_Cost}
+    \sum_{m=1}^{\bar{T}}\sum_{i:x_i\in R_m}(y_i -\bar{y}_{R_m})^2 + \alpha T
+\end{equation}
+is as small possible. In the equation above $T$ is the number of terminal nodes of the tree $T$, $R_m$ is the rectangle corrresponding to the $m$-th terminal node. This tuning parameter $\alpha$ controls a trade-off between the subtree's complexity and its fit to the training data. 
+As $\alpha$ increases, the above equation will give us a higher value, meaning that our trees would normally prioritize less complex models. This precedure is repeated untill we minimize Eq. (\ref{eq:REG_tree_Cost}) and choose a suitable value for $\alpha$. This is the essense of regression trees.
+
+\subsection{Classification trees}
+The second DT type we will study is the \textit{classification tree}. Classification trees are very similar to regresion trees, except that they are used to predict a qualitative response rather than a quantitative one. This means that classification trees are used for predictive modeling in 
+which the output variable is discrete, such as classifying an email as spam or not spam, or predicting whether an event in our dataset is a DM signal or SM background event.\\
+\\Like regression trees, classification trees recursively split the data based on the values of input variables until a stopping condition is met. However, the splitting criteria for classification trees are different. Classification trees cannot use the MSE function used in regression trees 
+as a criterion for making binary splits, instead they use the \textit{classification error rate}. The classification error rate, classification trees have discrete outputs, is simply the fraction of the training observations in a region that do not belong to the most common class.\\
+\\Classification trees use measures such as Gini index or the entropy to determine quality of a split at each node. The idea behind these quality measures is to select the split that maximizes the separation between the different categories of the output variable.\\
+\\If a classification tasks takes for example $k=1,2,\cdots,K$ values as outputs, we can define a probability distribution function $p_{mk}$ that represents the number of observations of $k$ in a region $R_m$ with $N_m$ observations. We can represent this likelihood function in terms 
+of the proportion $I(y_i=k)$ of obervations of this output in region $R_m$ as
+$$
+p_{mk}=\frac{1}{N_m}\sum_{x_i\in R_m}I(y_i=k)
+$$
+where $p_{mk}$ represents the majority class of observations in region $m$. The tree most common ways of splitting a node are given by: The misclassification error
+$$
+p_{mk}=\frac{1}{N_m}\sum_{x_i\in R_m}I(y_i\ne k) = 1-p_{mk}
+$$
+The Gini index $G$
+\begin{equation}\label{eq:gini}
+    G=\sum_{k=1}^K p_{mk}(1-p_{mk})
+\end{equation}
+and the entropy $s$
+$$
+s=-\sum_{k=1}^K p_{mk}\log(p_{mk})
+$$
+
+\subsection{The CART algorithm} 
+As we are going to look at extreme gradient boosting, the main algorithm for this type of DT is the Classification And Regression Tree (CART). For classification, the CART algorithm splits the dataset in two subsetsusing a single feature $k$ and treshold $t_k$. This could for example be 
+a treshhold set by a value of the invariant mass of an event we are trying to classify as background or signal. The way we optimize the pair $(k,t_k)$ such that we get the purest subset is by for example using the gini factor $G$. With this the cost function tries to minimize
+$$
+C(k,t_k)=\frac{m_{left}}{m}G_{left}+\frac{m_{right}}{m}G_{right}
+$$
+where $G_{left/right}$ calculats the impurity of the left/right subset using Eq. (\ref{eq:gini}) and $m_{left/right}$ is the number of events in the left/right subset. Once the algorithm successfully splits the training set into two, it splits the subsets using the same agorithm, and so on, 
+recursively. For our purposes we will make the DT stop searching for the pair $(k,t_k)$ once we have reaches the maximum depht we chose, or whenever the sum of the weights on a leaf is one. Both of these are hyperparameters that need to be optimized, for that see Chapter \ref{sec:BDTGriddy}.\\
+\\The CART algorithm for regression works similarly to the one for classification, but instead of trying to split the training set in a way that minimizes the gini or entropy impurity, it tries to split the training set in a way that minimizes the (MSE). Meaning that we have
+$$
+C(k,t_k)=\frac{m_{left}}{m}MSE_{left}+\frac{m_{right}}{m}MSE_{right}
+$$
+with
+$$
+MSE_{node} = \frac{1}{m_{node}}\sum_{i\in node}(\bar{y}_{node} -y_i)^2
+$$
+and
+$$
+\bar{y}_{node} = \frac{1}{m_{node}}\sum_{i\in node}y_i
+$$
+
+\subsection{Ensemble modeling and (extreme) gradient boosting}
+Now that we have explained how DTs wor, we still need more information to get the full picute of \textit{Boosted} DTs. For this section of the chapter we. As we are going to look at a massive dataset, a single tree is not strong enough to be used in practice. What is actually used is the \textit{ensemble model}, which 
+sums up the prediction of multiple trees togheter. What is important of this models is that the different trees we are summing togheter try to complement each other. For example if the first split on one tree is on the invariant mass of a dilepton pair, while on another tree it is the MET, 
+then we know physically that these are important features that DM + dilepton models have as a signature, meaning that it should be a good combination. Mathematically, we can write the prediction of an ensemble model in the form
+\begin{equation}\label{eq:ensemble}
+    \hat{y}_i =\sum_{k=1}^{K}f_k(x_i),\quad f_k\in\mathcal{F}
+\end{equation}
+where $K$ is the number of trees we want to sum over, $f_k$ is a function of the functional space $\mathcal{F}$, where $\mathcal{F}$ is the set of all possible CARTs. With this we want to minime a the objective function of the form
+$$
+    \mathcal{L} = \sum_{i}^{n}C(y_i,\hat{y}_i)+\sum_{k=1}^{K}\Omega(f_k)
+$$
+where we sum over $n$ leaves, $C$ is training cost function (for example it can be the MSE), and $\Omega(f_k)$ is the complexity of the tree $f_k$, which penalizes the more complex models. We can see from both functions above that we need to learn all trees at once to make predictions, this is however both 
+computationally demanding and intractable. Instead, we can use an additive strategy, where we fix what we have learned, and add a new tree at a time. Using Eq. \ref{eq:ensemble} with 0 trees and going up we see that we get
+\begin{align*}
+    &\hat{y}_i^{(0)} = 0\\
+    &\hat{y}_i^{(1)} = f_1(x_i)=\hat{y}_i^{(0)}+f_1(x_i)\\
+    &\hat{y}_i^{(2)} = f_1(x_i)+f_2(x_i)=\hat{y}_i^{(1)}+f_2(x_i)\\
+    &\hat{y}_i^{(3)} = f_1(x_i)+f_2(x_i)+f_3(x_i)=\hat{y}_i^{(2)}+f_3(x_i)
+\end{align*}
+and so on. Mathematically we see that a prediction at step $t$ as in $\hat{y}_i^{(t)}$ takes the form
+\begin{equation}\label{eq:eff_ensemble}
+    \hat{y}_i^{(t)}=\sum_{k=1}^{t}f_k(x_i) = \hat{y}_i^{(t-1)}+f_t(x_i)
+\end{equation}
+Such that we can now write the objective to be
+\begin{equation}
+    \mathcal{L}^{(t)}=\sum_{i}^{n}C(y_i,\hat{y}_i^{(t-1)}+f_t(x_i))+\Omega(f_t)
+\end{equation}
+from which we can set up our choice for cost function. In general case we take the Taylor expansion of the loss function up to the second order such that we get
+$$
+    \mathcal{L}^{(t)}=\sum_{i}^{n}\left[C(y_i,\hat{y}_i^{(t-1)})+g_i f_t(x_i)+\frac{1}{2}h_i f_t^2(x_i)\right]+\Omega(f_t)+const
+$$
+where 
+$$
+    g_i \equiv \partial_{\hat{y}_i^{(t-1)}}C(y_i,\hat{y}_i^{(t-1)}) \quad\text{and}\quad   h_i \equiv \partial^2_{\hat{y}_i^{(t-1)}}C(y_i,\hat{y}_i^{(t-1)})
+$$
+Such that the specific objective at step $t$ becomes
+\begin{equation}\label{eq:new_obj}
+    \sum_{i=1}^{n}\left[ g_i f_t(x_i) +\frac{1}{2}h_i f_t^2(x_i)\right] +\Omega(f_t)
+\end{equation}
+where we removed all constants. Such that Eq (\ref{eq:new_obj}) becomes the optimization goal for the new tree. As we can see the above equation can take into account any cost function as it is written in a general form with a Taylor expansion. Furthermore, we can rewrite this by expanding 
+$$
+\Omega(f_t) \rightarrow \alpha T + \frac{1}{2}\lambda\sum_{j=1}^{T} w_j^2 
+$$ 
+where the first term is the same as in Eq. (\ref{eq:REG_tree_Cost}), and the second is called the \textit{regularization term} (see Chapter \ref{sec:cost_func}). Inserting this into Eq. (\ref{eq:new_obj}) we get
+$$
+\mathcal{L}^{(t)} = \sum_{j=1}^{T}\left[\left(\sum_{i=1}^{n} g_i\right)w_j +\frac{1}{2}\left(\sum_{i=1}^{n} h_i +\lambda \right)w_j^2\right] +\alpha T
+$$
+such that with a fixed tree structure, $q$, we can define the optimal weight $w_j^*$ on a leaf $j$ as 
+\begin{equation}\label{eq:opt_wgt_bdt}
+    w_j^*=-\frac{\sum_{i=1}^{n} g_i}{\sum_{i=1}^{n} h_i+\lambda}
+\end{equation}
+and correspondingly the optimal objective reduction
+\begin{equation}\label{eq:opt_obj_bdt}
+    \mathcal{L}^{(t)}(q)=-\frac{1}{2}\sum_{j=1}^{T}\frac{(\sum_{i=1}^{n} g_i)^2}{\sum_{i=1}^{n} h_i+\lambda}+\alpha T
+\end{equation}
+With both of these equations we have all we need to use BDTs, the extreme part of the gradient boosting is something the \verb|XGBoost| algorithm has implemented in terms of system optimization, such as parallelising the tree boosting task, and can be read in more detail on section 4 of the original paper \cite{XGBoost}.
+
+
+\subsection{Summary of idea}
+So in short BDTs split datasets based on different values of the features on the dataset, figure \ref{fig:DT_ilus} shows an illustration of how DTs work.
+\graphicspath{{../../figures/}}
+\begin{figure}[!ht]
+	\centering
+    \includegraphics[width=1\textwidth]{BDT_image.png}
+    \caption[Basic Decision Tree illustration]{Image showcasing how decision trees work by splitting a dataset of $N$ events with $M$ features whenever a treshhold $X, Y$ or $Z$ for a feature is passed. The label $S$ and $B$ state whether the event is signal or background respectively.}\label{fig:DT_ilus}
+\end{figure}
+\\The above illustration just shows how one tree might work, in reality we can choose to have an arbitraty number of trees and combine their results with the ensembling and boosting method. Then after combining the generated tree structures we use Eq. (\ref{eq:opt_wgt_bdt}) and Eq. (\ref{eq:opt_obj_bdt}) 
+to minimeze the objective to get the most accurate predictions as possible. 
 
 \clearpage
 \section{Tools used for both algorithms}
 Now that we have explained how both NNs and BDTs work, we will explain how tools used by both algorithms work. \todo{more motivation}
-\subsection{Activation functions}\label{sec:act}
-As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 
-Mathematically speaking, activation functions are: Non-constant, Bounded, Monotonically-increasing and continuous functions. In this project we will utilize two different activation functions at different layers. 
-The first one is a sigmoid activation function
-\begin{equation}\label{eq:sig}
-    f(x) = \frac{1}{1+e^{-x}}
-\end{equation}
-which is the most basic activation function, this will be used from the input layer to our fist hidden layer as the risks of having little neuron activation is minimal here. On all other layers I will utilise a Rectified Linear Unit (ReLU)
-\begin{equation}\label{eq:ReLU}
-    f(x) = x^+ = \text{max}(0,x) = \begin{cases}x&{\text{if }}x>0,\\0.&{\text{otherwise}}.\end{cases}
-\end{equation}
-which has better gradient propagation, meaning that there are fewer vanishing gradient problems compared to the sigmoidial function.
 
-
-\subsection{Cost functions}
+\subsection{Cost functions}\label{sec:cost_func}
 Cost functions have been mentioned throughout this chapter, but what are they? Cost functions are what we will utilize to evaluate how well the output of the network fares against the target, i.e. if our network "guesses" right whether an event is signal or background, 
 thus making this a very important part of our network! Before getting into this we first have to look at logistic regression. Since we are studing a binary classification task where the output is either $t_i=0$ or $t_i = 1$, meaning background or signal. 
 We can introduce a polynomial model of order $n$ as
@@ -445,11 +605,6 @@ weight works is by multiplying a constant term $\chi$ into the cost/loss functio
     C(\hat{W})=\frac{1}{2}\sum_{i=1}^n\chi_i(y_i-t_i)^2
 \end{equation}
 This will become an important feature when discussing network optimization in chapter \ref{chap:ML}, and especially for particle physists as we want to re-weight Monte Carlo events to expected events to correctly showcase kinematical distributions.
-% An extra term is added to the derivative of the loss function, Eq. (\ref{eq:delta}), \href{https://scikit-learn.org/stable/modules/svm.html#svc}{Source} and \href{https://stats.stackexchange.com/questions/362987/how-do-sample-weights-work-in-classification-models}{forum}
-% \begin{equation}
-%     \delta^L \rightarrow \delta^L + C\sum_i \xi^i
-% \end{equation} 
-% where $C$ is a constant term we will add to each sample in the dataset. This extra term is called the \textit{sample weight} and is used to "even out" unbalanced data sets. \todo{will add more details later!}
 
 
 \subsection{Network evaluation methods}
@@ -475,7 +630,7 @@ The goal is to have a network to give an AUC score as closely to 1 as possible. 
 be inlcined to think that an accuracy of 95\% is great. However, as the dataset is unbalanced, the network could easily take a shortcut and guess every event to be a background event. Meaning that the network learned nothing.
 This is where the AUC comes into play, as this metric highlights whenever a network guesses wrongly in a binary classification. Meaning that if we used the worst case scenario with 95\% accuracy when guessing everything to be background, we would have a TPR = 0 and a FPR = 0, 
 if we were to plot this we would get a flat line on the FPR and TPR axis, meaning that it would give us an AUC of 0.5. Highlighting that our network is randomly guessing, and that it needs to be optimized further.\\
-\textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, should I cite that?}
+\textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, should I cite that?}\todo{can I include my own made figures here (might be results)}
 
 \subsubsection{Validation plots}\label{sec:validation}
 Another tool that we will use to evaluate how well a network does is by making so-called \textit{validation plots}\todo{Is this the real name of the plots?}. The way these plots work is by first dividing the \textit{already predicted} data set into background and signal. Then making histograms from 0-1 
@@ -483,8 +638,19 @@ with the prediction score of the network for each event. As a score closer to 1 
 Usually this is not the case in high energy particle physics, as some background events might be similar to signal events. We will therefore utilize this kind of plots to see the ditribution of the network predictions. \\
 \\It is standard practice to make fill the histrograms with semi-transparent colors, such that one can visualise the whole spectra for both background and signal. In this thesis we will use this, as well as validation plots where we divide the SM events into their respective background channels and fill them with opaque 
 colors, while leaving the signal unfilled. We will in adition include real data points in the latter plots, to see how well SM simulations agree with the data. Ideally we want our data to not agree with the SM simulations when the network 
-predicts a score close to one, as this discrepancy could be a hint of new physics. 
+predicts a score close to one, as this discrepancy could be a hint of new physics. \todo{can I include my own made figures here (might be results)}
 
-\section{The declaration of model indpedence}
-Should I make this a whole chapter instead? As it is a central part of my thesis. And maybe move it into part 2, "Methods"
+
+\subsubsection{Feature importance}
+For BDTs, as we can calculate which features had the most impact when splitting the data, we will also include feature importance plots. As the name states these plots tells us how important the features in the dataset were in the training to separate signal from background. As we are using the \verb|XGBoost| 
+package when working with BDTs, we will use the inbuilt functions of the package to plot the feature importance. \\
+\\When plotting the feature importance there are several metrics we can use to determine how important they are, for this thesis we will mainly look at 
+\begin{itemize}
+    \item Gain: which measures the relative contribution of a feature to the model's performance
+    \item Weight: the number of times a feature appears on a tree to split the data
+    \item Cover: the number of samples affected by the split with a feature
+\end{itemize}
+Where the first one is the standard used by \verb|XGBoost|.
+
+
 \end{document}

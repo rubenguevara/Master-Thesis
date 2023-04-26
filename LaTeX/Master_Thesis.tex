@@ -3,10 +3,10 @@
 \usepackage[T1]{fontenc}
 \usepackage[margin=1in,marginpar=0.9in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, bm}
+\usepackage{coffeestains}
 %\usepackage{xcolor}
 %\usepackage{mdframed}
 \usepackage[shortlabels]{enumitem}
-% \usepackage[american]{duomasterforside}
 \usepackage[USenglish]{uiomasterfp}
 %\usepackage{indentfirst}
 %\usepackage{simpler-wick}
@@ -78,22 +78,18 @@
 \begin{document}
 \pagenumbering{roman}
 
-% \duoforside[
-% dept = {Department of Physics},
-% long,
-% program = {Physics: Nuclear and Particle Physics},
-% ]
-
 \uiomasterfp[
-colour = pink,
+colour = orange,
 dept = {Department of Physics},
 long,
 program = {Physics: Nuclear and Particle Physics},
-supervisors = {Professor Farid Ould-Saada \and Dr. Eirik Gramstad}
+supervisors = {Professor Farid Ould-Saada \and Dr. Eirik Gramstad},
+image = {gort}
 ]
 \newpage
 \section*{Acknowledgements}
-Thank you everybody<3<3
+Thank you everybody<3<3 \\
+Most importantly I want to thank the coffee machine at the section for High Energy Particle Phyiscs for the incredible support in times of need, as the coffee was free. \coffeestainA{1}{0.85}{-25}{3cm}{1.3cm}
 
 \newpage
 \begin{center}
@@ -152,8 +148,8 @@ Something something
 \subfile{chapters/Part_III/8_Results.tex}
 
 in spacetime.
-
-balance re-weighted bkg with raw MC signal.
+To find efficiency of signal: you have cross section for each MC period... so to find signal events before "cuts" multiple cross section with luminosity period!
+mll regions n met?
 \clearpage
 
 
@@ -195,9 +191,17 @@ and for the SM background (with a massive MET > 50GeV cut!) there are roughly 87
 \\\textit{\textbf{THIS IS OUTDATED AND WILL MOST LIKELY BE CHANGED TO THE SIGNAL REGION APPROACH, WHERE WE STATISTICALLY COMBINE WHAT THE NETWORKS LEARN IN A MODEL DEPENDENT WAY}} Thus making the approach to teach the networks one MC sample at a time is impossible. So far I have tried dividing the the MC samples into 18 different categories. First into their respective theory. 
 Then into LDS or HDS. Then into three $m_{Z'}$ regions, where I've defined the \textit{low mass region} to be $\le 600$ GeV, the \textit{middle mass region} to be $>600$ $\cap\le 1100$ GeV and 
 the\textit{ high mass region }to be $\ge 1100$ GeV. Using a NN with three hidden layers I get poor results, but changing this into one works! Will repeat with real weights, it didn't work. 
+\subsection*{Interesting articles}
+\begin{itemize}
+	\item From "Search for a charged Higgs boson decaying into a top and a bottom quark at $\sqrt{s} = 13$ TeV" \cite{Benchekroun_2710015} they say (chap 4.2): "The signal samples are trained against all backgrounds, which are weighted according to their
+	cross-sections."
+	\item 
+\end{itemize}
 
 
 \clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
 \printbibliography
 
 \end{document}
