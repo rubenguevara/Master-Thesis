@@ -66,7 +66,10 @@ For our purposes it would be optimal to use GD, but our data size is massive, of
 we could for example split it into ten smaller matrices of $n\times10^7$ to then perform a parameter update, making the computation possible. This is where SGD comes in, for each step, or epoch the data is divided randomly into 
 \textit{N} batches of size \textit{n}. Then for each batch we use Eq. (\ref{eq:GD}) to update the parameters, thus updating $\bm{\beta}_{i+1}$ \textit{N}-times for each epoch. The idea of SGD comes from the observation that the 
 cost function can almost always be written as a sum over \textit{n} data points. The main advantage of SGD is not to ease the computation however, as using more batches also reduces the risk of getting stuck in a local minimum since it introduces a randomness of which part of the parameter space we move through, 
-but this is at the cost of reducing statistics which might not be ideal for every problem.
+but this is at the cost of reducing statistics which might not be ideal for every problem.\\
+\\There are other optimization algorithms we could use, such as the popular ADAM \cite{kingma2017adam}. The Adaptive Moment Estimation (ADAM) is a more advanced optimization algorithm that uses adaptive learning rates. It computes individual learning rates for each weight based on the average of past gradients 
+and their variances. ADAM also uses momentum to accelerate the convergence of the optimization algorithm. However as we will be looking at extreme datasets in this thesis, we will use SGD rather than ADAM to reduce the risk to get stuck in a local minima of 
+the loss phasespace, and since SGD is a more robust and conservative optimizer.
 
 \subsection{Activation functions}\label{sec:act}
 As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 
@@ -542,7 +545,7 @@ and correspondingly the optimal objective reduction
 With both of these equations we have all we need to use BDTs, the extreme part of the gradient boosting is something the \verb|XGBoost| algorithm has implemented in terms of system optimization, such as parallelising the tree boosting task, and can be read in more detail on section 4 of the original paper \cite{XGBoost}.
 
 
-\subsection{Summary of idea}
+\subsection{Summary}
 So in short BDTs split datasets based on different values of the features on the dataset, figure \ref{fig:DT_ilus} shows an illustration of how DTs work.
 \graphicspath{{../../figures/}}
 \begin{figure}[!ht]
@@ -554,7 +557,7 @@ So in short BDTs split datasets based on different values of the features on the
 to minimeze the objective to get the most accurate predictions as possible. 
 
 \clearpage
-\section{Tools used for both algorithms}
+\section{Tools and evaluation methods used for both algorithms}
 Now that we have explained how both NNs and BDTs work, we will explain how tools used by both algorithms work. \todo{more motivation}
 
 \subsection{Cost functions}\label{sec:cost_func}
@@ -599,7 +602,7 @@ This is so that less significant features still have some influence over the fin
 
 \subsection{Sample weight}\label{sec:sample_weight}
 A "sample weights" array is an array of numbers that specify how much weight each sample in a batch should have in computing the total loss. 
-It is commonly used in imbalanced classification problems (the idea being to give more weight to rarely-seen classes). Taken from the original \href{https://www.tensorflow.org/guide/keras/train_and_evaluate#sample_weights}{documentation}. To mathematically illustrate how this 
+It is commonly used in imbalanced classification problems (the idea being to give more weight to rarely-seen classes). Taken from the original documentation \cite{tf_sample_wgt}. To mathematically illustrate how this 
 weight works is by multiplying a constant term $\chi$ into the cost/loss function that is used further on the error propagation. As an example we can extend the simple MSE, Eq. (\ref{eq:cost}) to
 \begin{equation}\label{eq:sample_weight}
     C(\hat{W})=\frac{1}{2}\sum_{i=1}^n\chi_i(y_i-t_i)^2
@@ -607,12 +610,7 @@ weight works is by multiplying a constant term $\chi$ into the cost/loss functio
 This will become an important feature when discussing network optimization in chapter \ref{chap:ML}, and especially for particle physists as we want to re-weight Monte Carlo events to expected events to correctly showcase kinematical distributions.
 
 
-\subsection{Network evaluation methods}
-There are many ways to evaluate how well a ML network does. For this thesis, we will mainly use two methods. As the empasis of the thesis is to conduct a binary search (DM or not). We will utilise the Area Under the "Receiver Operating Characteristic"-Curve as well as validation plots.
-\todo{write more motivation?}
-
-
-\subsubsection{Area under the ROC-curve}
+\subsection{Area under the ROC-curve}
 To evaluate how well our networks do. We will use the acuracy, which literally tells us how many events it guessed right. But also take into account a more advanced metrics, this is the Area Under the "Receiver Operating Characteristic (ROC)" Curve (AUC). 
 Before explaining what the AUC is we first need to expclote the ROC curves. The ROC curves helps us illustrate how successfull a network is a \textit{binary classification} (only). The ROC curve, as the name states is a curve, where we plot the \textit{True Positive Rate} (TPR) against 
 the \textit{False Positive Rate} (FPR). The TPR is defined by dividing the \textit{True Positive} (TP), which is when the netowrk correctly guesses a signal event to be a signal event, by the \textit{Positive} (P), which is the total number of signal events in the data. 
@@ -632,7 +630,7 @@ This is where the AUC comes into play, as this metric highlights whenever a netw
 if we were to plot this we would get a flat line on the FPR and TPR axis, meaning that it would give us an AUC of 0.5. Highlighting that our network is randomly guessing, and that it needs to be optimized further.\\
 \textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, should I cite that?}\todo{can I include my own made figures here (might be results)}
 
-\subsubsection{Validation plots}\label{sec:validation}
+\subsection{Validation plots}\label{sec:validation}
 Another tool that we will use to evaluate how well a network does is by making so-called \textit{validation plots}\todo{Is this the real name of the plots?}. The way these plots work is by first dividing the \textit{already predicted} data set into background and signal. Then making histograms from 0-1 
 with the prediction score of the network for each event. As a score closer to 1 means that the network predicts an event to be a signal event, and 0 means that the network predicts a background event. Then we would ideally have all the signal events shoved to the right and all the background events shoved to the left. 
 Usually this is not the case in high energy particle physics, as some background events might be similar to signal events. We will therefore utilize this kind of plots to see the ditribution of the network predictions. \\
@@ -640,8 +638,11 @@ Usually this is not the case in high energy particle physics, as some background
 colors, while leaving the signal unfilled. We will in adition include real data points in the latter plots, to see how well SM simulations agree with the data. Ideally we want our data to not agree with the SM simulations when the network 
 predicts a score close to one, as this discrepancy could be a hint of new physics. \todo{can I include my own made figures here (might be results)}
 
+\subsection{Signifiacance plots}\label{sec:siggy}
+Significance after making cuts on the validation plots.
 
-\subsubsection{Feature importance}
+
+\subsection{Feature importance}
 For BDTs, as we can calculate which features had the most impact when splitting the data, we will also include feature importance plots. As the name states these plots tells us how important the features in the dataset were in the training to separate signal from background. As we are using the \verb|XGBoost| 
 package when working with BDTs, we will use the inbuilt functions of the package to plot the feature importance. \\
 \\When plotting the feature importance there are several metrics we can use to determine how important they are, for this thesis we will mainly look at 
