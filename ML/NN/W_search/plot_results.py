@@ -1,4 +1,4 @@
-import os, gc, time
+import os, gc, time, argparse
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import tensorflow as tf
 from EventIDs import IDs
@@ -18,7 +18,7 @@ start = time.asctime(time.localtime())
 print('Started', start)
 
 save_dir = "/storage/racarcam/"
-filename = "Diboson_search.h5"
+filename = "W_search.h5"
 dataname = 'dataFINAL.h5'
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')                           
@@ -50,7 +50,8 @@ def stat_unc(prediction, bins, weights, d_scaler = None):
     return np.asarray(stat_unc_array)
 
 
-extra_variables = ['n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps', 'jet1Phi', 'jet2Phi', 'jet3Phi', 'mjj', 'jet1Eta', 'jet2Eta', 'jet3Eta', 'jet1Pt', 'jet2Pt', 'jet3Pt']
+extra_variables = ['jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps', 'jet1Phi', 'jet2Phi', 'jet3Phi', 'mjj', 'jet1Eta', 'jet2Eta', 'jet3Eta', 'jet1Pt', 'jet2Pt', 'jet3Pt'
+                    ,'n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral']
 
 
 df_features = df.copy()
@@ -83,11 +84,14 @@ data_size= 0.1
 data_train, data_test = train_test_split(df_feat, test_size=data_size, random_state=42)
 data_scaler = 1/data_size
 
-model_dir = '../../Models/NN/Diboson/'
-plott_dir = '../../../Plots/NeuralNetwork/Diboson/'
-model_type = 'Unweighted'
-# model_type = 'Weighted'
-# model_type = 'Balanced'
+model_dir = '../../Models/NN/W/'
+plott_dir = '../../../Plots/NeuralNetwork/W/'
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--model_type', type=str, default="Unweighted", help="Balancing type")
+args = parser.parse_args()
+
+model_type = args.model_type 
 
 model = tf.keras.models.load_model(model_dir+model_type) 
     
@@ -112,17 +116,17 @@ for DSID, output, w in zip(DSIDs, pred, W_test):
     elif DSID in IDs['Single_top']:
         ST.append(output)
         ST_w.append(w*scaler)
-    elif DSID in IDs["W"]:
-        W.append(output)
-        W_w.append(w*scaler)
+    elif DSID in IDs["Diboson"]:
+        DB.append(output)
+        DB_w.append(w*scaler)
     elif DSID in IDs["TTbar"]:
         TT.append(output)
         TT_w.append(w*scaler)
 
-hist = [W, TT, ST, DY]
-hist_w = [W_w, TT_w, ST_w, DY_w]
-colors = ['#218C8D', '#F9E559', '#EF7126', '#8EDC9D']
-labels = ["W", 'TTbar', 'Single Top', 'Drell Yan']
+hist = [DB, TT, ST, DY]
+hist_w = [DB_w, TT_w, ST_w, DY_w]
+colors = ['#6CCECB', '#F9E559', '#EF7126', '#8EDC9D']
+labels = ["Diboson", 'TTbar', 'Single Top', 'Drell Yan']
 
 
 if isinstance(bins, (list, tuple, np.ndarray)):
@@ -138,11 +142,11 @@ for i in range(len(binning) - 1):
     x_axis.append(bin_center)
     
 plt.figure(figsize=[10,6])
-plt.xlabel('Tensorflow F output')
+plt.xlabel('TensorFlow output')
 plt.ylabel('Events')
 plt.yscale('log')
 plt.xlim([0,1])
-plt.title('TF output, Diboson dataset, validation data')
+plt.title('TF output, W dataset, validation data')
 plt.grid(True)
 bkg_pred, bins, patches = plt.hist(pred[Y_test==0], weights = W_test[Y_test==0]*scaler, bins = binning, facecolor='blue', alpha=0.2,label="Background")
 sig_pred, bins, patches = plt.hist(pred[Y_test==1], weights = W_test[Y_test==1]*scaler, bins = binning, facecolor='red', alpha=0.2, label="Signal")
@@ -165,7 +169,7 @@ line = np.linspace(0, 1, 2)
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(11,8), gridspec_kw={'height_ratios': [4, 1]}, sharex=True)
 fig.subplots_adjust(hspace=0.04)
 n, bins, patches = ax1.hist(hist, weights = hist_w, bins = binning, label = labels, histtype='barstacked', color=colors, zorder = 0)
-n, bins, patches = ax1.hist(pred[Y_test==1], weights = W_test[Y_test==1]*scaler, bins = binning, color='#F42069', label="Diboson", zorder = 5, histtype='step')
+n, bins, patches = ax1.hist(pred[Y_test==1], weights = W_test[Y_test==1]*scaler, bins = binning, color='#F42069', label="W", zorder = 5, histtype='step')
 ax1.bar(x_axis, 2*stat_unc_bkgs, bottom=bkg_pred-stat_unc_bkgs, fill=False, hatch='XXXXX', label='Stat. Unc.', width = widths, lw=0.0, alpha=0.3, edgecolor='r')
 ax1.bar(x_axis, 2*syst_unc_bkgs, bottom=bkg_pred-syst_unc_bkgs, fill=False, hatch='XXXXX', label='Syst. Unc.', width = widths, lw=0.0, alpha=0.3)
     
@@ -188,7 +192,7 @@ ax2.grid(axis='y')
 ax2.set_xlim([0,1])
 ax2.set_ylim([0.5, 1.5])
 ax2.set_xlabel('Tensorflow output')
-fig.suptitle('TensorFlow output, Diboson dataset, validation data with 20 % syst. unc.\n $\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, $>50$ GeV $E_{T}^{miss}$', fontsize='x-large')
+fig.suptitle('TensorFlow output, W dataset, validation data with 20 % syst. unc.\n $\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, $>50$ GeV $E_{T}^{miss}$', fontsize='x-large')
 plt.savefig(plot_dir+'VAL.pdf')
 plt.clf()
 
@@ -203,7 +207,7 @@ plt.xlim([-0.01, 1.02])
 plt.ylim([-0.01, 1.02])
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('ROC for TensorFlow on Diboson dataset')
+plt.title('ROC for TensorFlow on W dataset')
 plt.legend(loc="lower right")
 plt.savefig(plot_dir+'ROC.pdf')
 plt.show()

@@ -1,4 +1,4 @@
-import os, gc, time
+import os, gc, time, argparse
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import tensorflow as tf
 from tensorflow.keras import layers
@@ -16,13 +16,14 @@ start = time.asctime(time.localtime())
 print('Started', start)
 
 save_dir = "/storage/racarcam/"
-filename = "Diboson_search.h5"
+filename = "W_search.h5"
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')                           # Padding missing values on jet- eta & phi
 df_features = df.copy()
 
 
-extra_variables = ['n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps', 'jet1Phi', 'jet2Phi', 'jet3Phi', 'mjj', 'jet1Eta', 'jet2Eta', 'jet3Eta', 'jet1Pt', 'jet2Pt', 'jet3Pt']
+extra_variables = ['jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps', 'jet1Phi', 'jet2Phi', 'jet3Phi', 'mjj', 'jet1Eta', 'jet2Eta', 'jet3Eta', 'jet1Pt', 'jet2Pt', 'jet3Pt'
+                    ,'n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral']
 
 
 df_features = df.copy()
@@ -68,27 +69,32 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
                 metrics = [tf.keras.metrics.BinaryAccuracy(), tf.keras.metrics.AUC()])
     return model
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--model_type', type=str, default="Unweighted", help="Balancing type")
+args = parser.parse_args()
+
+model_type = args.model_type 
+
+
+
 model=NN_model(X_train.shape[1], 2, 100, 0.01, 1e-05)
-plott_dir = '../../../Plots/NeuralNetwork/Diboson/'
-# model_type = 'Unweighted'
-# model_type = 'Weighted'
-model_type = 'Balanced'
+plott_dir = '../../../Plots/NeuralNetwork/W/'
 
 if model_type == 'Unweighted':
     history = model.fit(X_train, Y_train, 
                     validation_data = (X_test, Y_test),    
-                    epochs = 50, batch_size = int(2**22), use_multiprocessing = True)
+                    epochs = 50, batch_size = int(2**22), use_multiprocessing = True, verbose = 2)
     
 elif model_type == 'Weighted':
     print("Doesn't work on TF v. 2.7.1, but works on 2.5.0")
     history = model.fit(X_train, Y_train, sample_weight = X_train_w, 
                     validation_data = (X_test, Y_test),    
-                    epochs = 50, batch_size = int(2**22), use_multiprocessing = True)
+                    epochs = 50, batch_size = int(2**22), use_multiprocessing = True, verbose = 2)
     
 elif model_type == 'Balanced':    
     history = model.fit(X_train, Y_train, sample_weight = W_train, 
                     validation_data = (X_test, Y_test),    
-                    epochs = 50, batch_size = int(2**22), use_multiprocessing = True)
+                    epochs = 50, batch_size = int(2**22), use_multiprocessing = True, verbose = 2)
     
 plot_dir = plott_dir + model_type +'/'
 try:
@@ -97,7 +103,7 @@ try:
 except FileExistsError:
     pass
 
-model.save('../../Models/NN/Diboson/'+model_type)
+model.save('../../Models/NN/W/'+model_type)
 
 plt.figure(1)
 plt.plot(history.history['binary_accuracy'], label = 'Train')
