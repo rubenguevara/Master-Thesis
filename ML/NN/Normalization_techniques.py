@@ -41,7 +41,7 @@ def stat_unc(prediction, bins, weights, d_scaler = None):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--method', type=str, default="Z-score", help="Normalization method")
+parser.add_argument('--method', type=str, default="Z_score", help="Normalization method")
 args = parser.parse_args()
 
 method = args.method
@@ -83,7 +83,7 @@ data_RunPeriod = data_features.pop('RunPeriod')
 data_features = data_features.drop(extra_variables, axis=1)
 
 
-if method == 'Z-score':
+if method == 'Z_score':
     normalized_df = (df_features-df_features.mean())/np.sqrt(df_features.var())
     data_norm = (data_features-df_features.mean())/np.sqrt(df_features.var())
 
