@@ -88,7 +88,7 @@ model_dir = '../../Models/NN/W/'
 plott_dir = '../../../Plots/NeuralNetwork/W/'
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--model_type', type=str, default="Unweighted", help="Balancing type")
+parser.add_argument('--model_type', type=str, default="bkg_MC", help="Balancing type")
 args = parser.parse_args()
 
 model_type = args.model_type 
