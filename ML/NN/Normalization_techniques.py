@@ -112,7 +112,6 @@ W_test = X_test.pop('Weight')
 DSIDs = X_test.pop('RunNumber')
 scaler = 1/test_size
 
-
 data_test_size = 0.1
 data_train, data_test = train_test_split(data_norm, test_size =data_test_size, random_state = 42)
 data_scaler = 1/data_test_size
@@ -200,6 +199,14 @@ fig.show()
 plt.close('all')
 
 
+IDs['DH_HDS_130'] = [514560,514561]
+DH_HDS_130 = IDs["all_bkg"] + IDs['DH_HDS_130']
+remove_non_DH_HDS_130 =  np.isin(DSIDs, DH_HDS_130)
+X_test = X_test[remove_non_DH_HDS_130]
+Y_test = Y_test[remove_non_DH_HDS_130]
+DSIDs = DSIDs[remove_non_DH_HDS_130]
+W_test = W_test[remove_non_DH_HDS_130]
+
 ### Plotting
 pred = model.predict(X_test, batch_size = int(2**22), use_multiprocessing = True, verbose = 2).ravel()
 data_pred = model.predict(data_test, batch_size = int(2**22), use_multiprocessing = True, verbose = 2).ravel()
@@ -227,7 +234,7 @@ for DSID, output, w in zip(DSIDs, pred, W_test):
 hist = [W, DB, TT, ST, DY]
 hist_w = [W_w, DB_w, TT_w, ST_w, DY_w]
 colors = ['#218C8D', '#6CCECB', '#F9E559', '#EF7126', '#8EDC9D']
-labels = ["Diboson", 'TTbar', 'Single Top', 'Drell Yan']
+labels = ['W', "Diboson", 'TTbar', 'Single Top', 'Drell Yan']
 
 
 if isinstance(bins, (list, tuple, np.ndarray)):
@@ -308,7 +315,7 @@ plt.xlim([-0.01, 1.02])
 plt.ylim([-0.01, 1.02])
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('ROC for TensorFlow on W dataset')
+plt.title('ROC for TensorFlow on DH HDS 130 dataset')
 plt.legend(loc="lower right")
 plt.savefig(plot_dir+'ROC.pdf')
 
@@ -349,6 +356,6 @@ plt.yscale('log')
 plt.grid(True)
 plt.legend()
 plt.ylabel('Expected significance [$\sigma$]')
-plt.title("Significance on "+dm_model.split('_')[0]+' '+dm_model.split('_')[1]+", trained network on "+dm_model.split('_')[0]+' '+dm_model.split('_')[1])
+plt.title("Significance on DH HDS 130, trained network on "+dm_model.split('_')[0]+' '+dm_model.split('_')[1])
 plt.xlabel('XGBoost output')
 plt.savefig(plot_dir+'EXP_SIG.pdf')
