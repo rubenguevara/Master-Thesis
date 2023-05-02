@@ -40,6 +40,8 @@ test_size = 0.2
 X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test_size=test_size, random_state=42)
 X_train_w = X_train.pop('Weight')
 W_test = X_test.pop('Weight')
+btr_wgt = np.ones(len(X_train_w))
+btr_wgt[Y_train == 0] = X_train_w[Y_train == 0]
 
 def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
     model=tf.keras.Sequential()
@@ -94,7 +96,7 @@ elif model_type == 'sig_exp':
     ratio = N_bkg_train/N_sig_train
     Balance_train[Y_train==1] = ratio
 
-W_train = pd.DataFrame(Balance_train, columns=['Weight'])
+W_train = pd.DataFrame(Balance_train*btr_wgt, columns=['Weight'])
 
 history = model.fit(X_train, Y_train, sample_weight = W_train, 
             validation_data = (X_test, Y_test),    
