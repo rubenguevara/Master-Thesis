@@ -1,4 +1,4 @@
-\documentclass[14pt, a4paper]{book}
+\documentclass[12pt, a4paper]{book}
 \begin{document}
 Machine Learning (ML) has emerged as a powerful tool for analyzing complex datasets and making accurate predictions. Its applications span across various fields, from natural language processing to image recognition, and it has been used successfully to solve a range of problems. \\
 \\The main approach of this thesis will be to use ML as its popular rise has proven to be effective at binary classification tasks \cite{Baldi_2016, DeepLearing} in High Energy Particle Physics. 
@@ -50,8 +50,8 @@ Seeing how the results fare we can then back-propagate to shift the weights and 
 The number of neurons can vary for each layer. The above explanation is a very dense and simplified one. In reality it is complicated to find out which cost function, activation function, metric, etc. are best suited to the given problem. 
 But before we get into the gory details we can explore the mathematical model that illustrates what was tried to be explained above. 
 
-\subsection{Stochastic Gradient Descent}\label{sec:SGD}
-The way we "tweak the parameters $\bm \beta $ to see if the network prediction gets better" is by using something called the \textit{Stochastic Gradient Descent} (SDG). Before explaining the SDG we have to look at the Gradient Descent (GD). \\
+\subsection{Optimizers}\label{sec:SGD}
+The way we "tweak the parameters $\bm \beta $ to see if the network prediction gets better" is by using something called an \textit{optimizer}. We will mainly focus on the theory behind the \textit{Stochastic Gradient Descent} (SDG) optimizer as it is more easy to digest. Before explaining the SDG we have to look at the Gradient Descent (GD). \\
 \\Given a cost function $C(\bm{\beta})$ we can get closer to the minimum by calculating the gradient $\nabla_{\beta}C(\bm{\beta})$ wrt. the unknown parameters from the NN $\bm\beta$. If we were to calculate the gradient at a specific 
 point $\bm{\beta}_i$ in the parameter space, the negative gradient would correspond to the direction where a small change $d\bm\beta$ in this parameter space would result in the biggest decrease in the cost function. 
 In the same way we in physics would determine where the local (or global) minima at a complex multidimensional potential numerically. In GD we can chose (which needs to be optimized) a step size $\eta$ related to the size of an iteration in the parameter space; 
@@ -68,8 +68,7 @@ we could for example split it into ten smaller matrices of $n\times10^7$ to then
 cost function can almost always be written as a sum over \textit{n} data points. The main advantage of SGD is not to ease the computation however, as using more batches also reduces the risk of getting stuck in a local minimum since it introduces a randomness of which part of the parameter space we move through, 
 but this is at the cost of reducing statistics which might not be ideal for every problem.\\
 \\There are other optimization algorithms we could use, such as the popular ADAM \cite{kingma2017adam}. The Adaptive Moment Estimation (ADAM) is a more advanced optimization algorithm that uses adaptive learning rates. It computes individual learning rates for each weight based on the average of past gradients 
-and their variances. ADAM also uses momentum to accelerate the convergence of the optimization algorithm. However as we will be looking at extreme datasets in this thesis, we will use SGD rather than ADAM to reduce the risk to get stuck in a local minima of 
-the loss phasespace, and since SGD is a more robust and conservative optimizer.
+and their variances. ADAM also uses momentum to accelerate the convergence of the optimization algorithm. We will test both ADAM and SGD when optimizing our networks.
 
 \subsection{Activation functions}\label{sec:act}
 As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 

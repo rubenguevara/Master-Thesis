@@ -1,4 +1,8 @@
-\documentclass[14pt, a4paper]{book}
+% \documentclass[14pt, a4paper]{book}
+\documentclass[12pt, a4paper]{book}
+\usepackage{setspace}
+\setstretch{1.5}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[margin=1in,marginpar=0.9in]{geometry} 
@@ -16,7 +20,7 @@
 \usepackage{physics}
 %\usepackage{polynom}
 %\usepackage{verbatim}
-%\usepackage{tensor}
+\usepackage{tensor}
 \usepackage{todonotes}
 \usepackage{slashed}
 % \usepackage{dcolumn}% Align table columns on decimal point
@@ -32,9 +36,12 @@
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
+    % linkcolor=black,
     filecolor=magenta,      
-    urlcolor=cyan,
+    urlcolor=cyan,      
+    % urlcolor=black,
     citecolor=cyan,
+    % citecolor=black,
     pdftitle={Model\_independent\_search\_for\_Dark\_Matter\_using\_Machine\_Learning},
     pdfpagemode=FullScreen,
     }
@@ -151,8 +158,6 @@ Something something
 \subfile{chapters/Part_III/8_Results.tex}
 
 in spacetime.
-To find efficiency of signal: you have cross section for each MC period... so to find signal events before "cuts" multiple cross section with luminosity period!
-mll regions n met?
 \clearpage
 
 
@@ -165,6 +170,8 @@ mll regions n met?
 \subfile{chapters/Distributions_jets.tex}
 
 \subfile{chapters/New_features.tex}
+
+\subfile{chapters/Depth_of_30.tex}
 
 
 
