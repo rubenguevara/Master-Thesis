@@ -211,3 +211,44 @@ plt.title('ROC for TensorFlow on W dataset')
 plt.legend(loc="lower right")
 plt.savefig(plot_dir+'ROC.pdf')
 plt.show()
+
+plt.close('all')
+
+
+def low_stat_Z(sig, bkg, sig_unc = None, bkg_unc = None):
+    """
+    Calcultes the expected significance of the signal. Can be done with and without uncertainties. Default is without
+    
+    """
+    
+    if sig_unc != None and bkg_unc != None:
+        Z == 0
+    else:   
+        Z = np.sqrt(2*( (sig + bkg)*np.log(1 + sig/bkg) - sig ))
+    return Z
+
+
+def Z_score_array(sig_pred, bkg_pred):
+    return [low_stat_Z(sum(sig_pred[25:]), sum(bkg_pred[25:])),          
+                low_stat_Z(sum(sig_pred[30:]), sum(bkg_pred[30:])), 
+                low_stat_Z(sum(sig_pred[35:]), sum(bkg_pred[35:])),
+                low_stat_Z(sum(sig_pred[40:]), sum(bkg_pred[40:])), 
+                low_stat_Z(sum(sig_pred[45:]), sum(bkg_pred[45:])), 
+                low_stat_Z(sig_pred[-1], bkg_pred[-1])]
+
+plt.figure(figsize=(11,8))
+X_axis = [0.5, 0.6, 0.7, 0.8, 0.9, 0.99]
+Y_axis = Z_score_array(sig_pred, bkg_pred)
+
+plt.figure(figsize=[10,6])
+plt.plot(X_axis, Y_axis, linestyle='--')
+plt.scatter(X_axis, Y_axis, label = "Signal")
+plt.xlim([0,1])
+plt.ylim([min(Y_axis)*0.9, max(Y_axis)*1.1])
+plt.yscale('log')
+plt.grid(True)
+plt.legend()
+plt.ylabel('Expected significance [$\sigma$]')
+plt.title("Significance on W dataset")
+plt.xlabel('TensorFlow output')
+plt.savefig(plot_dir+'EXP_SIG.pdf')

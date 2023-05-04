@@ -58,15 +58,17 @@ X_train_w = X_train.pop('Weight')
 W_test = X_test.pop('Weight')
 scaler = 1/test_size
 
+btr_wgt = np.ones(len(X_train_w))
+btr_wgt[Y_train == 0] = X_train_w[Y_train == 0]
 
 N_sig_train = sum(Y_train)
-N_bkg_train = len(Y_train) - N_sig_train
-ratio = N_sig_train/N_bkg_train
-
-
 Balance_train = np.ones(len(Y_train))
-Balance_train[Y_train==0] = ratio
-W_train = pd.DataFrame(Balance_train, columns=['Weight'])
+
+N_bkg_train = sum(X_train_w[Y_train==0])
+ratio = N_bkg_train/N_sig_train
+Balance_train[Y_train==1] = ratio
+
+W_train = pd.DataFrame(Balance_train*btr_wgt, columns=['Weight'])
 
 def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
     model=tf.keras.Sequential()
@@ -80,7 +82,7 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
             model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(lamda)))
     
     model.add(layers.Dense(1, activation='sigmoid'))                         # 1 output - signal or no signal
-    adam=tf.optimizers.SGD(learning_rate=eta)
+    adam=tf.optimizers.Adam(learning_rate=eta)
     
     model.compile(loss=tf.losses.BinaryCrossentropy(),
                 optimizer=adam,
@@ -183,7 +185,7 @@ indices = np.where(Exp_sig == np.max(Exp_sig))
 model=NN_model(X_train.shape[1], 2, n_neuron[int(indices[2])], eta[int(indices[1])], lamda[int(indices[0])])
 history = model.fit(X_train, Y_train, sample_weight = W_train, 
                     validation_data = (X_test, Y_test),
-                    epochs=50, batch_size = int(2**22), verbose = 1, use_multiprocessing = True)
+                    epochs=50, batch_size = int(2**22), verbose = 2, use_multiprocessing = True)
 
 model_dir = '../../Models/NN/No_pad/'
 try:

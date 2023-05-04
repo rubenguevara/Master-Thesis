@@ -55,7 +55,7 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
             model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(lamda)))
     
     model.add(layers.Dense(1, activation='sigmoid'))                         # 1 output - signal or no signal
-    adam=tf.optimizers.SGD(learning_rate=eta)
+    adam=tf.optimizers.Adam(learning_rate=eta)
     
     model.compile(loss=tf.losses.BinaryCrossentropy(),
                 optimizer=adam,
