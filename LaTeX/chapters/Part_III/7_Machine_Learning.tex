@@ -244,7 +244,7 @@ we did not optimize the networks we tested, but rather used the same network for
 For the padding problem. We will as explained in Chapter \ref{sec:padding_NN} try the new variables presented in Table \ref{tab:padding_variables}. The other method we tried was to remove the features with jagged arrays, that means the $p_T, \eta, \phi$ of the three most energetic jets, as well as the invariant mass of the two most energetic ones, $m_{jj}$.
 e trained a network using 80\% of the whole SM background events as well as 80\% of all the Z' DH HDS samples. As sample weights we used the best method from the previous section, which was to re-weight every background event and balance the dataset by weighing up all signal events by the ratio of expected number of background events over signal MC events, $\frac{N_{bkg,exp}}{N_{sig,MC}}$. 
 As the best normaliazation method was \verb|Batch_normalization|, this method was used here. We also utilized the ADAM optimizer instead of SGD.\\
-\\As changing features technically changes the whole dataset, then to get the best results as possile we went through a full grid search following the steps in Chapter \ref{sec:NNgriddy} for both networks. The result for the hyperparameters that gave the highest significance can be seen in Figure \ref{fig:pad_griddy}.
+\\As changing features changes the whole dataset, then to get the best results as possile we went through a full grid search following the steps in Chapter \ref{sec:NNgriddy} for both networks. The result for the hyperparameters that gave the highest significance can be seen in Figure \ref{fig:pad_griddy}.
 \graphicspath{{../../../Plots/NeuralNetwork/Padding/}}
 \begin{figure}[!ht]
 	\centering
@@ -263,7 +263,7 @@ As the best normaliazation method was \verb|Batch_normalization|, this method wa
    \end{subfigure}
    \caption[Grid search result for pad testing on NN]{Grid search result for pad testing on NN.  This is training a dataset with 80\% of all Z' DH HDS events.}\label{fig:pad_griddy}
 \end{figure}
-\\This means that the best hyperparemeters when using the new featues are: \verb|n_neuron = 100,| \verb|eta = 1,| \verb|lamda = 1e-3|, and when removing features are: \verb|n_neuron = 1,| \verb|eta = 1,| \verb|lamda = 1e-4|. The loss, AUC and binary accuracy over epochs for the best networks can be seen in Figure \ref{fig:NN_stats_pad} and Figure \ref{fig:NN_stats_no_pad}.
+\\This means that the best hyperparemeters for both networks coicidentally is the same, meaning: \verb|n_neuron = 10,| \verb|eta = 0.01,| \verb|lamda = 1e-5|. The loss, AUC and binary accuracy over epochs for the best networks can be seen in Figure \ref{fig:NN_stats_pad} and Figure \ref{fig:NN_stats_no_pad}.
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -300,7 +300,7 @@ As the best normaliazation method was \verb|Batch_normalization|, this method wa
    \end{subfigure}
    \caption[NN parameters after 50 epochs when dropping features]{NN parameters after 50 epochs when dropping features.  This is training a dataset with 80\% of all Z' DH HDS events.}\label{fig:NN_stats_no_pad}
 \end{figure}
-\\We tested on the remaining 20\% of the SM background events, as well as 20\% of Z' DH HDS events where $m_{Z'} =130$ GeV. The ROC scores for each network can be seen in Figure \ref{fig:NN_pad_ROC}. The validation plots can be seen in Figure \ref{fig:NN_pad_VAL}
+\clearpage\noindent We tested on the remaining 20\% of the SM background events, as well as 20\% of Z' DH HDS events where $m_{Z'} =130$ GeV. The ROC scores for each network can be seen in Figure \ref{fig:NN_pad_ROC}. The validation plots can be seen in Figure \ref{fig:NN_pad_VAL}
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -331,149 +331,31 @@ As the best normaliazation method was \verb|Batch_normalization|, this method wa
    \end{subfigure}
    \caption[Validation plots for both padding methods]{Validation plots for both padding methods.  This is testing a dataset with 20\% of the Z' DH HDS $m_{Z'}=130$ GeV events.}\label{fig:NN_pad_VAL}
 \end{figure}
-
-% When I have however tested this and the difference in a optimized network (more info on this later) is minimal, and depending on our binning choice might make these new features less suited for our task. The resulta using 100 bins and using 50 bins 
-% can be seen in Figure \ref{fig:New_var_pad}. For the remainder of our NN endevaours we will opt to not use these new features, and just remove the features that have missing variables all togheter.
-% \graphicspath{{../../../Plots/NeuralNetwork/FULL/padding/}}
-% \begin{figure}[!ht]
-% 	\centering
-% 	\begin{subfigure}[b]{0.49\textwidth}
-%       \centering
-%       \includegraphics[width=1\textwidth]{new_variables/finer_binning/VAL.pdf}
-%       \caption{When including new variables and using 100 bins}
-%    \end{subfigure}
-%    \hfill
-%    \begin{subfigure}[b]{0.49\textwidth}
-%       \centering
-%       \includegraphics[width=1\textwidth]{new_variables/finer_binning/EXP_SIG.pdf}
-%       \caption{Expected significance of a)}
-%    \end{subfigure}
-%    \hfill
-%    \begin{subfigure}[b]{0.49\textwidth}
-%       \centering
-%       \includegraphics[width=1\textwidth]{new_variables/VAL.pdf}
-%       \caption{When including new variables and using 50 bins}
-%    \end{subfigure}
-%    \hfill
-%    \begin{subfigure}[b]{0.49\textwidth}
-%       \centering
-%       \includegraphics[width=1\textwidth]{new_variables/EXP_SIG.pdf}
-%       \caption{Expected significance of c)}
-%    \end{subfigure}
-%    \hfill
-% 	\begin{subfigure}[b]{0.49\textwidth}
-%       \centering
-%       \includegraphics[width=1\textwidth]{no_pad/VAL.pdf}
-%       \caption{When excluding new variables and using 50 bins}
-%    \end{subfigure}
-%    \hfill
-%    \begin{subfigure}[b]{0.49\textwidth}
-%       \centering
-%       \includegraphics[width=1\textwidth]{no_pad/EXP_SIG.pdf}
-%       \caption{Expected significance of e)}
-%    \end{subfigure}
-%    \caption[Network performace when testing new variables to avoid padding]{NN prediction when using new features to avoid padding. This is testing a dataset with a Z' DM model.}\label{fig:New_var_pad}
-% \end{figure}
-
-% \subsection{Grid Search}\label{sec:NNGriddy_res}
-% The full results of the gridsearch when setting \verb|n_layers| = 2 (one hidden layer) and $\eta \in [0.001, 0.01, 0.1, 1]$, $\lambda\in[10^{-5},10^{-4},10^{-3},10^{-2}]$ and \verb|n_neuron|$\in[1, 10, 50, 100]$ can be found in my GitHub under \\\verb|Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons|, 
-% but for the sake of this thesis not being too long I will only show the significance plot as well as the AUC for the testing and training set when setting $\lambda=10^{-5}$. 
-% The significance is seen in Figure \ref{fig:NN_GRID_SIG}, while the AUC is in Figure \ref{fig:NN_GRID_AUC}.\\
-% \graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons}}
-% \begin{figure}[!ht]
-%       \centering
-%       \includegraphics[width=0.6\textwidth]{Significance_ne.pdf}
-%       \caption{Grid search significance with $\lambda=10^{-5}$ and n\_layers = 2}\label{fig:NN_GRID_SIG}
-% \end{figure}
-% \graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons/AUC}}
-% \begin{figure}[!ht]
-% 	\centering
-% 	\begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=1\textwidth]{testing_ne.pdf}
-%         \caption{Testing AUC}
-%      \end{subfigure}
-%      \hfill
-%      \begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=1\textwidth]{training_ne.pdf}
-%         \caption{Training AUC}
-%      \end{subfigure}
-%      \caption{Grid search AUC with $\lambda=10^{-5}$ and n\_layers = 2}\label{fig:NN_GRID_AUC}
-% \end{figure}
-% \newpage\noindent Doing the same but with more hidden layers and setting $\lambda=10^{-5}$ we get the results shown in GitHub under \verb|Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons|, 
-% for the sake of this thesis not being too long I will again only show the significance plot as well as the AUC for the testing and training set but this time when setting $\eta=0.01$. 
-% The significance is seen in Figure \ref{fig:DNN_GRID_SIG}, while the AUC is in Figure \ref{fig:DNN_GRID_AUC}. 
-% \graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons}}
-% \begin{figure}[!ht]
-%       \centering
-%       \includegraphics[width=0.6\textwidth]{Significance_nl.pdf}
-%       \caption{Grid search significance with $\lambda=10^{-5}$ and and $\eta = 0.01$}\label{fig:DNN_GRID_SIG}
-% \end{figure}
-
-% \graphicspath{{../../../Plots/NeuralNetwork/FULL/GRID_layers_eta_neurons/AUC}}
-% \begin{figure}[!ht]
-% 	\centering
-% 	\begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=1\textwidth]{testing_nl.pdf}
-%         \caption{Testing AUC}
-%      \end{subfigure}
-%      \hfill
-%      \begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=1\textwidth]{training_nl.pdf}
-%         \caption{Training AUC}
-%      \end{subfigure}
-%      \caption{Grid search significance with $\lambda=10^{-5}$ and $\eta = 0.01$}\label{fig:DNN_GRID_AUC}
-% \end{figure}
-% \newpage\noindent I also made a test network with the same hyperparameters as the best one in Figure \ref{fig:DNN_GRID_SIG}, the only difference being that it has 10 hidden layers.
-% I plotted the validation data to see how different the networks were at predicting the DH HDS $m_{Z'}=130$ GeV model. 
-% These were trained and tested when using the Z-score normalization, Eq. (\ref{eq:Z-score}), and the weighting method explained in section \ref{sec:wgts}. The results are shown in the figure below.
-% \graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/BEST_GRID/DH_HDS_mZp_130/}}
-% \begin{figure}[!ht]
-% 	\centering
-% 	\begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=1\textwidth]{VAL.pdf}
-%         \caption{Four hidden layers}
-%      \end{subfigure}
-%      \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/10_HIDDEN_LAYERS/DH_HDS_mZp_130/}}
-%      \begin{subfigure}[b]{0.49\textwidth}
-%         \centering
-%         \includegraphics[width=1\textwidth]{VAL.pdf}
-%         \caption{Ten hidden layers}
-%      \end{subfigure}
-%    \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/BEST_GRID/DH_HDS_mZp_130/}}
-%    \begin{subfigure}[b]{0.49\textwidth}
-%       \centering
-%       \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
-%       \caption{The expected significance of a)}
-%    \end{subfigure}
-%    \hfill\graphicspath{{../../../Plots/DeepNeuralNetwork/FULL/10_HIDDEN_LAYERS/DH_HDS_mZp_130/}}
-%    \begin{subfigure}[b]{0.49\textwidth}
-%       \centering
-%       \includegraphics[width=1\textwidth]{EXP_SIG.pdf}
-%       \caption{The expected significance of b)}
-%    \end{subfigure}
-%      \caption{Comparison of the network performance when having four and ten hidden layers. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }
-% \end{figure}
-% \newpage\noindent This hints that we could be able to make a DNN with more hidden layers and get better results. However there are a few things that need to be noted when doing this, aside from the padding which is an even greater problem.
-% The first and smallest one is that we could have used batch normalization instead of Z-score, but this is again something to be further discussed.\\
-% \\The second being that I have not used the "balanced weighting" method when training the network, which might be for better or worse if the network really does ignore all EFT models...\\
-% \\The third one which is more technical is that since more complex networks require more computational power, then this leads to us decreasing the batch size. Which lowers the statistics of signal, 
-% and might even lead to the network training on batches without any signal sample at all. So the trade off is also something to be discussed.\\
-% \\The last thing to be noted is that having a DNN completely removes the possibility of combining the results of multiple networks trained on a single model, as the imbalance becomes too much for the network to see anything.
-% A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach used by Baldi et. al. \cite{Baldi_2016}, which could potentially avoid the imbalance problem, but this is 
-% proposed as a plausible new research project due to time constrain on this thesis.
+\\As we can see the perfomance of both methods is the same, to check if the sensitivy increases more with the new padding method or not we can check the significance of each model. This can be seen in Figure \ref{fig:NN_pad_SIG}, which shows a slight imporvement on the sensitivy of the netwoek when using the features.
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{New_pad/EXP_SIG.pdf}
+      \caption{When including new features}
+   \end{subfigure}
+   \hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{No_pad/EXP_SIG.pdf}
+      \caption{When dropping features}
+   \end{subfigure}
+   \caption[Significance plots for both padding methods]{Significance plots for both padding methods.  This is testing a dataset with 20\% of the Z' DH HDS $m_{Z'}=130$ GeV events.}\label{fig:NN_pad_SIG}
+\end{figure}
 \clearpage
 
 
 
 
-\section{Boosted Desicion Tree Training}
+\section{Boosted Desicion Tree Training (draft)}
+\todo{Remake the results and write better!}
 \subsection{Weights}
-I have tried all of these options and the results can be seen in Figure \ref{fig:BDT_wgts}.\\
+We have tried all of the weighting options and the results can be seen in Figure \ref{fig:BDT_wgts}.\\
 \\As we can see it makes a significant difference whether we use the weights to re-weight MC events to expected events. But there is no mathematical reason as to why we should 
 include this re-weighting weight as sample weights, as the reason to use sample weights is to \textit{only} balance signal and bacgkround. In theory it makes no sense whatsoevert to include these weights either 
 as the network doesn't really care for cross sections or luminosity, and what we are doing in principle is making it harder for the network to learn anything. But as seen on the results, the BDT learns the background 
@@ -506,8 +388,7 @@ take the positive weights and balance the data.\todo{Add that ATLAS used it, so 
 
 \clearpage
 \subsection{Grid Search}\label{sec:BDTGriddy_res}
-
-\newpage\noindent As the previous results are to be taken with a heavy grain of salt, I conducted another grid search. On the second grid search I set the values of $\eta=0.1$ as the trend showed this giving the best results with less overtraining, 
+As the previous results are to be taken with a heavy grain of salt, I conducted another grid search. On the second grid search I set the values of $\eta=0.1$ as the trend showed this giving the best results with less overtraining, 
 and $\lambda=10^{-5}$ \todo{should I conduct a new grid search with different $\lambda$ and loss functions?}. This grid search had \verb|n_estimators| $\in[10, 100, 500, 1000]$ and depth $\in[3,4,5,6]$. 
 The expected significance is shown in Figure \ref{fig:BDT_sig}. The testing and training AUC can be seen in Figure \ref{fig:BDT_GRID_AUC}.
 \graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000}}
@@ -551,5 +432,11 @@ this might just be a curiosity rather than something to be suspect of.
    \caption[Feature importance plots of BDT]{Feature importance of depth 6 network trained on FULL Z' DM data set when testing it on DH HDS $m_{Z'}=130$ GeV model.}\label{fig:BDT_feat}
 \end{figure}
 
+\section{Discussion (draft)}
+\todo{Comment on lack of time and DNN thoughts.} 
+The last thing to be noted is that having a DNN completely removes the possibility of combining the results of multiple networks trained on a single model, as the imbalance becomes too much for the network to see anything.
+A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach used by Baldi et. al. \cite{Baldi_2016}, which could potentially avoid the imbalance problem, but this is 
+proposed as a plausible new research project due to time constrain on this thesis.\\
+\\\todo{Comment on fully converting to XGBoost.} XGBoost >> TensorFlow
 
 \end{document}
