@@ -1,4 +1,4 @@
-\documentclass[14pt, a4paper]{book}
+\documentclass[12pt, a4paper]{book}
 \begin{document}\label{chap:Method_ML}
 We have now presented the dataset and theory behind everything, and are thus ready to start making our ML algorithms. The first part of this chapter will be a presentation of the dataset in more details, included all the events and the difficult variable called the \textit{weights}.
 We will also explore how we divide our dataset into a training and testing set. Afterwards we will discuss the crucial task of optimizing the architecture and hyperparameters of the ML models for obtaining high-performance classifiers. In this field, the challenge is often to 
@@ -80,29 +80,29 @@ Will make three regions:\todo{Write in more details}
 When training our networks we will use 80\% of the dataset, the remaining 20\% will be used to test whether the networks are learning any physical patterns or learning the dataset. When splitting the datasets however, we need to be absolutely certain that the distributions 
 follow the same shape and have the same ratio of background channels as well as having good MC and data agreement. In this thesis we will utilize a function from \verb|scikit learn| \cite{scikit-learn} called \verb|train_test_split| which can easily split our dataset into 
 a training and testing set of our size, while also sorting the label of the event. Another benefit of using this function is that is has included a random seed such that we can always split the datasets in the same shape.
-\graphicspath{{../../../Plots/NeuralNetwork/FULL/}}
+\graphicspath{{../../../Plots/Data_Analysis/train_test_split/}}
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{mll_train.pdf}
+        \includegraphics[width=1\textwidth]{mt2_train.pdf}
         \caption{Training distribution}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=1\textwidth]{mll_test.pdf}
+        \includegraphics[width=1\textwidth]{mt2_test.pdf}
         \caption{Testing distribution}
      \end{subfigure}
-	\caption[Train-test split distribution]{Train and test distribution of the invariant mass when dividing SM background and DM samples}\label{fig:train-test}
+	\caption[Train-test split distribution]{Train and test distribution of the stransverse mass when dividing SM background and DM samples into 80\% and 20\% datasets. The integrated luminosity for each distribution is 80\% and 20\% of 139 $fb^{-1}$ respectively}\label{fig:train-test}
 \end{figure}
-\\In Figure \ref{fig:train-test} \todo{add better figure} we can see that the distribution remains the same when we split the dataset into 80-20, where we also see the data and MC agree. To see the distribution of every other kinematical variable see \textbf{question: Appendix or github repo? The appendix is already very long!}
+\\In Figure \ref{fig:train-test} we can see that the distribution remains the same when we split the dataset into 80-20, where we also see the data and MC agree. To see the distribution of every other kinematical variable see \textbf{question: Appendix or github repo? The appendix is already very long!}
 In addition to splitting the data, when making validation plots (See Chapter \ref{sec:validation}), when plotting MC simulations and real data, we nee to make sure that the luminosity of the plot is correct. That means that if we are plotting the network score in 
 the test dataset, as this is 20\% of the whole dataset we need to scale everything with a factor of 5 so we get back to 100\% and the full luminosity of Run II.
 
 
 \clearpage
-\section{Neural Network Training}
+\section{Neural Network Training}\label{chap:NN_train}
 For this thesis we utilize \verb|TensorFlow v. 2.7.1 GPU| for all NNs. After creating the dataset, the first and most important thing is to marinate the \verb|batch_size| whenever we try anything while using the dataset. This is because of both the size of the dataset 
 and because of the imbalance between signal and background, as explained in section \ref{sec:SGD} and as seen in Table \ref{tab:dataset}.\\
 \\The highest possible batch size that could be used for this thesis was $2^{24}$,\footnote{It has to be a power of two because of the alignment of virtual processors (VP) onto physical processors (PP) of the GPU. As the number of PP is often a power of 2, using a number of VP different from a power of 2 leads to poor performance.} 
@@ -414,7 +414,7 @@ which gives us the highest AUC on the testing set. This will precedure will be d
 
 \section{Boosted Desicion Tree Training}
 When working with BDTs we do not run into as many problems as we do with NNs. For example the padding and normalization of data can be completely avoided, making the whole procedure a lot easier when one uses exotic data as we do in high energy particle physics.
-The weights is still an obstacle that needs to be overcome when using BDTS. This will be discussed in the next section.\\
+The weights is still an obstacle that needs to be overcomed when using BDTs. This will be discussed in the next section.\\
 \\For this project we will as mentioned utilize the eXtreme Gradient Boosting, or \verb|XGBoost| for short, package \cite{XGBoost} made for the Higgs ML Challenge \cite{HiggsChallenge} whenever we mention BDTs.
 This project utilized version \verb|1.5.0| without GPU adaptability. \verb|XGBoost| also helps to avoid padding as it is integrated with a \verb|missing_variable| variable where we can simply write the number of the variable that is missing.
 
@@ -423,7 +423,7 @@ For \verb|XGBoost| there is a different problem when it comes to weights. XGBoos
 Meaning that the whole problem of combining the re-weighting weights with the balancing weights from Chapter \ref{sec:sample_wgts_NN} completely dissapears. Albeit there is a caveat, \verb|XGBoost| does not have to possibility to include negative weights, which this dataset has. The reason \verb|XGBoost| 
 doesn't include weights is because when calculating the number of events in a leaf node, which is made by taking the sum of sample weights, we cannot have a negative value \cite{neg_wgt_xbg1, neg_wgt_xbg2}.
 As for the MC generators, Sherpa \cite{Sherpa} takes into acount higher order diagrams and needs to add negative weights to "counter" the overcounting of diagrams \cite{Negative_Weights_article}, which are important to correctly scale the simulated events to real data.
-In the future this might no longer be a problem as \todo{I have no other sources to this other than spoken words at conferenes...} future MC generators might only have positive weights.\\
+In the future this might no longer be a problem as \todo{I have no other sources to this other than spoken words...} future MC generators might only have positive weights.\\
 \\A method to mitigate this problem is to use the absolute value of the weights when training. This is however not generally accepted as a solution, and some even say it should be avoided. There are other options however, one of these options is to not include events with negative weights on the training set. 
 This is an okay thing to do, as we can imagine that if we were to only include events with positive weights on the training, it might be the same as putting the negative weights on the "testing dataset" (Chapter \ref{sec:train_test}). \\
 \\Another one that has been used on a published ATLAS (internal) article (chapter 9.3) \cite{Abbott:2714377} is to normalize the weights when using the absolute value with respect to the sum of weights over the sum of absolute weights. The reason behind this is because the sum of weights is obviously not the same when we take the absolute value. 
