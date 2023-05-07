@@ -1,25 +1,37 @@
-import os
+import os, argparse
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.cm import YlGn_r as color
 
-plot_dir = '../../Plots/XGBoost/FULL/GRIDSEARCH_24-30/'
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--met_reg', type=str, default="50-100", help="MET signal region")
+args = parser.parse_args()
+
+met_reg = args.met_reg
+
+
+plot_dir = '../../Plots/XGBoost/Model_independent/'+met_reg+'GRIDSEARCH/'
 try:
-    os.makedirs(plot_dir)
+    os.makedirs(plot_dir+'AUC/')
 
 except FileExistsError:
     pass
 
-eta = np.logspace(-3, 0, 4)                                                  
-lamda = 1e-5
-# max_depth = [8, 9, 10, 11, 12, 13]
-# max_depth = [13, 14, 15, 16, 17, 18]
-max_depth = [24, 25, 26, 27, 28, 29, 30]
-# max_depth = [3,4,5,6]
-# max_depth = [5,6,7,8]
+try:
+    os.makedirs(plot_dir+'Accuracy/')
 
-np_dir = '../Data/xgb_d_24-30/'
+except FileExistsError:
+    pass
+
+
+np_dir = '../Data/XGB/'+met_reg+'/'
+
+""" Choose variables"""
+eta = [0.001, 0.01, 0.1, 1]
+lamda = 1e-5
+n_estimator = [10, 100, 500, 1000]
+max_depth = [3, 4, 5, 6]
 
 Train_accuracy = np.load(np_dir+'train_acc.npy')
 Test_accuracy = np.load(np_dir+'test_acc.npy')
@@ -27,44 +39,45 @@ Train_AUC = np.load(np_dir+'train_auc.npy')
 Test_AUC = np.load(np_dir+'test_auc.npy')
 Exp_sig = np.load(np_dir+'exp_sig.npy')
 
+
 indices = np.where(Exp_sig == np.max(Exp_sig))
 print("Best expected significance:",np.max(Exp_sig))
-print("The parameters are: depth:",max_depth[int(indices[0])],", eta:", eta[int(indices[1])])
+print("The parameters are: depth:",max_depth[int(indices[0])],", number of estimators:", n_estimator[int(indices[1])],", and learning rate:", eta[int(indices[2])])
 print("This gives an AUC and Binary Accuracy of %g and %g when training" %(Train_AUC[indices], Train_accuracy[indices]) )
 print("This gives an AUC and Binary Accuracy of %g and %g when testing " %(Test_AUC[indices], Test_accuracy[indices]) )
 
-def plot_data(x, y, data, title=None):
+def plot_data(x, y, s, ind, data, title=None):
 
     # plot results
     fontsize=16
 
-    if 'significance' in title:
-        vmax= np.max(data)+0.1*np.max(data)
-    elif 'AUC' in title:
-        vmax= 1.0
-    else:
-        vmax= np.max(data)+0.01*np.max(data)
+
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    cax = ax.matshow(data.T, interpolation='nearest', cmap=color, vmax=vmax)
-    if len(x) > 5:  
-        sh = 0.54 #0.62
-    else: 
-        sh = 1.0
-    cbar=fig.colorbar(cax, shrink = sh)
-    if title.split(' ')[1] == 'AUC':
-        cbar.ax.set_ylabel('AUC',rotation=90,fontsize=fontsize)
-    elif 'significance' in title:
-        cbar.ax.set_ylabel('$\sigma$',rotation=90,fontsize=fontsize)        
-    else:
+    
+    if 'AUC' in title:
+        vmax = 1.0
+    elif 'Accuracy' in title:
+        vmax = 100
+    else:   
+        vmax = np.max(data) + 0.1*np.max(data)
+    vmin = np.min(data) - 0.1*np.min(data)
+    
+    cax = ax.matshow(data.T, interpolation='nearest', vmax=vmax, vmin=vmin, cmap=color)
+    
+    cbar=fig.colorbar(cax)
+    if 'Accuracy' in title:
         cbar.ax.set_ylabel('accuracy (%)',rotation=90,fontsize=fontsize)
-
-    # put text on matrix elements
+    elif 'AUC' in title:
+        cbar.ax.set_ylabel('AUC',rotation=90,fontsize=fontsize)
+    else:
+        cbar.ax.set_ylabel('$\sigma$',rotation=90,fontsize=fontsize)
+    
     for i, x_val in enumerate(np.arange(len(x))):
         for j, y_val in enumerate(np.arange(len(y))):
-            if title.split(' ')[1] == 'AUC':
+            if 'AUC'in title:
                 c = '%.3f' %data[i,j]  
-            elif 'significance' in title:
+            elif 'Significance' in title:
                 c = '%.3f $\sigma$' %data[i,j]
             else:
                 c = "${0:.1f}\\%$".format( data[i,j])  
@@ -77,22 +90,49 @@ def plot_data(x, y, data, title=None):
     
     ax.set_xticklabels(['']+x)
     ax.set_yticklabels(['']+y)
-    ax.set_ylabel('$\eta$',fontsize=fontsize)
-    ax.set_xlabel('$\\mathrm{tree\\ depth}$',fontsize=fontsize)
-    if 'significance' in title:
-        titlefr= title + ' for $\eta$ and tree depth with $\lambda$ = %g' %lamda
-    else:
-        titlefr= title + ' scores for $\eta$ and tree depth with $\lambda$ = %g' %lamda
-    ax.set_title(titlefr)
-    
+    if s == "d":
+        ax.set_ylabel('$\eta$',fontsize=fontsize)
+        ax.set_xlabel('$\\mathrm{number of\\ estimators}$',fontsize=fontsize)
+        titlefr= title[:-2] + 'scores for $\eta$ and # estimators with a depth = %g' %max_depth[int(ind[0])]
+        ax.set_title(titlefr)
+        
+    elif s =="e":
+        ax.set_ylabel('$\eta$',fontsize=fontsize)
+        ax.set_xlabel('depth',fontsize=fontsize)
+        titlefr= title[:-2] + 'scores for the depth and $\eta$ with %g estimators' %n_estimator[int(ind[2])]
+        ax.set_title(titlefr)
+        
+    elif s =="lr":
+        ax.set_xlabel('depth',fontsize=fontsize)
+        ax.set_ylabel('$\\mathrm{number of\\ estimators}$',fontsize=fontsize)
+        titlefr= title[:-2] + 'scores for depth and # estimators with $\eta$ = %g' %eta[int(ind[1])]
+        ax.set_title(titlefr)
+        
     plt.tight_layout()
-    titlefig = title.replace(' ', '_')
-    plt.savefig(plot_dir+titlefig+'.pdf')
+    if 'Significance' in title:
+        titlefig = title.replace(' ', '_')+'.pdf'
+    else:
+        better_saving = title.split(' ')
+        titlefig = better_saving[0] +'/' +better_saving[1]+'_'+better_saving[2]+'.pdf'
     
-    plt.clf()
+    plt.savefig(plot_dir+titlefig)
+    
+    plt.show()
 
-plot_data(max_depth, eta, Train_accuracy*100, 'Training accuracy')
-plot_data(max_depth, eta, Test_accuracy*100, 'Testing accuracy')
-plot_data(max_depth, eta, Train_AUC, 'Training AUC')
-plot_data(max_depth, eta, Test_AUC, 'Testing AUC')
-plot_data(max_depth, eta, Exp_sig, 'Expected significance')
+plot_data(n_estimator, eta, "d", indices, 100*Train_accuracy[int(indices[0]),:,:], 'Accuracy training elr')
+plot_data(n_estimator ,eta, "d", indices, 100*Test_accuracy[int(indices[0]),:,:], 'Accuracy testing elr')
+plot_data(max_depth, n_estimator, "lr", indices, 100*Train_accuracy[:,:,int(indices[2])], 'Accuracy training de')
+plot_data(max_depth, n_estimator, "lr", indices, 100*Test_accuracy[:,:,int(indices[2])], 'Accuracy testing de')
+plot_data(max_depth, eta,  "e", indices, 100*Train_accuracy[:,int(indices[1]),:], 'Accuracy training dlr')
+plot_data(max_depth, eta, "e", indices, 100*Test_accuracy[:,int(indices[1]),:], 'Accuracy testing dlr')
+
+plot_data(n_estimator, eta, "d", indices, Train_AUC[int(indices[0]),:,:], 'AUC training elr')
+plot_data(n_estimator, eta, "d", indices, Test_AUC[int(indices[0]),:,:], 'AUC testing elr')
+plot_data(max_depth, n_estimator, "lr", indices, Train_AUC[:,:,int(indices[2])], 'AUC training de')
+plot_data(max_depth, n_estimator, "lr", indices, Test_AUC[:,:,int(indices[2])], 'AUC testing de')
+plot_data(max_depth, eta, "e", indices, Train_AUC[:,int(indices[1]),:], 'AUC training dlr')
+plot_data(max_depth, eta, "e", indices, Test_AUC[:,int(indices[1]),:], 'AUC testing dlr')
+
+plot_data(n_estimator, eta, "d", indices, Exp_sig[int(indices[0]),:,:], 'Significance elr')
+plot_data(max_depth, n_estimator, "lr", indices, Exp_sig[:,:,int(indices[2])], 'Significance de')
+plot_data(max_depth, eta, "e", indices, Exp_sig[:,int(indices[1]),:], 'Significance dlr')
