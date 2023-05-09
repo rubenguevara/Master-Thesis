@@ -40,24 +40,28 @@ dataLL = df_data.pop('dPhiLeps')
 dataRN = df_data.pop('RunNumber') 
 dataRP = df_data.pop('RunPeriod') 
 
-means = np.load('../Data/df_values/means.npy')
-df_max = pd.read_pickle("../Data/df_values/max_df.pkl")
-df_min = pd.read_pickle("../Data/df_values/min_df.pkl")
+# means = np.load('../Data/df_values/means.npy')
+# df_max = pd.read_pickle("../Data/normie/max_df.pkl")
+# df_min = pd.read_pickle("../Data/normie/min_df.pkl")
+df_mean = pd.read_pickle("../Data/df_values/mean_df.pkl")
+df_var = pd.read_pickle("../Data/df_values/var_df.pkl")
 
-df_data['jet1Phi'] = pd.DataFrame(df_data['jet1Phi']).replace(10, means[0])
-df_data['jet2Phi'] = pd.DataFrame(df_data['jet2Phi']).replace(10, means[1])
-df_data['jet1Eta'] = pd.DataFrame(df_data['jet1Eta']).replace(10, means[2])
-df_data['jet2Eta'] = pd.DataFrame(df_data['jet2Eta']).replace(10, means[3])
-normalized_data = (df_data-df_min)/(df_max-df_min)
+# df_data['jet1Phi'] = pd.DataFrame(df_data['jet1Phi']).replace(10, means[0])
+# df_data['jet2Phi'] = pd.DataFrame(df_data['jet2Phi']).replace(10, means[1])
+# df_data['jet1Eta'] = pd.DataFrame(df_data['jet1Eta']).replace(10, means[2])
+# df_data['jet2Eta'] = pd.DataFrame(df_data['jet2Eta']).replace(10, means[3])
+normalized_data = (df_data)#-df_min)/(df_max-df_min)
+data_jet1Phi = normalized_data.pop('jet1Phi')
+data_jet2Phi = normalized_data.pop('jet2Phi')
+data_jet1Eta = normalized_data.pop('jet1Eta')
+data_jet2Eta = normalized_data.pop('jet2Eta')
+data_jet1Pt = normalized_data.pop('jet1Pt')
+data_jet2Pt = normalized_data.pop('jet2Pt')
+
 data_train, data_test = train_test_split(normalized_data, test_size = 0.1, random_state = 42)
 
 
 model_dir = '../Models/NN/'
-try:
-    os.makedirs(model_dir)
-
-except FileExistsError:
-    pass
 
 dm_dict_file = open('../DM_DICT.json')
 DM_DICT = json.load(dm_dict_file)
@@ -66,6 +70,7 @@ df_bkgs = pd.read_hdf(save_dir+filename, key='df_tot')
 already_done = os.listdir(model_dir)
 
 dsid_test = [[514560, 514561]]#, 514560, 514561, 514564, 514565] 
+# dsid_test = [[514628, 514629]]
 for dsid_int in dsid_test:
     dsid1 = str(dsid_int[0])
     dsid2 = str(dsid_int[1])
@@ -80,10 +85,10 @@ for dsid_int in dsid_test:
     
     df = pd.concat([df_bkgs, df_dm, df_dm2]).sort_index()
     
-    df['jet1Phi'] = pd.DataFrame(df['jet1Phi']).replace(10, means[0])
-    df['jet2Phi'] = pd.DataFrame(df['jet2Phi']).replace(10, means[1])
-    df['jet1Eta'] = pd.DataFrame(df['jet1Eta']).replace(10, means[2])
-    df['jet2Eta'] = pd.DataFrame(df['jet2Eta']).replace(10, means[3])
+    # df['jet1Phi'] = pd.DataFrame(df['jet1Phi']).replace(10, means[0])
+    # df['jet2Phi'] = pd.DataFrame(df['jet2Phi']).replace(10, means[1])
+    # df['jet1Eta'] = pd.DataFrame(df['jet1Eta']).replace(10, means[2])
+    # df['jet2Eta'] = pd.DataFrame(df['jet2Eta']).replace(10, means[3])
 
     df_features = df.copy()
     df_EventID = df_features.pop('EventID')
@@ -97,9 +102,17 @@ for dsid_int in dsid_test:
     df_labels = df_features.pop('Label')
     df_Weights = df_features.pop('Weight')
 
-    normalized_df = (df_features-df_min)/(df_max-df_min)
+    normalized_df = (df_features)#-df_mean)/np.sqrt(df_var)
     normalized_df['Weight'] = df_Weights
     normalized_df['RunNumber'] = df_RunNumber
+    
+    
+    df_jet1Phi = normalized_df.pop('jet1Phi')
+    df_jet2Phi = normalized_df.pop('jet2Phi')
+    df_jet1Eta = normalized_df.pop('jet1Eta')
+    df_jet2Eta = normalized_df.pop('jet2Eta')
+    df_jet1Pt = normalized_df.pop('jet1Pt')
+    df_jet2Pt = normalized_df.pop('jet2Pt')
     
     test_size = 0.2
     X_train, X_test, Y_train, Y_test = train_test_split(normalized_df, df_labels, test_size = test_size, random_state = 42)
@@ -110,8 +123,12 @@ for dsid_int in dsid_test:
     DSID_test = X_test.pop('RunNumber')
     
     scaler = 1/test_size
-    network = tf.keras.models.load_model(model_dir+'BEST_GRIDDY')  
-    
+    # network = tf.keras.models.load_model(model_dir+'BEST_DNN_GRIDDY') 
+    network = tf.keras.models.load_model(model_dir+'10_HIDDEN_LAYERS') 
+    # network = tf.keras.models.load_model(model_dir+'LayerNorm')  
+    # network = tf.keras.models.load_model(model_dir+'BacthNorm')  
+    X_test = (X_test - df_mean)/np.sqrt(df_var)
+    data_test = (data_test - df_mean)/np.sqrt(df_var)
     pred = network.predict(X_test, batch_size = int(2**24), use_multiprocessing = True, verbose = 1).ravel()
     data_pred = network.predict(data_test, batch_size = int(2**24), use_multiprocessing = True, verbose = 1).ravel()
     data_w = np.ones(len(data_pred))*10
@@ -143,7 +160,13 @@ for dsid_int in dsid_test:
     colors = ['#218C8D', '#6CCECB', '#F9E559', '#EF7126', '#8EDC9D']
     labels = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']
     
-    plot_dir = '../../Plots/NeuralNetwork/FULL/'+dsid_save+'/'
+    # plot_dir = '../../Plots/DeepNeuralNetwork/FULL/BEST_GRID/'+dsid_save+'/'
+    plot_dir = '../../Plots/DeepNeuralNetwork/FULL/10_HIDDEN_LAYERS/'+dsid_save+'/'
+    # plot_dir = '../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/Batch_norm/'#+dsid_save+'/'
+    # plot_dir = '../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/minmax/'#+dsid_save+'/'
+    # plot_dir = '../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/NO_NORM/'#+dsid_save+'/'
+    # plot_dir = '../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/Layer_norm/'#+dsid_save+'/'
+    # plot_dir = '../../Plots/TESTING/NeuralNetwork/NORMALIZATIONS/Multi_layer_norm/'#+dsid_save+'/'
 
     try:
         os.makedirs(plot_dir)
@@ -175,10 +198,10 @@ for dsid_int in dsid_test:
     n, bins, patches = ax1.hist(hist, weights = hist_w, bins = n_bins, label = labels, histtype='barstacked', color=colors, zorder = 0)
     n, bins, patches = ax1.hist(pred[Y_test==1], weights = W_test[Y_test==1]*scaler, bins = n_bins, color='#F42069', label="Signal", zorder = 5, histtype='step')
     ax1.bar(x_axis, 2*unc_bkg, bottom=bkg_pred-unc_bkg, fill=False, hatch='XXXXX', label='Stat. + Syst. Unc.', width = width, lw=0.0, alpha=0.3)
-    ax1.text(0.15, 1.1*max(bkg_pred), 'ATLAS', fontstyle='italic', fontweight='bold')
-    ax1.text(0.15 + 0.06, 1.1*max(bkg_pred), 'Preliminary')
-    ax1.text(0.15, 1.1*max(bkg_pred)/2.5, '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$') 
-    ax1.text(0.15, 1.1*max(bkg_pred)/6, '$>50$ GeV $E_{T}^{miss}$')
+    ax1.text(0.15, max(bkg_pred), 'ATLAS', fontstyle='italic', fontweight='bold')
+    ax1.text(0.15 + 0.06, max(bkg_pred), 'Preliminary')
+    ax1.text(0.15, max(bkg_pred)/2.5, '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$') 
+    ax1.text(0.15, max(bkg_pred)/6, '$>50$ GeV $E_{T}^{miss}$')
     ax1.errorbar(x_axis, data_hist, yerr = unc_data, fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2 )
     ax1.set_ylabel('Events')
     ax1.set_yscale('log')
@@ -189,7 +212,7 @@ for dsid_int in dsid_test:
     ax2.errorbar(x_axis, ratio, yerr = unc_ratio, fmt='o', color='black', ms=3, lw=1, ecolor='grey')
     ax2.grid(axis='y')
     ax2.set_xlim([0,1])
-    ax2.set_ylim([0,2.8])
+    ax2.set_ylim([0.5,1.6])
     ax2.set_xlabel('TensorFlow output')
     fig.suptitle('TensorFlow output, '+dsid_title+' dataset, validation data with 30 % syst. unc.', fontsize='x-large')
     plt.savefig(plot_dir+'VAL.pdf')

@@ -66,7 +66,6 @@ text_file.write('NmassPoints='+str(int(len(directories)))+';  Nchannels=2;  intL
 tex_file = open(save_txt_path+dm_model+'_LATEX.txt', 'w')
 tex_file.write('\midrule\midrule \n')
 tex_file.write("$m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\\varepsilon_{\\text{sig}}$ $[\\times10]$& $N_{\\text{sig}}$ & $N_{\\text{bkg}}$ \\\\\midrule\midrule\n")
-
 dirpath = 0
 for dirpath in directories:
     bkg_after_cut_ee = np.load(dirpath+'/'+filenames[0])[-1]
@@ -75,14 +74,14 @@ for dirpath in directories:
     data_pred_uu = int(np.load(dirpath+'/'+filenames[3])[-1])
     signal_after_cut_ee = np.load(dirpath+'/'+filenames[6])[-1]
     signal_after_cut_uu = np.load(dirpath+'/'+filenames[7])[-1]
-    bkg_after_cut_unc_ee = np.load(dirpath+'/'+filenames[6])[-1]
-    bkg_after_cut_unc_uu = np.load(dirpath+'/'+filenames[10])[-1]
-    signal_after_cut_unc_ee = np.load(dirpath+'/'+filenames[11])[-1]
-    signal_after_cut_unc_uu = np.load(dirpath+'/'+filenames[12])[-1]
+    bkg_after_cut_unc_ee = np.load(dirpath+'/'+filenames[10])[-1]
+    bkg_after_cut_unc_uu = np.load(dirpath+'/'+filenames[11])[-1]
+    signal_after_cut_unc_ee = np.load(dirpath+'/'+filenames[12])[-1]
+    signal_after_cut_unc_uu = np.load(dirpath+'/'+filenames[13])[-1]
     
     efficiency_ee = signal_after_cut_ee/events_before[dm_model+"_"+dirpath.split('/')[-1]] * 0.5
     efficiency_uu = signal_after_cut_uu/events_before[dm_model+"_"+dirpath.split('/')[-1]] * 0.5
-    
+
     text_file.write('mass='+dirpath.split('_')[-1]+';  threshold=110;  theoryCrossSection='+str(effective_xs[dm_model+"_"+dirpath.split('/')[-1]])+';\n')
     
     text_file.write('channel="electron";   efficiency='+str(efficiency_ee)+';  efficiencyUncertainty='+str(efficiency_ee*0.2)+
@@ -95,6 +94,6 @@ for dirpath in directories:
     tex_file.write("\multirow{2}{*}[-2\\baselineskip]{%g}& \multirow{2}{*}[-2\\baselineskip]{$%.2e$}& $ee$ & $%.2f\pm%.2f$ & $%.2e\pm%.2e$ & $%.1f\pm%.1f$\\\\ \n" %(int(dirpath.split('_')[-1]), effective_xs[dm_model+"_"+dirpath.split('/')[-1]], efficiency_ee*10, efficiency_ee*0.2*10, signal_after_cut_ee, signal_after_cut_unc_ee, bkg_after_cut_ee, bkg_after_cut_unc_ee))   
     tex_file.write("& & $\mu\mu$ & $%.2f\pm%.2f$ & $%.2e\pm%.2e$ & $%.1f\pm%.1f$\\\\ \midrule\n" %(efficiency_uu*10, efficiency_uu*0.2*10, signal_after_cut_uu, signal_after_cut_unc_uu, bkg_after_cut_uu, bkg_after_cut_unc_uu))
 
-tex_file.write('\midrule\midrule')
+tex_file.write('\midrule')
 text_file.write('xtitle="DM mediator mass [GeV]"; ytitle="Cross section [fb]"; yrange=['+str(effective_xs[dm_model+'_mZp_1500']*0.5)+','+str(effective_xs[dm_model+'_mZp_130']*2)+'];')
 

@@ -439,7 +439,7 @@ Bool_t EventSelector::Process(Long64_t entry){
 
   TLorentzVector totalj, ajet, j1, j2, j3;
   n_bjet77 = 0; n_bjet85 = 0; nljets = 0; nbjets = 0;
-
+  jetEtaCentral = 0; jetEtaForward50 = 0;
   for(Int_t i = 0; i<n_jet; i++){
     if(n_jet >= 3){
       j1.SetPtEtaPhiM(jet_pt[0]/1000., jet_eta[0], jet_phi[0], jet_m[0]/1000.);
@@ -456,9 +456,11 @@ Bool_t EventSelector::Process(Long64_t entry){
     if(jet_DL1r_score[i]>2.195){n_bjet77++;} 
     if(jet_DL1r_score[i]>0.665 && jet_pt[i]/1000 >= 30){n_bjet85++; nbjets++; } 
     if(jet_DL1r_score[i]<=0.665 && jet_pt[i]/1000 >= 40){nljets++;} 
+    if (abs(jet_eta[i]) <= 2.5){jetEtaCentral++;}
+    if (abs(jet_eta[i]) > 2.5 && jet_pt[i]/1000 >= 50){jetEtaForward50++;}
     
-    if(jet_DL1r_score[i]>0.665 && jet_pt[i]/1000 < 30){return kTRUE; }                   // b-jet pt cut
-    if(jet_DL1r_score[i]<=0.665 && jet_pt[i]/1000 < 40){return kTRUE; }                  // light jet pt cut
+    // if(jet_DL1r_score[i]>0.665 && jet_pt[i]/1000 < 30){return kTRUE; }                   // b-jet pt cut
+    // if(jet_DL1r_score[i]<=0.665 && jet_pt[i]/1000 < 40){return kTRUE; }                  // light jet pt cut
     
 
     if(i==0)totalj = ajet;
@@ -716,6 +718,12 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_lep2Phi = (l2.Phi());
   MY->bMY_jetB = (nbjets);  
   MY->bMY_jetLight = (nljets);   
+
+  // Skip padding, hopefully
+  MY->bMY_n_bjetPt20 = (n_bjetPt20);
+  MY->bMY_n_ljetPt40 = (n_ljetPt40);
+  MY->bMY_jetEtaCentral = (jetEtaCentral);  
+  MY->bMY_jetEtaForward50 = (jetEtaForward50); 
 
   if(n_jet >=3){  
   MY->bMY_jet1Pt = (j1.Pt());  

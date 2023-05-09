@@ -4,7 +4,7 @@ import os, time, json
 import uproot as up
 
 save_dir = "../../../storage/racarcam/"
-filename = "data.root"   # Change file if needed
+filename = "dataFINAL.root"   # Change file if needed
 data = save_dir+filename
 
 thing = up.open(data)
@@ -32,4 +32,4 @@ df = df.drop(['Weight', 'CrossSection'], axis=1)
 print(df)
 
 
-df.to_hdf(save_dir+'data.h5', key='df')
+df.to_hdf(save_dir+'dataFINAL.h5', key='df')

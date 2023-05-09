@@ -146,33 +146,37 @@ print('==='*30)
 print('Starting gridsearch', time.asctime(time.localtime()))
 n_neuron = [10, 50, 100]                                                  # Define number of neurons per layer
 eta = np.logspace(-3, -1, 3)                                                  # Define vector of learning rates (parameter to SGD optimiser)
-# lamda = np.logspace(-5, -2, 4)                                               # Define hyperparameter
 lamda = 1e-5
-n_layers = [2, 3, 4]
-Train_accuracy, Test_accuracy, Train_AUC, Test_AUC, Exp_sig = grid_search(n_layers, eta, lamda, n_neuron, 50, int(2**24))
+n_layers = [3, 4, 5]
+# Train_accuracy, Test_accuracy, Train_AUC, Test_AUC, Exp_sig = grid_search(n_layers, eta, lamda, n_neuron, 50, int(2**23))
 
-np.save('../Data/DNN/train_acc', Train_accuracy)
-np.save('../Data/DNN/test_acc', Test_accuracy)
-np.save('../Data/DNN/train_auc', Train_AUC)
-np.save('../Data/DNN/test_auc', Test_AUC)
-np.save('../Data/DNN/exp_sig', Exp_sig)
+# np.save('../Data/DNN/train_acc', Train_accuracy)
+# np.save('../Data/DNN/test_acc', Test_accuracy)
+# np.save('../Data/DNN/train_auc', Train_AUC)
+# np.save('../Data/DNN/test_auc', Test_AUC)
+# np.save('../Data/DNN/exp_sig', Exp_sig)
 
-print('==='*30)
-t = "{:.2f}".format(int( time.time()-t0 )/60.)
-finish = time.asctime(time.localtime())
-print('Finished', finish)
-print('Total time:', t)
-print('==='*30)
+# print('==='*30)
+# t = "{:.2f}".format(int( time.time()-t0 )/60.)
+# finish = time.asctime(time.localtime())
+# print('Finished', finish)
+# print('Total time:', t)
+# print('==='*30)
 
-Exp_sig = np.nan_to_num(Exp_sig)
-indices = np.where(Exp_sig == np.max(Exp_sig))
+# Exp_sig = np.nan_to_num(Exp_sig)
+# indices = np.where(Exp_sig == np.max(Exp_sig))
 
-print("Best expected significance:",np.max(Exp_sig))
-print("The parameters are: layers:",n_layers[int(indices[0])],", eta:", eta[int(indices[1])],"and", n_neuron[int(indices[2])],'neurons')
-print("This gives an AUC and Binary Accuracy of %g and %g when training" %(Train_AUC[indices], Train_accuracy[indices]) )
-print("This gives an AUC and Binary Accuracy of %g and %g when testing " %(Test_AUC[indices], Test_accuracy[indices]) )
+# print("Best expected significance:",np.max(Exp_sig))
+# print("The parameters are: layers:",n_layers[int(indices[0])],", eta:", eta[int(indices[1])],"and", n_neuron[int(indices[2])],'neurons')
+# print("This gives an AUC and Binary Accuracy of %g and %g when training" %(Train_AUC[indices], Train_accuracy[indices]) )
+# print("This gives an AUC and Binary Accuracy of %g and %g when testing " %(Test_AUC[indices], Test_accuracy[indices]) )
 
 
-model=NN_model(X_train.shape[1], n_layers[int(indices[0])], n_neuron[int(indices[2])], eta[int(indices[1])], lamda)
-model.fit(X_train, Y_train, sample_weight = W_train, epochs = 50, batch_size = int(2**24), use_multiprocessing = True)
-model.save('../Models/NN/BEST_DNN_GRIDDY')
+# model=NN_model(X_train.shape[1], n_layers[int(indices[0])], n_neuron[int(indices[2])], eta[int(indices[1])], lamda)
+# model.fit(X_train, Y_train, sample_weight = W_train, epochs = 50, batch_size = int(2**23), use_multiprocessing = True)
+# model.save('../Models/NN/BEST_DNN_GRIDDY')
+
+
+model=NN_model(X_train.shape[1], 11, 100, 0.01, lamda)
+model.fit(X_train, Y_train, sample_weight = W_train, epochs = 50, batch_size = int(2**22), use_multiprocessing = True)
+model.save('../Models/NN/10_HIDDEN_LAYERS')

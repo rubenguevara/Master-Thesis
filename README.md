@@ -1,6 +1,6 @@
 # Master Thesis
 This is my repo for my masters thesis: <br/>
-**Model independent search for Dark Matter in dilepton + MET final states with the ATLAS detector at the LHC.** <br/>
+**Model independent search for Dark Matter using Machine Learning In final states with dileptons and Missing Transverse Energy with the ATLAS detector at the LHC** <br/>
 So far it is divided in three categories:
 - DataPrep: Which both plots the kinematic variables to be used in ML and prepares the files in a ML friendly format.<br/>
 - EventSelector: Which includes the algorithm used to choose events of both Datapoints and Monte Carlo simulations of the Large Hadron Collider and make these into readable files for plotting and Machine Learning (ML). <br/>

@@ -5,21 +5,24 @@ t0 = time.time()
 mc_cmps = ["mc16a", "mc16d", "mc16e"]
 data_cmps =['data15', 'data16', 'data17', 'data18']
 
-sig = 0
+sig = 1
 
 data = 1
-data_file = "newdata"
+data_file = "dataFINAL"
+# data_file = "DELETE"
 """
 CANNOT USE UNDERSCORE ON FILE NAMES
 """
 if sig == 1:
     # ml_file = "SUSYxDMx50MET"
     # bkg = "SUSY"
-    ml_file = "ZpxDMx50METxFR"
+    # ml_file = "ZpxDMx50METxFR"
+    ml_file = "ZpxDMxFINAL"
     bkg = "dm_sig"
 
 else:
-    ml_file = "NewRun2X50MET"
+    ml_file = "Run2FINAL"
+    # ml_file = "DELETE"
     bkg = "all_bkg"
 
 for mc_cmp in mc_cmps: 

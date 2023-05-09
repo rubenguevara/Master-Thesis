@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc
 import xgboost as xgb
 
-ML = 'BDT'
+ML = 'NN'
 
 if ML == 'NN':
     print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
@@ -23,7 +23,7 @@ save_dir = "../../../storage/racarcam/"
 filename = "FULL_DM_50MET.h5"
 
 chnl = 'uu'
-model = 'LV'
+model = 'EFT'
 
 print('Doing', model, chnl, 'on', ML)
 
@@ -100,11 +100,11 @@ else:
     exit()
 
 if ML =='NN':
-    plot_dir = 'Plots_NeuralNetwork/FULL/SIGNIFICANCE/'+model+'/'
+    plot_dir = 'Plots_NeuralNetwork/FULL/WEIGHTED_Batch/'+model+'/'
     model_dir = 'Models/NN/'
-    model_type = 'FULL_WEIGHTED'    
+    model_type = 'FULL_WEIGHTED_Batch'    
     network = tf.keras.models.load_model(model_dir+model_type)  
-    network_pred_label = network.predict(X_test, batch_size = 2048, use_multiprocessing = True, verbose = 1).ravel()
+    network_pred_label = network.predict(X_test, batch_size = int(2**24), use_multiprocessing = True, verbose = 1).ravel()
 
 elif ML == 'BDT':
     plot_dir = 'Plots_XGBoost/FULL/SIGNIFICANCE/'+model+'/'
@@ -150,8 +150,8 @@ plt.savefig(plot_dir+'ROC_'+chnl+'.pdf')
 plt.show()
 
 plt.figure(2, figsize=[10,6])
-bkg_pred, bins, patches = plt.hist(pred[test==0], weights = W_test[test==0], bins = 100, facecolor='blue', alpha=0.2, label="Background")
-sig_pred, bins, patches = plt.hist(pred[test==1], weights = W_test[test==1], bins = 100, facecolor='red' , alpha=0.2, label="Signal")
+bkg_pred, bins, patches = plt.hist(pred[test==0], weights = W_test[test==0]*1.8, bins = 100, facecolor='blue', alpha=0.2, label="Background")
+sig_pred, bins, patches = plt.hist(pred[test==1], weights = W_test[test==1]*1.8, bins = 100, facecolor='red' , alpha=0.2, label="Signal")
 plt.xlabel('TF output')
 plt.xlim([0,1])
 plt.ylabel('Events')

@@ -19,8 +19,7 @@ our dataset containing $n$ \textit{features} for each event $m$, and is of the f
 This project will only focus on Supervised Learning, meaning that we know what the output is a binary representation of signal and background, such that we can use target values $\bm{t}$. 
 Then we give the network a score depending on how close the predicted output is to real values $\bm t $. Then we repeat the process after tweaking the parameters $\bm \beta $ and see if the score gets better.\\
 \\To this end, we will first provide a mathematical foundation for ML, starting with a brief overview of the different types of ML algorithms we will study, such as Neural Networks (NN) and Boosted Decision Trees (BDT). 
-Other aspects such as the importance of feature selection and feature engineering in preparing the data for ML algorithms we will, as well as the concept of model evaluation and optimization will be discussed in Chapter \ref{chap:Method_ML}. 
-This project will take from granted that the reader is comfortable with linear algebra and jump straight into the mathematical fundations of ML. \\
+Other aspects such as the importance of feature selection and feature engineering in preparing the data for ML algorithms, as well as the concept of model evaluation and optimization will be discussed in Chapter \ref{chap:Method_ML}.
 
 
 \newpage
@@ -117,7 +116,7 @@ $$
 $$
 where the parameters $c_i$ are the weights and biases. By adjusting these parameters we shift the activation function to better match the label we are training the data on, this is the flexibility of a NN. 
 Something else we can note is that Eq. (\ref{eq:MLP}) can easily be changed into matrix notation, as hinted with Eq. (\ref{eq:dataset}). However this realization can help make computing the values a much easier 
-task by for example utilizing TensorFlow or other mathematical packages in Python. An illustration showing the main idea of how a Feed forward network is set up is shown in Figure \ref{fig:FFN}.
+task by for example utilizing \verb|TensorFlow| \cite{TensorFlow} or other mathematical packages in \verb|Python|. An illustration showing the main idea of how a Feed forward network is set up is shown in Figure \ref{fig:FFN}.
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[x=0.5pt,y=0.5pt,yscale=-1,xscale=1]
@@ -263,7 +262,7 @@ task by for example utilizing TensorFlow or other mathematical packages in Pytho
        % Text Node
        \draw (312,420) node [anchor=north west][inner sep=0.75pt]  [rotate=0] [align=left] {. . .};
        % Text Node
-       \draw (22,39.75) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 198; green, 235; blue, 167 }  ,opacity=1 ] [align=left] {\begin{minipage}[lt]{22.16pt}\setlength\topsep{0pt}
+       \draw (22,30) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 198; green, 235; blue, 167 }  ,opacity=1 ] [align=left] {\begin{minipage}[lt]{22.16pt}\setlength\topsep{0pt}
        \begin{center}
        {\scriptsize \textcolor[rgb]{0.7,0.83,0.59}{\textbf{input\\layer}}}
        \end{center}
@@ -557,7 +556,7 @@ to minimeze the objective to get the most accurate predictions as possible.
 
 \clearpage
 \section{Tools and evaluation methods used for both algorithms}
-Now that we have explained how both NNs and BDTs work, we will explain how tools used by both algorithms work. \todo{more motivation}
+Now that we have explained how both NNs and BDTs work, we will present the tools and evaluating method that we will use in this thesis. 
 
 \subsection{Cost functions}\label{sec:cost_func}
 Cost functions have been mentioned throughout this chapter, but what are they? Cost functions are what we will utilize to evaluate how well the output of the network fares against the target, i.e. if our network "guesses" right whether an event is signal or background, 
@@ -606,7 +605,7 @@ weight works is by multiplying a constant term $\chi$ into the cost/loss functio
 \begin{equation}\label{eq:sample_weight}
     C(\hat{W})=\frac{1}{2}\sum_{i=1}^n\chi_i(y_i-t_i)^2
 \end{equation}
-This will become an important feature when discussing network optimization in chapter \ref{chap:ML}, and especially for particle physists as we want to re-weight Monte Carlo events to expected events to correctly showcase kinematical distributions.
+This will become an important feature when discussing network optimization in Chapter \ref{chap:ML}, and especially for particle physists as we want to re-weight Monte Carlo events to expected events to correctly showcase kinematical distributions.
 
 
 \subsection{Area under the ROC-curve}
@@ -626,22 +625,61 @@ The goal is to have a network to give an AUC score as closely to 1 as possible. 
 \\While only using the accuracy as a metric is not a bad start, it is not favorable to use as a metric if datasets are ubalanced. As en example, if we had a dataset with 100 events, where 95 were background events and 5 were signal events, if we only used accuracy as a metric we would 
 be inlcined to think that an accuracy of 95\% is great. However, as the dataset is unbalanced, the network could easily take a shortcut and guess every event to be a background event. Meaning that the network learned nothing.
 This is where the AUC comes into play, as this metric highlights whenever a network guesses wrongly in a binary classification. Meaning that if we used the worst case scenario with 95\% accuracy when guessing everything to be background, we would have a TPR = 0 and a FPR = 0, 
-if we were to plot this we would get a flat line on the FPR and TPR axis, meaning that it would give us an AUC of 0.5. Highlighting that our network is randomly guessing, and that it needs to be optimized further.\\
-\textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, should I cite that?}\todo{can I include my own made figures here (might be results)}
+if we were to plot this we would get a flat line on the FPR and TPR axis, meaning that it would give us an AUC of 0.5. Highlighting that our network is randomly guessing, and that it needs to be optimized further. In Figure \ref{fig:ROC} we see an example of a ROC curve.
+\graphicspath{{../../../Plots/Plot_types/}}
+\begin{figure}[!ht]
+	\centering
+    \includegraphics[width=0.65\textwidth]{ROC.pdf}
+    \caption[ROC curve illustration]{Illustration of a ROC curve. The orange line is the result of a network, while the dashed blue line is to illustrate a random guess}\label{fig:ROC}
+\end{figure}
+\\\textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, how do I cite that?}
 
 \subsection{Validation plots}\label{sec:validation}
 Another tool that we will use to evaluate how well a network does is by making so-called \textit{validation plots}\todo{Is this the real name of the plots?}. The way these plots work is by first dividing the \textit{already predicted} data set into background and signal. Then making histograms from 0-1 
 with the prediction score of the network for each event. As a score closer to 1 means that the network predicts an event to be a signal event, and 0 means that the network predicts a background event. Then we would ideally have all the signal events shoved to the right and all the background events shoved to the left. 
 Usually this is not the case in high energy particle physics, as some background events might be similar to signal events. We will therefore utilize this kind of plots to see the ditribution of the network predictions. \\
+\\In adition to just sorting events by the ML score, we will also re-weight the events (which are MC events) into expected events\footnote{See Chapter \ref{sec:wgts} for more information}. The difference this makes can be seen in Figure \ref{fig:VAL}. We can however still use the non-re-weighted plots to see how well the network has learned to sort, but these plots will not be 
+used in this thesis, and can rather be found on the Github repo. \\
+\begin{figure}[!ht]
+	\centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{VAL_unscaled.pdf}
+        \caption{No re-weighing MC events to expected events}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{VAL.pdf}
+        \caption{Re-weighing MC events to expected events}
+    \end{subfigure}
+    \caption[Validation plots illustration]{Illustration of the validation plots. Plot a) shows how the network learned a dataset whithout re-weighting events, while b) shows how it looks re-weighted.}\label{fig:VAL}
+\end{figure}
 \\It is standard practice to make fill the histrograms with semi-transparent colors, such that one can visualise the whole spectra for both background and signal. In this thesis we will use this, as well as validation plots where we divide the SM events into their respective background channels and fill them with opaque 
 colors, while leaving the signal unfilled. We will in adition include real data points in the latter plots, to see how well SM simulations agree with the data. Ideally we want our data to not agree with the SM simulations when the network 
-predicts a score close to one, as this discrepancy could be a hint of new physics. \todo{can I include my own made figures here (might be results)}
-
-\subsection{Signifiacance plots}\label{sec:siggy}
-Significance after making cuts on the validation plots.
+predicts a score close to one, as this discrepancy could be a hint of new physics.
 
 
-\subsection{Feature importance}
+\clearpage
+\subsection{Significance plots}\label{sec:siggy}
+To create signal regions which will be used for statistical analysis we will also look at significance plots. The way these plots work is by using Eq. (\ref{eq:exp_sig}) on the number of signal and background events that are presenent after making a cut on the ML output on the validation plots. 
+As an example, in Figure \ref{fig:EXP_SIG} we se the re-weighted validation plot from the previous section, and we can calucate the expected significance by counting the number of signal and background events that have an ML score greater than 0.5, 0.6, 0.7, 0.8, 0.9 and 0.99 respectively.
+\begin{figure}[!ht]
+	\centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{VAL.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{EXP_SIG.pdf}
+    \end{subfigure}
+    \caption[Significance plot illustration]{Plot showing the expected significance that is calculated from a) when making cuts on the ML output score}\label{fig:EXP_SIG}
+\end{figure}
+
+\subsection{BDT and NN exclusive plots}
+\subsubsection{Feature importance}
 For BDTs, as we can calculate which features had the most impact when splitting the data, we will also include feature importance plots. As the name states these plots tells us how important the features in the dataset were in the training to separate signal from background. As we are using the \verb|XGBoost| 
 package when working with BDTs, we will use the inbuilt functions of the package to plot the feature importance. \\
 \\When plotting the feature importance there are several metrics we can use to determine how important they are, for this thesis we will mainly look at 
@@ -652,5 +690,6 @@ package when working with BDTs, we will use the inbuilt functions of the package
 \end{itemize}
 Where the first one is the standard used by \verb|XGBoost|.
 
-
+\subsubsection{Metric and loss evolution}
+For NNs we can plot how the metrics (AUC and binary accuracy) as well as the loss function change over the training epochs. We will plot these changes for both the training and testing set. Where the goal is that the metric and loss converge to the same point for the training and testing set.
 \end{document}

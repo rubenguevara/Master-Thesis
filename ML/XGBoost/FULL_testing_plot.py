@@ -218,7 +218,7 @@ if channel == 'uu': chnl = '$\mu\mu$'
 if channel == 'ee': chnl = '$ee$'
 ax1.text(0.08, max(bkg_pred)/2.5, '$>50$ GeV $E_{T}^{miss}$, '+chnl)
     
-ax1.errorbar(x_axis, data_hist, yerr = unc_data, fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2, lolims=0)
+ax1.errorbar(x_axis[:30], data_hist[:30], yerr = unc_data[:30], fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2, lolims=0)
 ax1.set_ylabel('Events')
 ax1.set_yscale('log')
 ax1.set_xlim([0,1])
@@ -228,7 +228,7 @@ ax1.yaxis.set_major_locator(mticker.LogLocator(numticks=999))
 ax1.yaxis.set_minor_locator(mticker.LogLocator(numticks=999, subs="auto"))
 ax1.tick_params(bottom=True, top=True, left=True, right=True, which='both')
 ax2.set_ylabel('Events / Bkg')
-ax2.errorbar(x_axis, ratio, yerr = unc_ratio_stat, fmt='o', color='black', ms=3, lw=1, lolims=0)
+ax2.errorbar(x_axis[:30], ratio[:30], yerr = unc_ratio_stat[:30], fmt='o', color='black', ms=3, lw=1, lolims=0)
 ax2.plot(line, np.ones(len(line)), linestyle='-', color='black', lw=2, alpha=0.3)
 ax2.bar(x_axis, 2*unc_bkg, bottom=np.ones(len(x_axis))-unc_bkg, color='grey', width = widths, lw=0.0, alpha=0.3)
 ax2.grid(axis='y')
@@ -238,12 +238,12 @@ ax2.set_xlabel('XGBoost output')
 fig.suptitle('XGBoost output, '+dm_model.split('_')[0]+' '+dm_model.split('_')[1]+' dataset, validation data with 20 % syst. unc.\n Network trained on '+dm_model.split('_')[0]+' '+dm_model.split('_')[1]+' model with $m_{ll} > 110$ GeV and $E_{T}^{miss} > 50$ GeV', fontsize='x-large')
 plt.savefig(plot_dir+'VAL_'+channel+'.pdf')
 
-plot_dir = plot_dir+'feature_importance/'
-try:
-    os.makedirs(plot_dir)
+# plot_dir = plot_dir+'feature_importance/'
+# try:
+#     os.makedirs(plot_dir)
 
-except FileExistsError:
-    pass
+# except FileExistsError:
+#     pass
 
 
-feature_importance(xgbclassifier=xgbclassifier, plot_dir=plot_dir)
+# feature_importance(xgbclassifier=xgbclassifier, plot_dir=plot_dir)

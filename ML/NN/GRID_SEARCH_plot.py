@@ -6,11 +6,13 @@ eta = np.logspace(-3, 0, 4)                                                  # D
 lamda = np.logspace(-5, -2, 4)                                               # Define hyperparameter
 n_neuron = [1, 10, 50, 100]
 
-Train_accuracy = np.load('../Data/NN/train_acc.npy')
-Test_accuracy = np.load('../Data/NN/test_acc.npy')
-Train_AUC = np.load('../Data/NN/train_auc.npy')
-Test_AUC = np.load('../Data/NN/test_auc.npy')
-Exp_sig = np.load('../Data/NN/exp_sig.npy')
+# np_dir = '../Data/NN/Padding/No_pad/'
+np_dir = '../Data/NN/Padding/New_pad/'
+Train_accuracy = np.load(np_dir+'train_acc.npy')
+Test_accuracy = np.load(np_dir+'test_acc.npy')
+Train_AUC = np.load(np_dir+'train_auc.npy')
+Test_AUC = np.load(np_dir+'test_auc.npy')
+Exp_sig = np.load(np_dir+'exp_sig.npy')
 Exp_sig = np.nan_to_num(Exp_sig)
 indices = np.where(Exp_sig == np.max(Exp_sig))
 print("Best expected significance:",np.max(Exp_sig))
@@ -87,8 +89,9 @@ def plot_data(x, y, s, ind, data, title=None):
         better_saving = title.split(' ')
         titlefig = better_saving[0] +'/' +better_saving[1]+'_'+better_saving[2]+'.pdf'
     
-    plt.savefig('../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons/'+titlefig)
-    
+    # plt.savefig('../../Plots/NeuralNetwork/FULL/GRID_lamda_eta_neurons/'+titlefig)
+    # plt.savefig('../../Plots/NeuralNetwork/Padding/No_pad/GRID/'+titlefig)
+    plt.savefig('../../Plots/NeuralNetwork/Padding/New_pad/GRID/'+titlefig)
     plt.show()
 
 plot_data(eta, n_neuron, "l", indices, 100*Train_accuracy[int(indices[0]),:,:], 'Accuracy training ne')

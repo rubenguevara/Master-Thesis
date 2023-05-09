@@ -10,16 +10,15 @@ save_dir = "../../../storage/racarcam/"
 
 
 ## Customize files here
-dm1 = save_dir + "DM50MET.root"
-Run2_bkgs = save_dir + "Run250MET.root"
-filename = 'FULL_DM_50MET.h5' 
+dm1 = save_dir + "ZpxDMxFINAL.root"
+Run2_bkgs = save_dir + "Run2FINAL.root"
+filename = 'FULL_Zp_FINAL.h5' 
 
 thing = up.open(Run2_bkgs)
 
 tree_a = thing['id_mc16a']
 tree_d = thing['id_mc16d']
 tree_e = thing['id_mc16e']
-
 df1 = tree_a.arrays(library="pd")
 df2 = tree_d.arrays(library="pd")
 df3 = tree_e.arrays(library="pd")
@@ -117,6 +116,7 @@ sow_sig_file.close()
 old = df_tot.pop('OldWeight')
 df_tot['Weight'] = new_weights
 df_tot = df_tot[cols]
+
 print(df_tot)
 
 t = "{:.2f}".format(int( time.time()-t0 )/60.)

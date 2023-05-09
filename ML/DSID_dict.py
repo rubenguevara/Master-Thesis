@@ -1,6 +1,8 @@
 import os, json
+import pandas as pd
+import numpy as np
 
-DM_dsid_dir = "../../../storage/racarcam/DMS"
+DM_dsid_dir = "../../../storage/racarcam/DMS/"
 
 DM_DSID = []
 for dsid in os.listdir(DM_dsid_dir):
@@ -9,9 +11,11 @@ for dsid in os.listdir(DM_dsid_dir):
 if os.path.exists("DM_DICT.json"):
     print('Rewriting dictionary')
     os.remove("DM_DICT.json")
-    
+
+
 DM_DICT = {}
-for file in os.listdir('../EventSelector/Histograms/mc16a'):
+
+for file in os.listdir('../EventSelector/Histograms_50MET/mc16a'):
     dsid = file.split('.')[1]
     if dsid in DM_DSID:
         name = file.split('.')[-2].split('_')[3:]
@@ -21,6 +25,7 @@ for file in os.listdir('../EventSelector/Histograms/mc16a'):
             name[4] ="$\mu\mu$"
         name = name[0].upper()+' '+name[1].upper()+' '+name[2]+' '+name[3]+' '+name[4]
         DM_DICT[dsid] = name
+
 
 json = json.dumps(DM_DICT)
 

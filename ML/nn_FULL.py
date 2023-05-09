@@ -17,7 +17,7 @@ args = parser.parse_args()
 wgt = args.wgt                                                               # Default is weighted training
 
 save_dir = "../../../storage/racarcam/"
-filename = 'Full_DM_sig.h5'
+filename = "FULL_DM_50MET.h5"
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 
@@ -25,6 +25,7 @@ df_features = df.copy()
 df_EventID = df_features.pop('EventID')
 df_CrossSection = df_features.pop('CrossSection')
 df_RunNumber = df_features.pop('RunNumber')
+df_Dileptons = df_features.pop('Dileptons')
 df_RunPeriod = df_features.pop('RunPeriod')
 df_dPhiCloseMet = df_features.pop('dPhiCloseMet')                             # Bad variable
 df_dPhiLeps = df_features.pop('dPhiLeps')                                     # Bad variable
@@ -77,7 +78,7 @@ if wgt == 0:
 else:                                                                        
     history = network.fit(X_train, Y_train, sample_weight = W_train,
                     validation_data = (X_test, Y_test),    
-                    epochs = 10, batch_size = 8192, use_multiprocessing = True)
+                    epochs = 30, batch_size = int(2**24), use_multiprocessing = True)
 
 model_dir = 'Models/NN/'
 try:
@@ -89,12 +90,12 @@ except FileExistsError:
 if wgt == 0:
     network.save(model_dir+'FULL_UNWEIGHTED')
 else:
-    network.save(model_dir+'FULL_WEIGHTED')
+    network.save(model_dir+'FULL_WEIGHTED_Batch')
 
 if wgt == 0:
     plot_dir = 'Plots_NeuralNetwork/FULL/UNWEIGHTED/'
 else:
-    plot_dir = 'Plots_NeuralNetwork/FULL/WEIGHTED/'
+    plot_dir = 'Plots_NeuralNetwork/FULL/WEIGHTED_Batch/'
 
 try:
     os.makedirs(plot_dir)

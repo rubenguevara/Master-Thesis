@@ -146,7 +146,7 @@ Colors["TTbar"] = R.TColor.GetColor('#F9E559')
 Colors["Diboson"] = R.TColor.GetColor('#6CCECB')
 Colors["W"] = R.TColor.GetColor('#218C8D')
 
-save_dir = "../Plots/Data_Analysis/New_Variables"
+save_dir = "../Plots/Data_Analysis/SRs"
 try:
     os.makedirs(save_dir)
 
@@ -163,6 +163,8 @@ thist = {}
 
 
 for vari in variables:
+    print(vari)
+    continue
     lep[vari] = vari.split('_')[1]
     if 'jet' in vari:
         charge[vari] = 'Jet'
@@ -207,7 +209,7 @@ for vari in variables:
                     w = 58.5/SOW_e[id]
                     
                 thist[vari][mc][i].Add(BigDic[mc][i][vari][j], w)
-
+exit()
 data_hist = {}
 for vari in variables:
     data_hist[vari] = R.TH1D(data[vari][0])

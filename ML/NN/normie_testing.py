@@ -41,10 +41,10 @@ df_labels = df_features.pop('Label')
 df_Weights = df_features.pop('Weight')
 
 
-df_features.mean().to_pickle("../Data/normie/mean_df.pkl")
-df_features.var().to_pickle("../Data/normie/var_df.pkl")
-df_features.min().to_pickle("../Data/normie/min_df.pkl")
-df_features.max().to_pickle("../Data/normie/max_df.pkl")
+# df_features.mean().to_pickle("../Data/normie/mean_df.pkl")
+# df_features.var().to_pickle("../Data/normie/var_df.pkl")
+# df_features.min().to_pickle("../Data/normie/min_df.pkl")
+# df_features.max().to_pickle("../Data/normie/max_df.pkl")
 
 # normalized_df = (df_features-df_features.mean())/np.sqrt(df_features.var())
 # normalized_df = (df_features-df_features.min())/(df_features.max()-df_features.min())
@@ -56,9 +56,16 @@ X_train, X_test, Y_train, Y_test = train_test_split(normalized_df, df_labels, te
 X_train_w = np.asarray(X_train.pop('Weight'))
 W_test = X_test.pop('Weight')
 
-W_train = np.ones(len(Y_train))
-W_train[Y_train==0] = sum(W_train[Y_train==1])/sum(W_train[Y_train==0])
-W_train = pd.DataFrame(W_train, columns=['Weight'])                          # Has to be a pandas DataFrame or it crashes
+N_sig_train = sum(Y_train)
+N_bkg_train = len(Y_train) - N_sig_train
+# ratio = N_sig_train/N_bkg_train
+ratio = N_sig_train/N_bkg_train
+
+print(N_bkg_train, N_sig_train, ratio)
+
+Balance_train = np.ones(len(Y_train))
+Balance_train[Y_train==0] = ratio
+W_train = pd.DataFrame(Balance_train, columns=['Weight'])
 
 def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
     model=tf.keras.Sequential()
@@ -80,7 +87,7 @@ def NN_model(inputsize, n_layers, n_neuron, eta, lamda):
     return model
 
 model=NN_model(X_train.shape[1], 2, 100, 0.01, 1e-05)
-model.fit(X_train, Y_train, sample_weight = W_train, epochs = 50, batch_size = int(2**23), use_multiprocessing = True)
+model.fit(X_train, Y_train, sample_weight = W_train, epochs = 50, batch_size = int(2**24), use_multiprocessing = True)
 # model.save('../Models/NORMIE/Z_score')
 # model.save('../Models/NORMIE/minmax')
 # model.save('../Models/NORMIE/NoNorm')

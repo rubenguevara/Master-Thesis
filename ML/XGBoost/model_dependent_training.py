@@ -15,7 +15,7 @@ print('Started', start)
 """
 Choose which model!
 """
-dm_model = 'EFT_LDS'
+dm_model = 'DH_HDS'
 
 save_dir = "/storage/racarcam/"
 bkg_file = save_dir+'bkgs_final.h5'

@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import os, json
 from EventIDs import IDs
+from matplotlib import ticker as mticker
 
 print(xgb.__version__)
 
@@ -25,19 +26,29 @@ def stat_unc(prediction, bins, weights):
 
 
 save_dir = "../../../../storage/racarcam/"
-filename = "bkgs.h5"
-datafile = 'data.h5'
+filename = "bkgs_no_pad.h5"
+datafile = 'data_no_pad.h5'
+
+
+variables = ['n_bjetPt20', 'n_bjetPt30', 'n_bjetPt40', 'n_bjetPt50', 'n_bjetPt60', 'n_ljetPt20', 
+            'n_ljetPt30', 'n_ljetPt40', 'n_ljetPt50', 'n_ljetPt60', 'jetEtaCentral', 'jetEtaForward']
+
+
+# variables = ['jet1Pt', 'jet1Eta', 'jet1Phi', 'jet2Pt', 'jet2Eta', 'jet2Phi']
 
 df_data = pd.read_hdf(save_dir+datafile, key='df')
+
 dataID = df_data.pop('EventID') 
 dataCMET = df_data.pop('dPhiCloseMet')
 dataLL = df_data.pop('dPhiLeps') 
 dataRN = df_data.pop('RunNumber') 
 dataRP = df_data.pop('RunPeriod') 
+dataDL = df_data.pop('Dileptons')
+df_data = df_data.drop(variables, axis=1)
 data_train, data_test = train_test_split(df_data, test_size = 0.1, random_state = 42)
 
 
-model_dir = '../Models/XGB/WGTS/'
+model_dir = '../Models/XGB/WGTS_FR/'
 try:
     os.makedirs(model_dir)
 
@@ -60,8 +71,8 @@ for dsid_int in dsid_test:
     
     print('Doing', dsid_save)
 
-    df_dm = pd.read_hdf(save_dir+'/DMS/'+dsid1+'.h5', key='df_tot')
-    df_dm2 = pd.read_hdf(save_dir+'/DMS/'+dsid2+'.h5', key='df_tot')
+    df_dm = pd.read_hdf(save_dir+'/DMS_no_pad/'+dsid1+'.h5', key='df_tot')
+    df_dm2 = pd.read_hdf(save_dir+'/DMS_no_pad/'+dsid2+'.h5', key='df_tot')
     
     df = pd.concat([df_bkgs, df_dm, df_dm2]).sort_index()
     
@@ -70,6 +81,8 @@ for dsid_int in dsid_test:
     df_Dileptons = df_features.pop('Dileptons')
     df_CrossSection = df_features.pop('CrossSection')
     df_RunPeriod = df_features.pop('RunPeriod')
+    df_Sample_Weight = df_features.pop('Sample_Weight')
+    df_features = df_features.drop(variables, axis=1)
     df_dPhiCloseMet = df_features.pop('dPhiCloseMet')                             # Bad variable
     df_dPhiLeps = df_features.pop('dPhiLeps')                                     # Bad variable
 
@@ -83,7 +96,7 @@ for dsid_int in dsid_test:
     
     scaler = 1/test_size
     xgbclassifier = xgb.XGBClassifier()
-    xgbclassifier.load_model(model_dir+'NN_wgt.txt')
+    xgbclassifier.load_model(model_dir+'no_wgt.txt')
     
     y_pred_prob = xgbclassifier.predict_proba(X_test)
     data_pred_prob = xgbclassifier.predict_proba(data_test)
@@ -91,7 +104,7 @@ for dsid_int in dsid_test:
     pred = y_pred_prob[:,1]
     data_pred = data_pred_prob[:,1]
     data_w = np.ones(len(data_pred))*10
-    n_bins = 100
+    n_bins = 50
     
     ### Plotting
     
@@ -119,7 +132,7 @@ for dsid_int in dsid_test:
     colors = ['#218C8D', '#6CCECB', '#F9E559', '#EF7126', '#8EDC9D']
     labels = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']
     
-    plot_dir = plot_dir = '../../Plots/TESTING/XGBoost/LVB/'+dsid_save+'/NN_WGT/'
+    plot_dir = plot_dir = '../../Plots/XGBoost/WEIGHT_TEST/'+dsid_save+'/NONE/'
 
     try:
         os.makedirs(plot_dir)
@@ -134,12 +147,13 @@ for dsid_int in dsid_test:
     unc_data = np.sqrt(data_hist)*10
     data_hist = data_hist*10
     
-    stat_unc_bkgs = stat_unc(np.asarray(pred[Y_test==0]), 100, np.asarray(W_test[Y_test==0]*scaler))
+    stat_unc_bkgs = stat_unc(np.asarray(pred[Y_test==0]), 50, np.asarray(W_test[Y_test==0]*scaler))
     syst_unc_bkgs = bkg_pred*0.3                                            # Assuming 30% systematic uncertainty
     unc_bkg = np.sqrt(stat_unc_bkgs**2 + syst_unc_bkgs**2)
     
     
     ratio = data_hist/bkg_pred
+    unc_ratio_stat = ratio*np.sqrt( (unc_data/data_hist)**2 + (stat_unc_bkgs/bkg_pred)**2)
     unc_ratio = ratio*np.sqrt( (unc_data/data_hist)**2 + (unc_bkg/bkg_pred)**2)
     
     plt.clf()
@@ -153,14 +167,18 @@ for dsid_int in dsid_test:
     ax1.bar(x_axis, 2*unc_bkg, bottom=bkg_pred-unc_bkg, fill=False, hatch='XXXXX', label='Stat. + Syst. Unc.', width = width, lw=0.0, alpha=0.3)
     ax1.text(0.15, max(bkg_pred), '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$') 
     ax1.text(0.15, max(bkg_pred)/2.5, '$>50$ GeV $E_{T}^{miss}$')
-    ax1.errorbar(x_axis, data_hist, yerr = unc_data, fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2 )
+    ax1.errorbar(x_axis[:30], data_hist[:30], yerr = unc_data[:30], fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2 )
     ax1.set_ylabel('Events')
     ax1.set_yscale('log')
     ax1.set_xlim([0,1])
     ax1.set_ylim([2e-3,2e7])
     ax1.legend(ncol=2)
+    ax1.yaxis.set_major_locator(mticker.LogLocator(numticks=999))
+    ax1.yaxis.set_minor_locator(mticker.LogLocator(numticks=999, subs="auto"))
+    ax1.tick_params(bottom=True, top=True, left=True, right=True, which='both')
     ax2.set_ylabel('Events / Bkg')
-    ax2.errorbar(x_axis, ratio, yerr = unc_ratio, fmt='o', color='black', ms=3, lw=1, ecolor='grey')
+    ax2.errorbar(x_axis[:30], ratio[:30], yerr = unc_ratio_stat[:30], fmt='o', color='black', ms=3, lw=1)
+    ax2.bar(x_axis, 2*unc_ratio, bottom=ratio-unc_ratio, color='grey', width = width, lw=0.0, alpha=0.3)
     ax2.grid(axis='y')
     ax2.set_xlim([0,1])
     ax2.set_ylim([0.5, 1.5])
@@ -198,12 +216,12 @@ for dsid_int in dsid_test:
     plt.savefig(plot_dir+'VAL_unscaled.pdf')
     plt.show()    
 
-    Y_axis = [low_stat_Z(sum(sig_pred[50:]), sum(bkg_pred[50:])),          
-                low_stat_Z(sum(sig_pred[60:]), sum(bkg_pred[60:])), 
-                low_stat_Z(sum(sig_pred[70:]), sum(bkg_pred[70:])),
-                low_stat_Z(sum(sig_pred[80:]), sum(bkg_pred[80:])), 
-                low_stat_Z(sum(sig_pred[90:]), sum(bkg_pred[90:])), 
-                low_stat_Z(sum(sig_pred[99:]), sum(bkg_pred[99:]))]
+    Y_axis = [low_stat_Z(sum(sig_pred[25:]), sum(bkg_pred[25:])),          
+                low_stat_Z(sum(sig_pred[30:]), sum(bkg_pred[30:])), 
+                low_stat_Z(sum(sig_pred[35:]), sum(bkg_pred[35:])),
+                low_stat_Z(sum(sig_pred[40:]), sum(bkg_pred[40:])), 
+                low_stat_Z(sum(sig_pred[45:]), sum(bkg_pred[45:])), 
+                low_stat_Z(sum(sig_pred[49:]), sum(bkg_pred[49:]))]
     
     X_axis = [0.5, 0.6, 0.7, 0.8, 0.9, 0.99]
     

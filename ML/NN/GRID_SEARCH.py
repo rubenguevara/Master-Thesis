@@ -20,13 +20,13 @@ filename = "FULL_DM_50MET.h5"
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')                           # Padding missing values on jet- eta & phi
 
-means = np.asarray([df['jet1Phi'].mean(), df['jet2Phi'].mean(), df['jet1Eta'].mean(), df['jet2Eta'].mean()])
-np.save('../Data/df_values/means', means)
+# means = np.asarray([df['jet1Phi'].mean(), df['jet2Phi'].mean(), df['jet1Eta'].mean(), df['jet2Eta'].mean()])
+# np.save('../Data/df_values/means', means)
 
-df['jet1Phi'] = pd.DataFrame(df['jet1Phi']).replace(10, means[0])
-df['jet2Phi'] = pd.DataFrame(df['jet2Phi']).replace(10, means[1])
-df['jet1Eta'] = pd.DataFrame(df['jet1Eta']).replace(10, means[2])
-df['jet2Eta'] = pd.DataFrame(df['jet2Eta']).replace(10, means[3])
+# df['jet1Phi'] = pd.DataFrame(df['jet1Phi']).replace(10, means[0])
+# df['jet2Phi'] = pd.DataFrame(df['jet2Phi']).replace(10, means[1])
+# df['jet1Eta'] = pd.DataFrame(df['jet1Eta']).replace(10, means[2])
+# df['jet2Eta'] = pd.DataFrame(df['jet2Eta']).replace(10, means[3])
 
 df_features = df.copy()
 df_EventID = df_features.pop('EventID')
@@ -37,13 +37,21 @@ df_RunPeriod = df_features.pop('RunPeriod')
 df_dPhiCloseMet = df_features.pop('dPhiCloseMet')                             # Bad variable
 df_dPhiLeps = df_features.pop('dPhiLeps')                                     # Bad variable
 
+# No padding
+df_jet1Phi = df_features.pop('jet1Phi')
+df_jet2Phi = df_features.pop('jet2Phi')
+df_jet1Eta = df_features.pop('jet1Eta')
+df_jet2PEta = df_features.pop('jet2Eta')
+df_jet1Pt = df_features.pop('jet1Pt')
+df_jet2Pt = df_features.pop('jet2Pt')
+
 df_labels = df_features.pop('Label')
 df_Weights = df_features.pop('Weight')
 
-normalized_df = (df_features-df_features.min())/(df_features.max()-df_features.min())
+normalized_df = (df_features-df_features.mean())/np.sqrt(df_features.var())
 normalized_df['Weight'] = df_Weights
-df_features.max().to_pickle("../Data/df_values/max_df.pkl")
-df_features.min().to_pickle("../Data/df_values/min_df.pkl")
+df_features.mean().to_pickle("../Data/df_values/mean_df.pkl")
+df_features.var().to_pickle("../Data/df_values/var_df.pkl")
 
 test_size = 0.2
 X_train, X_test, Y_train, Y_test = train_test_split(normalized_df, df_labels, test_size=test_size, random_state=42)
@@ -138,8 +146,10 @@ print('==='*30)
 print('Starting gridsearch', time.asctime(time.localtime()))
 n_neuron = [1, 10, 50, 100]                                                  # Define number of neurons per layer
 eta = np.logspace(-3, 0, 4)                                                  # Define vector of learning rates (parameter to SGD optimiser)
-lamda = np.logspace(-5, -2, 4)                                               # Define hyperparameter
-Train_accuracy, Test_accuracy, Train_AUC, Test_AUC, Exp_sig = grid_search(1, eta, lamda, n_neuron, 50, int(2**24))
+# lamda = np.logspace(-5, -2, 4)                                               # Define hyperparameter
+lamda = 1e-5
+hidden_layers = [2, 3, 4, 5]
+Train_accuracy, Test_accuracy, Train_AUC, Test_AUC, Exp_sig = grid_search(2, eta, lamda, n_neuron, 50, int(2**24))
 
 np.save('../Data/NN/train_acc', Train_accuracy)
 np.save('../Data/NN/test_acc', Test_accuracy)
@@ -157,6 +167,6 @@ print('==='*30)
 Exp_sig = np.nan_to_num(Exp_sig)
 indices = np.where(Exp_sig == np.max(Exp_sig))
 
-model=NN_model(X_train.shape[1], 1, n_neuron[int(indices[2])], eta[int(indices[1])], lamda[int(indices[0])])
+model=NN_model(X_train.shape[1], 2, n_neuron[int(indices[2])], eta[int(indices[1])], lamda[int(indices[0])])
 model.fit(X_train, Y_train, sample_weight = W_train, epochs = 50, batch_size = int(2**24), use_multiprocessing = True)
 model.save('../Models/NN/BEST_GRIDDY')

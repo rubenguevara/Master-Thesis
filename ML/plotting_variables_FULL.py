@@ -7,12 +7,11 @@ from EventIDs import IDs
 
 model_dir = 'Models/NN/'
 save_dir = "../../../storage/racarcam/"
-filename = 'Full_DM_sig.h5'
+filename = 'new_bkgs.h5'#'Full_DM_sig.h5'
 datafile = 'data.h5'
 
 df_data = pd.read_hdf(save_dir+datafile, key='df')
 df = pd.read_hdf(save_dir+filename, key='df_tot')
-
 
 """
 Choose what you want to plot!
@@ -33,7 +32,6 @@ df_CrossSection = df_features.pop('CrossSection')
 df_RunPeriod = df_features.pop('RunPeriod')
 df_dPhiCloseMet = df_features.pop('dPhiCloseMet')   # Bad variable
 df_dPhiLeps = df_features.pop('dPhiLeps')           # Bad variable
-
 
 X_train, X_test = train_test_split(df_features, test_size=0.2, random_state=42)
 D_train, D_test = train_test_split(df_data, test_size=0.2, random_state=42)
@@ -66,6 +64,7 @@ for DSID, mll, w in zip(X_train['RunNumber'], X_train[variable], X_train['Weight
 
 hist = [W, DB, TT, ST, DY]
 hist_w = [W_w, DB_w, TT_w, ST_w, DY_w]
+
 colors = ['#218C8D', '#6CCECB', '#F9E559', '#EF7126', '#8EDC9D']
 labels = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan']
 

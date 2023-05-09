@@ -1,7 +1,7 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}
 The standard model of particle physics
-\begin{equation}
+\begin{equation}\label{eq:sm}
     \mathcal{L}_{SM} = -\frac{1}{4}F_{\mu\nu}F^{\mu\nu} + i\overline{\psi}\slashed{D}\psi + \psi_iy_{ij}\psi_j\phi + h.c. + \abs{D_\mu\phi}^2 - V(\phi)
 \end{equation}
 The elegant equation that can explain phenomena in nature with great precision. It consists of three \textit{symmetry groups}. The group explaining electromagnetism $U(1)$, the group describing the weak force $SU(2)_L$ and the group describing the strong force $SU(3)_C$. 
@@ -129,7 +129,7 @@ where we have used that $m_H = \sqrt{2\lambda}v$. This potential is the so-calle
 The consequences of writing our complex scalar field using Eq. \ref{eq:Higgs} comes when from the shape of the potential\todo{Should I add a figure?}, this gives rise to the mass of particles. The SSB comes from the fact that the fields have two minima 
 on the potential but can move around in a higher dimensional space (around the sombreo edge) to get to the other minima. To explicitly show how this SSB phenomena gives mass to particles one can do a unitary gauge transormation of the scalar field, and 
 this would ass mass terms to every particle that interacts with the Higgs field on the Lagrangian.\\
-\\Another thing that follows from Eq. \ref{eq:Higgs} is that expanding on Eq. (\ref{eq:covar_higgs}) gives rise (after a lot of math) to the following relations
+\\Another thing that follows from Eq. (\ref{eq:Higgs}) is that expanding on Eq. (\ref{eq:covar_higgs}) gives rise (after a lot of math) to the following relations
 \begin{equation}\label{eq:W_boson}
     W_\mu^\pm = \frac{W_\mu^1 \mp iW_\mu^2}{\sqrt{2}}
 \end{equation}
@@ -217,7 +217,7 @@ $$
 $$
 Giving
 $$
-\bra{e^-e^+}\overline{\psi}(x)\psi(x) = \bra{0} \int\frac{d^3p'}{(2\pi^3)}\int\frac{d^3k'}{(2\pi^3)}\sqrt{\frac{E_pE_k}{E_{p'}E_{k'}}} \left(\sum_{s,t}a^{\dagger,s}_\mathbf{p'}u^s(p')e^{-ip'\cdot x} + b^{t}_\mathbf{k'}\overline{v}^t(k')e^{-ik'\cdot x}\right)a_{p}b^\dagger_{k}
+\textstyle\bra{e^-e^+}\overline{\psi}(x)\psi(x) = \bra{0} \int\frac{d^3p'}{(2\pi^3)}\int\frac{d^3k'}{(2\pi^3)}\sqrt{\frac{E_pE_k}{E_{p'}E_{k'}}} \left(\sum_{s,t}a^{\dagger,s}_\mathbf{p'}u^s(p')e^{-ip'\cdot x} + b^{t}_\mathbf{k'}\overline{v}^t(k')e^{-ik'\cdot x}\right)a_{p}b^\dagger_{k}
 $$
 using the relation $a_{p's}a_{pt}^\dagger = (2\pi)^2\delta^{(3)}(p'-p)- a_{p's}^\dagger a_{pt}$ where the latter part kills vacuum, we get
 $$
@@ -243,8 +243,11 @@ The reason we did all this is because we can calculate the \textit{differential 
 \begin{equation}\label{eq:diff_cross}
     \frac{d\sigma}{d\Omega} = \frac{1}{64\pi^2s}\frac{p_f*}{p_i*}\abs{\mathcal{M}_{fi}}^2
 \end{equation}
-where $p_f*$ and $p_i*$ are the magnitudes of the final- and initial-state momenta, respectively. From the differential cross section we can also calculate the cross section by integrating over $d\Omega$. \\
-\\This method is a general way to calculate the cross section of an event we want to study, but usually one just constructs the matrix element $\mathcal{M}_{fi}$ from \textit{Feynman diagrams}. In this calculation we 
+where $p_f*$ and $p_i*$ are the magnitudes of the final- and initial-state momenta, respectively. From the differential cross section we can also calculate the cross section by integrating over $d\Omega$. 
+\begin{equation}\label{eq:cross_sec}
+    \sigma = \int_{0}^{2\pi}\int_{0}^{\pi}\frac{1}{64\pi^2s}\frac{p_f*}{p_i*}\abs{\mathcal{M}_{fi}}^2 \sin\theta d\theta d\phi
+\end{equation}
+This method is a general way to calculate the cross section of an event we want to study, but usually one just constructs the matrix element $\mathcal{M}_{fi}$ from \textit{Feynman diagrams}. In this calculation we 
 already introduced the photon propagator in Eq. (\ref{eq:p-prop}), and we implicitly simplified it to be $\frac{g_{\mu\nu}}{q^2}$, which is valid for our purposes, and can be used in any event where the photon is the propagator. 
 Feynman realized this and made Feynman rules to construct diagrams. The rules are shown in Figure \ref{fig:feynman_rules}. \\
 \graphicspath{{../../figures/}}
