@@ -75,7 +75,7 @@ us MET. The main production mechanism for these processes can be seen in Figure 
     \caption[Single Top production]{Diagrams showcasing SM single top productions.  A quark marked with a prime, indicated that the quark might be a diferent flavour after interacting with a boson.}\label{fig:T_BKG}
 \end{figure}
 
-\newpage\subsection{Diboson}
+\subsection{Diboson}
 The last SM bacgkround process we will look at are processes containing two bosons, called \textit{diboson} backgrounds. The two SM bosons we will consider when looking into these final states are the $W$ and $Z$, as these can decay as $W/Z\rightarrow ll'/ll$ 
 or $W\rightarrow l\nu_l$, where the prime means a different lepton flavour. The main production mechanism for these processes can be seen in Figure \ref{fig:Diboson_BKG}. To simulate these background processes Sherpa 2.2.11 \cite{Sherpa} was used.
 \begin{figure}[!ht]
@@ -107,11 +107,46 @@ or $W\rightarrow l\nu_l$, where the prime means a different lepton flavour. The 
 \end{figure}
 
 \section{Dark Matter samples}\label{chap:DM_sample}
+The models in Chapter \ref{chap:DM} contain three relevant couplings
+\begin{itemize}
+    \item the coupling $g_D$ between the $Z'$ and the DM particles ($Z'Z'h_D$ or $Z'\chi_1\chi_2$)
+    \item the coupling $g_q$ between the $Z'$ and quarks
+    \item and the coupling $g_l$ between the $Z'$ and leptons
+\end{itemize}
+The coupling to quarks and leptons are assumed to be the same for all generations. When simulating the couplings were set to
+\begin{itemize}
+    \item $g_D = 1$,
+    \item $g_q=0.1$,
+    \item and $g_l=0.01$.
+\end{itemize}
+In addition to the couplings, as mentioned on Chapter \ref{chap:DM}, we wil divide the three models, DH, LV and EFT into two more regions. The difference being the massses, Table \ref{tab:DMass} showcases the definition of the Light Dark Sector (LDS) and Heavy Dark Sector (HDS).
+\begin{table}[!h]
+    \centering\caption{Dark sector masses in light- and heavy dark sector models}
+    \begin{tabular}{l|c|c}\midrule\midrule
+                                                                            & Dark Higgs            & Light Vector / Inelastic EFT              \\\midrule
+        \multirow{2}{*}[-2\baselineskip]{Light Dark Sector}                 & $m_\chi = 5$ GeV      & $m_{\chi_1}= 5$ GeV                       \\
+                                                                            & $m_{h_D} = 125$ GeV   & $m_{\chi_2}= m_{\chi_1}+m_{Z'} + 25$ GeV  \\\midrule
+        \multirow{2}{*}[-2\baselineskip]{Heavy Dark Sector}                 & $m_\chi = 5$ GeV      & $m_{\chi_1}= m_{Z'}/2$                    \\
+                                                                            & $m_{h_D} = m_{Z'}$    & $m_{\chi_2}= 2m_{Z'}$                     \\\midrule\midrule
+    \end{tabular}
+    \label{tab:DMass}
+\end{table}
+\newpage\noindent The simmulated masses of the new $Z'$ boson for this thesis are
+$$
+m_{Z'} = [130, 200, 400, 600, 800, 900, 1100, 1200, 1300, 1400, 1500] GeV.
+$$
+for the DH and LV model and 
+$$
+m_{Z'} = [130, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500] GeV.
+$$
+for the EFT model. \textbf{Question: Should I add an appendix with DSIDs like I did on Appendix A?}
+
+
 
 \section{Object selection}\label{sec:obj_sel}
 Before getting into our DM search and regions we will study we have to define how standard objects are defined. By standard objects we mean electron, muons and jets. As this thesis is made using ATLAS data and simulations we will use the same standard crietria 
 cuts they choose.\\
-\\The electrons are selected using the criteria on Table \ref{tab:E_selec}.
+\\The electrons \todo{I dont know how else to present these}are selected using the criteria on Table \ref{tab:E_selec}. The muons are selected using the criteria on Table \ref{tab:mu_selec}. The jets are selected using the criteria on Table \ref{tab:jet_selec}. The missing transverse energy is reconstructed from jets selected and calibrated according to the information in Table \ref{tab:jet_selec}. In addition to these a kinematical cut of $m_{ll}>10$ GeV will be made to exclude hadron productions.
 \begin{table}[!h]
     \centering\caption[Electron selection criteria]{Electron selection criteria.}
     \begin{tabular}{l|r}\midrule\midrule
@@ -123,7 +158,6 @@ cuts they choose.\\
     \end{tabular}
     \label{tab:E_selec}
 \end{table}
-\\The muons are selected using the criteria on Table \ref{tab:mu_selec}.
 \begin{table}[!h]
     \centering\caption[Muon selection criteria]{Muon selection criteria.}
     \begin{tabular}{l|r}\midrule\midrule
@@ -135,7 +169,6 @@ cuts they choose.\\
     \end{tabular}
     \label{tab:mu_selec}
 \end{table}
-\\The jets are selected using the criteria on Table \ref{tab:jet_selec}.
 \begin{table}[!h]
     \centering\caption[Jet selection criteria]{Jet selection criteria.}
     \begin{tabular}{l|r}\midrule\midrule
@@ -150,7 +183,6 @@ cuts they choose.\\
     \end{tabular}
     \label{tab:jet_selec}
 \end{table}
-\\The missing transverse energy is reconstructed from jets selected and calibrated according to the information in Table \ref{tab:jet_selec}. In addition to these a kinematical cut of $m_{ll}>10$ GeV will be made to exclude hadron productions.
 
 
 
@@ -276,7 +308,7 @@ and the lepton closest to the MET jet and the MET jet, $\Delta\phi(l_c,E_T^{miss
 
 \section{Transfer to ML friendly syntax}
 We have so far explained how the data will be used and carefully selected, however the question of how the data is made, and the number of samples we will work with still remains unanswered. \\
-\\As mentioned when defining what our background and signal is, we will mainly look at MC simulations.The MC simulations are made into \verb|ROOT| \cite{ROOT}\todo{Check version and fix bib DOI} NTuples which already have passed the object selection criteria on section \ref{sec:obj_sel}. What remains is to set the kinematical cuts so we have our control region. 
+\\As mentioned when defining what our background and signal is, we will mainly look at MC simulations.The MC simulations are made into \verb|ROOT| \cite{ROOT} NTuples which already have passed the object selection criteria on section \ref{sec:obj_sel}. What remains is to set the kinematical cuts so we have our control region. 
 To do this as well as saving the remaining events into a new file which will be used for our ML algorithm I utilized the algorithms on \verb|EventSelector|\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/EventSelector}{https://github.com/rubenguevara/Master-Thesis/tree/master/EventSelector}}, 
 which also saved the event that passed the event selection crieria as \verb|ROOT| histrograms to make plotting the distributions easier. After saving the events that passed the selection critera I used the algorithms on \verb|DataPrep|\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/DataPrep}{https://github.com/rubenguevara/Master-Thesis/tree/master/DataPrep}} 
 to plot the actual distributions of kinematical variables, and more importantly converting all of the events that passed the event selection into a ML friendly syntax. For this thesis we are converting from \verb|ROOT| NTuples to \verb|pandas DataFrame| \cite{pd.DataFrame} 
@@ -284,7 +316,7 @@ which can furhtermore be saved as \verb|h5| files to be read more efficiently. T
 (to more effectively create signal regions), and most importantly because of the compatibility with \verb|XGBoost| \cite{XGBoost} and \verb|TensorFlow| \cite{TensorFlow} which will be the ML packages we will utilize for both BDTs and NNs.
 
 \section{Problems}
-There are however still problems when we....
+There are however still problems that needs to be adressed before starting our ML, the biggest are adressed here.
 \subsection{Missing variables}\label{sec:jagged_arrays}
 For this theis, as shown in Table \ref{tab:variables} with the $^\dagger$, we will record events with up to three jets in the final state. However, there isn't always three jets in the recorded events that we will be studying, 
 this creates \textit{jagged arrays} which we can interpret as arrays with missing values. This is an unwanted feature that we need to avoid when training a ML algorithm, and is a problem that is not common in other ML tasks aside from HEPP.

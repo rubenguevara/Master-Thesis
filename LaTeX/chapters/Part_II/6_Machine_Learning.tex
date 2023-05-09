@@ -12,12 +12,16 @@ parameters such as the learning rate, the regularization strength, (exclusively 
 The way we are making datasets in this project, to keep it as close to model independent as possible, will be of the following format
 \begin{itemize}
    \item Make a dataset with all of the SM backgrounds and one DM model.
-   \item Make a dataset with all of the SM backgrounds and all of the DM models, divided into different signal regions.
+   \item Make a dataset with all of the SM backgrounds and all of the DM models, divided into different signal regions and statisically combine the results of each signal region
 \end{itemize}
-The idea behind the first one is to start with a model dependent approach, where we train a ML algorithm to learn just one model at a time. The reason for taking this approach and not just having one dataset with all the models included, which would indeed make it 
-a model independent approach, is because of the different phenomenology and experiemntal signatures of the models we are studying. \textbf{Question: Should I give concrete examples on how SUSY vs Z' differs, or is this sentence enough?} To achieve model indepence 
-with this dataset, the plan is to combine the results of the different networks into one. \textbf{Question: Is it correct to say statisticslly combine the results? Or what exactly are we thinking of combining using this method?} \\
-\\For the second one, even if we were to include models with different signatures it would work out in our favour. For example, if we created Signal Regions (SR) in different regions of the $m_{ll}$ phasespace, \textit{and} trained a ML network in each respective SR, 
+The idea behind the first one is to start with a model dependent approach, where we train a ML algorithm to learn just one model at a time. \textbf{Question: I do not know which of the following I should include as a reason for the first one} 
+\begin{itemize}
+   \item The reason for taking this approach and not just having one dataset with all the models included, which would indeed make it 
+   a model independent approach, is because of the different phenomenology and experiemntal signatures of the models we are studying. \textbf{Question: Should I give concrete examples on how SUSY vs Z' differs, or is this sentence enough?} 
+   \item The reason for taking this approach, is because it is still closer to being more model independent than normal ML HEP searches, as these usually train on the whole SM background dataset with just one signal model with fixed masses and parameters. While what we would 
+   be doing is combining all the different masses and parameters into one.   
+\end{itemize}
+For the second one, even if we were to include models with different signatures it would work out in our favour. For example, if we created Signal Regions (SR) in different regions of the $m_{ll}$ phasespace, \textit{and} trained a ML network in each respective SR, 
 then the network would learn the DM resonance appearing in each area, instead of learning the model resonance. Indeed, achieving model indepence. Furthermore, the plan is to combine the results of each respective region to get an overall view of all of Run II.\\
 \\In this project we will look at real and simulated data from the ATLAS detector from all running periods of Run II. This is from period $a, d$ and $e$ each with an integrated luminosity of $36.4, 44.3$ and 58.5 $fb^{-1}$ respectively. 
 In Table \ref{tab:dataset} we can see the overall number of MC samples and expected events for all background channels as well as DM models. In addition to using the features in Table \ref{tab:variables}, we will also include the EventID, dataset ID, period, 
@@ -66,13 +70,15 @@ lumi_{period} = \begin{cases}
 $$
 divided by the Sum Of Weights (SOW) \textbf{Question: Sum of every $w_{mc}$ of each event or sum of every $W$ pr event? } of every MC sample for each dataset ID (background process)
 
-\subsection{Signal regions}
-Will make three regions:\todo{Write in more details}
+\subsection{Signal regions}\label{sec:SRs}
+As a first step towards achieving model independece we will create three Signal Regions (SR). The goal is then to train one network in each respective SR that contains all models we wish to study. The SR we will study are defined below 
 \begin{itemize}
-   \item $m_{ll} >120$ GeV and $E_T^{miss} \in [50, 100]$ GeV
-   \item $m_{ll} >120$ GeV and $E_T^{miss} \in [100, 150]$ GeV
-   \item $m_{ll} >120$ GeV and $E_T^{miss} >150$ GeV
+   \item SR1: $m_{ll} >110$ GeV and $E_T^{miss} \in [50, 100]$ GeV
+   \item SR2: $m_{ll} >110$ GeV and $E_T^{miss} \in [100, 150]$ GeV
+   \item SR3: $m_{ll} >110$ GeV and $E_T^{miss} >150$ GeV
 \end{itemize}
+where the $m_{ll}$ cut is made such that we remove as much background as possible before training\footnote{As the models we are studying start with $m_{Z'}=130$ GeV, see Chapter \ref{chap:DM_sample}} and where the MET regions are orthogonal. 
+The goal of having kinematically orthogonal SRs when training is for the ML network to learn \textit{DM resonant phyiscs} in each respective region, rather than learning the \textit{model in the dataset}.
 
 
 
@@ -126,7 +132,7 @@ removes the kinematical distributions that is present in the SM, meaning the NN 
 One could also just remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss, but this is also not a desirable mitigation.\\
 \\Instead we have tried to create new kinematic variables that work around the need of padding. These features are just \textit{counting features}, meaning that we count the number of jets that fulfill some criteria, 
 such as the number of b-jets with $p_T > 20$ GeV, the number of light jets with $p_T>40$ GeV, the number of jets recorded in the central calorimeter ($\abs{\eta} < 2.5$), and the number of 
-jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$). The $p_T$ cuts are optimized to allow a good agreement between data and simulations, the full distributions with different cuts in the control region can be seen in Appendix \ref{appendix:no_padding}\todo{RECREATE FIGURES WITH BETTER FORMAT!}. 
+jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$). The $p_T$ cuts are optimized to allow a good agreement between data and simulations, the full distributions with different cuts in the control region can be seen in Appendix \ref{appendix:no_padding}\todo{To come}. 
 A summary of these variables is shown in Table \ref{tab:padding_variables}.\\
 \begin{table}[!h]
    \centering
@@ -372,7 +378,7 @@ The architecture of the NN utilized in this project is of the form shown in Figu
    The neurons on the hidden layer(s) is a hyperparameter, as well as the number of hidden layers. }\label{fig:NNArch}
 \end{figure}
 \\Making this type of NN using \verb|TensorFlow| is easy. An algorithm showing one of the possibilites can be seen in Algorithm \ref{alg:nn}.
-\begin{lstlisting}[language=Python, caption={Neural network definition using TensorFlow}, label=alg:nn, captionpos=t]
+\begin{lstlisting}[basicstyle=\tiny, language=Python, caption={Neural network definition using TensorFlow}, label=alg:nn, captionpos=t]
    import tensorflow as tf
    from tensorflow.keras import layers
    
@@ -390,10 +396,10 @@ The architecture of the NN utilized in this project is of the form shown in Figu
                        
        model.add(layers.Dense(1,activation='sigmoid')) 
        
-       sgd=tf.optimizers.SGD(learning_rate=eta)
+       opt=tf.optimizers.SGD(learning_rate=eta) # or Adam!
        
        model.compile(loss=tf.losses.BinaryCrossentropy(),
-                   optimizer=sgd,
+                   optimizer=opt,
                    metrics = [tf.keras.metrics.BinaryAccuracy()])
        return model
    \end{lstlisting}
@@ -405,7 +411,7 @@ For our neural network we will mainly focus on four hyperparameters explained on
    \item The number of neurons on each hidden layer \verb|n_neuron|
    \item Possibly the number of layers \verb|n_layers|, exluding the output. Meaning that \verb|n_layers| = 1 means no hidden layer
 \end{itemize}
-The metrics that will be used to estimate the best hyperparameters are \textbf{AUC}, \textbf{binary accuracy} and most importantly \textbf{expected significance}. 
+The metrics that will be used to estimate the best hyperparameters are AUC, binary accuracy and most importantly the expected significance. 
 The expected significance for this section has been calculated using the low statistics formula Eq. (\ref{eq:exp_sig}) without uncertainties. The expected significance will also be calculcated when making a cut on 0.85 on the network prediction score, as explained in Chapter \ref{sec:siggy}. 
 Meaning we will only look at events which the network rates as signal with 85\% confidence and above. For some models where the expected events are too low (EFT models), meaning that the expected significance will be 0 or \verb|NaN|, if this happens we will use the hyperparemeters of the network 
 which gives us the highest AUC on the testing set. This will precedure will be done for every single network we will explore.
@@ -435,7 +441,7 @@ such that the weights are at least in the same scale.
 
 \subsection{Architecture and hyperparameter tuning}\label{sec:BDTGriddy}
 Making a BDT for our purposes is fairly easy as well using XGBoost. One way to do it is using the code below in Algorithm \ref{alg:xgb}
-\begin{lstlisting}[language=Python, caption={Boosted Decision Tree definition using XGBoost}, label=alg:xgb, captionpos=t]
+\begin{lstlisting}[basicstyle=\tiny, language=Python, caption={Boosted Decision Tree definition using XGBoost}, label=alg:xgb, captionpos=t]
    import xgboost as xgb
    
    Boosted_Decision_Tree = xgb.XGBClassifier(
@@ -461,7 +467,7 @@ To get the best performance on our BDT we have to do a grid search here as well.
    \item The learning rate $\eta$
    \item L2-regressor $\lambda$, to stop overtraning
 \end{itemize}
-The metrics that will be used to estimate the best hyperparameters are \textbf{AUC}, \textbf{binary accuracy} and most importantly \textbf{expected significance}. 
+The metrics that will be used to estimate the best hyperparameters are AUC, binary accuracy and most importantly the expected significance. 
 The expected significance for this section has been calculated using the low statistics formula Eq. (\ref{eq:exp_sig}) without uncertainties. The expected significance will also be calculcated when making a cut on 0.85 on the network prediction score, as explained in Chapter \ref{sec:siggy}. 
 Meaning we will only look at events which the network rates as signal with 85\% confidence and above. For some models where the expected events are too low (EFT models), meaning that the expected significance will be 0 or \verb|NaN|, if this happens we will use the hyperparemeters of the network 
 which gives us the highest AUC on the testing set. This will precedure will be done for every single network we will explore.

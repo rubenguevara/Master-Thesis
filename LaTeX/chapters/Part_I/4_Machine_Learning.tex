@@ -675,10 +675,10 @@ As an example, in Figure \ref{fig:EXP_SIG} we se the re-weighted validation plot
         \centering
         \includegraphics[width=\textwidth]{EXP_SIG.pdf}
     \end{subfigure}
-    \caption[Significance plot illustration]{Plot showing the expected significance that is calculated from a) when making cuts on the ML output score}\label{fig:EXP_SIG}
+    \caption[Significance plot illustration]{Plot showing the expected significance that is calculated from a) when making cuts on the ML output score. The dashed lines are to guide the eye.}\label{fig:EXP_SIG}
 \end{figure}
 
-\subsection{BDT and NN exclusive plots}
+\subsection{BDT and NN exclusive plots}\label{sec:feat}
 \subsubsection{Feature importance}
 For BDTs, as we can calculate which features had the most impact when splitting the data, we will also include feature importance plots. As the name states these plots tells us how important the features in the dataset were in the training to separate signal from background. As we are using the \verb|XGBoost| 
 package when working with BDTs, we will use the inbuilt functions of the package to plot the feature importance. \\
