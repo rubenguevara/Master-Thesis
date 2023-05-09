@@ -1,14 +1,12 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}\label{chap:Best_ML}
-Something something Time to prepare our ML algorithms, statistics etc..
-
 \chapter{Model dependent approach}
 Now that we have established what type of ML network we will utilze as well as optimizig everything such that ... \todo{write more}
 
-\section{The datasets}
-Do I need to explain it again if I have in on Table \ref{tab:dataset}
+% \section{The datasets}
+% Do I need to explain it again if I have in on Table \ref{tab:dataset}
 
-\clearpage
+% \clearpage
 \graphicspath{{../../../Plots/}}
 \section{Dark Higgs Heavy Dark Sector}
 Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
@@ -59,39 +57,39 @@ method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_DH_
 
 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\overline{\chi}$ HDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\overline{\chi}$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
-   The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
-   and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
-   and is the same for all inputs.}
-   \small\begin{tabular}{@{}ccc|ccc@{}}
-      \midrule\midrule 
-         $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
-         \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$1.11$}& $ee$ & $0.25\pm0.05$ & $7.80\pm1.58$ & $108.4\pm23.0$ \\ 
-         & & $\mu\mu$ & $0.20\pm0.04$ & $6.28\pm1.27$ & $124.9\pm26.1$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$2.46\times10^{-1}$}& $ee$ & $0.54\pm0.11$ & $3.67\pm0.74$ & $114.1\pm24.4$ \\ 
-         & & $\mu\mu$ & $0.41\pm0.08$ & $2.78\pm0.56$ & $123.2\pm25.8$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$1.49\times10^{-2}$}& $ee$ & $1.13\pm0.23$ & $4.67\times10^{-1}\pm9.37\times10^{-2}$ & $107.0\pm23.4$ \\ 
-         & & $\mu\mu$ & $0.79\pm0.16$ & $3.29\times10^{-1}\pm6.60\times10^{-2}$ & $127.5\pm26.6$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$2.35\times10^{-3}$}& $ee$ & $1.40\pm0.28$ & $9.12\times10^{-2}\pm1.83\times10^{-2}$ & $126.3\pm26.7$ \\ 
-         & & $\mu\mu$ & $1.01\pm0.20$ & $6.59\times10^{-2}\pm1.32\times10^{-2}$ & $126.3\pm26.3$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$5.43\times10^{-4}$}& $ee$ & $1.59\pm0.32$ & $2.40\times10^{-2}\pm4.81\times10^{-3}$ & $118.8\pm25.6$ \\ 
-         & & $\mu\mu$ & $1.11\pm0.22$ & $1.67\times10^{-2}\pm3.36\times10^{-3}$ & $113.2\pm23.6$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$2.82\times10^{-4}$}& $ee$ & $1.60\pm0.32$ & $1.25\times10^{-2}\pm2.51\times10^{-3}$ & $119.3\pm25.7$ \\ 
-         & & $\mu\mu$ & $1.12\pm0.22$ & $8.78\times10^{-3}\pm1.76\times10^{-3}$ & $114.8\pm24.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$8.40\times10^{-5}$}& $ee$ & $1.63\pm0.33$ & $3.81\times10^{-3}\pm7.64\times10^{-4}$ & $114.3\pm24.4$ \\ 
-         & & $\mu\mu$ & $1.16\pm0.23$ & $2.70\times10^{-3}\pm5.42\times10^{-4}$ & $118.6\pm24.7$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$4.75\times10^{-5}$}& $ee$ & $1.65\pm0.33$ & $2.18\times10^{-3}\pm4.37\times10^{-4}$ & $118.4\pm25.1$ \\ 
-         & & $\mu\mu$ & $1.14\pm0.23$ & $1.50\times10^{-3}\pm3.01\times10^{-4}$ & $125.6\pm26.3$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$2.73\times10^{-5}$}& $ee$ & $1.69\pm0.34$ & $1.28\times10^{-3}\pm2.57\times10^{-4}$ & $123.9\pm26.5$ \\ 
-         & & $\mu\mu$ & $1.15\pm0.23$ & $8.72\times10^{-4}\pm1.75\times10^{-4}$ & $130.7\pm27.2$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$1.60\times10^{-5}$}& $ee$ & $1.67\pm0.33$ & $7.43\times10^{-4}\pm1.49\times10^{-4}$ & $115.8\pm24.5$ \\ 
-         & & $\mu\mu$ & $1.16\pm0.23$ & $5.15\times10^{-4}\pm1.03\times10^{-4}$ & $125.4\pm26.1$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$9.42\times10^{-6}$}& $ee$ & $1.69\pm0.34$ & $4.44\times10^{-4}\pm8.90\times10^{-5}$ & $123.9\pm26.5$ \\ 
-         & & $\mu\mu$ & $1.13\pm0.23$ & $2.97\times10^{-4}\pm5.96\times10^{-5}$ & $130.7\pm27.2$ \\
-      \midrule\midrule
-   \end{tabular}
-   \label{tab:stat_vals_DH_HDS}
-\end{table} 
+% \begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\overline{\chi}$ HDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\overline{\chi}$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+%    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
+%    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
+%    and is the same for all inputs.}
+%    \small\begin{tabular}{@{}ccc|ccc@{}}
+%       \midrule\midrule 
+%          $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
+%          \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$1.11$}& $ee$ & $0.25\pm0.05$ & $7.80\pm1.58$ & $108.4\pm23.0$ \\ 
+%          & & $\mu\mu$ & $0.20\pm0.04$ & $6.28\pm1.27$ & $124.9\pm26.1$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$2.46\times10^{-1}$}& $ee$ & $0.54\pm0.11$ & $3.67\pm0.74$ & $114.1\pm24.4$ \\ 
+%          & & $\mu\mu$ & $0.41\pm0.08$ & $2.78\pm0.56$ & $123.2\pm25.8$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$1.49\times10^{-2}$}& $ee$ & $1.13\pm0.23$ & $4.67\times10^{-1}\pm9.37\times10^{-2}$ & $107.0\pm23.4$ \\ 
+%          & & $\mu\mu$ & $0.79\pm0.16$ & $3.29\times10^{-1}\pm6.60\times10^{-2}$ & $127.5\pm26.6$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$2.35\times10^{-3}$}& $ee$ & $1.40\pm0.28$ & $9.12\times10^{-2}\pm1.83\times10^{-2}$ & $126.3\pm26.7$ \\ 
+%          & & $\mu\mu$ & $1.01\pm0.20$ & $6.59\times10^{-2}\pm1.32\times10^{-2}$ & $126.3\pm26.3$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$5.43\times10^{-4}$}& $ee$ & $1.59\pm0.32$ & $2.40\times10^{-2}\pm4.81\times10^{-3}$ & $118.8\pm25.6$ \\ 
+%          & & $\mu\mu$ & $1.11\pm0.22$ & $1.67\times10^{-2}\pm3.36\times10^{-3}$ & $113.2\pm23.6$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$2.82\times10^{-4}$}& $ee$ & $1.60\pm0.32$ & $1.25\times10^{-2}\pm2.51\times10^{-3}$ & $119.3\pm25.7$ \\ 
+%          & & $\mu\mu$ & $1.12\pm0.22$ & $8.78\times10^{-3}\pm1.76\times10^{-3}$ & $114.8\pm24.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$8.40\times10^{-5}$}& $ee$ & $1.63\pm0.33$ & $3.81\times10^{-3}\pm7.64\times10^{-4}$ & $114.3\pm24.4$ \\ 
+%          & & $\mu\mu$ & $1.16\pm0.23$ & $2.70\times10^{-3}\pm5.42\times10^{-4}$ & $118.6\pm24.7$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$4.75\times10^{-5}$}& $ee$ & $1.65\pm0.33$ & $2.18\times10^{-3}\pm4.37\times10^{-4}$ & $118.4\pm25.1$ \\ 
+%          & & $\mu\mu$ & $1.14\pm0.23$ & $1.50\times10^{-3}\pm3.01\times10^{-4}$ & $125.6\pm26.3$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$2.73\times10^{-5}$}& $ee$ & $1.69\pm0.34$ & $1.28\times10^{-3}\pm2.57\times10^{-4}$ & $123.9\pm26.5$ \\ 
+%          & & $\mu\mu$ & $1.15\pm0.23$ & $8.72\times10^{-4}\pm1.75\times10^{-4}$ & $130.7\pm27.2$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$1.60\times10^{-5}$}& $ee$ & $1.67\pm0.33$ & $7.43\times10^{-4}\pm1.49\times10^{-4}$ & $115.8\pm24.5$ \\ 
+%          & & $\mu\mu$ & $1.16\pm0.23$ & $5.15\times10^{-4}\pm1.03\times10^{-4}$ & $125.4\pm26.1$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$9.42\times10^{-6}$}& $ee$ & $1.69\pm0.34$ & $4.44\times10^{-4}\pm8.90\times10^{-5}$ & $123.9\pm26.5$ \\ 
+%          & & $\mu\mu$ & $1.13\pm0.23$ & $2.97\times10^{-4}\pm5.96\times10^{-5}$ & $130.7\pm27.2$ \\
+%       \midrule\midrule
+%    \end{tabular}
+%    \label{tab:stat_vals_DH_HDS}
+% \end{table} 
 \begin{figure}[!ht]
 	\centering
    \begin{subfigure}[b]{0.49\textwidth}
@@ -108,497 +106,497 @@ method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_DH_
 As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
 
 \clearpage
-\section{Dark Higgs Light Dark Sector}
-Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/VAL_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/VAL_uu.pdf}
-      \end{subfigure}
-   \caption{Validation plots for network trained on Z' DH LDS}\label{fig:DH_LDS_vals}
-\end{figure}
-\\With the ROC for each mass point seen in Figure \ref{fig:DH_LDS_ROCS}.
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/ROC_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/ROC_uu.pdf}
-      \end{subfigure}
-   \caption{ROC plots for every Z' mass point on network trained on Z' DH LDS}\label{fig:DH_LDS_ROCS}
-\end{figure}
-\\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:DH_LDS_exp_sig}
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/EXP_SIG_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/EXP_SIG_uu.pdf}
-      \end{subfigure}
-   \caption{Expected significance plots for Z' mass points on network trained on Z' DH LDS}\label{fig:DH_LDS_exp_sig}
-\end{figure}
-\\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
-\\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
-method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_DH_LDS} we see the values for each Z' mass point.
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\overline{\chi}$ LDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\overline{\chi}$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
-   The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
-   and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
-   and is the same for all inputs.}
-   \small\begin{tabular}{@{}ccc|ccc@{}}
-      \midrule\midrule 
-         $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
-         \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$1.24$}& $ee$ & $0.25\pm0.05$ & $8.70\pm1.75$ & $272.0\pm56.0$ \\ 
-         & & $\mu\mu$ & $0.21\pm0.04$ & $7.33\pm1.48$ & $299.4\pm60.7$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$1.05$}& $ee$ & $0.29\pm0.06$ & $8.34\pm1.68$ & $294.9\pm60.3$ \\ 
-         & & $\mu\mu$ & $0.23\pm0.05$ & $6.68\pm1.34$ & $304.4\pm61.7$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$6.08\times10^{-1}$}& $ee$ & $0.38\pm0.08$ & $6.35\pm1.28$ & $264.9\pm55.0$ \\ 
-         & & $\mu\mu$ & $0.25\pm0.05$ & $4.30\pm8.66\times10^{-1}$ & $288.9\pm58.7$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$2.88\times10^{-1}$}& $ee$ & $0.70\pm0.14$ & $5.64\pm1.13$ & $275.2\pm56.6$ \\ 
-         & & $\mu\mu$ & $0.50\pm0.10$ & $3.98\pm7.98\times10^{-1}$ & $298.3\pm60.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$1.44\times10^{-1}$}& $ee$ & $1.01\pm0.20$ & $4.05\pm8.11\times10^{-1}$ & $295.9\pm60.5$ \\ 
-         & & $\mu\mu$ & $0.70\pm0.14$ & $2.81\pm5.63\times10^{-1}$ & $307.5\pm62.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$1.04\times10^{-1}$}& $ee$ & $1.14\pm0.23$ & $3.30\pm6.61\times10^{-1}$ & $271.3\pm55.8$ \\ 
-         & & $\mu\mu$ & $0.80\pm0.16$ & $2.30\pm4.60\times10^{-1}$ & $293.2\pm59.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$5.61\times10^{-2}$}& $ee$ & $1.30\pm0.26$ & $2.03\pm4.07\times10^{-1}$ & $270.8\pm55.7$ \\ 
-         & & $\mu\mu$ & $0.90\pm0.18$ & $1.40\pm2.81\times10^{-1}$ & $290.0\pm58.8$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$4.19\times10^{-2}$}& $ee$ & $1.35\pm0.27$ & $1.58\pm3.16\times10^{-1}$ & $273.9\pm56.2$ \\ 
-         & & $\mu\mu$ & $0.95\pm0.19$ & $1.10\pm2.21\times10^{-1}$ & $289.4\pm58.8$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$3.16\times10^{-2}$}& $ee$ & $1.41\pm0.28$ & $1.24\pm2.48\times10^{-1}$ & $292.8\pm60.0$ \\ 
-         & & $\mu\mu$ & $0.97\pm0.19$ & $8.49\times10^{-1}\pm1.70\times10^{-1}$ & $288.6\pm58.5$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.40\times10^{-2}$}& $ee$ & $1.43\pm0.29$ & $9.51\times10^{-1}\pm1.91\times10^{-1}$ & $298.8\pm61.2$ \\ 
-         & & $\mu\mu$ & $0.97\pm0.19$ & $6.47\times10^{-1}\pm1.30\times10^{-1}$ & $311.7\pm63.2$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.84\times10^{-2}$}& $ee$ & $1.44\pm0.29$ & $7.36\times10^{-1}\pm1.47\times10^{-1}$ & $287.9\pm59.1$ \\ 
-         & & $\mu\mu$ & $0.96\pm0.19$ & $4.90\times10^{-1}\pm9.82\times10^{-2}$ & $298.7\pm60.6$ \\
-      \midrule\midrule
-   \end{tabular}
-   \label{tab:stat_vals_DH_LDS}
-\end{table} 
-\begin{figure}[!ht]
-	\centering
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/DH_LDS/mass_exclusion_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/DH_LDS/mass_exclusion_uu.pdf}
-      \end{subfigure}
-   \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' DH LDS model}\label{fig:DH_LDS_exclusion_ee_uu}
-\end{figure}
-As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
-
-
-\clearpage
-\section{Light Vector Heavy Dark Sector}
-Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/VAL_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/VAL_uu.pdf}
-      \end{subfigure}
-   \caption{Validation plots for network trained on Z' LV HDS}\label{fig:LV_HDS_vals}
-\end{figure}
-\\With the ROC for each mass point seen in Figure \ref{fig:LV_HDS_ROCS}.
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/ROC_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/ROC_uu.pdf}
-      \end{subfigure}
-   \caption{ROC plots for every Z' mass point on network trained on Z' LV HDS}\label{fig:LV_HDS_ROCS}
-\end{figure}
-\\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:LV_HDS_exp_sig}
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/EXP_SIG_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/EXP_SIG_uu.pdf}
-      \end{subfigure}
-   \caption{Expected significance plots for Z' mass points on network trained on Z' LV HDS}\label{fig:LV_HDS_exp_sig}
-\end{figure}
-\\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
-\\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
-method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_LV_HDS} we see the values for each Z' mass point.
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'V\rightarrow l^+l^-\chi\overline{\chi}$ HDS $\sigma B$ calculations]{Inputs for the $Z'V\rightarrow l^+l^-\chi\overline{\chi}$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
-   The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
-   and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
-   and is the same for all inputs.}
-   \small\begin{tabular}{@{}ccc|ccc@{}}
-      \midrule\midrule 
-         $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
-         \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$6.93\times10^{-1}$}& $ee$ & $0.30\pm0.06$ & $5.72\pm1.16$ & $93.6\pm20.6$ \\ 
-         & & $\mu\mu$ & $0.24\pm0.05$ & $4.66\pm9.44\times10^{-1}$ & $104.4\pm21.9$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$1.41\times10^{-1}$}& $ee$ & $0.69\pm0.14$ & $2.71\pm5.45\times10^{-1}$ & $102.5\pm22.7$ \\ 
-         & & $\mu\mu$ & $0.51\pm0.10$ & $2.02\pm4.08\times10^{-1}$ & $102.4\pm21.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$6.90\times10^{-3}$}& $ee$ & $1.30\pm0.26$ & $2.48\times10^{-1}\pm4.99\times10^{-2}$ & $107.2\pm22.7$ \\ 
-         & & $\mu\mu$ & $0.91\pm0.18$ & $1.75\times10^{-1}\pm3.52\times10^{-2}$ & $110.2\pm23.1$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$8.81\times10^{-4}$}& $ee$ & $1.56\pm0.31$ & $3.83\times10^{-2}\pm7.67\times10^{-3}$ & $98.2\pm21.1$ \\ 
-         & & $\mu\mu$ & $1.06\pm0.21$ & $2.60\times10^{-2}\pm5.21\times10^{-3}$ & $91.4\pm19.7$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$1.66\times10^{-4}$}& $ee$ & $1.66\pm0.33$ & $7.65\times10^{-3}\pm1.53\times10^{-3}$ & $101.6\pm21.6$ \\ 
-         & & $\mu\mu$ & $1.16\pm0.23$ & $5.33\times10^{-3}\pm1.07\times10^{-3}$ & $100.5\pm21.2$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$7.74\times10^{-5}$}& $ee$ & $1.71\pm0.34$ & $3.67\times10^{-3}\pm7.36\times10^{-4}$ & $106.0\pm22.5$ \\ 
-         & & $\mu\mu$ & $1.19\pm0.24$ & $2.56\times10^{-3}\pm5.14\times10^{-4}$ & $89.2\pm19.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$1.87\times10^{-5}$}& $ee$ & $1.73\pm0.35$ & $9.03\times10^{-4}\pm1.81\times10^{-4}$ & $84.2\pm18.8$ \\ 
-         & & $\mu\mu$ & $1.19\pm0.24$ & $6.22\times10^{-4}\pm1.25\times10^{-4}$ & $106.1\pm22.3$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$9.53\times10^{-6}$}& $ee$ & $1.76\pm0.35$ & $4.65\times10^{-4}\pm9.33\times10^{-5}$ & $100.2\pm21.4$ \\ 
-         & & $\mu\mu$ & $1.22\pm0.24$ & $3.22\times10^{-4}\pm6.46\times10^{-5}$ & $105.1\pm22.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$4.93\times10^{-6}$}& $ee$ & $1.73\pm0.35$ & $2.38\times10^{-4}\pm4.76\times10^{-5}$ & $77.0\pm17.7$ \\ 
-         & & $\mu\mu$ & $1.20\pm0.24$ & $1.64\times10^{-4}\pm3.30\times10^{-5}$ & $104.5\pm22.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.59\times10^{-6}$}& $ee$ & $1.79\pm0.36$ & $1.29\times10^{-4}\pm2.60\times10^{-5}$ & $98.5\pm21.3$ \\ 
-         & & $\mu\mu$ & $1.21\pm0.24$ & $8.73\times10^{-5}\pm1.75\times10^{-5}$ & $97.8\pm20.6$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.38\times10^{-6}$}& $ee$ & $1.79\pm0.36$ & $6.86\times10^{-5}\pm1.38\times10^{-5}$ & $111.1\pm23.5$ \\ 
-         & & $\mu\mu$ & $1.20\pm0.24$ & $4.61\times10^{-5}\pm9.26\times10^{-6}$ & $96.3\pm20.2$ \\ 
-      \midrule\midrule
-   \end{tabular}
-   \label{tab:stat_vals_LV_HDS}
-\end{table} 
-\begin{figure}[!ht]
-	\centering
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/LV_HDS/mass_exclusion_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/LV_HDS/mass_exclusion_uu.pdf}
-      \end{subfigure}
-   \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' LV HDS model}\label{fig:LV_HDS_exclusion_ee_uu}
-\end{figure}
-As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
-
-\clearpage
-\section{Light Vector Light Dark Sector}Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/VAL_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/VAL_uu.pdf}
-      \end{subfigure}
-   \caption{Validation plots for network trained on Z' LV LDS}\label{fig:LV_LDS_vals}
-\end{figure}
-\\With the ROC for each mass point seen in Figure \ref{fig:LV_LDS_ROCS}.
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/ROC_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/ROC_uu.pdf}
-      \end{subfigure}
-   \caption{ROC plots for every Z' mass point on network trained on Z' LV LDS}\label{fig:LV_LDS_ROCS}
-\end{figure}
-\\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:LV_LDS_exp_sig}
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/EXP_SIG_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/EXP_SIG_uu.pdf}
-      \end{subfigure}
-   \caption{Expected significance plots for Z' mass points on network trained on Z' LV LDS}\label{fig:LV_LDS_exp_sig}
-\end{figure}
-\\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
-\\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
-method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_LV_LDS} we see the values for each Z' mass point.
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'V\rightarrow l^+l^-\chi\overline{\chi}$ LDS $\sigma B$ calculations]{Inputs for the $Z'V\rightarrow l^+l^-\chi\overline{\chi}$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
-   The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
-   and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
-   and is the same for all inputs.}
-   \small\begin{tabular}{@{}ccc|ccc@{}}
-      \midrule\midrule 
-         $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
-         \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$6.80$}& $ee$ & $0.07\pm0.01$ & $13.8\pm2.83$ & $182.6\pm38.0$ \\ 
-         & & $\mu\mu$ & $0.05\pm0.01$ & $10.0\pm2.07$ & $260.9\pm52.9$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$2.37$}& $ee$ & $0.18\pm0.04$ & $12.0\pm2.43$ & $191.4\pm39.8$ \\ 
-         & & $\mu\mu$ & $0.13\pm0.03$ & $8.88\pm1.81$ & $258.9\pm52.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$2.89\times10^{-1}$}& $ee$ & $0.68\pm0.14$ & $5.45\pm1.10$ & $186.6\pm38.7$ \\ 
-         & & $\mu\mu$ & $0.41\pm0.08$ & $3.28\pm6.61\times10^{-1}$ & $256.9\pm52.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$7.34\times10^{-2}$}& $ee$ & $1.01\pm0.20$ & $2.06\pm4.13\times10^{-1}$ & $194.8\pm40.2$ \\ 
-         & & $\mu\mu$ & $0.65\pm0.13$ & $1.32\pm2.65\times10^{-1}$ & $268.6\pm54.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$2.59\times10^{-2}$}& $ee$ & $1.21\pm0.24$ & $8.71\times10^{-1}\pm1.75\times10^{-1}$ & $182.7\pm38.4$ \\ 
-         & & $\mu\mu$ & $0.80\pm0.16$ & $5.74\times10^{-1}\pm1.15\times10^{-1}$ & $256.9\pm52.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$1.65\times10^{-2}$}& $ee$ & $1.29\pm0.26$ & $5.90\times10^{-1}\pm1.18\times10^{-1}$ & $176.1\pm36.5$ \\ 
-         & & $\mu\mu$ & $0.86\pm0.17$ & $3.92\times10^{-1}\pm7.88\times10^{-2}$ & $243.3\pm49.3$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$7.34\times10^{-3}$}& $ee$ & $1.35\pm0.27$ & $2.76\times10^{-1}\pm5.52\times10^{-2}$ & $190.8\pm39.4$ \\ 
-         & & $\mu\mu$ & $0.92\pm0.18$ & $1.87\times10^{-1}\pm3.75\times10^{-2}$ & $240.9\pm48.8$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$5.08\times10^{-3}$}& $ee$ & $1.41\pm0.28$ & $2.00\times10^{-1}\pm4.00\times10^{-2}$ & $179.8\pm37.2$ \\ 
-         & & $\mu\mu$ & $0.96\pm0.19$ & $1.36\times10^{-1}\pm2.73\times10^{-2}$ & $250.8\pm50.8$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$3.58\times10^{-3}$}& $ee$ & $1.43\pm0.29$ & $1.42\times10^{-1}\pm2.84\times10^{-2}$ & $190.7\pm39.5$ \\ 
-         & & $\mu\mu$ & $0.98\pm0.20$ & $9.72\times10^{-2}\pm1.95\times10^{-2}$ & $245.3\pm49.6$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.56\times10^{-3}$}& $ee$ & $1.46\pm0.29$ & $1.04\times10^{-1}\pm2.08\times10^{-2}$ & $185.9\pm38.9$ \\ 
-         & & $\mu\mu$ & $0.99\pm0.20$ & $7.09\times10^{-2}\pm1.42\times10^{-2}$ & $260.4\pm52.9$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.86\times10^{-3}$}& $ee$ & $1.48\pm0.30$ & $7.68\times10^{-2}\pm1.54\times10^{-2}$ & $185.1\pm38.2$ \\ 
-         & & $\mu\mu$ & $0.98\pm0.20$ & $5.10\times10^{-2}\pm1.02\times10^{-2}$ & $245.4\pm49.7$ \\ 
-      \midrule\midrule
-   \end{tabular}
-   \label{tab:stat_vals_LV_LDS}
-\end{table} 
-\begin{figure}[!ht]
-	\centering
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/LV_LDS/mass_exclusion_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/LV_LDS/mass_exclusion_uu.pdf}
-      \end{subfigure}
-   \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' LV LDS model}\label{fig:LV_LDS_exclusion_ee_uu}
-\end{figure}
-As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
-
-
-\clearpage
-\section{Effective Field Theory Heavy Dark Sector}Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
+% \section{Dark Higgs Light Dark Sector}
+% Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
 % \begin{figure}[!ht]
 % 	\centering
 % 	\begin{subfigure}[b]{0.49\textwidth}
 %       \centering
-%       \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/VAL_ee.pdf}
+%       \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/VAL_ee.pdf}
 %       \end{subfigure}
 %    \hfill
 %    \begin{subfigure}[b]{0.49\textwidth}
 %       \centering
-%       \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/VAL_uu.pdf}
+%       \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/VAL_uu.pdf}
 %       \end{subfigure}
-%    \caption{Validation plots for network trained on Z' EFT HDS}\label{fig:EFT_HDS_vals}
+%    \caption{Validation plots for network trained on Z' DH LDS}\label{fig:DH_LDS_vals}
 % \end{figure}
-\\With the ROC for each mass point seen in Figure \ref{fig:EFT_HDS_ROCS}.
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/ROC_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/ROC_uu.pdf}
-      \end{subfigure}
-   \caption{ROC plots for every Z' mass point on network trained on Z' EFT HDS}\label{fig:EFT_HDS_ROCS}
-\end{figure}
-\\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:EFT_HDS_exp_sig}
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/EXP_SIG_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/EXP_SIG_uu.pdf}
-      \end{subfigure}
-   \caption{Expected significance plots for Z' mass points on network trained on Z' EFT HDS}\label{fig:EFT_HDS_exp_sig}
-\end{figure}
-\\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
-\\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
-method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_EFT_HDS} we see the values for each Z' mass point.
-\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\overline{\chi}$ HDS $\sigma B$ calculations]{Inputs for the EFT $\rightarrow Z'\chi\overline{\chi}$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
-   The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
-   and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
-   and is the same for all inputs.}
-   \small\begin{tabular}{@{}ccc|ccc@{}}
-      \midrule\midrule 
-         $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
-         \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$7.81\times10^{-6}$}& $ee$ & $0.28\pm0.06$ & $6.08\times10^{-5}\pm1.23\times10^{-5}$ & $121.2\pm26.6$ \\ 
-         & & $\mu\mu$ & $0.23\pm0.05$ & $4.96\times10^{-5}\pm1.01\times10^{-5}$ & $105.8\pm22.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$6.81\times10^{-7}$}& $ee$ & $0.65\pm0.13$ & $1.22\times10^{-5}\pm2.46\times10^{-6}$ & $139.3\pm29.1$ \\ 
-         & & $\mu\mu$ & $0.49\pm0.10$ & $9.19\times10^{-6}\pm1.85\times10^{-6}$ & $103.0\pm21.6$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{300}& \multirow{2}{*}[-2\baselineskip]{$6.01\times10^{-8}$}& $ee$ & $1.01\pm0.20$ & $1.69\times10^{-6}\pm3.39\times10^{-7}$ & $113.8\pm25.0$ \\ 
-         & & $\mu\mu$ & $0.76\pm0.15$ & $1.28\times10^{-6}\pm2.57\times10^{-7}$ & $113.3\pm23.8$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$8.42\times10^{-9}$}& $ee$ & $1.30\pm0.26$ & $3.06\times10^{-7}\pm6.13\times10^{-8}$ & $118.0\pm25.7$ \\ 
-         & & $\mu\mu$ & $0.92\pm0.18$ & $2.16\times10^{-7}\pm4.33\times10^{-8}$ & $107.9\pm22.6$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{500}& \multirow{2}{*}[-2\baselineskip]{$1.80\times10^{-9}$}& $ee$ & $1.46\pm0.29$ & $7.32\times10^{-8}\pm1.47\times10^{-8}$ & $108.6\pm24.9$ \\ 
-         & & $\mu\mu$ & $1.03\pm0.21$ & $5.16\times10^{-8}\pm1.04\times10^{-8}$ & $97.9\pm20.7$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$4.83\times10^{-10}$}& $ee$ & $1.55\pm0.31$ & $2.09\times10^{-8}\pm4.18\times10^{-9}$ & $117.8\pm25.0$ \\ 
-         & & $\mu\mu$ & $1.09\pm0.22$ & $1.46\times10^{-8}\pm2.92\times10^{-9}$ & $115.5\pm24.2$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{700}& \multirow{2}{*}[-2\baselineskip]{$1.49\times10^{-10}$}& $ee$ & $1.64\pm0.33$ & $6.82\times10^{-9}\pm1.37\times10^{-9}$ & $122.2\pm26.1$ \\ 
-         & & $\mu\mu$ & $1.15\pm0.23$ & $4.76\times10^{-9}\pm9.56\times10^{-10}$ & $113.3\pm23.9$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$5.12\times10^{-11}$}& $ee$ & $1.68\pm0.34$ & $2.39\times10^{-9}\pm4.80\times10^{-10}$ & $118.5\pm25.0$ \\ 
-         & & $\mu\mu$ & $1.17\pm0.23$ & $1.66\times10^{-9}\pm3.34\times10^{-10}$ & $105.3\pm22.1$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$1.90\times10^{-11}$}& $ee$ & $1.71\pm0.34$ & $9.05\times10^{-10}\pm1.81\times10^{-10}$ & $122.2\pm25.8$ \\ 
-         & & $\mu\mu$ & $1.15\pm0.23$ & $6.09\times10^{-10}\pm1.22\times10^{-10}$ & $116.5\pm24.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1000}& \multirow{2}{*}[-2\baselineskip]{$7.47\times10^{-12}$}& $ee$ & $1.70\pm0.34$ & $3.53\times10^{-10}\pm7.07\times10^{-11}$ & $123.0\pm26.0$ \\ 
-         & & $\mu\mu$ & $1.17\pm0.23$ & $2.44\times10^{-10}\pm4.89\times10^{-11}$ & $117.0\pm24.6$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$3.07\times10^{-12}$}& $ee$ & $1.74\pm0.35$ & $1.48\times10^{-10}\pm2.97\times10^{-11}$ & $108.7\pm23.3$ \\ 
-         & & $\mu\mu$ & $1.17\pm0.23$ & $1.00\times10^{-10}\pm2.01\times10^{-11}$ & $100.9\pm21.3$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$1.31\times10^{-12}$}& $ee$ & $1.75\pm0.35$ & $6.41\times10^{-11}\pm1.28\times10^{-11}$ & $122.8\pm26.0$ \\ 
-         & & $\mu\mu$ & $1.23\pm0.25$ & $4.49\times10^{-11}\pm9.01\times10^{-12}$ & $109.7\pm23.1$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$5.80\times10^{-13}$}& $ee$ & $1.75\pm0.35$ & $2.82\times10^{-11}\pm5.65\times10^{-12}$ & $120.9\pm26.6$ \\ 
-         & & $\mu\mu$ & $1.23\pm0.25$ & $1.99\times10^{-11}\pm3.99\times10^{-12}$ & $115.4\pm24.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.63\times10^{-13}$}& $ee$ & $1.74\pm0.35$ & $1.27\times10^{-11}\pm2.55\times10^{-12}$ & $123.9\pm26.1$ \\ 
-         & & $\mu\mu$ & $1.18\pm0.24$ & $8.64\times10^{-12}\pm1.73\times10^{-12}$ & $107.3\pm22.6$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.22\times10^{-13}$}& $ee$ & $1.78\pm0.36$ & $6.02\times10^{-12}\pm1.21\times10^{-12}$ & $115.3\pm24.6$ \\ 
-         & & $\mu\mu$ & $1.22\pm0.24$ & $4.15\times10^{-12}\pm8.32\times10^{-13}$ & $108.3\pm22.8$ \\
-      \midrule\midrule
-   \end{tabular}
-   \label{tab:stat_vals_EFT_HDS}
-\end{table} 
-\begin{figure}[!ht]
-	\centering
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/EFT_HDS/mass_exclusion_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/EFT_HDS/mass_exclusion_uu.pdf}
-      \end{subfigure}
-   \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' EFT HDS model}\label{fig:EFT_HDS_exclusion_ee_uu}
-\end{figure}
-As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
-
-
-
-\clearpage
-\section{Effective Field Theory Light Dark Sector}
-Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
+% \\With the ROC for each mass point seen in Figure \ref{fig:DH_LDS_ROCS}.
 % \begin{figure}[!ht]
 % 	\centering
 % 	\begin{subfigure}[b]{0.49\textwidth}
 %       \centering
-%       \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/VAL_ee.pdf}
+%       \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/ROC_ee.pdf}
 %       \end{subfigure}
 %    \hfill
 %    \begin{subfigure}[b]{0.49\textwidth}
 %       \centering
-%       \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/VAL_uu.pdf}
+%       \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/ROC_uu.pdf}
 %       \end{subfigure}
-%    \caption{Validation plots for network trained on Z' EFT LDS}\label{fig:EFT_LDS_vals}
+%    \caption{ROC plots for every Z' mass point on network trained on Z' DH LDS}\label{fig:DH_LDS_ROCS}
 % \end{figure}
-\\With the ROC for each mass point seen in Figure \ref{fig:EFT_LDS_ROCS}.
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/ROC_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/ROC_uu.pdf}
-      \end{subfigure}
-   \caption{ROC plots for every Z' mass point on network trained on Z' EFT LDS}\label{fig:EFT_LDS_ROCS}
-\end{figure}
-\\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:EFT_LDS_exp_sig}
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/EXP_SIG_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/EXP_SIG_uu.pdf}
-      \end{subfigure}
-   \caption{Expected significance plots for Z' mass points on network trained on Z' EFT LDS}\label{fig:EFT_LDS_exp_sig}
-\end{figure}
-\\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
-\\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
-method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_EFT_LDS} we see the values for each Z' mass point.
-\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\overline{\chi}$ LDS $\sigma B$ calculations]{Inputs for the EFT $\rightarrow Z'\chi\overline{\chi}$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
-   The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
-   and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
-   and is the same for all inputs.}
-   \small\begin{tabular}{@{}ccc|ccc@{}}
-      \midrule\midrule 
-         $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
-         \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$3.35\times10^{-5}$}& $ee$ & $0.06\pm0.01$ & $5.20\times10^{-5}\pm1.07\times10^{-5}$ & $248.4\pm51.7$ \\ 
-         & & $\mu\mu$ & $0.04\pm0.01$ & $3.98\times10^{-5}\pm8.28\times10^{-6}$ & $292.5\pm59.2$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$2.67\times10^{-6}$}& $ee$ & $0.17\pm0.03$ & $1.23\times10^{-5}\pm2.50\times10^{-6}$ & $245.0\pm50.3$ \\ 
-         & & $\mu\mu$ & $0.12\pm0.02$ & $9.11\times10^{-6}\pm1.86\times10^{-6}$ & $291.6\pm59.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{300}& \multirow{2}{*}[-2\baselineskip]{$2.06\times10^{-7}$}& $ee$ & $0.36\pm0.07$ & $2.06\times10^{-6}\pm4.15\times10^{-7}$ & $248.1\pm51.0$ \\ 
-         & & $\mu\mu$ & $0.24\pm0.05$ & $1.36\times10^{-6}\pm2.75\times10^{-7}$ & $284.7\pm57.7$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$2.65\times10^{-8}$}& $ee$ & $0.61\pm0.12$ & $4.52\times10^{-7}\pm9.09\times10^{-8}$ & $250.6\pm51.7$ \\ 
-         & & $\mu\mu$ & $0.40\pm0.08$ & $2.93\times10^{-7}\pm5.91\times10^{-8}$ & $281.9\pm57.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{500}& \multirow{2}{*}[-2\baselineskip]{$5.46\times10^{-9}$}& $ee$ & $0.82\pm0.16$ & $1.24\times10^{-7}\pm2.48\times10^{-8}$ & $243.1\pm50.3$ \\ 
-         & & $\mu\mu$ & $0.51\pm0.10$ & $7.69\times10^{-8}\pm1.55\times10^{-8}$ & $293.3\pm59.4$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$1.47\times10^{-9}$}& $ee$ & $1.03\pm0.21$ & $4.21\times10^{-8}\pm8.44\times10^{-9}$ & $244.9\pm50.8$ \\ 
-         & & $\mu\mu$ & $0.62\pm0.12$ & $2.53\times10^{-8}\pm5.08\times10^{-9}$ & $294.2\pm59.5$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{700}& \multirow{2}{*}[-2\baselineskip]{$4.72\times10^{-10}$}& $ee$ & $1.13\pm0.23$ & $1.48\times10^{-8}\pm2.97\times10^{-9}$ & $256.1\pm52.4$ \\ 
-         & & $\mu\mu$ & $0.73\pm0.15$ & $9.56\times10^{-9}\pm1.92\times10^{-9}$ & $298.1\pm60.3$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$1.73\times10^{-10}$}& $ee$ & $1.22\pm0.24$ & $5.89\times10^{-9}\pm1.18\times10^{-9}$ & $245.5\pm51.2$ \\ 
-         & & $\mu\mu$ & $0.82\pm0.16$ & $3.93\times10^{-9}\pm7.89\times10^{-10}$ & $301.5\pm61.1$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$7.02\times10^{-11}$}& $ee$ & $1.25\pm0.25$ & $2.45\times10^{-9}\pm4.91\times10^{-10}$ & $257.9\pm52.7$ \\ 
-         & & $\mu\mu$ & $0.88\pm0.18$ & $1.71\times10^{-9}\pm3.43\times10^{-10}$ & $281.0\pm57.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1000}& \multirow{2}{*}[-2\baselineskip]{$3.09\times10^{-11}$}& $ee$ & $1.35\pm0.27$ & $1.16\times10^{-9}\pm2.32\times10^{-10}$ & $251.1\pm51.5$ \\ 
-         & & $\mu\mu$ & $0.89\pm0.18$ & $7.66\times10^{-10}\pm1.54\times10^{-10}$ & $290.3\pm58.8$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$1.45\times10^{-11}$}& $ee$ & $1.40\pm0.28$ & $5.63\times10^{-10}\pm1.13\times10^{-10}$ & $238.6\pm49.0$ \\ 
-         & & $\mu\mu$ & $0.95\pm0.19$ & $3.85\times10^{-10}\pm7.72\times10^{-11}$ & $291.4\pm59.0$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$7.19\times10^{-12}$}& $ee$ & $1.39\pm0.28$ & $2.78\times10^{-10}\pm5.57\times10^{-11}$ & $249.4\pm51.0$ \\ 
-         & & $\mu\mu$ & $0.95\pm0.19$ & $1.89\times10^{-10}\pm3.80\times10^{-11}$ & $300.7\pm60.8$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$3.74\times10^{-12}$}& $ee$ & $1.45\pm0.29$ & $1.51\times10^{-10}\pm3.02\times10^{-11}$ & $242.4\pm50.0$ \\ 
-         & & $\mu\mu$ & $0.97\pm0.19$ & $1.01\times10^{-10}\pm2.03\times10^{-11}$ & $307.5\pm62.2$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.02\times10^{-12}$}& $ee$ & $1.48\pm0.30$ & $8.31\times10^{-11}\pm1.67\times10^{-11}$ & $244.0\pm50.7$ \\ 
-         & & $\mu\mu$ & $1.00\pm0.20$ & $5.65\times10^{-11}\pm1.13\times10^{-11}$ & $315.4\pm63.9$ \\ \midrule
-         \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.13\times10^{-12}$}& $ee$ & $1.49\pm0.30$ & $4.69\times10^{-11}\pm9.40\times10^{-12}$ & $230.8\pm47.4$ \\ 
-         & & $\mu\mu$ & $0.98\pm0.20$ & $3.07\times10^{-11}\pm6.16\times10^{-12}$ & $301.5\pm61.1$ \\ 
-      \midrule\midrule
-   \end{tabular}
-   \label{tab:stat_vals_EFT_LDS}
-\end{table} 
-\begin{figure}[!ht]
-	\centering
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/EFT_LDS/mass_exclusion_ee.pdf}
-      \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/EFT_LDS/mass_exclusion_uu.pdf}
-      \end{subfigure}
-   \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' EFT LDS model}\label{fig:EFT_LDS_exclusion_ee_uu}
-\end{figure}
-As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
+% \\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:DH_LDS_exp_sig}
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/EXP_SIG_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/DH_LDS/EXP_SIG_uu.pdf}
+%       \end{subfigure}
+%    \caption{Expected significance plots for Z' mass points on network trained on Z' DH LDS}\label{fig:DH_LDS_exp_sig}
+% \end{figure}
+% \\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
+% \\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
+% method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_DH_LDS} we see the values for each Z' mass point.
+% \begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\overline{\chi}$ LDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\overline{\chi}$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+%    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
+%    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
+%    and is the same for all inputs.}
+%    \small\begin{tabular}{@{}ccc|ccc@{}}
+%       \midrule\midrule 
+%          $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
+%          \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$1.24$}& $ee$ & $0.25\pm0.05$ & $8.70\pm1.75$ & $272.0\pm56.0$ \\ 
+%          & & $\mu\mu$ & $0.21\pm0.04$ & $7.33\pm1.48$ & $299.4\pm60.7$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$1.05$}& $ee$ & $0.29\pm0.06$ & $8.34\pm1.68$ & $294.9\pm60.3$ \\ 
+%          & & $\mu\mu$ & $0.23\pm0.05$ & $6.68\pm1.34$ & $304.4\pm61.7$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$6.08\times10^{-1}$}& $ee$ & $0.38\pm0.08$ & $6.35\pm1.28$ & $264.9\pm55.0$ \\ 
+%          & & $\mu\mu$ & $0.25\pm0.05$ & $4.30\pm8.66\times10^{-1}$ & $288.9\pm58.7$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$2.88\times10^{-1}$}& $ee$ & $0.70\pm0.14$ & $5.64\pm1.13$ & $275.2\pm56.6$ \\ 
+%          & & $\mu\mu$ & $0.50\pm0.10$ & $3.98\pm7.98\times10^{-1}$ & $298.3\pm60.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$1.44\times10^{-1}$}& $ee$ & $1.01\pm0.20$ & $4.05\pm8.11\times10^{-1}$ & $295.9\pm60.5$ \\ 
+%          & & $\mu\mu$ & $0.70\pm0.14$ & $2.81\pm5.63\times10^{-1}$ & $307.5\pm62.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$1.04\times10^{-1}$}& $ee$ & $1.14\pm0.23$ & $3.30\pm6.61\times10^{-1}$ & $271.3\pm55.8$ \\ 
+%          & & $\mu\mu$ & $0.80\pm0.16$ & $2.30\pm4.60\times10^{-1}$ & $293.2\pm59.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$5.61\times10^{-2}$}& $ee$ & $1.30\pm0.26$ & $2.03\pm4.07\times10^{-1}$ & $270.8\pm55.7$ \\ 
+%          & & $\mu\mu$ & $0.90\pm0.18$ & $1.40\pm2.81\times10^{-1}$ & $290.0\pm58.8$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$4.19\times10^{-2}$}& $ee$ & $1.35\pm0.27$ & $1.58\pm3.16\times10^{-1}$ & $273.9\pm56.2$ \\ 
+%          & & $\mu\mu$ & $0.95\pm0.19$ & $1.10\pm2.21\times10^{-1}$ & $289.4\pm58.8$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$3.16\times10^{-2}$}& $ee$ & $1.41\pm0.28$ & $1.24\pm2.48\times10^{-1}$ & $292.8\pm60.0$ \\ 
+%          & & $\mu\mu$ & $0.97\pm0.19$ & $8.49\times10^{-1}\pm1.70\times10^{-1}$ & $288.6\pm58.5$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.40\times10^{-2}$}& $ee$ & $1.43\pm0.29$ & $9.51\times10^{-1}\pm1.91\times10^{-1}$ & $298.8\pm61.2$ \\ 
+%          & & $\mu\mu$ & $0.97\pm0.19$ & $6.47\times10^{-1}\pm1.30\times10^{-1}$ & $311.7\pm63.2$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.84\times10^{-2}$}& $ee$ & $1.44\pm0.29$ & $7.36\times10^{-1}\pm1.47\times10^{-1}$ & $287.9\pm59.1$ \\ 
+%          & & $\mu\mu$ & $0.96\pm0.19$ & $4.90\times10^{-1}\pm9.82\times10^{-2}$ & $298.7\pm60.6$ \\
+%       \midrule\midrule
+%    \end{tabular}
+%    \label{tab:stat_vals_DH_LDS}
+% \end{table} 
+% \begin{figure}[!ht]
+% 	\centering
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/DH_LDS/mass_exclusion_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/DH_LDS/mass_exclusion_uu.pdf}
+%       \end{subfigure}
+%    \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' DH LDS model}\label{fig:DH_LDS_exclusion_ee_uu}
+% \end{figure}
+% As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
+
+
+% \clearpage
+% \section{Light Vector Heavy Dark Sector}
+% Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/VAL_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/VAL_uu.pdf}
+%       \end{subfigure}
+%    \caption{Validation plots for network trained on Z' LV HDS}\label{fig:LV_HDS_vals}
+% \end{figure}
+% \\With the ROC for each mass point seen in Figure \ref{fig:LV_HDS_ROCS}.
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/ROC_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/ROC_uu.pdf}
+%       \end{subfigure}
+%    \caption{ROC plots for every Z' mass point on network trained on Z' LV HDS}\label{fig:LV_HDS_ROCS}
+% \end{figure}
+% \\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:LV_HDS_exp_sig}
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/EXP_SIG_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_HDS/EXP_SIG_uu.pdf}
+%       \end{subfigure}
+%    \caption{Expected significance plots for Z' mass points on network trained on Z' LV HDS}\label{fig:LV_HDS_exp_sig}
+% \end{figure}
+% \\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
+% \\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
+% method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_LV_HDS} we see the values for each Z' mass point.
+% \begin{table}[!ht]\centering\caption[Inputs for the $Z'V\rightarrow l^+l^-\chi\overline{\chi}$ HDS $\sigma B$ calculations]{Inputs for the $Z'V\rightarrow l^+l^-\chi\overline{\chi}$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+%    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
+%    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
+%    and is the same for all inputs.}
+%    \small\begin{tabular}{@{}ccc|ccc@{}}
+%       \midrule\midrule 
+%          $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
+%          \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$6.93\times10^{-1}$}& $ee$ & $0.30\pm0.06$ & $5.72\pm1.16$ & $93.6\pm20.6$ \\ 
+%          & & $\mu\mu$ & $0.24\pm0.05$ & $4.66\pm9.44\times10^{-1}$ & $104.4\pm21.9$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$1.41\times10^{-1}$}& $ee$ & $0.69\pm0.14$ & $2.71\pm5.45\times10^{-1}$ & $102.5\pm22.7$ \\ 
+%          & & $\mu\mu$ & $0.51\pm0.10$ & $2.02\pm4.08\times10^{-1}$ & $102.4\pm21.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$6.90\times10^{-3}$}& $ee$ & $1.30\pm0.26$ & $2.48\times10^{-1}\pm4.99\times10^{-2}$ & $107.2\pm22.7$ \\ 
+%          & & $\mu\mu$ & $0.91\pm0.18$ & $1.75\times10^{-1}\pm3.52\times10^{-2}$ & $110.2\pm23.1$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$8.81\times10^{-4}$}& $ee$ & $1.56\pm0.31$ & $3.83\times10^{-2}\pm7.67\times10^{-3}$ & $98.2\pm21.1$ \\ 
+%          & & $\mu\mu$ & $1.06\pm0.21$ & $2.60\times10^{-2}\pm5.21\times10^{-3}$ & $91.4\pm19.7$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$1.66\times10^{-4}$}& $ee$ & $1.66\pm0.33$ & $7.65\times10^{-3}\pm1.53\times10^{-3}$ & $101.6\pm21.6$ \\ 
+%          & & $\mu\mu$ & $1.16\pm0.23$ & $5.33\times10^{-3}\pm1.07\times10^{-3}$ & $100.5\pm21.2$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$7.74\times10^{-5}$}& $ee$ & $1.71\pm0.34$ & $3.67\times10^{-3}\pm7.36\times10^{-4}$ & $106.0\pm22.5$ \\ 
+%          & & $\mu\mu$ & $1.19\pm0.24$ & $2.56\times10^{-3}\pm5.14\times10^{-4}$ & $89.2\pm19.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$1.87\times10^{-5}$}& $ee$ & $1.73\pm0.35$ & $9.03\times10^{-4}\pm1.81\times10^{-4}$ & $84.2\pm18.8$ \\ 
+%          & & $\mu\mu$ & $1.19\pm0.24$ & $6.22\times10^{-4}\pm1.25\times10^{-4}$ & $106.1\pm22.3$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$9.53\times10^{-6}$}& $ee$ & $1.76\pm0.35$ & $4.65\times10^{-4}\pm9.33\times10^{-5}$ & $100.2\pm21.4$ \\ 
+%          & & $\mu\mu$ & $1.22\pm0.24$ & $3.22\times10^{-4}\pm6.46\times10^{-5}$ & $105.1\pm22.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$4.93\times10^{-6}$}& $ee$ & $1.73\pm0.35$ & $2.38\times10^{-4}\pm4.76\times10^{-5}$ & $77.0\pm17.7$ \\ 
+%          & & $\mu\mu$ & $1.20\pm0.24$ & $1.64\times10^{-4}\pm3.30\times10^{-5}$ & $104.5\pm22.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.59\times10^{-6}$}& $ee$ & $1.79\pm0.36$ & $1.29\times10^{-4}\pm2.60\times10^{-5}$ & $98.5\pm21.3$ \\ 
+%          & & $\mu\mu$ & $1.21\pm0.24$ & $8.73\times10^{-5}\pm1.75\times10^{-5}$ & $97.8\pm20.6$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.38\times10^{-6}$}& $ee$ & $1.79\pm0.36$ & $6.86\times10^{-5}\pm1.38\times10^{-5}$ & $111.1\pm23.5$ \\ 
+%          & & $\mu\mu$ & $1.20\pm0.24$ & $4.61\times10^{-5}\pm9.26\times10^{-6}$ & $96.3\pm20.2$ \\ 
+%       \midrule\midrule
+%    \end{tabular}
+%    \label{tab:stat_vals_LV_HDS}
+% \end{table} 
+% \begin{figure}[!ht]
+% 	\centering
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/LV_HDS/mass_exclusion_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/LV_HDS/mass_exclusion_uu.pdf}
+%       \end{subfigure}
+%    \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' LV HDS model}\label{fig:LV_HDS_exclusion_ee_uu}
+% \end{figure}
+% As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
+
+% \clearpage
+% \section{Light Vector Light Dark Sector}Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/VAL_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/VAL_uu.pdf}
+%       \end{subfigure}
+%    \caption{Validation plots for network trained on Z' LV LDS}\label{fig:LV_LDS_vals}
+% \end{figure}
+% \\With the ROC for each mass point seen in Figure \ref{fig:LV_LDS_ROCS}.
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/ROC_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/ROC_uu.pdf}
+%       \end{subfigure}
+%    \caption{ROC plots for every Z' mass point on network trained on Z' LV LDS}\label{fig:LV_LDS_ROCS}
+% \end{figure}
+% \\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:LV_LDS_exp_sig}
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/EXP_SIG_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/LV_LDS/EXP_SIG_uu.pdf}
+%       \end{subfigure}
+%    \caption{Expected significance plots for Z' mass points on network trained on Z' LV LDS}\label{fig:LV_LDS_exp_sig}
+% \end{figure}
+% \\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
+% \\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
+% method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_LV_LDS} we see the values for each Z' mass point.
+% \begin{table}[!ht]\centering\caption[Inputs for the $Z'V\rightarrow l^+l^-\chi\overline{\chi}$ LDS $\sigma B$ calculations]{Inputs for the $Z'V\rightarrow l^+l^-\chi\overline{\chi}$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+%    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
+%    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
+%    and is the same for all inputs.}
+%    \small\begin{tabular}{@{}ccc|ccc@{}}
+%       \midrule\midrule 
+%          $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
+%          \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$6.80$}& $ee$ & $0.07\pm0.01$ & $13.8\pm2.83$ & $182.6\pm38.0$ \\ 
+%          & & $\mu\mu$ & $0.05\pm0.01$ & $10.0\pm2.07$ & $260.9\pm52.9$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$2.37$}& $ee$ & $0.18\pm0.04$ & $12.0\pm2.43$ & $191.4\pm39.8$ \\ 
+%          & & $\mu\mu$ & $0.13\pm0.03$ & $8.88\pm1.81$ & $258.9\pm52.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$2.89\times10^{-1}$}& $ee$ & $0.68\pm0.14$ & $5.45\pm1.10$ & $186.6\pm38.7$ \\ 
+%          & & $\mu\mu$ & $0.41\pm0.08$ & $3.28\pm6.61\times10^{-1}$ & $256.9\pm52.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$7.34\times10^{-2}$}& $ee$ & $1.01\pm0.20$ & $2.06\pm4.13\times10^{-1}$ & $194.8\pm40.2$ \\ 
+%          & & $\mu\mu$ & $0.65\pm0.13$ & $1.32\pm2.65\times10^{-1}$ & $268.6\pm54.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$2.59\times10^{-2}$}& $ee$ & $1.21\pm0.24$ & $8.71\times10^{-1}\pm1.75\times10^{-1}$ & $182.7\pm38.4$ \\ 
+%          & & $\mu\mu$ & $0.80\pm0.16$ & $5.74\times10^{-1}\pm1.15\times10^{-1}$ & $256.9\pm52.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$1.65\times10^{-2}$}& $ee$ & $1.29\pm0.26$ & $5.90\times10^{-1}\pm1.18\times10^{-1}$ & $176.1\pm36.5$ \\ 
+%          & & $\mu\mu$ & $0.86\pm0.17$ & $3.92\times10^{-1}\pm7.88\times10^{-2}$ & $243.3\pm49.3$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$7.34\times10^{-3}$}& $ee$ & $1.35\pm0.27$ & $2.76\times10^{-1}\pm5.52\times10^{-2}$ & $190.8\pm39.4$ \\ 
+%          & & $\mu\mu$ & $0.92\pm0.18$ & $1.87\times10^{-1}\pm3.75\times10^{-2}$ & $240.9\pm48.8$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$5.08\times10^{-3}$}& $ee$ & $1.41\pm0.28$ & $2.00\times10^{-1}\pm4.00\times10^{-2}$ & $179.8\pm37.2$ \\ 
+%          & & $\mu\mu$ & $0.96\pm0.19$ & $1.36\times10^{-1}\pm2.73\times10^{-2}$ & $250.8\pm50.8$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$3.58\times10^{-3}$}& $ee$ & $1.43\pm0.29$ & $1.42\times10^{-1}\pm2.84\times10^{-2}$ & $190.7\pm39.5$ \\ 
+%          & & $\mu\mu$ & $0.98\pm0.20$ & $9.72\times10^{-2}\pm1.95\times10^{-2}$ & $245.3\pm49.6$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.56\times10^{-3}$}& $ee$ & $1.46\pm0.29$ & $1.04\times10^{-1}\pm2.08\times10^{-2}$ & $185.9\pm38.9$ \\ 
+%          & & $\mu\mu$ & $0.99\pm0.20$ & $7.09\times10^{-2}\pm1.42\times10^{-2}$ & $260.4\pm52.9$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.86\times10^{-3}$}& $ee$ & $1.48\pm0.30$ & $7.68\times10^{-2}\pm1.54\times10^{-2}$ & $185.1\pm38.2$ \\ 
+%          & & $\mu\mu$ & $0.98\pm0.20$ & $5.10\times10^{-2}\pm1.02\times10^{-2}$ & $245.4\pm49.7$ \\ 
+%       \midrule\midrule
+%    \end{tabular}
+%    \label{tab:stat_vals_LV_LDS}
+% \end{table} 
+% \begin{figure}[!ht]
+% 	\centering
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/LV_LDS/mass_exclusion_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/LV_LDS/mass_exclusion_uu.pdf}
+%       \end{subfigure}
+%    \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' LV LDS model}\label{fig:LV_LDS_exclusion_ee_uu}
+% \end{figure}
+% As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
+
+
+% \clearpage
+% \section{Effective Field Theory Heavy Dark Sector}Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
+% % \begin{figure}[!ht]
+% % 	\centering
+% % 	\begin{subfigure}[b]{0.49\textwidth}
+% %       \centering
+% %       \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/VAL_ee.pdf}
+% %       \end{subfigure}
+% %    \hfill
+% %    \begin{subfigure}[b]{0.49\textwidth}
+% %       \centering
+% %       \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/VAL_uu.pdf}
+% %       \end{subfigure}
+% %    \caption{Validation plots for network trained on Z' EFT HDS}\label{fig:EFT_HDS_vals}
+% % \end{figure}
+% \\With the ROC for each mass point seen in Figure \ref{fig:EFT_HDS_ROCS}.
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/ROC_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/ROC_uu.pdf}
+%       \end{subfigure}
+%    \caption{ROC plots for every Z' mass point on network trained on Z' EFT HDS}\label{fig:EFT_HDS_ROCS}
+% \end{figure}
+% \\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:EFT_HDS_exp_sig}
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/EXP_SIG_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/EFT_HDS/EXP_SIG_uu.pdf}
+%       \end{subfigure}
+%    \caption{Expected significance plots for Z' mass points on network trained on Z' EFT HDS}\label{fig:EFT_HDS_exp_sig}
+% \end{figure}
+% \\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
+% \\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
+% method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_EFT_HDS} we see the values for each Z' mass point.
+% \begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\overline{\chi}$ HDS $\sigma B$ calculations]{Inputs for the EFT $\rightarrow Z'\chi\overline{\chi}$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+%    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
+%    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
+%    and is the same for all inputs.}
+%    \small\begin{tabular}{@{}ccc|ccc@{}}
+%       \midrule\midrule 
+%          $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
+%          \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$7.81\times10^{-6}$}& $ee$ & $0.28\pm0.06$ & $6.08\times10^{-5}\pm1.23\times10^{-5}$ & $121.2\pm26.6$ \\ 
+%          & & $\mu\mu$ & $0.23\pm0.05$ & $4.96\times10^{-5}\pm1.01\times10^{-5}$ & $105.8\pm22.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$6.81\times10^{-7}$}& $ee$ & $0.65\pm0.13$ & $1.22\times10^{-5}\pm2.46\times10^{-6}$ & $139.3\pm29.1$ \\ 
+%          & & $\mu\mu$ & $0.49\pm0.10$ & $9.19\times10^{-6}\pm1.85\times10^{-6}$ & $103.0\pm21.6$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{300}& \multirow{2}{*}[-2\baselineskip]{$6.01\times10^{-8}$}& $ee$ & $1.01\pm0.20$ & $1.69\times10^{-6}\pm3.39\times10^{-7}$ & $113.8\pm25.0$ \\ 
+%          & & $\mu\mu$ & $0.76\pm0.15$ & $1.28\times10^{-6}\pm2.57\times10^{-7}$ & $113.3\pm23.8$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$8.42\times10^{-9}$}& $ee$ & $1.30\pm0.26$ & $3.06\times10^{-7}\pm6.13\times10^{-8}$ & $118.0\pm25.7$ \\ 
+%          & & $\mu\mu$ & $0.92\pm0.18$ & $2.16\times10^{-7}\pm4.33\times10^{-8}$ & $107.9\pm22.6$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{500}& \multirow{2}{*}[-2\baselineskip]{$1.80\times10^{-9}$}& $ee$ & $1.46\pm0.29$ & $7.32\times10^{-8}\pm1.47\times10^{-8}$ & $108.6\pm24.9$ \\ 
+%          & & $\mu\mu$ & $1.03\pm0.21$ & $5.16\times10^{-8}\pm1.04\times10^{-8}$ & $97.9\pm20.7$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$4.83\times10^{-10}$}& $ee$ & $1.55\pm0.31$ & $2.09\times10^{-8}\pm4.18\times10^{-9}$ & $117.8\pm25.0$ \\ 
+%          & & $\mu\mu$ & $1.09\pm0.22$ & $1.46\times10^{-8}\pm2.92\times10^{-9}$ & $115.5\pm24.2$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{700}& \multirow{2}{*}[-2\baselineskip]{$1.49\times10^{-10}$}& $ee$ & $1.64\pm0.33$ & $6.82\times10^{-9}\pm1.37\times10^{-9}$ & $122.2\pm26.1$ \\ 
+%          & & $\mu\mu$ & $1.15\pm0.23$ & $4.76\times10^{-9}\pm9.56\times10^{-10}$ & $113.3\pm23.9$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$5.12\times10^{-11}$}& $ee$ & $1.68\pm0.34$ & $2.39\times10^{-9}\pm4.80\times10^{-10}$ & $118.5\pm25.0$ \\ 
+%          & & $\mu\mu$ & $1.17\pm0.23$ & $1.66\times10^{-9}\pm3.34\times10^{-10}$ & $105.3\pm22.1$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$1.90\times10^{-11}$}& $ee$ & $1.71\pm0.34$ & $9.05\times10^{-10}\pm1.81\times10^{-10}$ & $122.2\pm25.8$ \\ 
+%          & & $\mu\mu$ & $1.15\pm0.23$ & $6.09\times10^{-10}\pm1.22\times10^{-10}$ & $116.5\pm24.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1000}& \multirow{2}{*}[-2\baselineskip]{$7.47\times10^{-12}$}& $ee$ & $1.70\pm0.34$ & $3.53\times10^{-10}\pm7.07\times10^{-11}$ & $123.0\pm26.0$ \\ 
+%          & & $\mu\mu$ & $1.17\pm0.23$ & $2.44\times10^{-10}\pm4.89\times10^{-11}$ & $117.0\pm24.6$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$3.07\times10^{-12}$}& $ee$ & $1.74\pm0.35$ & $1.48\times10^{-10}\pm2.97\times10^{-11}$ & $108.7\pm23.3$ \\ 
+%          & & $\mu\mu$ & $1.17\pm0.23$ & $1.00\times10^{-10}\pm2.01\times10^{-11}$ & $100.9\pm21.3$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$1.31\times10^{-12}$}& $ee$ & $1.75\pm0.35$ & $6.41\times10^{-11}\pm1.28\times10^{-11}$ & $122.8\pm26.0$ \\ 
+%          & & $\mu\mu$ & $1.23\pm0.25$ & $4.49\times10^{-11}\pm9.01\times10^{-12}$ & $109.7\pm23.1$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$5.80\times10^{-13}$}& $ee$ & $1.75\pm0.35$ & $2.82\times10^{-11}\pm5.65\times10^{-12}$ & $120.9\pm26.6$ \\ 
+%          & & $\mu\mu$ & $1.23\pm0.25$ & $1.99\times10^{-11}\pm3.99\times10^{-12}$ & $115.4\pm24.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.63\times10^{-13}$}& $ee$ & $1.74\pm0.35$ & $1.27\times10^{-11}\pm2.55\times10^{-12}$ & $123.9\pm26.1$ \\ 
+%          & & $\mu\mu$ & $1.18\pm0.24$ & $8.64\times10^{-12}\pm1.73\times10^{-12}$ & $107.3\pm22.6$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.22\times10^{-13}$}& $ee$ & $1.78\pm0.36$ & $6.02\times10^{-12}\pm1.21\times10^{-12}$ & $115.3\pm24.6$ \\ 
+%          & & $\mu\mu$ & $1.22\pm0.24$ & $4.15\times10^{-12}\pm8.32\times10^{-13}$ & $108.3\pm22.8$ \\
+%       \midrule\midrule
+%    \end{tabular}
+%    \label{tab:stat_vals_EFT_HDS}
+% \end{table} 
+% \begin{figure}[!ht]
+% 	\centering
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/EFT_HDS/mass_exclusion_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/EFT_HDS/mass_exclusion_uu.pdf}
+%       \end{subfigure}
+%    \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' EFT HDS model}\label{fig:EFT_HDS_exclusion_ee_uu}
+% \end{figure}
+% As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
+
+
+
+% \clearpage
+% \section{Effective Field Theory Light Dark Sector}
+% Trained a network using all of the SM background samples and every different Z' mass of this model. Here are the results
+% % \begin{figure}[!ht]
+% % 	\centering
+% % 	\begin{subfigure}[b]{0.49\textwidth}
+% %       \centering
+% %       \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/VAL_ee.pdf}
+% %       \end{subfigure}
+% %    \hfill
+% %    \begin{subfigure}[b]{0.49\textwidth}
+% %       \centering
+% %       \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/VAL_uu.pdf}
+% %       \end{subfigure}
+% %    \caption{Validation plots for network trained on Z' EFT LDS}\label{fig:EFT_LDS_vals}
+% % \end{figure}
+% \\With the ROC for each mass point seen in Figure \ref{fig:EFT_LDS_ROCS}.
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/ROC_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/ROC_uu.pdf}
+%       \end{subfigure}
+%    \caption{ROC plots for every Z' mass point on network trained on Z' EFT LDS}\label{fig:EFT_LDS_ROCS}
+% \end{figure}
+% \\Plotting the significance of the models given the binning we get the results from Figure \ref{fig:EFT_LDS_exp_sig}
+% \begin{figure}[!ht]
+% 	\centering
+% 	\begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/EXP_SIG_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{XGBoost/EFT_LDS/EXP_SIG_uu.pdf}
+%       \end{subfigure}
+%    \caption{Expected significance plots for Z' mass points on network trained on Z' EFT LDS}\label{fig:EFT_LDS_exp_sig}
+% \end{figure}
+% \\Using the last bin as the significance is greatest there, such that we effectively make a cut based on the BDT score. Using the last bin, we can calculate a mass exclusion for both electron and muon channel.\\
+% \\To do so we need to count the number of signal and background events that are on the last bin, as well as their uncertainties. Aditionally we will include the number of real data events that are there such that we can follow the 
+% method explained in Chapter \ref{sec:stat_anal}. In Table \ref{tab:stat_vals_EFT_LDS} we see the values for each Z' mass point.
+% \begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\overline{\chi}$ LDS $\sigma B$ calculations]{Inputs for the EFT $\rightarrow Z'\chi\overline{\chi}$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+%    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
+%    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
+%    and is the same for all inputs.}
+%    \small\begin{tabular}{@{}ccc|ccc@{}}
+%       \midrule\midrule 
+%          $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
+%          \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$3.35\times10^{-5}$}& $ee$ & $0.06\pm0.01$ & $5.20\times10^{-5}\pm1.07\times10^{-5}$ & $248.4\pm51.7$ \\ 
+%          & & $\mu\mu$ & $0.04\pm0.01$ & $3.98\times10^{-5}\pm8.28\times10^{-6}$ & $292.5\pm59.2$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$2.67\times10^{-6}$}& $ee$ & $0.17\pm0.03$ & $1.23\times10^{-5}\pm2.50\times10^{-6}$ & $245.0\pm50.3$ \\ 
+%          & & $\mu\mu$ & $0.12\pm0.02$ & $9.11\times10^{-6}\pm1.86\times10^{-6}$ & $291.6\pm59.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{300}& \multirow{2}{*}[-2\baselineskip]{$2.06\times10^{-7}$}& $ee$ & $0.36\pm0.07$ & $2.06\times10^{-6}\pm4.15\times10^{-7}$ & $248.1\pm51.0$ \\ 
+%          & & $\mu\mu$ & $0.24\pm0.05$ & $1.36\times10^{-6}\pm2.75\times10^{-7}$ & $284.7\pm57.7$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$2.65\times10^{-8}$}& $ee$ & $0.61\pm0.12$ & $4.52\times10^{-7}\pm9.09\times10^{-8}$ & $250.6\pm51.7$ \\ 
+%          & & $\mu\mu$ & $0.40\pm0.08$ & $2.93\times10^{-7}\pm5.91\times10^{-8}$ & $281.9\pm57.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{500}& \multirow{2}{*}[-2\baselineskip]{$5.46\times10^{-9}$}& $ee$ & $0.82\pm0.16$ & $1.24\times10^{-7}\pm2.48\times10^{-8}$ & $243.1\pm50.3$ \\ 
+%          & & $\mu\mu$ & $0.51\pm0.10$ & $7.69\times10^{-8}\pm1.55\times10^{-8}$ & $293.3\pm59.4$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$1.47\times10^{-9}$}& $ee$ & $1.03\pm0.21$ & $4.21\times10^{-8}\pm8.44\times10^{-9}$ & $244.9\pm50.8$ \\ 
+%          & & $\mu\mu$ & $0.62\pm0.12$ & $2.53\times10^{-8}\pm5.08\times10^{-9}$ & $294.2\pm59.5$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{700}& \multirow{2}{*}[-2\baselineskip]{$4.72\times10^{-10}$}& $ee$ & $1.13\pm0.23$ & $1.48\times10^{-8}\pm2.97\times10^{-9}$ & $256.1\pm52.4$ \\ 
+%          & & $\mu\mu$ & $0.73\pm0.15$ & $9.56\times10^{-9}\pm1.92\times10^{-9}$ & $298.1\pm60.3$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$1.73\times10^{-10}$}& $ee$ & $1.22\pm0.24$ & $5.89\times10^{-9}\pm1.18\times10^{-9}$ & $245.5\pm51.2$ \\ 
+%          & & $\mu\mu$ & $0.82\pm0.16$ & $3.93\times10^{-9}\pm7.89\times10^{-10}$ & $301.5\pm61.1$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$7.02\times10^{-11}$}& $ee$ & $1.25\pm0.25$ & $2.45\times10^{-9}\pm4.91\times10^{-10}$ & $257.9\pm52.7$ \\ 
+%          & & $\mu\mu$ & $0.88\pm0.18$ & $1.71\times10^{-9}\pm3.43\times10^{-10}$ & $281.0\pm57.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1000}& \multirow{2}{*}[-2\baselineskip]{$3.09\times10^{-11}$}& $ee$ & $1.35\pm0.27$ & $1.16\times10^{-9}\pm2.32\times10^{-10}$ & $251.1\pm51.5$ \\ 
+%          & & $\mu\mu$ & $0.89\pm0.18$ & $7.66\times10^{-10}\pm1.54\times10^{-10}$ & $290.3\pm58.8$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$1.45\times10^{-11}$}& $ee$ & $1.40\pm0.28$ & $5.63\times10^{-10}\pm1.13\times10^{-10}$ & $238.6\pm49.0$ \\ 
+%          & & $\mu\mu$ & $0.95\pm0.19$ & $3.85\times10^{-10}\pm7.72\times10^{-11}$ & $291.4\pm59.0$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$7.19\times10^{-12}$}& $ee$ & $1.39\pm0.28$ & $2.78\times10^{-10}\pm5.57\times10^{-11}$ & $249.4\pm51.0$ \\ 
+%          & & $\mu\mu$ & $0.95\pm0.19$ & $1.89\times10^{-10}\pm3.80\times10^{-11}$ & $300.7\pm60.8$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$3.74\times10^{-12}$}& $ee$ & $1.45\pm0.29$ & $1.51\times10^{-10}\pm3.02\times10^{-11}$ & $242.4\pm50.0$ \\ 
+%          & & $\mu\mu$ & $0.97\pm0.19$ & $1.01\times10^{-10}\pm2.03\times10^{-11}$ & $307.5\pm62.2$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$2.02\times10^{-12}$}& $ee$ & $1.48\pm0.30$ & $8.31\times10^{-11}\pm1.67\times10^{-11}$ & $244.0\pm50.7$ \\ 
+%          & & $\mu\mu$ & $1.00\pm0.20$ & $5.65\times10^{-11}\pm1.13\times10^{-11}$ & $315.4\pm63.9$ \\ \midrule
+%          \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$1.13\times10^{-12}$}& $ee$ & $1.49\pm0.30$ & $4.69\times10^{-11}\pm9.40\times10^{-12}$ & $230.8\pm47.4$ \\ 
+%          & & $\mu\mu$ & $0.98\pm0.20$ & $3.07\times10^{-11}\pm6.16\times10^{-12}$ & $301.5\pm61.1$ \\ 
+%       \midrule\midrule
+%    \end{tabular}
+%    \label{tab:stat_vals_EFT_LDS}
+% \end{table} 
+% \begin{figure}[!ht]
+% 	\centering
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/EFT_LDS/mass_exclusion_ee.pdf}
+%       \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.49\textwidth}
+%       \centering
+%       \includegraphics[width=1\textwidth]{Limits/EFT_LDS/mass_exclusion_uu.pdf}
+%       \end{subfigure}
+%    \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' EFT LDS model}\label{fig:EFT_LDS_exclusion_ee_uu}
+% \end{figure}
+% As the lepton coupling was chosen to be $g_l=0.001$ when simulating the data, by the assumption that the number of events that survived the cuts is the same, we can increase this coupling to see how the mass limits changes.
 
 \section{Mass exclusion limits for the combined channels}
 \begin{figure}[!ht]
