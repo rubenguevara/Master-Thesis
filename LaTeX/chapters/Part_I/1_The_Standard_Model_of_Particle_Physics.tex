@@ -243,8 +243,11 @@ The reason we did all this is because we can calculate the \textit{differential 
 \begin{equation}\label{eq:diff_cross}
     \frac{d\sigma}{d\Omega} = \frac{1}{64\pi^2s}\frac{p_f*}{p_i*}\abs{\mathcal{M}_{fi}}^2
 \end{equation}
-where $p_f*$ and $p_i*$ are the magnitudes of the final- and initial-state momenta, respectively. From the differential cross section we can also calculate the cross section by integrating over $d\Omega$. \\
-\\This method is a general way to calculate the cross section of an event we want to study, but usually one just constructs the matrix element $\mathcal{M}_{fi}$ from \textit{Feynman diagrams}. In this calculation we 
+where $p_f*$ and $p_i*$ are the magnitudes of the final- and initial-state momenta, respectively. From the differential cross section we can also calculate the cross section by integrating over $d\Omega$. 
+\begin{equation}\label{eq:cross_sec}
+    \sigma = \int_{0}^{2\pi}\int_{0}^{\pi}\frac{1}{64\pi^2s}\frac{p_f*}{p_i*}\abs{\mathcal{M}_{fi}}^2 \sin\theta d\theta d\phi
+\end{equation}
+This method is a general way to calculate the cross section of an event we want to study, but usually one just constructs the matrix element $\mathcal{M}_{fi}$ from \textit{Feynman diagrams}. In this calculation we 
 already introduced the photon propagator in Eq. (\ref{eq:p-prop}), and we implicitly simplified it to be $\frac{g_{\mu\nu}}{q^2}$, which is valid for our purposes, and can be used in any event where the photon is the propagator. 
 Feynman realized this and made Feynman rules to construct diagrams. The rules are shown in Figure \ref{fig:feynman_rules}. \\
 \graphicspath{{../../figures/}}

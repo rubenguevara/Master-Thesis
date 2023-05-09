@@ -2,11 +2,11 @@
 \begin{document}
 \graphicspath{{../../figures/}}
 
-Now that we have established the necessary theoretical groundwork of particle physics in Chapter \ref{chap:SM} and \ref{chap:DM}, it's time to explore how this knowledge can be applied. This leads us to ask important questions such as, 
+Now that we have established the necessary theoretical groundwork of particle physics in Chapter \ref{chap:SM} and explored our DM candidates in \ref{chap:DM}, it is time to explore how this knowledge can be applied. This leads us to ask important questions such as, 
 how can we measure what we have learned? How do we put it into practice? Most importantly, how can we use this understanding to uncover new discoveries?\\
 \\To answer these questions, we have divided this chapter into three sections, each of which will focus on a different aspect of experimental particle physics. The first section will delve into particle production, 
 followed by an examination of particle detection with the ATLAS detector at the LHC, and finally, we will explore the intricacies of data analysis in particle physics.\\
-\\By exploring these areas, we hope to provide a comprehensive understanding of the theoretical underpinnings of particle physics, while also highlighting the practical applications of this knowledge. \\
+% \\By exploring these areas, we hope to provide a comprehensive understanding of the theoretical underpinnings of particle physics, while also highlighting the practical applications of this knowledge. \\
 \\\textbf{I am struggling a bit to motivate the different parts of the thesis! So if you have any extra things I can add here feel free to do so!}
 
 \clearpage
@@ -92,9 +92,8 @@ For a more detailed explanation and interpretation of the stransverse mass I ref
 be used to calculate SM processes. For example, if we want to reduce $WW$ background events, we can first recall that each boson can decay as $W\rightarrow l+\nu_l$ with the $W$ mass as an endpoint. 
 Meaning that we can use $m_{T2}$ to reduce the $WW$ events in a dilepton final state by requiring that $m_{T2} > m_W$.
 
-\clearpage
 \subsection{Proton-proton collisions}
-With all the kinematics out of the way the question of how the particles are produces still remains. The answer to that is protons. The way we produce elementary particles to study is by colliding two protons togheter.
+With all the kinematics out of the way the question of how the particles are produced still remains. The answer to that is protons. The way we produce elementary particles to study is by colliding two protons togheter.
 The reason as to why this works is because protons are also made of elementary particles, two \textit{up} and one \textit{down} to be specific.
 Because of this it is not hard to realize that the Feynman rules aquired from the SM (Chapter \ref{chap:SM}) also apply here. In this subsection we will study how different effects of $pp-$collisions affect 
 the cross section, and therefore the expected number of events to occur, from a kinematical point of view.
@@ -127,7 +126,6 @@ $$
 where $\sigma\left(q_f(x_1p_1)+\bar{q}_f(x_2p_2)\rightarrow l^+l^- \right)$ is calculated using the rules explained in Chapter \ref{chap:SM}, and $f$ are the PDFs. As we can see this can drastically change the cross section, and with that the 
 probability, for an event we want to study. 
 
-\clearpage
 \subsubsection{Breit-Wigner resonane}
 Another important aspect when looking at particle collisions is the \textit{Breit-Wigner resonance}. All unstable particles have a decay rate, $\Gamma$, (given as inverse of the lifetime $\tau$) which is present at the wavefunction, 
 $\Psi \propto e^{-i(m-i\Gamma/2)}$. This decay rate also becomes apparent when the unstable particle is the propagator of an event we are studying 
@@ -136,7 +134,7 @@ $\Psi \propto e^{-i(m-i\Gamma/2)}$. This decay rate also becomes apparent when t
 \end{equation}
 From this we can see that as the square of the centre-of-mass energy $s$, approaches the unstable particles mass $m$, there will be a resonance at the invariant mass of the unstable particle, this is called the Breit-Wigner resonance. 
 It is because of resonances like this that we can identify particles such as the $Z$ boson. This resonance will also be present when studying some of the BSM DM models in this thesis.\\
-\textbf{should I cite the original paper or Z discovery?}
+\textbf{ Question: should I cite the original paper or Z discovery?}
 
 
 \subsubsection{Expected events}
@@ -144,7 +142,7 @@ The most important value we need to know when studying $pp-$collisions is the nu
 \begin{equation}\label{eq:expected_events}
     N=\sigma\int\mathcal{L}(t)dt, \qquad\text{where}\quad \mathcal{L}=f\frac{n_1n_2}{\sigma_x\sigma_y}
 \end{equation}
-where $\sigma$ is the cross section of the interaction as expressed in Eq ... \todo{ADD THIS IN CHAPTER 1!} while also taking into account the effects from Eq. (\ref{eq:PDF_xsec}) and Eq. (\ref{eq:Breit-Wigner}).
+where $\sigma$ is the cross section of the interaction as expressed in Eq \ref{eq:cross_sec} while also taking into account the effects from Eq. (\ref{eq:PDF_xsec}) and Eq. (\ref{eq:Breit-Wigner}).
 The last three symbols come from accelerator kinematics where $\sigma_{x,y}$ denotes the beam size, $f$ is the frequency of bunch crossings, and $n_{1,2}$ is the number of particles in bunches.
 
 
@@ -200,6 +198,7 @@ $(ii)$ Cathode Strip Chambers (CSCs) dealing with the events closer to the beam 
 The MDTs and CSCs are used for tracking while the RPCs and TGCs are used for tiggers. The tracking is provided for pseudorapidities up to $\abs{\eta}<2.7$, and the trigger system only extends to $\abs{\eta}<2.4$.
 
 \subsection{Summary of ATLAS}
+\textbf{Question: should I remove this summary or maybe combine it with the summary on Section 4.4?}\\
 The main four parts of the ATLAS detector; \textit{inner-detector} (ID), \textit{electromagnetic calorimeter} (ECAL), \textit{hadronic calorimeter} (HCAL), and the \textit{muon spectometer} (MS), have 
 briefly been explained. For an easier understanding on the different parts I refer the reader to Figure \ref{fig:ATLAS_layers} which shows visually how different particles interact with the detector. We can start by noting that there are only three types 
 of particles that interact with the ID, muons, protons and electrons (there might also be other ellectrically charged hadrons that interact withg the ID). From the ID pixel and SCT detectors we can get information about $\phi,\eta, p_T$ and from the TRT we  
@@ -255,7 +254,7 @@ to be completely sure that what we show is true. We do this with statistics whic
 \subsection{Statistical analysis}\label{sec:stat_anal}
 To make any sort of claim in modern physics we should be absolutely certain that what we are claiming is true, as just making the cuts and isolating a signal to background is not enough. To be specific we need to be \textit{at least $5\sigma$ sure} to claim any new discoveries. 
 But as not everything in experimantal high energy particle physics is a new discovery, but is in fact for the most part \textit{exclusions}. Then we need to explain what an exlusion is, and how to make them. \\ 
-\\This thesis is following Bugges lecture notes on statistics [\textbf{how do I cite his powerpoint from FYS5555}] and the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
+\\This thesis is following Bugges lecture notes on statistics [\textbf{ Question: how do I cite his powerpoint from FYS5555}] and the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
 where a Bayesian analysis is performed to set limits on the studied processes. Using the signal+backround hypotesis, the expected number of events in each channel of a process we are studying is 
 $$
     N_{\text{exp}} = \varepsilon_{\text{sig}}L_{\text{int}}\sigma B + N_{\text{bkg}}
@@ -291,7 +290,7 @@ $$
     p = \int_{-\infty}^{-Z} \frac{e^{-x^2/2}}{\sqrt{2\pi}}dx
 $$
 As mentioned in the start of this subsection, a discovery in particle physics is defined to be at least a $Z=5\sigma$ deviation from the background hypothesis, meaning that we would have a $p-$value of $p\le2.87\times10^{-7}$. In other words, with a $5\sigma$ deviation, the probabilty to 
-falsely discover something is at worst \textbf{one in roughly 3.5 million}.\\ 
+falsely discover something is at worst one in roughly 3.5 million.\\ 
 \\As the significance is an interesting quantity we can give it its own definition. In this thesis we will use the low statistics formula for the significance, as this is the most general one. We can either define the significance as the \textit{observed significance} by
 \begin{equation}\label{eq:obs_sig}
     Z = \sqrt{2\left[N_{\text{obs}}\ln\frac{N_{\text{obs}}}{N_{\text{bkg}}}-N_{\text{obs}}+N_{\text{bkg}}\right]}
@@ -313,7 +312,7 @@ where $\sigma_{\text{bkg}}$ is the uncertainty of the background. This gives us
 \begin{equation}\label{eq:significance}
     Z = \sqrt{-2\left(N_{\text{obs}}\ln\left[\frac{N_{\text{obs}}+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} }{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})N_{\text{obs}}}\right] + \frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} \ln\left[\frac{\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}(N_{\text{obs}}+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} )}{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2}}\right]\right)}
 \end{equation}
-Which makes for a better estimate of the significance one has in reality. \textit{\textbf{Should I add plots showing CLs and significance?}}\\
+Which makes for a better estimate of the significance one has in reality. \textit{\textbf{ Question: Should I add plots showing CLs and significance?}}\\
 % \\The\todo{is this unnecesary} results CL limits results from the 2012 Higgs discovery \cite{Higgs_discovery_2012} can be seen in Figure \ref{fig:HIGGS_CL}, where we can see that there is a statistical fluctuation of the observed data compared to the background with $m_H=125$ GeV
 % \begin{figure}[!ht]
 % 	\centering
@@ -332,6 +331,6 @@ current understanding of physics.\\
 \\This state-of-the-art method is what currently is being used at CERN and has lead to a great advancement in the field. However with the rise of new technolgies, such as \textit{machine learning}, which excel at classification tasks, a door has been 
 opened to try new methods. In this thesis we will use ML to hopefully create a better and more general signal region than what the current cut and coount method does. Before describing how, we will explain what machine learning is, this is the subject 
 of the next chapter.\\
-\\\textbf{I don't know if this summary is too dense, or if the opening to ML is too superficial. Feel free to comment as harshly as you want here :-)}
+\\\textbf{ Question: I don't know if this summary is too dense, or if the opening to ML is too superficial. Feel free to comment as harshly as you want here :-)}
 
 \end{document}

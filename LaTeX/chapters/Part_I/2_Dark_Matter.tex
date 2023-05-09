@@ -10,24 +10,24 @@ In this chapter we will present the BSM models we will be studying that have a d
 
 \section{Beyond Standard Model candidates}
 Six of the models that will be studied in this thesis come from a new theoretical gauge boson that behaves like the $Z$ boson. The theory is based on the papers by Bauer et. al. \cite{ Zp_DM_candidate2} which have previously been studied by the ATLAS collaboration \cite{Zp_DM_candidate3} and CMS collaboration \cite{Zp_DM_candidate1}. \\
-\\The models we will study assume a $U(1)'$ symmetry for a new $Z'$ gauge boson, from this we can extend the SM Lagrangian from Eq. (\ref{eq:sm}), to include the $Z'$ coupling to the SM particles by
-\begin{equation}
+\\The models we will study assume an $U(1)'$ symmetry for a new $Z'$ gauge boson, from this we can extend the SM Lagrangian from Eq. (\ref{eq:sm}), to include the $Z'$ coupling to the SM particles by
+\begin{equation}\label{eq:Zpq}
     \mathcal{L}\supset -\sum_q g_q \overline{q}\gamma^\mu q Z'_\mu
 \end{equation}
-where the coupling are the same for as for gauged baryon number $U(1)_B$ with $g_q=\frac{g_B}{6}$. more text ... 
+where the coupling are the same for as for gauged baryon number $U(1)_B$ with $g_q=\frac{g_B}{6}$. The six models we will study are based of three interaction of this new $Z'$ (decaying into two leptons) and DM candidates $\chi$, which again are divided into a Heavy Dark Sector (HDS) and Light Dark Sector (LDS) based on the mass of 
+the DM candidate, for more information see Chapter \ref{chap:DM_sample}.
 
 \subsection{Z' Dark Higgs}
-A model with a new $Z'$ naturally comes with a set of scalars responsible for SSB. We will look at a new scalar particle that couples to the $Z'$, which we will call the Dark Higgs (DH) $h_D$. Analogous to the SM Higgs process where the boson decays from a $W$ or $Z$, this DH decays from the $Z'$. 
+A model with a new $Z'$ naturally comes with a set of scalars responsible for SSB. Because of this, we will look at a new scalar particle that couples to the $Z'$, which we will call the Dark Higgs (DH), $h_D$. Analogous to the SM Higgs process where the boson decays from a $W$ or $Z$, the DH decays from the $Z'$. 
 In addition we will assume that this DH boson couples with invisible states, such as DM. A minimal model for this process, with the $U(1)'$ symmetry as well as a $\Phi_D$ scalar field with an invisible singlet scalar $\phi_\chi$ can be seen below
 \begin{equation}
     \mathcal{L}\supset \abs{D_\mu\Phi_D}^2 + \mu_D^2\abs{\Phi_D}^2 -\lambda_D\abs{\Phi_D}^2-\frac{1}{4}(F'_{\mu\nu})^2 + \frac{1}{2}(\partial_\mu\phi_\chi)-\lambda_\chi\abs{\Phi_D}^2\phi_\chi^2 - V(\phi_\chi)
 \end{equation}
 with the DH field $\Phi_D =\frac{1}{\sqrt{2}}(v_D+h_D)$ obtaining a vacuum expectation value giving mass to the $Z'$, $m_{Z'}$. The coupling of the DH with $Z'$ is
 \begin{equation}
-    Q_hg_ZM_{Z'}h_DZ'_\mu Z'^\mu \equiv g_{h_D}M_{Z'}h_DZ'_\mu Z'^\mu
+    Q_hg_Zm_{Z'}h_DZ'_\mu Z'^\mu \equiv g_{h_D}m_{Z'}h_DZ'_\mu Z'^\mu
 \end{equation}
-where $Q_h$ is the charge of the $\Phi_D$ which is a free parameter.
-The model can be seen in Figure \ref{fig:DH}
+where $Q_h$ is the charge of the $\Phi_D$ which is a free parameter. The Feynman diagram for this model can be seen in Figure \ref{fig:DH}
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
@@ -72,15 +72,12 @@ The model can be seen in Figure \ref{fig:DH}
 \end{figure}
 
 \subsection{Z' Light Vector}
-Another decay of this symmetry group that gives rise to a dilepton and MET final state, is when the $Z'$ is relatively light.
+The second model this symmetry group that gives rise to a dilepton and MET final state, is when the $Z'$ is relatively light such that it can be produced in the decay of a DM state. As an example we can consider a $Z'$ 
+coupled to a new fermion which has both Dirac and Majorana masses, $M_d$ and $M_m$ respectively. Where the Majorana mass can be generated from the $U(1)'$ $h_D$ through an $y_\chi\Phi_\chi\overline{\chi}\chi^c$, such that
 $$
 \mathcal{L}\supset \overline{\chi}(i\slashed{D}-M_d)\chi - \frac{M_m}{2}(\overline{\chi}\chi + h.c)
 $$
-where
-$$
-\frac{g_\chi}{2}Z'_\mu(\overline{\chi}_2\gamma^\mu\gamma^5\chi_1 + \overline{\chi}_1\gamma^\mu\gamma^5\chi_2)
-$$
-The model can be seen in Figure \ref{fig:LV}
+This leads to two Majorana states $\chi_{1,2}$ with masses $M_{1,2}=\abs{M_m\pm M_d}$. We will study the process $Z'\rightarrow\chi_1\chi_2$, where $\chi_2\rightarrow Z'\chi_1$. This model can be seen in Figure \ref{fig:LV}
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
@@ -122,13 +119,20 @@ The model can be seen in Figure \ref{fig:LV}
     \end{tikzpicture}
     \caption{Z' Light Vector Model}\label{fig:LV}
 \end{figure}
+Where it is assumed the mass splitting of the two states is larger than $m_{Z'}$, such that the heavier state, $\chi_2$ can decay into an on-shell $Z'$ and a stable DM candidate $\chi_1$. The $\chi_{1,2}$ interaction with the $Z'$ is off-diagonal,
+and taking $M_m>M_d$ we can write the interaction
+\begin{equation}
+    \frac{g_\chi}{2}Z'_\mu(\overline{\chi}_2\gamma^\mu\gamma^5\chi_1 + \overline{\chi}_1\gamma^\mu\gamma^5\chi_2)
+\end{equation}
 
 \subsection{Z' Effective Field Theory}
-The third where we do not assume anything about the couplings is when we look at an Effective Field Theory (EFT) description of the process. For this we have
-$$
-\frac{1}{2\Lambda^2}\overline{q}\gamma_\mu q(\overline{\chi}_2\gamma^\mu\gamma^5\chi_1 + \overline{\chi}_1\gamma^\mu\gamma^5\chi_2)
-$$
-The model can be seen in Figure \ref{fig:EFT}
+The aforementioned models rely on the $Z'$ coupling to the quarks as seen in Eq. (\ref{eq:Zpq}). In the third model we do not assume anything about the couplings, and rather than producing the DM candidates through the new $Z'$, 
+we consider the possibility that the DM states are produced through a new contant interaction: 
+\begin{equation}
+    \frac{1}{2\Lambda^2}\overline{q}\gamma_\mu q(\overline{\chi}_2\gamma^\mu\gamma^5\chi_1 + \overline{\chi}_1\gamma^\mu\gamma^5\chi_2)
+\end{equation}
+Similarly to the Light Vector model we assume two DM states $\chi_{1,2}$ with an off-diagonal coupling to the $Z'$, however, the intermediate $s$-channel of the $Z'$ has effectively been replaced with a heavy $Z'_H$. Where $Z'_H$ 
+has been integrated to give the operator above. The process can be seen in Figure \ref{fig:EFT}.
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
