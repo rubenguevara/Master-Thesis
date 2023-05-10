@@ -552,10 +552,10 @@ So in short BDTs split datasets based on different values of the features on the
     \caption[Basic Decision Tree illustration]{Image showcasing how decision trees work by splitting a dataset of $N$ events with $M$ features whenever a treshhold $X, Y$ or $Z$ for a feature is passed. The label $S$ and $B$ state whether the event is signal or background respectively.}\label{fig:DT_ilus}
 \end{figure}
 \\The above illustration just shows how one tree might work, in reality we can choose to have an arbitraty number of trees and combine their results with the ensembling and boosting method. Then after combining the generated tree structures we use Eq. (\ref{eq:opt_wgt_bdt}) and Eq. (\ref{eq:opt_obj_bdt}) 
-to minimeze the objective to get the most accurate predictions as possible. 
+to minimize the objective to get the most accurate predictions as possible. 
 
 \clearpage
-\section{Tools and evaluation methods used for both algorithms}
+\section{Tools and evaluation methods used for both algorithms}\label{sec:tools}
 Now that we have explained how both NNs and BDTs work, we will present the tools and evaluating method that we will use in this thesis. 
 
 \subsection{Cost functions}\label{sec:cost_func}

@@ -3,7 +3,7 @@
 
 Now is the time to focus on the critical task of preparing the data for our DM search using ML. This task is essential because accurately distinguishing between signal and background events is a key challenge in searching for any new signal event, 
 as seen on Section \ref{sec:data_anal}. In this chapter we will define what \textit{background} and \textit{signal} actually are, as well as selecting appropriate kinematical cuts to define the control region for our search. In addition we will 
-explain the data preparing procedure such that it is in a format that is well-suited for our ML algorithms. The reason this process is of great importance is because we can maximize the chances of our ML agrorithm to accurately identify any DM signals. 
+explain the data preparing procedure such that it is in a format that is well-suited for our ML algorithms. The reason this process is of great importance is because we can maximize the chances of our ML algorithm to accurately identify any DM signals. 
 Moreover, by providing a detailed explanation of the data preparation process, we can ensure that our dataset is both reliable and effective, and that our analysis is robust and trustworthy. In short, this chapter represents a critical step towards 
 achieving our goal of using ML to classify DM from SM events using ATLAS data, and it is essential to the success of our overall research goal.
 
@@ -15,9 +15,9 @@ As we are going to look at dilepton final states with missing trasnverse energy 
 In Appendix \ref{appendix:DSIDs} is the full list of dataset IDs for background process used in this thesis.
 
 \subsection{W and Drell Yan}
-$W/Z/\gamma^*$+jets as all of these can directly decay into two leptons, $W/Z/\gamma\rightarrow ll'$, where the prime marks a different flavour. All the production mechanism for these background processes can 
-be seen in Figure \ref{fig:WZG_BKG}. As the $W$ boson behaves differenty than the $Z$ and $\gamma$, since the $W$ boson can decay into neutrinos giving us MET, while the $Z$ and $\gamma$ processes have the highest cross section. We will divide 
-these background processes into two, $W$ and $Z/\gamma^*$ + jets, also called \textit{Drell Yan} processes. To simulate these background processes Sherpa 2.2.11 \cite{Sherpa} was used.
+$W$+jets and $Z/\gamma^*$+jets can decay into final states that mimick the one we are seaching for. The $W$ boson can give us a lepton and neutrino $W\rightarrow l\nu_l$, which gives us MET, and $Z/\gamma\rightarrow ll$, which gives us a dilepton final state. 
+All the production mechanism for these background processes be seen in Figure \ref{fig:WZG_BKG}. As the $W$ boson behaves differenty than the $Z$ and $\gamma$, since the $W$ boson can decay into neutrinos giving us MET, while the $Z$ and $\gamma$ processes have the highest cross section. 
+We will divide  these background processes into two, $W$ and $Z/\gamma^*$ + jets, also called \textit{Drell Yan} processes. To simulate these background processes Sherpa 2.2.11 \cite{Sherpa} was used.
 \graphicspath{{../../figures/}}
 \begin{figure}[!ht]
     \centering
@@ -26,7 +26,7 @@ these background processes into two, $W$ and $Z/\gamma^*$ + jets, also called \t
 \end{figure}
 
 \subsection{TTbar}
-Another SM background process we will look at are processess that have a $t\bar{t}$ in them. Since the top has a high branching ratio of decaying into a $b$-quark and a $W$ boson, $t\rightarrow bW^+$, where the $W$ boson can again decay into a neutrino giving 
+Another SM background process we will look at are processess that have a $t\bar{t}$ in them. Since the top has a high branching ratio of decaying into a $b$-quark\footnote{Making $b-$tagging an effetive method to isolate this background channel} and a $W$ boson, $t\rightarrow bW^+$, where the $W$ boson can again decay into a neutrino giving 
 us MET. The main production mechanism for these processes can be seen in Figure \ref{fig:TT_BKG}. To simulate these background processes Powheg-Box v2 \cite{PowHeg} interfaced with Pythia 8 \cite{Pythia} was used.
 \begin{figure}[!ht]
     \centering
@@ -201,30 +201,13 @@ by making a kinematical cut on 50 GeV we are cutting out a massive part of the b
     \includegraphics[width=0.8\textwidth]{met.pdf}
     \caption[$E_T^{miss}$ distribution in dilepton final state Run II]{Distribution of MET when looking at a dilepton final state in all of Run II. The violet line shows where we will make out MET cut to create a control region. The DM models here have the highest cross section making them the most visible to our purposes.}\label{fig:uncut_met}
 \end{figure}
-\\Another kinematical cut that will be included in this thesis is another jet $p_T$ on top of the one from Table \ref{tab:jet_selec}. This is because jet reconstruction is already a hard task, but when pushing the limits of our selection criteria with a MET cut 
-becomes even harder. And the worse the reconstruction of the jets the worse the agreement between MC simulations and real data is, and as we already know, the SM agrees with what we observe with an incredible accuracy. In Figure \ref{fig:jetcuts} we can see 
-how the data and MC simulations of the SM agree when ounting the number of b- and light jets with a $p_T$ cut of $\ge30$ GeV and $\ge40$ GeV respectively. The agreement with different $p_T$ cuts can be seen in Appendix \ref{appendix:JetSelection} \\
-\graphicspath{{../../../Plots/Data_Analysis/JetSelection/Control_region/}} 
-\begin{figure}[!ht]
-    \centering
-    \hfill\begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{bjetsPt30.pdf}
-    \end{subfigure}
-    \hfill\begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{ljetsPt40.pdf}
-    \end{subfigure}
-    \caption[b- and light jet distributions in control region]{b- and light jet distributions with $p_T \ge30$ and $\ge40$ GeV, respectively.}\label{fig:jetcuts}
-\end{figure}
 \\Other than the object selection criteria, these are the only cuts that will be used to define the control region. Their summary can be seen in Table \ref{tab:CR_cuts}
 \begin{table}[!h]
     \centering\caption[Control region for model-indepentent search]{Table showcasing the cuts used to define the control region for our model independent search.}
     \begin{tabular}{l|r}\midrule\midrule
         Feature                                                                 & Selection criteria        \\\midrule
         Dilepton final state                                                    & $\ell^\pm \ell^\mp$, $\ell^\pm \ell^\pm$, $\ell^\pm \ell'^\mp$ and $\ell^\pm \ell'^\pm$    \\
-        Missing Transverse Energy                                               & $E_T^{miss} > 50$ GeV     \\
-        b- (light) jets                                                         & $p_T \ge 30(40)$ GeV     \\\midrule\midrule
+        Missing Transverse Energy                                               & $E_T^{miss} > 50$ GeV     \\\midrule\midrule
     \end{tabular}
     \label{tab:CR_cuts}
 \end{table}
@@ -237,7 +220,7 @@ might help our ML algorithm to correctly learn the patters of SM bacgkround and 
 We will also look at the azimuthal angle, $\phi$ and the pseudorapidity, $\eta$ defined in Eq. (\ref{eq:pseudorapidity}), to know where in the detector the leptons are located. 
 With this we have practically constructed a four-momentumv from which we could learn all particle kinematics. However, we want to help our ML algorithm as much as possible in the task of learning SM background and DM signal. A powerful kinematical varable for this is 
 therefor the invariant mass, $m_{ll}$ defined in Eq. (\ref{eq:invariant_mass}), which can help the ML algorithm sort out resonant models. Another variable of interest is the trnsverse energy, $E_T$ defined in Eq. (\ref{eq:transverse_energy}) for the lepton pair. 
-The distribution of the invariant mass can be seen in Figure \ref{fig:mll_dist}.
+The distribution of the invariant mass can be seen in Figure \ref{fig:mll_dist}.\\
 \graphicspath{{../../../Plots/Data_Analysis/SRs/Control_region/}} 
 \begin{figure}[!ht]
     \centering
@@ -251,22 +234,39 @@ weighing the the value of $E_T^{miss}$ by the precision of its reconstruction. I
     E_T^{miss,sig} = \frac{E_T^{miss}}{\sigma(E_T^{miss})}
 \end{equation}
 where $\sigma(E_T^{miss})$ is the uncertainty of the reconstruction of the $E_T^{miss}$, which consider the indidual uncerainties of the objects that enter the $E_T^{miss}$ calcuation. The distribution of this variable can ve seen in Figure \ref{fig:met_sig_dist}. 
-In this thesis we will use both $E_T^{miss}$ and $E_T^{miss,sig}$ even though they are correlated, as the algorithm might chose in different instances\footnote{Meaning different \textit{signal reagions} when conducting a model independent search. See Chapter TO COME} 
-which of these is of more importance.
+In this thesis we will use both $E_T^{miss}$ and $E_T^{miss,sig}$ even though they are correlated, as the algorithm might chose in different instances\footnote{Meaning different \textit{signal reagions} when conducting a model independent search. See Chapter \ref{sec:SRs}} 
+which of these is of more importance.\\
 \begin{figure}[!ht]
     \centering
         \includegraphics[width=0.8\textwidth]{met_sig.pdf}
     \caption{Distribution of $E_{T}^{miss,sig}$ in control region.}\label{fig:met_sig_dist}
 \end{figure}
 \\To keep the trend of variables for invisible particles, we will also study the transverse mass, $m_T$ defined in Eq. (\ref{eq:transverse_mass}), and stransverse mass, $m_{T2}$ defined in Eq. (\ref{eq:stransverse_mass}) which might help our ML algorithm to sort i.e. 
-W backgrounds from the signal. The distribution of the stransverse mass can be seen in Figure \ref{fig:mt2_dist}. Moving on to more jet related variables, we will look at the $p_T$, $\eta$ and $\phi$ of the three most energetic jets, as these have the best MC and data agreement (see Figure \ref{fig:jetcuts}), the invariant mass of the two most energetic jets $m_{jj}$, as well as count the number of b- and light jets. Altough these jet 
-variables might not sound like the most useful when singleing out DM signal from SM background, there is always the possibility that our ML algorithm sees a pattern which is overlooked by us when conducting these kind of searches. 
+W backgrounds from the signal. The distribution of the stransverse mass can be seen in Figure \ref{fig:mt2_dist}. Moving on to more jet related variables, we will count the number of b- and light jets with $p_T \ge 30, 40$ GeV respectively. As the jet reconstruction is already a hard task, 
+which becomes even harder when pushing the limits of our selection criteria with a MET cut. In Figure \ref{fig:jetcuts} we can see how the data and MC simulations of the SM agree when counting the number of b- and light jets with a $p_T$ cut of $\ge30$ GeV and $\ge40$ GeV respectively. 
+The agreement with different $p_T$ cuts can be seen in Appendix \ref{appendix:JetSelection}. We will also look at the $p_T$, $\eta$ and $\phi$ of the three most energetic jets, as these have the best MC and data agreement 
+(see Figure \ref{fig:jetcuts}), and the invariant mass of the two most energetic jets $m_{jj}$.\\ 
+\\Altough these jet variables might not sound like the most useful when singleing out DM signal from SM background, there is always the possibility that our ML algorithm sees a pattern which is overlooked by us when conducting these kind of searches. 
 Another varible we will look at is the hadronic activity, $H_T$ defined in Eq. (\ref{eq:HT}), from which we will also look at the ratio between the MET and hadronic activity, $E_T^{miss}/H_T$, as this can help the ML algorithm sort out DM events from background events.\\
 \begin{figure}[!ht]
     \centering
         \includegraphics[width=0.8\textwidth]{mt2.pdf}
     \caption{Distribution of $m_{T2}$ in control region.}\label{fig:mt2_dist}
 \end{figure}
+\graphicspath{{../../../Plots/Data_Analysis/JetSelection/Control_region/}} 
+\begin{figure}[!ht]
+    \centering
+    \hfill\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{bjetsPt30.pdf}
+    \end{subfigure}
+    \hfill\begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ljetsPt40.pdf}
+    \end{subfigure}
+    \caption[b- and light jet distributions in control region]{b- and light jet distributions with $p_T \ge30$ and $\ge40$ GeV, respectively.}\label{fig:jetcuts}
+\end{figure}
+\graphicspath{{../../../Plots/Data_Analysis/SRs/Control_region/}} 
 \\To know the distance between the "lepton-jet" and "MET-jet" we will look at the difference in azimuthal angle between: the lepton pair, $\Delta\phi(l_1,l_2)$, the dilepton jet and MET jet, $\Delta\phi(ll,E_T^{miss})$, the leading lepton and MET jet, $\Delta\phi(l_l,E_T^{miss})$, 
 and the lepton closest to the MET jet and the MET jet, $\Delta\phi(l_c,E_T^{miss})$. In some of the models we are studying it is expected for DM and the leptons pair to be back to back. The distribution of $\Delta\phi(ll,E_T^{miss})$ can be seen in Figure \ref{fig:dPhiLLMET_dist}.
 \begin{figure}[!ht]
@@ -318,11 +318,11 @@ which can furhtermore be saved as \verb|h5| files to be read more efficiently. T
 \section{Problems}
 There are however still problems that needs to be adressed before starting our ML, the biggest are adressed here.
 \subsection{Missing variables}\label{sec:jagged_arrays}
-For this theis, as shown in Table \ref{tab:variables} with the $^\dagger$, we will record events with up to three jets in the final state. However, there isn't always three jets in the recorded events that we will be studying, 
-this creates \textit{jagged arrays} which we can interpret as arrays with missing values. This is an unwanted feature that we need to avoid when training a ML algorithm, and is a problem that is not common in other ML tasks aside from HEPP.
+For this thesis, as shown in Table \ref{tab:variables} with the $^\dagger$, we will record events with up to three jets in the final state. However, there isn't always three jets in the recorded events that we will be studying, 
+this creates \textit{jagged arrays} which we can interpret as arrays with missing values. This is an unwanted feature that we need to avoid when training a ML algorithm, and is a problem that is not common in other ML tasks aside from high energy particle physics.
 To mediate this problem we chose to set the $p_T$ to zero for the missing jets and $m_{jj}$ to zero if there are less than two jets, this is something that is physically reasonable as it doesn't violate any conservation laws. 
 More problematic however is the $\eta$ and $\phi$ when there aren't jets. To mediate this I've set the values to -999, which has no physical meaning and is impossible to achieve, this we did so it becomes easier for us to identify the jagged arrays that 
-need different interventions when preparing both NNs and BDTs. The methods we explored to mediate the jagged array problem is further explained in Chapter \ref{chap:Method_ML}. 
+need different interventions when preparing both NNs and BDTs. The methods we explored to mediate the jagged array problem is further explained in Chapter \ref{sec:padding_NN}. 
 
 \subsection{MC and data disagreement} 
 There is also another problem,with the final states that are not SFOS, as the MC generated background 
