@@ -1,0 +1,16 @@
+\documentclass[12pt, a4paper]{book}
+\begin{document}
+The focus of this thesis is to perform an independent search for new physics phenomena, such as evidence of a Dark Matter (DM) candidate and its possible mediator using supervised Machine Learning (ML). A Neural Network (NN) and a Boosted Decision Tree (BDT) will 
+be trained on various Monte Carlo (MC) simulated data samples featuring well defined predictions from a set of new physics theories. The analysis uses proton-proton (pp) collisions at the LHC from Run II at 13 TeV, already recorded by the ATLAS detector. 
+The data consists of dilepton final states with Missing Transverse Energy (MET).\\
+\\The emphasis is to set up an ML algorithm to learn the features on a set of models predicting DM candidates with a dilepton + MET final state, such as simplified DM models 
+involving or not a mediator, including those models based on effective field theory (EFT) and supersymmetry. Then optimizing relevant signal search regions, based on, among others, the invariant mass of the two leptons and the missing transverse energy, 
+thus reaching better search sensitivities.\\
+\\After preparing both a NN and a BDT ML algorithm, we condluded, that a BDT approach was best suited for this search. We first tested a less model independent approach training a BDT with all of the Standard Model (SM) background processes and one DM model, 
+including all of the simulated samples, for every model. The second approach consisted of a dataset containing all of the DM models and all of the SM backgrounds. The latter only trained three BDTs in orthogonal MET spaces. The three MET regions: $E_T^{miss}\in[50,100]$ GeV,
+$E_T^{miss}\in[100,150]$ GeV, and $E_T^{miss}>150$.\\
+\\We tested each model by computing a Bayesian mass exclusion limit. To compare the approaches, we statistically combined the mass exclusion limit of all SRs into one combined SR. Doing this for every model we observed that we were able 
+to compute higher mass exclusions using the more model independet approach of dividing a dataset into different regions of kinematical phasespace. 
+
+
+\end{document}

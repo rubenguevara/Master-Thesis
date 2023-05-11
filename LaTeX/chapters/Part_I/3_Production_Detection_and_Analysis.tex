@@ -2,15 +2,7 @@
 \begin{document}
 \graphicspath{{../../figures/}}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-Now that we have established the necessary theoretical groundwork of particle physics in Chapter \ref{chap:SM} and \ref{chap:DM}, it's time to explore how this knowledge can be applied. This leads us to ask important questions such as, 
-=======
 Now that we have established the necessary theoretical groundwork of particle physics in Chapter \ref{chap:SM} and explored our DM candidates in \ref{chap:DM}, it is time to explore how this knowledge can be applied. This leads us to ask important questions such as, 
->>>>>>> d138c2001ff98040b7022bc83455d11d2c0a6d33
-=======
-Now that we have established the necessary theoretical groundwork of particle physics in Chapter \ref{chap:SM} and explored our DM candidates in \ref{chap:DM}, it is time to explore how this knowledge can be applied. This leads us to ask important questions such as, 
->>>>>>> 18c03535715360f300ff82fde0068fd63059e630
 how can we measure what we have learned? How do we put it into practice? Most importantly, how can we use this understanding to uncover new discoveries?\\
 \\To answer these questions, we have divided this chapter into three sections, each of which will focus on a different aspect of experimental particle physics. The first section will delve into particle production, 
 followed by an examination of particle detection with the ATLAS detector at the LHC, and finally, we will explore the intricacies of data analysis in particle physics.\\
@@ -24,8 +16,8 @@ and then move to more complex variables that will be of use when analysing data 
 and Vadlas PhD. thesis \cite{KNUT_VADLA}.
 
 \subsection{Particle kinematics}\label{sec:particle_kinematics}
-As proved by Einstein, everything in spacetime can be described by four-vectors\todo{Is this comment unnecesary?}. For the purposes of particle physics, where we are mainly interested in the motion of particles, 
-we will look at the four-momentum. Instead of using general variables as Einstein did, we will describe the particles using the four-momentum in terms of the geometry of the decetors, that means we will use 
+When working on a relativistic setting, such as we do in high energy particle physics, four vectors are the natural object to consider to generally describe our particles. As we are mainly interested in the motion of the particles, 
+we will look at the four-momentum. Instead of using general variables, we will describe the particles using the four-momentum in terms of the geometry of the detectors, that means we will use 
 the polar angle, $\theta$, and the azimuthal angle, $\phi$, such that we have
 \begin{equation}\label{eq:four-momentum}
     p^\mu = (E, p_x, p_y, p_z) \overset{Lab}{\longrightarrow} (E, p_T\cos\phi, p_T\sin\phi, \abs{\mathbf{p}}\cos\theta)
@@ -34,7 +26,7 @@ where $p_T$ is the \textit{transverse momentum} expressed as
 \begin{equation}\label{eq:transverse_momentum}
     p_T \equiv\sqrt{p_x^2 +p_y^2} = \abs{\mathbf{p}}\sin\theta
 \end{equation}
-The energy and momentum can be expressed in relativisic quantities, $E=\gamma\beta$ and $\mathbf{p}=\gamma m\bm\beta$, where $\gamma = 1/\sqrt{1-\beta^2}$ and $\bm\beta = \mathbf{v}/c$\footnote{As this is a particle physics thesis I will convert to Natural Units where we set $c=1$} 
+Where the relativistic energy and momentum are given as, $E=\gamma\beta$ and $\mathbf{p}=\gamma m\bm\beta$, with $\gamma = 1/\sqrt{1-\beta^2}$ and $\bm\beta = \mathbf{v}/c$\footnote{As this is a particle physics thesis I will convert to Natural Units where we set $c=1$} 
 where $m$ is the mass of the particle 
 and $c$ is the speed of light in vacuum. By contracting\footnote{Using the particle physicists convention of the minkowsky metric tensor $\eta_{\mu\nu}$,  (+, -, -, -)} two four-momentum we get the important Lorentz invariant 
 square of the \textit{invariant mass}
@@ -45,7 +37,7 @@ which can be generalized for a system containing $n$ particles as
 \begin{equation}\label{eq:invariant_mass}
     m^2 = p_\mu p^\mu = \left(\sum_{i=1}^n E_i\right)^2 - \left(\sum_{i=1}^n\mathbf{p}_i\right)^2
 \end{equation}
-As this thesis will focus on a dilepton (and missing transverse energy) final state, which is of the type $2\rightarrow2$ $(+MET)$ then the invariant mass of the two leptons in the final state will be of interest, 
+As this thesis will focus on a dilepton (and missing transverse energy) final state, which is of the type $2\rightarrow2$ (+MET) then the invariant mass of the two leptons in the final state will be of interest, 
 we will denote this as $m_{ll}$. From this we can also get another interesting variable, the \textit{transverse energy}. This follows diretly from the same equation
 \begin{equation}\label{eq:transverse_energy}
     E_T = \sqrt{m^2 + p_T^2}
@@ -53,7 +45,7 @@ we will denote this as $m_{ll}$. From this we can also get another interesting v
 The invariant mass is what we measure in the final state only. But as we are going to use data\footnote{And mostly simmulations mimicking the ATLAS detector} from the LHC, from which the initial state is controlled, 
 it will be of interest to see what the total energy and momentum of the two protons are. The term for this is called the \textit{centre-of-mass} energy, $\sqrt s$, where $s$ is defined by the same formula in Eq. (\ref{eq:invariant_mass}), 
 with the difference beeing that we look at the initial particles. For this thesis we will look at data and simmulations of Run II from the LHC, which had $\sqrt s = 13$ TeV. \\
-\\As this thesis aims to search for DM, which we know does not interact with matter in the same way as neutrinos \todo{do I need sources for the neutrino claim?}, meaning it leaves no signal in detectors. 
+\\As this thesis aims to search for DM, which we know does not interact with matter in the same way as neutrinos, meaning it leaves no signal in detectors. 
 As we know both the centre-of-mass energy, $\sqrt s$, and the invariant mass of all particles in the final state, Eq. (\ref{eq:invariant_mass}). Then the presence of the non-interacting particles can often be 
 inferred from the presence of \textit{missing transverse energy}\footnote{Also called \textit{missing momentum}} (MET), which is defined by
 \begin{equation}\label{eq:MET}
@@ -83,8 +75,8 @@ Another interesting variable is the \textit{transverse mass}, defined as
 \begin{equation}\label{eq:transverse_mass}
     m_T^2 = m^2 + p_T^2
 \end{equation}
-where $m^2$ is the invraiant mass defined in Eq. (\ref{eq:invariant_mass}). What is interesting with this variable is that it is the equivalent of the invariant mass equation, that takes into account invisible particles! 
-We can take this further by looking at a supersymmetric version of the transverse mass, which calculates a transverse mass for two leptons by distributing the total $p_T^{miss}$ among the two systems, 
+where $m^2$ is the invraiant mass defined in Eq. (\ref{eq:invariant_mass}). What is interesting with this variable is that it is the equivalent of the invariant mass equation, that takes into account invisible particles. 
+We can take this further by looking at a variable which calculates a transverse mass for two leptons by distributing the total $p_T^{miss}$ among the two systems, 
 and minimizing the maximum of the two transverse masses by varying the distribution of the $p_T^{miss}-$vector in terms of the size of $p_T$. This is called the \textit{stransverse mass} and is defined by
 \begin{equation}\label{eq:stransverse_mass}
     m_{T2}^2(\chi) = \underset{\slashed{\mathbf{q}}^{(1)}_T + \slashed{\mathbf{q}}^{(2)}_T = \slashed{\mathbf{p}}_T}{\min}
@@ -96,24 +88,24 @@ Eq. (\ref{eq:transverse_mass}) using two particles:
 $$
 m_T^2 \left(\mathbf{p}_T, \mathbf{q}_T\right) = 2(p_T q_T - \mathbf{p}_T\cdot\mathbf{q}_T)
 $$
-For a more detailed explanation and interpretation of the stransverse mass I refer the reader to the paper by Barr et.al. \cite{Barr_2003}. Even though the stransverse mass was made with neutralinos in mind, it can still 
+For a more detailed explanation and interpretation of the stransverse mass we refer the reader to the paper by Barr et.al. \cite{Barr_2003}. Even though the stransverse mass was made with neutralinos in mind, it can still 
 be used to calculate SM processes. For example, if we want to reduce $WW$ background events, we can first recall that each boson can decay as $W\rightarrow l+\nu_l$ with the $W$ mass as an endpoint. 
 Meaning that we can use $m_{T2}$ to reduce the $WW$ events in a dilepton final state by requiring that $m_{T2} > m_W$.
 
 \subsection{Proton-proton collisions}
-With all the kinematics out of the way the question of how the particles are produced still remains. The answer to that is protons. The way we produce elementary particles to study is by colliding two protons togheter.
+With all the kinematics out of the way the question of how the particles are produced still remains. The answer could be an electron positron collider, as they did in LEP, a proton anti-proton collider, like the Sp$\overline{\mbox{p}}$S . As this thesis uses LHC data we will look at proton-proton collisions.
 The reason as to why this works is because protons are also made of elementary particles, two \textit{up} and one \textit{down} to be specific.
 Because of this it is not hard to realize that the Feynman rules aquired from the SM (Chapter \ref{chap:SM}) also apply here. In this subsection we will study how different effects of $pp-$collisions affect 
 the cross section, and therefore the expected number of events to occur, from a kinematical point of view.
 
 \subsubsection{Parton Distribution Functions}
-Altough the proton is made up for two up quarks and one down quark, called the \textit{valnce quarks}. The proton aslo constits of gluons and other quarks, called partons. These partons become imporant in deep innelastic scatterings, 
+Altough the proton is made up for two up quarks and one down quark, called the \textit{valence quarks}. The proton aslo constits of gluons and other quarks, called partons. These partons become imporant in deep innelastic scatterings, 
 where the proton breaks apart due the high energies in the collisions. As we accelerate the protons before colloding them, we also accelerate the quarks and gluons inside of it, each of the quarks carry a momemntum fraction $x$, 
 called the Bjorken $x$. We can then calcluate the invariant mass of two colliding partons $q_1$ and $q_2$, with the momentum fraction $x_1$ and $x_2$, from the protons momentum $p_1$ and $p_2$ respectively as
 $$
 m^2=x_1x_2s
 $$
-where $s$ is the centre-of-mass energy squared of the $pp-$system. The valence quarks in the proton do not only interact with the other valence quarks in the other proton, but they might also emit gluons which decay into $q\bar{q}-$pairs, 
+where $s$ is the centre-of-mass energy squared of the $pp-$system. The valence quarks in the proton do not only interact with the other valence quarks in the other proton, but they might also emit gluons which decay into quark anti-quarks pairs, 
 making a “sea” of gluons and quarks around the valence quarks. The momentum of the partons inside of the proton are dependent on the momentum transfer $Q^2$ and is represented by an experimentally determined momentum distribution, 
 known as the \textit{parton distribution function} (PDF) \cite{PDF} $f(x,Q^2)$. \textbf{Question: Should I say more about PDFs than this? I feel like it is not relevant for my thesis, but is still good to know.} In other words, the PDFs give the probability of a parton to collide with the momentum fraction $x$. The shape and form the PDFs play 
 an imporant role of estimating the processes that occur after the proton collisions, and therefore are crucial when simulating events using Monte Carlo \cite{MC_PDF}.  If we take as an example the process 
@@ -135,7 +127,7 @@ where $\sigma\left(q_f(x_1p_1)+\bar{q}_f(x_2p_2)\rightarrow l^+l^- \right)$ is c
 probability, for an event we want to study. 
 
 \subsubsection{Breit-Wigner resonane}
-Another important aspect when looking at particle collisions is the \textit{Breit-Wigner resonance}. All unstable particles have a decay rate, $\Gamma$, (given as inverse of the lifetime $\tau$) which is present at the wavefunction, 
+Another important aspect when looking at particle collisions is the \textit{Breit-Wigner resonance}. All unstable particles have a decay rate, $\Gamma$, (given as inverse of the lifetime $\tau$) which is present in the wavefunction, 
 $\Psi \propto e^{-i(m-i\Gamma/2)}$. This decay rate also becomes apparent when the unstable particle is the propagator of an event we are studying 
 \begin{equation}\label{eq:Breit-Wigner}
     \sigma \propto\frac{1}{(s-m^2)^2-m^2\Gamma^2}
@@ -159,10 +151,10 @@ The last three symbols come from accelerator kinematics where $\sigma_{x,y}$ den
 
 \clearpage
 \section{The ATLAS detector}\label{sec:ATLAS}
-We have so far on this chapter discussed how particles are produced. But we so far not yet explained how we actually detect them, arguably the most important matter in the field of high energy particle physics!
+We have so far on this chapter discussed how particles are produced. But we so far not yet explained how we actually detect them, arguably the most important matter in the field of high energy particle physics.
 This section of the chapter is just about that, and we will explain how the detection happens in A Toroidal LHC ApparatuS, or more commonly know as the ATLAS detector. Figure \ref{fig:ATLAS_detector} showcases 
-the detector and its size. The information of this section is largely based on the original ATLAS Collaboration introduction\todo{from my understanding, correct me if wrong!} paper presented to CERN 
-\cite{Aad:1129811}. (and Knuts thesis \cite{KNUT_VADLA} that described it in a more undertandable way ). \\
+the detector and its size. The information of this section is largely based on the original ATLAS Collaboration introduction paper presented to CERN 
+\cite{Aad:1129811}.\\
 \\The ATLAS detector is a general multi-purpose\footnote{Probing $pp-$ and $AA-$ (heavy ions) collisions.} detector located at the LHC and covers nearly the entire solid angle 
 around the collision point, as described with the $(\eta,\phi)-$coordinates in Section \ref{sec:particle_kinematics}. The ATLAS detector consists of four main subdetectors; ($i$) an inner tracking detector (ID), 
 an ($ii$) electromgetic calorimeter (ECAL), and a ($iii$) hadronic calorimeter (HCAL), and lastly ($iv$) a muon spectrometer (MS). Figure \ref{fig:ATLAS_layers} visualises the four $(i)-(iv)$ main sub-detectors, 
@@ -235,7 +227,7 @@ the signal and background are made is by Monte Carlo (MC) simulations, such that
 analysis of the results we will also explain how we utilize this tool. To guide us through this process I will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the sucess of this methods.
 
 \subsection{Cut and count}
-The cut and count method is what is curently the standard method of doing data analysis with CERN related research. As the name implies, the cut and count method works by making cuts on kinematical variables and afterwards counting how many events are left. 
+The cut and count method is what is curently the standard method of doing data analysis with CERN related research\footnote{This standard method is shifting towards machine learning}. As the name implies, the cut and count method works by making cuts on kinematical variables and afterwards counting how many events are left. 
 The goal of using this method is to make cuts such that we remove as many background events as possible while also keeping as many signal events as possible. For example, if we were to study a new physics model with a new light vector boson behaving similarly to the $Z$ boson, but with a higher mass, 
 then a good kinematical cut to remove many background processes would be to require that $m_{ll}>100$ GeV, as this would remove the majority of $Z$-resonance from the final state, making it easier to "find" the new physics model. \\
 \\To more thouroughly explore the cut and count method we can look at the Higgs discovery, in particular the $H\rightarrow ZZ^{(*)} \rightarrow 4l$\footnote{where $l$ is for lepton, but only means $e^\pm$ or $\mu^\pm$. \textit{question: should i explain why not $\tau$?}} channel. 
@@ -293,7 +285,7 @@ or \textit{more} given only background
 \begin{equation}\label{eq:p-value}
     p = P(N\ge N_{\text{obs}}\vert \lambda = N_{\text{bkg}}) = \sum_{k=N_{\text{obs}}}^{\infty}\mathcal{L}(k\vert N_{\text{bkg}})
 \end{equation}
-The smaller the $p-$value, the less compatible an observation is with the background only hypothesis, meaning more likely to be a discovery! From this we can find the significance $Z$ by
+The smaller the $p-$value, the less compatible an observation is with the background only hypothesis, meaning more likely to be a discovery. From this we can find the significance $Z$ by
 $$
     p = \int_{-\infty}^{-Z} \frac{e^{-x^2/2}}{\sqrt{2\pi}}dx
 $$

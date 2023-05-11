@@ -398,7 +398,7 @@ In particular, in the ATLAS collaboration challenge \textit{The Higgs boson mach
 Today \verb|XGBoost| has become a standard ML tool used in the field.\\
 \\In this chapter, we will explore the theory behind BDTs in the context of \textit{extreme gradient boosting}, for this we we are mainly interested in two ways of making DTs, a set of Classification And Regression Trees (CART). 
 The theory is mainly based of Hjort-Jensens lecture notes \cite{MORTYY4, MORTYY5} and section 2 on the original \verb|XGBoost| paper \cite{XGBoost}.
-
+\newpage
 \subsection{Decision trees}
 Starting with Decision Trees (DT) in the context of this DM search. The idea behind DTs is to find the most important features which contain the most information of signal (DM), and then split the dataset along the values of these features with the goal of creating a dataset containing pure signal. 
 As we are going to use kinematical variables as features we will use this to both augment and automate the classical cut and count method (Chapter \ref{sec:data_anal}), which is based of making kinematical cuts on the variables. To find which kinematical features are most important 
@@ -552,10 +552,10 @@ So in short BDTs split datasets based on different values of the features on the
     \caption[Basic Decision Tree illustration]{Image showcasing how decision trees work by splitting a dataset of $N$ events with $M$ features whenever a treshhold $X, Y$ or $Z$ for a feature is passed. The label $S$ and $B$ state whether the event is signal or background respectively.}\label{fig:DT_ilus}
 \end{figure}
 \\The above illustration just shows how one tree might work, in reality we can choose to have an arbitraty number of trees and combine their results with the ensembling and boosting method. Then after combining the generated tree structures we use Eq. (\ref{eq:opt_wgt_bdt}) and Eq. (\ref{eq:opt_obj_bdt}) 
-to minimeze the objective to get the most accurate predictions as possible. 
+to minimize the objective to get the most accurate predictions as possible. 
 
 \clearpage
-\section{Tools and evaluation methods used for both algorithms}
+\section{Tools and evaluation methods used for both algorithms}\label{sec:tools}
 Now that we have explained how both NNs and BDTs work, we will present the tools and evaluating method that we will use in this thesis. 
 
 \subsection{Cost functions}\label{sec:cost_func}
@@ -675,10 +675,10 @@ As an example, in Figure \ref{fig:EXP_SIG} we se the re-weighted validation plot
         \centering
         \includegraphics[width=\textwidth]{EXP_SIG.pdf}
     \end{subfigure}
-    \caption[Significance plot illustration]{Plot showing the expected significance that is calculated from a) when making cuts on the ML output score}\label{fig:EXP_SIG}
+    \caption[Significance plot illustration]{Plot showing the expected significance that is calculated from a) when making cuts on the ML output score. The dashed lines are to guide the eye.}\label{fig:EXP_SIG}
 \end{figure}
 
-\subsection{BDT and NN exclusive plots}
+\subsection{BDT and NN exclusive plots}\label{sec:feat}
 \subsubsection{Feature importance}
 For BDTs, as we can calculate which features had the most impact when splitting the data, we will also include feature importance plots. As the name states these plots tells us how important the features in the dataset were in the training to separate signal from background. As we are using the \verb|XGBoost| 
 package when working with BDTs, we will use the inbuilt functions of the package to plot the feature importance. \\

@@ -1,6 +1,6 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}\label{chap:Method_ML}
-We have now presented the dataset and theory behind everything, and are thus ready to start making our ML algorithms. The first part of this chapter will be a presentation of the dataset in more details, included all the events and the difficult variable called the \textit{weights}.
+We have now presented the dataset and theory behind everything, and are thus ready to start making our ML algorithms. The first part of this chapter will be a presentation of the dataset in more details, included all the events and the difficult variable called \textit{weights}.
 We will also explore how we divide our dataset into a training and testing set. Afterwards we will discuss the crucial task of optimizing the architecture and hyperparameters of the ML models for obtaining high-performance classifiers. In this field, the challenge is often to 
 distinguish between signal events from rare physics phenomena, such as our DM interactions, and the much more common SM background events. Since these signals events are extremely rare, the classifiers need to be highly optimized in order to effectively separate them from 
 the background. In addition, the datasets have a large number of features, which can lead to overfitting or poor generalization if not properly optimized. Another hardship is how to mitigate the phenomena of jagged arrays and missing variables described in the previous chapter.\\
@@ -12,12 +12,16 @@ parameters such as the learning rate, the regularization strength, (exclusively 
 The way we are making datasets in this project, to keep it as close to model independent as possible, will be of the following format
 \begin{itemize}
    \item Make a dataset with all of the SM backgrounds and one DM model.
-   \item Make a dataset with all of the SM backgrounds and all of the DM models, divided into different signal regions.
+   \item Make a dataset with all of the SM backgrounds and all of the DM models, divided into different signal regions and statisically combine the results of each signal region
 \end{itemize}
-The idea behind the first one is to start with a model dependent approach, where we train a ML algorithm to learn just one model at a time. The reason for taking this approach and not just having one dataset with all the models included, which would indeed make it 
-a model independent approach, is because of the different phenomenology and experiemntal signatures of the models we are studying. \textbf{Question: Should I give concrete examples on how SUSY vs Z' differs, or is this sentence enough?} To achieve model indepence 
-with this dataset, the plan is to combine the results of the different networks into one. \textbf{Question: Is it correct to say statisticslly combine the results? Or what exactly are we thinking of combining using this method?} \\
-\\For the second one, even if we were to include models with different signatures it would work out in our favour. For example, if we created Signal Regions (SR) in different regions of the $m_{ll}$ phasespace, \textit{and} trained a ML network in each respective SR, 
+The idea behind the first one is to start with a model dependent approach, where we train a ML algorithm to learn just one model at a time. \textbf{Question: I do not know which of the following I should include as a reason for the first one} 
+\begin{itemize}
+   \item The reason for taking this approach and not just having one dataset with all the models included, which would indeed make it 
+   a model independent approach, is because of the different phenomenology and experiemntal signatures of the models we are studying. \textbf{Question: Should I give concrete examples on how SUSY vs Z' differs, or is this sentence enough?} 
+   \item The reason for taking this approach, is because it is still closer to being more model independent than normal ML HEP searches, as these usually train on the whole SM background dataset with just one signal model with fixed masses and parameters. While what we would 
+   be doing is combining all the different masses and parameters into one.   
+\end{itemize}
+For the second one, even if we were to include models with different signatures it would work out in our favour. For example, if we created Signal Regions (SR) in different regions of the $m_{ll}$ phasespace, \textit{and} trained a ML network in each respective SR, 
 then the network would learn the DM resonance appearing in each area, instead of learning the model resonance. Indeed, achieving model indepence. Furthermore, the plan is to combine the results of each respective region to get an overall view of all of Run II.\\
 \\In this project we will look at real and simulated data from the ATLAS detector from all running periods of Run II. This is from period $a, d$ and $e$ each with an integrated luminosity of $36.4, 44.3$ and 58.5 $fb^{-1}$ respectively. 
 In Table \ref{tab:dataset} we can see the overall number of MC samples and expected events for all background channels as well as DM models. In addition to using the features in Table \ref{tab:variables}, we will also include the EventID, dataset ID, period, 
@@ -28,16 +32,16 @@ dilepton final state, label telling us wether an event is signal or background a
       cross section, decay width, etc. As we do not empirically know if any of these assumptions are correct, these are not set in stone.}
    \begin{tabular}{l|r|r}\midrule\midrule
       Channel                                                                         & MC samples            & Expected events  \\\midrule
-      W                                                                               & 38,684                & 5,436.325        \\
-      Drell Yan                                                                       & 47,201,697            & 2,198,257.648    \\
-      TTbar                                                                           & 28,126,697            & 978,530.817      \\
-      Single top                                                                      & 729,624               & 93,898.462       \\
-      Diboson                                                                         & 10,983,689            & 116,653.466      \\\midrule
-      Standard model total                                                            & 87,080,391            & 3,392,776.718    \\\midrule
-      $Z'$ Dark Higgs Heavy Dark Sector                                               & 498,621               & *54.917         \\
-      $Z'$ Dark Higgs Light Dark Sector                                               & 892,365               & *155.369         \\
-      $Z'$ Light Vector Heavy Dark Sector                                             & 521,759               & *39.820         \\
-      $Z'$ Light Vector Light Dark Sector                                             & 470,352               & *235.699         \\
+      W                                                                               & 38,684                & 5,436.3        \\
+      Drell Yan                                                                       & 47,201,697            & 2,198,257.6    \\
+      TTbar                                                                           & 28,126,697            & 978,530.8      \\
+      Single top                                                                      & 729,624               & 93,898.5       \\
+      Diboson                                                                         & 10,983,689            & 116,653.5      \\\midrule
+      Standard model total                                                            & 87,080,391            & 3,392,776.7    \\\midrule
+      $Z'$ Dark Higgs Heavy Dark Sector                                               & 498,621               & *54.92         \\
+      $Z'$ Dark Higgs Light Dark Sector                                               & 892,365               & *155.37         \\
+      $Z'$ Light Vector Heavy Dark Sector                                             & 521,759               & *39.82         \\
+      $Z'$ Light Vector Light Dark Sector                                             & 470,352               & *235.70         \\
       $Z'$ Effective Field Theory Heavy Dark Sector                                   & 715,409               & *0.0004           \\
       $Z'$ Effective Field Theory Light Dark Sector                                   & 640,963               & *0.0007          \\\midrule\midrule
    \end{tabular}
@@ -45,34 +49,36 @@ dilepton final state, label telling us wether an event is signal or background a
 \end{table}
 
 \subsection{Weights}\label{sec:wgts}
-The weights are crucial for most of what is to come further on this thesis. The weights only apply to MC simulations and can be interpreted as corrections to simulate real data, which is why the MC samples and expected events on Table \ref{tab:dataset} differ, where the 
-latter has applied weights. The weights on this project are defined as Eq. (\ref{eq:wgts}) and are in $fb^{-1}$ units.
+The weights are crucial for most of what is to come further in this thesis. The weights only apply to MC simulations and can be interpreted as corrections to simulate real data, which is why the MC samples and expected events on Table \ref{tab:dataset} differ, where the 
+latter has applied weights. The weights on this project are defined as Eq. (\ref{eq:wgts})
 \begin{equation}\label{eq:wgts}
-   W = w_{mc}\times w_{pu}\times w_{xs}\times w_{lsf} \times w_{nlo,ew} \times w_{ttbar} \times w_{jet} \times w_{bjet} \times \frac{lumi_{period}}{\sum w_{mc, DSID}}
+   W = w_{mc}\times w_{pu}\times w_{xs}\times w_{lsf} \times w_{nlo,ew} \times w_{ttbar} \times w_{jet} \times w_{bjet} \times \frac{\text{lumi}_{period}}{\sum w_{mc, DSID}}
 \end{equation}
-This equation has a lot of information in it, so every part of this will be discussed. Starting from the raw MC weight, $w_{mc}$\\
-The pile-up weight $w_{pu}$, takes into account detector featuers\\
-The cross section weight $w_{xs}$, defined as $w_{xs} := xs \times w_{kf} \times g_{eff}$ where $xs$ is the cross section of the process, $w_{kf}$ is the $k-$factor which has higher order corrections, and $g_{eff}$ is the filter efficiency.\\
-The Lepton and trigger Scale Factor (LSF), $w_{lsf}$, which...\\
-The Next to Leading Order (NLO) electroweak correction $w_{nlo,ew}$, which ...\\
-The $t\bar{t}$, jet and b-jet weights, $w_{ttbar}, w_{jet}$ and $w_{bjet}$, which ...\\
-And lastly the luminosity of the period, meaning
+This equation has a lot of information in it, so every part of this will be discussed. Starting from the raw MC weight, $w_{mc}$, which gives the relative probability of an event within a sample \cite{Pythia}, the pile-up weight $w_{pu}$, is a weight used to correct object reconstruction as it can be possible for multiple objects to cross on the 
+identification process. \cite{Soyez:2018opl}\\ 
+\\The cross section weight $w_{xs}$, defined as $w_{xs} := xs \times w_{kf} \times g_{eff}$ where $xs$ is the cross section of the process, $w_{kf}$ is the $k-$factor which tries to correct for the absence of these higher-order term, 
+for more details we refer the reader to the study done by Catani et. al. \cite{Catani:2001cr}. $g_{eff}$ is the filter efficiency, which is the expected fraction of MC events that pass through the generator crietria.\\
+\\The Lepton and trigger Scale Factor (LSF), $w_{lsf}$, which are applied in order to correct for differences in reconstruction in MC with respect to data, the Next to Leading Order (NLO) electroweak correction $w_{nlo,ew}$, which corrects for higher order EW diagrams, 
+for more details we refer the reader to the paper by Denner et. al. \cite{Denner:2022pwc}. \\
+\\The $w_{ttbar}, w_{jet}$ and $w_{bjet}$, which are reconstruction corrections for $t\overline{t}$ \cite{Czakon:2015owf}, jets \cite{ATLAS:2014hvo} and b-jets \cite{ATLAS:2019bwq}, respectively. And lastly the luminosity of the period, meaning
 $$
-lumi_{period} = \begin{cases}
-               36.4,& \text{for } period = a\\
-               44.3,& \text{for } period = d\\
-               58.5,& \text{for } period = e
+\text{lumi}_{period} = \begin{cases}
+               36.4\text{ fb}^{-1},& \text{for period = a}\\
+               44.3\text{ fb}^{-1},& \text{for  period = d}\\
+               58.5\text{ fb}^{-1},& \text{for  period = e}
                \end{cases}
 $$
-divided by the Sum Of Weights (SOW) \textbf{Question: Sum of every $w_{mc}$ of each event or sum of every $W$ pr event? } of every MC sample for each dataset ID (background process)
+divided by the Sum Of Weights (SOW), $\sum w_{mc}$ of every sample for each dataset ID.
 
-\subsection{Signal regions}
-Will make three regions:\todo{Write in more details}
+\subsection{Signal regions}\label{sec:SRs}
+As a first step towards achieving model independece we will create three Signal Regions (SR). The goal is then to train one network in each respective SR that contains all models we wish to study. The SR we will study are defined below 
 \begin{itemize}
-   \item $m_{ll} >120$ GeV and $E_T^{miss} \in [50, 100]$ GeV
-   \item $m_{ll} >120$ GeV and $E_T^{miss} \in [100, 150]$ GeV
-   \item $m_{ll} >120$ GeV and $E_T^{miss} >150$ GeV
+   \item SR1: $m_{ll} >110$ GeV and $E_T^{miss} \in [50, 100]$ GeV
+   \item SR2: $m_{ll} >110$ GeV and $E_T^{miss} \in [100, 150]$ GeV
+   \item SR3: $m_{ll} >110$ GeV and $E_T^{miss} >150$ GeV
 \end{itemize}
+where the $m_{ll}$ cut is made such that we remove as much background as possible before training\footnote{As the models we are studying start with $m_{Z'}=130$ GeV, see Chapter \ref{chap:DM_sample}} and where the MET regions are orthogonal. 
+The goal of having kinematically orthogonal SRs when training is for the ML network to learn \textit{DM resonant phyiscs} in each respective region, rather than learning the \textit{model in the dataset}.
 
 
 
@@ -96,7 +102,7 @@ a training and testing set of our size, while also sorting the label of the even
      \end{subfigure}
 	\caption[Train-test split distribution]{Train and test distribution of the stransverse mass when dividing SM background and DM samples into 80\% and 20\% datasets. The integrated luminosity for each distribution is 80\% and 20\% of 139 $fb^{-1}$ respectively}\label{fig:train-test}
 \end{figure}
-\\In Figure \ref{fig:train-test} we can see that the distribution remains the same when we split the dataset into 80-20, where we also see the data and MC agree. To see the distribution of every other kinematical variable see \textbf{question: Appendix or github repo? The appendix is already very long!}
+\\In Figure \ref{fig:train-test} we can see that the distribution remains the same when we split the dataset into 80-20, where we also see the data and MC agree. To see the distribution of every other kinematical variable see the github repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/Data_Analysis/train_test_split}{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/\\Data\_Analysis/train\_test\_split}}.
 In addition to splitting the data, when making validation plots (See Chapter \ref{sec:validation}), when plotting MC simulations and real data, we nee to make sure that the luminosity of the plot is correct. That means that if we are plotting the network score in 
 the test dataset, as this is 20\% of the whole dataset we need to scale everything with a factor of 5 so we get back to 100\% and the full luminosity of Run II.
 
@@ -126,7 +132,7 @@ removes the kinematical distributions that is present in the SM, meaning the NN 
 One could also just remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss, but this is also not a desirable mitigation.\\
 \\Instead we have tried to create new kinematic variables that work around the need of padding. These features are just \textit{counting features}, meaning that we count the number of jets that fulfill some criteria, 
 such as the number of b-jets with $p_T > 20$ GeV, the number of light jets with $p_T>40$ GeV, the number of jets recorded in the central calorimeter ($\abs{\eta} < 2.5$), and the number of 
-jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$). The $p_T$ cuts are optimized to allow a good agreement between data and simulations, the full distributions with different cuts in the control region can be seen in Appendix \ref{appendix:no_padding}\todo{RECREATE FIGURES WITH BETTER FORMAT!}. 
+jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$). The $p_T$ cuts are optimized to allow a good agreement between data and simulations, the full distributions with different cuts in the control region can be seen in Appendix \ref{appendix:no_padding}\todo{To come}. 
 A summary of these variables is shown in Table \ref{tab:padding_variables}.\\
 \begin{table}[!h]
    \centering
@@ -159,14 +165,14 @@ Where $X$ is the array containing all events for a given feature, while $X_{min}
 where $\bar{X}$ is the mean of said array and $\sigma_X^2$ is the variance. One could also use pre-built functions in \verb|TensorFlow| that provide a normalization, such as \verb|Batch_normalization| which normalizes the data entering the network per batch. This is usually used 
 in Convolutional NN's as it improves computational speed. Another one, \verb|Normalize|, provides the same as Eq. (\ref{eq:Z-score}) for the whole training set going in. This is however computationally heavy to use. The \verb|Layer_normalization|, which normalizes the activations 
 of the previous layer in a batch \textit{independently}, rather than \textit{across} a batch like \verb|Batch_Normalization|. Both \verb|Batch_Normalization| and \verb|Layer_Normalization| use an optimized version of the Z-score when normalizing the data, meaning that all the features 
-take the form of 0 $\pm1$.\\
+take are normalized such that the mean value becomes 0 and the fluctuations are $\pm1$.\\
 \\There is a big difference when normalizing data ourselves or using \verb|TensorFlow|. \verb|TensorFlow| remembers how the data was normalized when training such that the test data will be normalized the same way, making testing easier. While if we use Eq. (\ref{eq:minmax}) or 
 Eq. (\ref{eq:Z-score}) ourselves, we have to make sure that we use the same values for $X_{max}, X_{min}, \bar{X}$ or $\sigma_X^2$ when normalizing the test data. 
 
 
 
 \subsection{Balancing of signal and background}\label{sec:balance_NN}
-A big problem that needs to be adressed in this thesis is what we should use as sample weights (see Section \ref{sec:sample_weight}). If we were to not use any form of sample weights to mitigate the unbalance in our data set it could potentially lead \textit{majority class classification} where the 
+A big problem that needs to be adressed in this thesis is what we should use as sample weights (see Section \ref{sec:sample_weight}). If we were to not use any form of sample weights to mitigate the inbalance in our data set it could potentially lead \textit{majority class classification} where the 
 networks could get "lazy" and guess that everything is background. \\
 \\To combat the majority class classification, we will as mentioned make use of the sample weights. We will study three cases
 \begin{enumerate}
@@ -174,18 +180,19 @@ networks could get "lazy" and guess that everything is background. \\
    \item Weighted training, meaning that we will be setting the sample weight to the weights used to re-weight MC events to expected events explained in Chapter \ref{sec:wgts}
    \item Balanced training, where we will make set the weight of all signal events to one, while weighing down the background by the ratio of signal events divided by background events, $\frac{N_{sig}}{N_{bkg}}$ 
 \end{enumerate}
-where the latter would in terms of weights mimic a 50-50 distribution of signal and background. To test the different balancing methods we will use a dataset containing only SM processes, and train a network to single our the $W$ channel from the other SM backgrounds as this has the lowest statistics. 
+where the latter would in terms of weights mimic a 50-50 distribution of signal and background. To test the different balancing methods we will use a dataset containing only SM processes from Table \ref{tab:dataset}, and train a network to single our the $W$ channel from the other SM backgrounds as this has the lowest statistics. 
+Meaning that it more accurately mimicks our low statistics DM signal from Table \ref{tab:dataset} that gives rise to the dataset imbalance.
 
 \subsection{Re-weighting MC to expected events}\label{sec:sample_wgts_NN}
 Even if the weighting method previously described might help the NN give us better results, we also want to include the weights used to re-weight MC events to expected events. This is desirable in the sense that we want to show our ML networks the true kinematical distributions of each feature.
-As the re-weighting weights are generated with simulation corrections as well as luminosity and cross section in mind, it is heavily desirable to also apply these corrections when training our networks, such that it can correctly predict new events regardless of their weight. This is specially 
+As the re-weighting weights are generated with simulation corrections as well as luminosity and cross section in mind, it is heavily desirable to also apply these corrections when training our networks, such that it can correctly predict new events regardless of their weight. This is especially 
 crucial when using real data on our predictions, as these have no weights.\\
-\\Ideally one would take into accountboth  the data imbalance between the signal and background as well as the re-weighting weights when training a network. To do this using \verb|TensorFlow| we could make use of two parameters when training the network: \verb|class_weight| and \verb|sample_weight|. 
+\\Ideally one would take into account both  the data imbalance between the signal and background as well as the re-weighting weights when training a network. To do this using \verb|TensorFlow| we could make use of two parameters when training the network: \verb|class_weight| and \verb|sample_weight|. 
 \verb|class_weight| works as a dictionary that weighs events that have the same keys as the dictionary. For our purposes we could make a dictionary where we weigh signal and background events differently, this could be the same type of scaling that was done in the previous section. 
 \verb|sample_weight| takes in individual weights for every single event that goes into the network, meaning that it is crucial that we know that the desired weight matches the desired event. Ideally we would use both weighting methods, \verb|class_weight| to balance the signal to 
 background ratio and \verb|sample_weight| with the re-weighting weights. However there is a bug in \verb|TensorFlow| (up to version \verb|GPU 2.7.1|) that makes it so the program doesn't run when using both parameters. This is not a big problem though, as when looking at the source code \cite{Keras_source_code} 
 one can see that what \verb|TensorFlow| does with both weights is multiply them togheter. \\
-\\For this thesis we tried testing four different methods to re-weight and balance the dataset, which expands further than the idea of point 3. in the previous sectio. Firstly all background events were re-weighted to expected events, and in addition we expanded the balaning ratio, $\frac{N_{sig}}{N_{bkg}}$, to be
+\\For this thesis we tried testing four different methods to re-weight and balance the dataset, which expands further than the idea of point 3. in the previous section. Firstly all background events were re-weighted to expected events, and in addition we expanded the balancing ratio, $\frac{N_{sig}}{N_{bkg}}$, to be
 \begin{enumerate}
    \item $\frac{N_{sig,MC}}{N_{bkg,MC}}$ where we weigh down all background events wrt. the number of MC samples
    \item $\frac{N_{bkg,MC}}{N_{sig,MC}}$ where we weigh up all signal events wrt. the number of MC samples
@@ -372,7 +379,7 @@ The architecture of the NN utilized in this project is of the form shown in Figu
    The neurons on the hidden layer(s) is a hyperparameter, as well as the number of hidden layers. }\label{fig:NNArch}
 \end{figure}
 \\Making this type of NN using \verb|TensorFlow| is easy. An algorithm showing one of the possibilites can be seen in Algorithm \ref{alg:nn}.
-\begin{lstlisting}[language=Python, caption={Neural network definition using TensorFlow}, label=alg:nn, captionpos=t]
+\begin{lstlisting}[basicstyle=\tiny, language=Python, caption={Neural network definition using TensorFlow}, label=alg:nn, captionpos=t]
    import tensorflow as tf
    from tensorflow.keras import layers
    
@@ -390,10 +397,10 @@ The architecture of the NN utilized in this project is of the form shown in Figu
                        
        model.add(layers.Dense(1,activation='sigmoid')) 
        
-       sgd=tf.optimizers.SGD(learning_rate=eta)
+       opt=tf.optimizers.SGD(learning_rate=eta) # or Adam!
        
        model.compile(loss=tf.losses.BinaryCrossentropy(),
-                   optimizer=sgd,
+                   optimizer=opt,
                    metrics = [tf.keras.metrics.BinaryAccuracy()])
        return model
    \end{lstlisting}
@@ -405,7 +412,7 @@ For our neural network we will mainly focus on four hyperparameters explained on
    \item The number of neurons on each hidden layer \verb|n_neuron|
    \item Possibly the number of layers \verb|n_layers|, exluding the output. Meaning that \verb|n_layers| = 1 means no hidden layer
 \end{itemize}
-The metrics that will be used to estimate the best hyperparameters are \textbf{AUC}, \textbf{binary accuracy} and most importantly \textbf{expected significance}. 
+The metrics that will be used to estimate the best hyperparameters are AUC, binary accuracy and most importantly the expected significance\footnote{See Chapter \ref{sec:tools} for explanation of metrics.}.
 The expected significance for this section has been calculated using the low statistics formula Eq. (\ref{eq:exp_sig}) without uncertainties. The expected significance will also be calculcated when making a cut on 0.85 on the network prediction score, as explained in Chapter \ref{sec:siggy}. 
 Meaning we will only look at events which the network rates as signal with 85\% confidence and above. For some models where the expected events are too low (EFT models), meaning that the expected significance will be 0 or \verb|NaN|, if this happens we will use the hyperparemeters of the network 
 which gives us the highest AUC on the testing set. This will precedure will be done for every single network we will explore.
@@ -435,7 +442,7 @@ such that the weights are at least in the same scale.
 
 \subsection{Architecture and hyperparameter tuning}\label{sec:BDTGriddy}
 Making a BDT for our purposes is fairly easy as well using XGBoost. One way to do it is using the code below in Algorithm \ref{alg:xgb}
-\begin{lstlisting}[language=Python, caption={Boosted Decision Tree definition using XGBoost}, label=alg:xgb, captionpos=t]
+\begin{lstlisting}[basicstyle=\tiny, language=Python, caption={Boosted Decision Tree definition using XGBoost}, label=alg:xgb, captionpos=t]
    import xgboost as xgb
    
    Boosted_Decision_Tree = xgb.XGBClassifier(
@@ -454,14 +461,14 @@ Making a BDT for our purposes is fairly easy as well using XGBoost. One way to d
                 random_state = 42,
                 verbosity = 1) 
 \end{lstlisting}
-To get the best performance on our BDT we have to do a grid search here as well. The trainable hyperparameters here are different than for NNs though. With XGBoost we have the following hyperparameters
+To get the best performance on our BDT we have to do a grid search here as well. The trainable hyperparameters here are different than for NNs though. With XGBoost we will focus on the following hyperparameters
 \begin{itemize}
    \item Tree depth: how many times we split the data
    \item Number of estimators: how many trees we use to do the gradient boosting
    \item The learning rate $\eta$
    \item L2-regressor $\lambda$, to stop overtraning
 \end{itemize}
-The metrics that will be used to estimate the best hyperparameters are \textbf{AUC}, \textbf{binary accuracy} and most importantly \textbf{expected significance}. 
+The metrics that will be used to estimate the best hyperparameters are AUC, binary accuracy and most importantly the expected significance\footnote{See Chapter \ref{sec:tools} for explanation of metrics.}.
 The expected significance for this section has been calculated using the low statistics formula Eq. (\ref{eq:exp_sig}) without uncertainties. The expected significance will also be calculcated when making a cut on 0.85 on the network prediction score, as explained in Chapter \ref{sec:siggy}. 
 Meaning we will only look at events which the network rates as signal with 85\% confidence and above. For some models where the expected events are too low (EFT models), meaning that the expected significance will be 0 or \verb|NaN|, if this happens we will use the hyperparemeters of the network 
 which gives us the highest AUC on the testing set. This will precedure will be done for every single network we will explore.

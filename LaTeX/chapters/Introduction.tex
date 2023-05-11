@@ -1,4 +1,20 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}
-After the discovery of the Higgs boson ...
+After the Higgs boson, the last ingredient of the Standard Model (SM), was discovered in 2012 \cite{Higgs_discovery_2012}, we still have questions of its nature. Is it the long-awaited SM particle, or is it the first of a series of scalar particles? 
+With the advent of higher energies and higher collision rates, the Large Hadron Collider (LHC) continues the voyage towards new physics phenomena. The ambitious LHC physics programme may shed light on some of the greatest mysteries in physics today. 
+The focus of this work is to perform an independent search for new physics phenomena, such as evidence of a Dark Matter (DM) candidate and its plausible mediator using supervised learning. A Neural Network (NN) and a Boosted Decision Tree (BDT) will 
+be trained on various Monte Carlo (MC) simulated data samples featuring well defined predictions from a set of new physics theories. The analysis uses proton-proton (pp) collisions at the LHC from Run II at 13 TeV, already recorded by the ATLAS detector. 
+The data consists of dilepton final states with Missing Transverse Energy (MET). By comparing the empirical data collected from Run II with SM simulated samples we will carefully select the features to be used in the training phase of the Machine learning 
+(ML) networks. \\
+\\ One of the biggest motivations for this project is to search for Dark Matter (DM), one of the biggest mysteries in science to this day. It can be a Weakly Interacting Particle (WIMP) \cite{WIMP} or the Axion \cite{Axion} which are both postulated by cosmological constraints. 
+This project will focus on DM particles that are described by WIMP theories. The emphasis is to set up a NN and a BDT to be trained on a set of models predicting DM particles, such as supersymmetry, simplified DM models involving or not a mediator, including those 
+models based on effective field theory (EFT). This way we aim at a model independent search of a DM particle, possibly together with its mediator.\\
+\\ We concentrate on dilepton and Missing Tranverse Energy (MET) final states, $pp\rightarrow l^+l^- \chi\chi = l^+l^-+$ MET. Where the MET is due to DM since we cannot detect it directly in particle detectors. There are various Beyond Standard Model (BSM) models 
+with a DM candidate $\chi$ leading to this process final state . The standard practice in new physics searches today is to choose one model and do a thorough data analysis to test it. However the emphasis of this project as aforementioned will be to let a the ML algorithm 
+learn the features of various DM models predicting a dilepton + MET final state, thus optimizing relevant signal search regions, based on, among others, the invariant mass of the 2 leptons and the missing transverse energy, thus reaching better search sensitivities. 
+Utilizing the powerful tool of ML it might help recognize a pattern that is common through all the different models studied, at least within each of the signal regions defined, which might in turn get us closer to finding a real empirical signal of DM through data. 
+The goal is to study various BSM models, such as: Mono-Z', Dark Higgs, Light Vector and inelastic EFT \cite{Zp_DM_candidate2}, \todo{Should I mention that the goal was to study mono-z and susy here?}Mono-Z \cite{article} and Supersymmetry \cite{JUNGMAN1996195}. 
+These models are built upon different theoretical principles, making them phenomenologically different from each other, with some common experimental features. Thus this approach to build a generic ML algorithm to be simultaneously trained on all of them 
+could get reduce the computaional time needed to train a ML algorithm.
+
 \end{document}
