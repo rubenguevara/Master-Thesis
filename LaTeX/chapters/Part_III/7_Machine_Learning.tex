@@ -1,9 +1,6 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}\label{chap:Best_ML}
 \chapter{Network opimization}\label{chap:network_opt}
-
-Something something Time to prepare our ML algorithms, statistics etc..
-
 \section{Neural Network Training}
 For most of the NN optimization methods we trained a NN with the following hyperparameters:
 \begin{itemize}
@@ -354,85 +351,59 @@ As the best normaliazation method was \verb|Batch_normalization|, this method wa
 
 
 
-\section{Boosted Desicion Tree Training (draft)}
-\todo{Remake the results and write better!}
+\section{Boosted Desicion Tree Training}
+As the only technique that needed to be tested for BDTs was the different weighting methods, we conducted these here. We only tested the weighting techniques where we only look at the positive weights, and where we scale the weights 
+wrt. the sum of the weights over the sum over the aboslute value of weights. To compare we also included the unweighted method (only balancing data). The hyperparameters used to train the different networks in this chapter were
+\begin{itemize}
+   \item L2-$\lambda$ = 10$^{-5}$
+   \item Number of trees = 200
+   \item Depth of trees = 6
+   \item Learning rate $\eta$ = 0.1
+\end{itemize}
+\clearpage
 \subsection{Weights}
-We have tried all of the weighting options and the results can be seen in Figure \ref{fig:BDT_wgts}.\\
-\\As we can see it makes a significant difference whether we use the weights to re-weight MC events to expected events. But there is no mathematical reason as to why we should 
-include this re-weighting weight as sample weights, as the reason to use sample weights is to \textit{only} balance signal and bacgkround. In theory it makes no sense whatsoevert to include these weights either 
-as the network doesn't really care for cross sections or luminosity, and what we are doing in principle is making it harder for the network to learn anything. But as seen on the results, the BDT learns the background 
-extremely well when using the weights, while it also does a poorer job in learning the signal we are testing.\\ 
-\\In a sense this is not a negative thing for our purposes, but stricly speaking we are invoking a semi-unsupervised learning method by punishing the network if it learns the signal too quickly. 
-To get to the point as why this is good for our purposes, we are indirectly making our network more model indepentent! Because of this, the method that will be pursued further in this thesis will be to 
-take the positive weights and balance the data.\todo{Add that ATLAS used it, so because of that so can I?}
-
-\graphicspath{{../../../Plots/XGBoost/WEIGHT_TEST/DH_HDS_mZp_130/}}
+The results of the different weighting methods can be seen in Figure \ref{fig:BDT_wgts}.\\
+\graphicspath{{../../../Plots/XGBoost/Weighting_methods/}}
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=1\textwidth]{ATLAS_ABS/VAL.pdf}
-      \caption{Using the scaled absolute value of the weights}
+      \includegraphics[width=1\textwidth]{Abs_wgt/VAL.pdf}
+      \caption{Using scaled absolute value of weights}
    \end{subfigure}
    \begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=1\textwidth]{POS/VAL.pdf}
+      \includegraphics[width=1\textwidth]{Pos_wgt/VAL.pdf}
       \caption{Using only positive weights}
    \end{subfigure}
    \begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=1\textwidth]{NONE/VAL.pdf}
+      \includegraphics[width=1\textwidth]{No_wgt/VAL.pdf}
       \caption{Using no weights}
    \end{subfigure}
-   \caption[Difference when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:wgts}}\label{fig:BDT_wgts}
+   \caption[Difference when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts}
 \end{figure}
-
-
-\clearpage
-\subsection{Grid Search}\label{sec:BDTGriddy_res}
-As the previous results are to be taken with a heavy grain of salt, I conducted another grid search. On the second grid search I set the values of $\eta=0.1$ as the trend showed this giving the best results with less overtraining, 
-and $\lambda=10^{-5}$ \todo{should I conduct a new grid search with different $\lambda$ and loss functions?}. This grid search had \verb|n_estimators| $\in[10, 100, 500, 1000]$ and depth $\in[3,4,5,6]$. 
-The expected significance is shown in Figure \ref{fig:BDT_sig}. The testing and training AUC can be seen in Figure \ref{fig:BDT_GRID_AUC}.
-\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000}}
-\begin{figure}[!ht]
-   \centering
-   \includegraphics[width=0.6\textwidth]{Expected_significance.pdf}  
-   \caption{Grid search expected significance when setting $\lambda=10^{-5}$ and $\eta=0.1$}\label{fig:BDT_sig}
-\end{figure}
-\begin{figure}[!ht]
-\centering
-\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Testing_AUC.pdf}
-      \caption{Testing AUC}
-   \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Training_AUC.pdf}
-      \caption{Training AUC}
-   \end{subfigure}
-   \caption[Grid search result for BDT]{Grid search AUC when setting $\lambda=10^{-5}$ and $\eta=0.1$}\label{fig:BDT_GRID_AUC}
-\end{figure}
-\\When testing the best network with a depth of 6 and 1000 estimators on the same DH HDS $m_{Z'}=130$ GeV model we get the feature importance plots shown in Figure \ref{fig:BDT_feat}. 
-Here we see that the "weight" metric gives us the expected features as most important. But the "cover" metric seems to be less of what we expect since the jet kinematic variables score higher, 
-this might just be a curiosity rather than something to be suspect of.
-\graphicspath{{../../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000/DH_HDS_mZp_130/feature_importance/}}
 \begin{figure}[!ht]
 	\centering
-   \begin{subfigure}[b]{0.8\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=1\textwidth]{weight.pdf}
-      \caption{Using "weight" metric}
+      \includegraphics[width=1\textwidth]{Abs_wgt/EXP_SIG.pdf}
+      \caption{Using scaled absolute value of weights}
    \end{subfigure}
-   \hfill
-   \begin{subfigure}[b]{0.8\textwidth}
+   \begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=1\textwidth]{total_cover.pdf}
-      \caption{Using "coverage" metric}
+      \includegraphics[width=1\textwidth]{Pos_wgt/EXP_SIG.pdf}
+      \caption{Using only positive weights}
    \end{subfigure}
-   \caption[Feature importance plots of BDT]{Feature importance of depth 6 network trained on FULL Z' DM data set when testing it on DH HDS $m_{Z'}=130$ GeV model.}\label{fig:BDT_feat}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{No_wgt/EXP_SIG.pdf}
+      \caption{Using no weights}
+   \end{subfigure}
+   \caption[Difference when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts}
 \end{figure}
+
+\clearpage
 
 \section{Discussion (draft)}
 \todo{Comment on lack of time and DNN thoughts.} 

@@ -2,24 +2,66 @@
 \begin{document}
 
 \chapter{BDT of depth 30}\label{apendix:BDT_depth_30}
-The results can be shown in Figure \ref{fig:BDT_deep_sig}. This is however highly radical as the convention is to normally not have a depth greater than 7, 
-the reason being that the network is highly likely to overtrain and give wrong predictions. However this was not the case for me as seen for example in Figure \ref{fig:DBDT_GRID_AUC}.
+Before conducting the final gridsearch for the final networks used on the results, we experimented with different hyperparameters to change. On one of grid searches we set the learning rate as $\eta=0.1$ 
+as the trend showed this giving the best results with less overtraining, and $\lambda=10^{-5}$. This grid search had \verb|n_estimators| $\in[10, 100, 500, 1000]$ and depth $\in[3,4,5,6]$. 
+The expected significance is shown in Figure \ref{fig:BDT_sig}. The testing and training AUC can be seen in Figure \ref{fig:BDT_GRID_AUC}.
+\graphicspath{{../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000}}
+\begin{figure}[!ht]
+   \centering
+   \includegraphics[width=0.6\textwidth]{Expected_significance.pdf}  
+   \caption{Grid search expected significance when setting $\lambda=10^{-5}$ and $\eta=0.1$}\label{fig:BDT_sig}
+\end{figure}
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Testing_AUC.pdf}
+      \caption{Testing AUC}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Training_AUC.pdf}
+      \caption{Training AUC}
+   \end{subfigure}
+   \caption[Grid search result for BDT]{Grid search AUC when setting $\lambda=10^{-5}$ and $\eta=0.1$}\label{fig:BDT_GRID_AUC}
+\end{figure}
+\\The best networks (depth of 6 and 1000 estimators) feature importance plots is shown in Figure \ref{fig:BDT_feat}.\\
+\graphicspath{{../../Plots/XGBoost/FULL/GRIDSEARCH_n_est_10-1000/DH_HDS_mZp_130/feature_importance/}}
+\begin{figure}[!ht]
+	\centering
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{weight.pdf}
+      \caption{Using "weight" metric}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{total_cover.pdf}
+      \caption{Using "coverage" metric}
+   \end{subfigure}
+   \caption[Feature importance plots of BDT]{Feature importance of depth 6 network trained on FULL Z' DM data set when testing it on DH HDS $m_{Z'}=130$ GeV model.}\label{fig:BDT_feat}
+\end{figure}
+\\However as we can on Figure \ref{fig:BDT_sig} the expected significance does not seem to converge. Because of this, and out of curiosity we decided to keep training the networks with a greater depth. 
+The results can be shown in Figure \ref{fig:BDT_deep_sig}. \\
 \graphicspath{{../../Plots/XGBoost/FULL/GRIDSEARCH_3-6}}
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
       \centering
       \includegraphics[width=1\textwidth]{Expected_significance.pdf}
-   %   \caption{Testing AUC}
    \end{subfigure}
    \hfill\graphicspath{{../../Plots/XGBoost/FULL/GRIDSEARCH_24-30}}
    \begin{subfigure}[b]{0.49\textwidth}
       \centering
       \includegraphics[width=1\textwidth]{Expected_significance.pdf}
-   %   \caption{Training AUC}
    \end{subfigure}
    \caption{Grid search expected significance going to a depth of up to 30}\label{fig:BDT_deep_sig}
 \end{figure}
+\\In the Figure we see that the networks expected significance does not seem to converge, and rather just keeps getting greater and greater. 
+This is however highly radical as the convention is to normally not have a depth greater than 7, which already is radical. The reason for not having depp BDTs being that the network is highly likely to overtrain and give wrong predictions. 
+However this was not the case for us as seen for example in Figure \ref{fig:DBDT_GRID_AUC}.\\
 \graphicspath{{../../Plots/XGBoost/FULL/GRIDSEARCH_24-30}}
 \begin{figure}[!ht]
 \centering

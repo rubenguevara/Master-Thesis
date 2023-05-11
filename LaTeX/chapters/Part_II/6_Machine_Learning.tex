@@ -425,7 +425,7 @@ The weights is still an obstacle that needs to be overcomed when using BDTs. Thi
 \\For this project we will as mentioned utilize the eXtreme Gradient Boosting, or \verb|XGBoost| for short, package \cite{XGBoost} made for the Higgs ML Challenge \cite{HiggsChallenge} whenever we mention BDTs.
 This project utilized version \verb|1.5.0| without GPU adaptability. \verb|XGBoost| also helps to avoid padding as it is integrated with a \verb|missing_variable| variable where we can simply write the number of the variable that is missing.
 
-\subsection{Sample weights}
+\subsection{Sample weights}\label{sec:bdt_wgts}
 For \verb|XGBoost| there is a different problem when it comes to weights. XGBoost has a variable called \verb|scale_pos_weight| where we can help the network deal with unbalanced data, such as the one we have. 
 Meaning that the whole problem of combining the re-weighting weights with the balancing weights from Chapter \ref{sec:sample_wgts_NN} completely dissapears. Albeit there is a caveat, \verb|XGBoost| does not have to possibility to include negative weights, which this dataset has. The reason \verb|XGBoost| 
 doesn't include weights is because when calculating the number of events in a leaf node, which is made by taking the sum of sample weights, we cannot have a negative value \cite{neg_wgt_xbg1, neg_wgt_xbg2}.
