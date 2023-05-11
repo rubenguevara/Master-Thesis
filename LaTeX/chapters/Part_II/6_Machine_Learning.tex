@@ -49,26 +49,26 @@ dilepton final state, label telling us wether an event is signal or background a
 \end{table}
 
 \subsection{Weights}\label{sec:wgts}
-The weights are crucial for most of what is to come further on this thesis. The weights only apply to MC simulations and can be interpreted as corrections to simulate real data, which is why the MC samples and expected events on Table \ref{tab:dataset} differ, where the 
-latter has applied weights. The weights on this project are defined as Eq. (\ref{eq:wgts}) and are in $fb^{-1}$ units.
+The weights are crucial for most of what is to come further in this thesis. The weights only apply to MC simulations and can be interpreted as corrections to simulate real data, which is why the MC samples and expected events on Table \ref{tab:dataset} differ, where the 
+latter has applied weights. The weights on this project are defined as Eq. (\ref{eq:wgts})
 \begin{equation}\label{eq:wgts}
-   W = w_{mc}\times w_{pu}\times w_{xs}\times w_{lsf} \times w_{nlo,ew} \times w_{ttbar} \times w_{jet} \times w_{bjet} \times \frac{lumi_{period}}{\sum w_{mc, DSID}}
+   W = w_{mc}\times w_{pu}\times w_{xs}\times w_{lsf} \times w_{nlo,ew} \times w_{ttbar} \times w_{jet} \times w_{bjet} \times \frac{\text{lumi}_{period}}{\sum w_{mc, DSID}}
 \end{equation}
-This equation has a lot of information in it, so every part of this will be discussed. Starting from the raw MC weight, $w_{mc}$\\
-The pile-up weight $w_{pu}$, takes into account detector featuers\\
-The cross section weight $w_{xs}$, defined as $w_{xs} := xs \times w_{kf} \times g_{eff}$ where $xs$ is the cross section of the process, $w_{kf}$ is the $k-$factor which has higher order corrections, and $g_{eff}$ is the filter efficiency.\\
-The Lepton and trigger Scale Factor (LSF), $w_{lsf}$, which...\\
-The Next to Leading Order (NLO) electroweak correction $w_{nlo,ew}$, which ...\\
-The $t\bar{t}$, jet and b-jet weights, $w_{ttbar}, w_{jet}$ and $w_{bjet}$, which ...\\
-And lastly the luminosity of the period, meaning
+This equation has a lot of information in it, so every part of this will be discussed. Starting from the raw MC weight, $w_{mc}$, which gives the relative probability of an event within a sample \cite{Pythia}, the pile-up weight $w_{pu}$, is a weight used to correct object reconstruction as it can be possible for multiple objects to cross on the 
+identification process. \cite{Soyez:2018opl}\\ 
+\\The cross section weight $w_{xs}$, defined as $w_{xs} := xs \times w_{kf} \times g_{eff}$ where $xs$ is the cross section of the process, $w_{kf}$ is the $k-$factor which tries to correct for the absence of these higher-order term, 
+for more details we refer the reader to the study done by Catani et. al. \cite{Catani:2001cr}. $g_{eff}$ is the filter efficiency, which is the expected fraction of MC events that pass through the generator crietria.\\
+\\The Lepton and trigger Scale Factor (LSF), $w_{lsf}$, which are applied in order to correct for differences in reconstruction in MC with respect to data, the Next to Leading Order (NLO) electroweak correction $w_{nlo,ew}$, which corrects for higher order EW diagrams, 
+for more details we refer the reader to the paper by Denner et. al. \cite{Denner:2022pwc}. \\
+\\The $w_{ttbar}, w_{jet}$ and $w_{bjet}$, which are reconstruction corrections for $t\overline{t}$ \cite{Czakon:2015owf}, jets \cite{ATLAS:2014hvo} and b-jets \cite{ATLAS:2019bwq}, respectively. And lastly the luminosity of the period, meaning
 $$
-lumi_{period} = \begin{cases}
-               36.4,& \text{for period = a}\\
-               44.3,& \text{for  period = d}\\
-               58.5,& \text{for  period = e}
+\text{lumi}_{period} = \begin{cases}
+               36.4\text{ fb}^{-1},& \text{for period = a}\\
+               44.3\text{ fb}^{-1},& \text{for  period = d}\\
+               58.5\text{ fb}^{-1},& \text{for  period = e}
                \end{cases}
 $$
-divided by the Sum Of Weights (SOW) \textbf{Question: Sum of every $w_{mc}$ of each event or sum of every $W$ pr event? } of every MC sample for each dataset ID (background process)
+divided by the Sum Of Weights (SOW), $\sum w_{mc}$ of every sample for each dataset ID.
 
 \subsection{Signal regions}\label{sec:SRs}
 As a first step towards achieving model independece we will create three Signal Regions (SR). The goal is then to train one network in each respective SR that contains all models we wish to study. The SR we will study are defined below 
@@ -102,7 +102,7 @@ a training and testing set of our size, while also sorting the label of the even
      \end{subfigure}
 	\caption[Train-test split distribution]{Train and test distribution of the stransverse mass when dividing SM background and DM samples into 80\% and 20\% datasets. The integrated luminosity for each distribution is 80\% and 20\% of 139 $fb^{-1}$ respectively}\label{fig:train-test}
 \end{figure}
-\\In Figure \ref{fig:train-test} we can see that the distribution remains the same when we split the dataset into 80-20, where we also see the data and MC agree. To see the distribution of every other kinematical variable see \textbf{question: Appendix or github repo? The appendix is already very long!}
+\\In Figure \ref{fig:train-test} we can see that the distribution remains the same when we split the dataset into 80-20, where we also see the data and MC agree. To see the distribution of every other kinematical variable see the github repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/Data_Analysis/train_test_split}{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/\\Data\_Analysis/train\_test\_split}}.
 In addition to splitting the data, when making validation plots (See Chapter \ref{sec:validation}), when plotting MC simulations and real data, we nee to make sure that the luminosity of the plot is correct. That means that if we are plotting the network score in 
 the test dataset, as this is 20\% of the whole dataset we need to scale everything with a factor of 5 so we get back to 100\% and the full luminosity of Run II.
 

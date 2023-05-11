@@ -1,6 +1,24 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}\label{chap:Limit_Tabs}
 \chapter{Limit calculation tables}
+To calculate the signal efficiency $\varepsilon_{sig}$, we used the following formula
+$$
+\varepsilon_{sig}=\frac{N_{sig}}{\sigma B \times \text{lumi}_{RunII}}
+$$
+where $N_{sig}$ are the number of signal events after the cut, and where we calculated 
+$$
+\sigma B \times \text{lumi}_{RunII} = \sum_{period}\sigma B_{period} \times \text{lumi}_{period}
+$$
+extracting the cross section of the DM sample from the DSID on each MC period and converting it to fb units, and using
+$$
+\text{lumi}_{period} = \begin{cases}
+               36.4\text{ fb}^{-1},& \text{for period = a}\\
+               44.3\text{ fb}^{-1},& \text{for  period = d}\\
+               58.5\text{ fb}^{-1},& \text{for  period = e}
+               \end{cases}
+$$
+
+
 \begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
     The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
     and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
