@@ -243,7 +243,7 @@ def expected_significance(sig_pred, bkg_pred, model, dsid_title, plot_dir, ML_ty
                 low_stat_Z(sum(sig_pred[35:]), sum(bkg_pred[35:])),
                 low_stat_Z(sum(sig_pred[40:]), sum(bkg_pred[40:])), 
                 low_stat_Z(sum(sig_pred[45:]), sum(bkg_pred[45:])), 
-                low_stat_Z(sum(sig_pred[49:]), sum(bkg_pred[49:]))]
+                low_stat_Z(sig_pred[-1], bkg_pred[-1])]
 
     X_axis = [0.5, 0.6, 0.7, 0.8, 0.9, 0.99]
 
