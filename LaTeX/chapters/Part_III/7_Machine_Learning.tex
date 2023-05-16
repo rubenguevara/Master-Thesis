@@ -1,6 +1,6 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}\label{chap:Best_ML}
-\chapter{Network opimization}\label{chap:network_opt}
+\chapter{Network optimization}\label{chap:network_opt}
 \section{Neural Network Training}
 For most of the NN optimization methods we trained a NN with the following hyperparameters:
 \begin{itemize}
@@ -10,7 +10,7 @@ For most of the NN optimization methods we trained a NN with the following hyper
    \item $10^{-5}$ L2-regularization parameter $\lambda$
    \item The ADAM optimizer
 \end{itemize}
-We will mention whenever these parameters were not used. The results for the different network optimization methods explained in Chapter \ref{chap:NN_train} follow from here. Startngg with the normalization of data.\\
+We will mention whenever these parameters were not used. The results for the different network optimization methods explained in Chapter \ref{chap:NN_train} follow from here. Starting with the normalization of data.\\
 
 \clearpage
 
@@ -49,9 +49,9 @@ We tested on the remaining 20\% of the SM background events, as well as 20\% of 
       \includegraphics[width=1\textwidth]{BatchNorm/VAL_pre.pdf}
       \caption{Batch normalization}
    \end{subfigure}
-   \caption[Different normaliazation methods for NNs]{NN prediction when using different normalization methods. This is testing a dataset with 20\% of the Z' DH HDS $m_{Z'}=130$ GeV events.}\label{fig:DifferentNormalizations}
+   \caption[Different normalization methods for NNs]{NN prediction when using different normalization methods. This is testing a dataset with 20\% of the Z' DH HDS $m_{Z'}=130$ GeV events.}\label{fig:DifferentNormalizations}
 \end{figure}
-\\Inclduing datapoints as well as uncertainties on the best performing normalizatin methods, as well as their calculate expected significance as explained in Chapter \ref{sec:siggy}, yields the plots
+\\Including data points as well as uncertainties on the best performing normalization methods, as well as their calculate expected significance as explained in Chapter \ref{sec:siggy}, yields the plots
 shown in Figure \ref{fig:BestNormie}. For more Figures showing NN training results see the GitHub repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/NeuralNetwork/Normalization_method}{https://github.com/rubenguevara/Master-Thesis/tree/master/\\Plots/NeuralNetwork/Normalization\_method}}. 
 \begin{figure}[!ht]
 	\centering
@@ -78,10 +78,10 @@ shown in Figure \ref{fig:BestNormie}. For more Figures showing NN training resul
       \includegraphics[width=1\textwidth]{BatchNorm/EXP_SIG.pdf}
       \caption{The expected significance of b)}
    \end{subfigure}
-   \caption[Comparison of best NN normalization methods and expected significance calulcation]{Comparison of the best normalization methods. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }\label{fig:BestNormie}
+   \caption[Comparison of best NN normalization methods and expected significance calculation]{Comparison of the best normalization methods. Figure a) and b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }\label{fig:BestNormie}
 \end{figure}
-\\As we can see the \verb|Batch_normalization| method gives us the highest signal and backgroundl but is it reasonable to use this method when one is not using a CNN? The reason batch normalization might work best for our case is because when we divide the data by bacthes it might unevenly represent the SM / signal and 
-their ratio. But by using batch normalization it takes the average of all the batches creating a closer to real distribution. For the following examples in this chapter we will use batch normaliazation to make the optimal network.\\ 
+\\As we can see the \verb|Batch_normalization| method gives us the highest signal and background but is it reasonable to use this method when one is not using a CNN? The reason batch normalization might work best for our case is because when we divide the data by batches it might unevenly represent the SM / signal and 
+their ratio. But by using batch normalization it takes the average of all the batches creating a closer to real distribution. For the following examples in this chapter we will use batch normalization to make the optimal network.\\ 
 \clearpage
 
 
@@ -103,7 +103,7 @@ To test we used the remaining 20\% of SM events. We also tested the difference i
          \caption{Using SGD}
       \end{subfigure}
       \caption[Difference between ADAM and SGD optimizer]{Validation plots using SGD and ADAM. 
-      This was done using a dataset where the goal was to isloate the $W$ background process from other SM background processes}\label{fig:ADAMvsSGD}
+      This was done using a dataset where the goal was to isolate the $W$ background process from other SM background processes}\label{fig:ADAMvsSGD}
 \end{figure}
 \\As ADAM is far better at sorting signal from background we will only use this optimizer further. The results for the different weighting methods can be seen in Figure \ref{fig:WVAL}, which shows the 
 validation plots and in Figure \ref{fig:WROC} which shows the ROC score. For more Figures showing NN training results see the GitHub repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/NeuralNetwork/W}{https://github.com/rubenguevara/Master-Thesis/tree/master/\\Plots/NeuralNetwork/W}}. \\
@@ -126,7 +126,7 @@ validation plots and in Figure \ref{fig:WROC} which shows the ROC score. For mor
          \caption{Using $\frac{N_{sig}}{N_{bkg}}$}\label{fig:WVALW}
       \end{subfigure}
       \caption[Validation plots for different balancing methods on NN]{Validation plots of different balancing methods. 
-      This was done using a dataset where the goal was to isloate the $W$ background process from other SM background processes}\label{fig:WVAL}
+      This was done using a dataset where the goal was to isolate the $W$ background process from other SM background processes}\label{fig:WVAL}
 \end{figure}
 \begin{figure}[!ht]
 	\centering
@@ -147,10 +147,10 @@ validation plots and in Figure \ref{fig:WROC} which shows the ROC score. For mor
          \caption{Using $\frac{N_{sig}}{N_{bkg}}$}\label{fig:WROCW}
       \end{subfigure}
       \caption[ROC plots for different balancing methods on NN]{ROC plots of different balancing methods. 
-      This was done using a dataset where the goal was to isloate the $W$ background process from other SM background processes}\label{fig:WROC}
+      This was done using a dataset where the goal was to isolate the $W$ background process from other SM background processes}\label{fig:WROC}
 \end{figure}
-\\From the figures we see that the only way the network does not predict every event to be a background event\footnote{Since the output is the score from 0-1 our network gives every event, where 0 means that the network predicts 0\% chance for an event to be signal} is when we introduce the blancing method. We also see that the AUC increases more as well. Meaning that we must balance our dataset. 
-Something else to mention, as to why the network does such a poor job at classifying the W background, is that the network here was not optimized for the search. If we were to conduct a thorough grid search of all hyperparameters it would yield greater results, but as this chapter is for testing methods rather analysing data we will not delve further into it for now,
+\\From the figures we see that the only way the network does not predict every event to be a background event\footnote{Since the output is the score from 0-1 our network gives every event, where 0 means that the network predicts 0\% chance for an event to be signal} is when we introduce the balancing method. We also see that the AUC increases more as well. Meaning that we must balance our dataset. 
+Something else to mention, as to why the network does such a poor job at classifying the W background, is that the network here was not optimized for the search. If we were to conduct a thorough grid search of all hyperparameters it would yield greater results, but as this chapter is for testing methods rather analyzing data we will not delve further into it for now,
 
 \clearpage
 
@@ -184,8 +184,8 @@ To test we used the remaining 20\% of SM events. The results can be seen in Figu
           \includegraphics[width=1\textwidth]{sig_exp/VAL.pdf}
           \caption{Weighing up sig. wrt. $\frac{N_{bkg,exp}}{N_{sig,MC}}$}
        \end{subfigure}
-     \caption[Validation plots for re-weighting background to expected events on NNs]{Validtion plots of different balancing methods when re-weighint background events to expected events. 
-     This was done using a dataset where the goal was to isloate the $W$ background process from other SM background processes} \label{fig:WVAL_rw}
+     \caption[Validation plots for re-weighting background to expected events on NNs]{Validation plots of different balancing methods when re-weighting background events to expected events. 
+     This was done using a dataset where the goal was to isolate the $W$ background process from other SM background processes} \label{fig:WVAL_rw}
 \end{figure}
 \begin{figure}[!ht]
 	\centering
@@ -212,12 +212,12 @@ To test we used the remaining 20\% of SM events. The results can be seen in Figu
             \includegraphics[width=1\textwidth]{sig_exp/ROC.pdf}
             \caption{Weighing up sig. wrt. $\frac{N_{bkg,exp}}{N_{sig,MC}}$}
          \end{subfigure}
-      \caption[ROC plots for re-weighting background to expected events on NNs]{ROC plots of different balancing methods when re-weighint background events to expected events. 
-      This was done using a dataset where the goal was to isloate the $W$ background process from other SM background processes}\label{fig:WROC_rw}
+      \caption[ROC plots for re-weighting background to expected events on NNs]{ROC plots of different balancing methods when re-weighting background events to expected events. 
+      This was done using a dataset where the goal was to isolate the $W$ background process from other SM background processes}\label{fig:WROC_rw}
 \end{figure}
 \\As we are only re-weighting the background events, we can see from the figures that we get the best results when balancing with respect to the expected number of background events. Which is optimal, as this is what goes into the network. 
-Wheter it is better to weigh down the background or weight up the signal is not clear however, from the AUC of the ROC curves it is slightly better to weigh up the signal. To check which gives a higher expected significance however we can look at 
-the expected signficance, this is shown in Figure \ref{fig:WSIG}. Here we see that there is a greater expected significance when weighing up the signal events. \\
+Whether it is better to weigh down the background or weight up the signal is not clear however, from the AUC of the ROC curves it is slightly better to weigh up the signal. To check which gives a higher expected significance however we can look at 
+the expected significance, this is shown in Figure \ref{fig:WSIG}. Here we see that there is a greater expected significance when weighing up the signal events. \\
 \begin{figure}[!ht]
 	\centering
       \begin{subfigure}[b]{0.49\textwidth}
@@ -231,19 +231,19 @@ the expected signficance, this is shown in Figure \ref{fig:WSIG}. Here we see th
             \includegraphics[width=1\textwidth]{sig_exp/EXP_SIG.pdf}
             \caption{Weighing up sig. wrt. $\frac{N_{bkg,exp}}{N_{sig,MC}}$}
          \end{subfigure}
-      \caption[Significance plots for re-weighting and balancing W datset on NNs]{Expected significance plots of the best balancing methods when re-weighint background events to expected events. 
-      This was done using a dataset where the goal was to isloate the $W$ background process from other SM background processes}\label{fig:WSIG}
+      \caption[Significance plots for re-weighting and balancing W dataset on NNs]{Expected significance plots of the best balancing methods when re-weighting background events to expected events. 
+      This was done using a dataset where the goal was to isolate the $W$ background process from other SM background processes}\label{fig:WSIG}
 \end{figure}
-\\As a last note for the testing of these methods, the networks, while still getting over 5$\sigma$ expected significance (without errors) on the $W$ chanel, do not have the best distribution on the validation plots. The reason for this might be because 
+\\As a last note for the testing of these methods, the networks, while still getting over 5$\sigma$ expected significance (without errors) on the $W$ channel, do not have the best distribution on the validation plots. The reason for this might be because 
 we did not optimize the networks we tested, but rather used the same network for test. 
 \clearpage
 
 
 \subsection{Padding of data}\label{sec:padding_NN_res}
 For the padding problem. We will as explained in Chapter \ref{sec:padding_NN} try the new variables presented in Table \ref{tab:padding_variables}. The other method we tried was to remove the features with jagged arrays, that means the $p_T, \eta, \phi$ of the three most energetic jets, as well as the invariant mass of the two most energetic ones, $m_{jj}$.
-e trained a network using 80\% of the whole SM background events as well as 80\% of all the Z' DH HDS samples. As sample weights we used the best method from the previous section, which was to re-weight every background event and balance the dataset by weighing up all signal events by the ratio of expected number of background events over signal MC events, $\frac{N_{bkg,exp}}{N_{sig,MC}}$. 
-As the best normaliazation method was \verb|Batch_normalization|, this method was used here. We also utilized the ADAM optimizer instead of SGD.\\
-\\As changing features changes the whole dataset, then to get the best results as possile we went through a full grid search following the steps in Chapter \ref{sec:NNgriddy} for both networks. The result for the hyperparameters that gave the highest significance can be seen in Figure \ref{fig:pad_griddy}.
+The trained a network using 80\% of the whole SM background events as well as 80\% of all the Z' DH HDS samples. As sample weights we used the best method from the previous section, which was to re-weight every background event and balance the dataset by weighing up all signal events by the ratio of expected number of background events over signal MC events, $\frac{N_{bkg,exp}}{N_{sig,MC}}$. 
+As the best normalization method was \verb|Batch_normalization|, this method was used here. We also utilized the ADAM optimizer instead of SGD.\\
+\\As changing features changes the whole dataset, then to get the best results as possible we went through a full grid search following the steps in Chapter \ref{sec:NNgriddy} for both networks. The result for the hyperparameters that gave the highest significance can be seen in Figure \ref{fig:pad_griddy}.
 \graphicspath{{../../../Plots/NeuralNetwork/Padding/}}
 \begin{figure}[!ht]
 	\centering
@@ -262,7 +262,7 @@ As the best normaliazation method was \verb|Batch_normalization|, this method wa
    \end{subfigure}
    \caption[Grid search result for pad testing on NN]{Grid search result for pad testing on NN.  This is training a dataset with 80\% of all Z' DH HDS events.}\label{fig:pad_griddy}
 \end{figure}
-\\This means that the best hyperparemeters for both networks coicidentally is the same, meaning: \verb|n_neuron = 10,| \verb|eta = 0.01,| \verb|lamda = 1e-5|. The loss, AUC and binary accuracy over epochs for the best networks can be seen in Figure \ref{fig:NN_stats_pad} and Figure \ref{fig:NN_stats_no_pad}.
+\\This means that the best hyperparameters for both networks coincidentally is the same, meaning: \verb|n_neuron = 10,| \verb|eta = 0.01,| \verb|lamda = 1e-5|. The loss, AUC and binary accuracy over epochs for the best networks can be seen in Figure \ref{fig:NN_stats_pad} and Figure \ref{fig:NN_stats_no_pad}.
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -330,7 +330,7 @@ As the best normaliazation method was \verb|Batch_normalization|, this method wa
    \end{subfigure}
    \caption[Validation plots for both padding methods]{Validation plots for both padding methods.  This is testing a dataset with 20\% of the Z' DH HDS $m_{Z'}=130$ GeV events.}\label{fig:NN_pad_VAL}
 \end{figure}
-\\As we can see the perfomance of both methods is the same, to check if the sensitivy increases more with the new padding method or not we can check the significance of each model. This can be seen in Figure \ref{fig:NN_pad_SIG}, which shows a slight imporvement on the sensitivy of the netwoek when using the features.
+\\As we can see the performance of both methods is the same, to check if the sensitivity increases more with the new padding method or not we can check the significance of each model. This can be seen in Figure \ref{fig:NN_pad_SIG}, which shows a slight improvement on the sensitivity of the network when using the features.
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -351,9 +351,9 @@ As the best normaliazation method was \verb|Batch_normalization|, this method wa
 
 
 
-\section{Boosted Desicion Tree Training}
+\section{Boosted Decision Tree Training}
 As the only technique that needed to be tested for BDTs was the different weighting methods, we conducted these here. We only tested the weighting techniques where we only look at the positive weights, and where we scale the weights 
-wrt. the sum of the weights over the sum over the aboslute value of weights. To compare we also included the unweighted method (only balancing data). The hyperparameters used to train the different networks in this chapter were
+wrt. the sum of the weights over the sum over the absolute value of weights. To compare we also included the unweighted method (only balancing data). The hyperparameters used to train the different networks in this chapter were
 \begin{itemize}
    \item L2-$\lambda$ = 10$^{-5}$
    \item Number of trees = 200
@@ -400,7 +400,7 @@ The results of the different weighting methods can be seen in Figure \ref{fig:BD
       \includegraphics[width=1\textwidth]{No_wgt/EXP_SIG.pdf}
       \caption{Using no weights}
    \end{subfigure}
-   \caption[Difference when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts}
+   \caption[Difference when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts_sig}
 \end{figure}
 
 \clearpage
@@ -408,7 +408,7 @@ The results of the different weighting methods can be seen in Figure \ref{fig:BD
 \section{Discussion (draft)}
 \todo{Comment on lack of time and DNN thoughts.} 
 The last thing to be noted is that having a DNN completely removes the possibility of combining the results of multiple networks trained on a single model, as the imbalance becomes too much for the network to see anything.
-A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach used by Baldi et. al. \cite{Baldi_2016}, which could potentially avoid the imbalance problem, but this is 
+A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach used by Baldi et al. \cite{Baldi_2016}, which could potentially avoid the imbalance problem, but this is 
 proposed as a plausible new research project due to time constrain on this thesis.\\
 \\\todo{Comment on fully converting to XGBoost.} XGBoost >> TensorFlow
 
