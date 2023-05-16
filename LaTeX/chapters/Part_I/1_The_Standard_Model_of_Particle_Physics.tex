@@ -42,14 +42,15 @@ gauge in $\alpha^a$ in the field $f_i$
 $$
     f_i \rightarrow \left(1+i \alpha^a t^a + \mathcal{O}(\alpha^2)\right) f_i    
 $$
-This also changes the vector fields $A_\mu^a$ such that it transforms 
+The covariant derivative also changes to a more general 
+$$
+iD_\mu = i\partial_\mu -eB_\mu\rightarrow iD_\mu = i\partial_\mu -gA^a_\mu t^a
+$$
+where $e$ is replaced for a more general scale factor $g$, the vector field $B_\mu$ to a more general $A_\mu^a$ which transforms as 
 $$
 A_\mu^a \rightarrow A^a_\mu +\frac{1}{g}\partial_\mu\alpha^a +f^{abc}A_\mu^b\alpha^c
 $$
-where $e$ is replaced for a more general scale factor $g$, and $f^{abc}$ is a set of numbers called the \textit{structure constants}. From these changes follow that
-$$
-iD_\mu = i\partial_\mu -eA_\mu\rightarrow iD_\mu = i\partial_\mu -gA^a_\mu t^a
-$$
+where $f^{abc}$ is a set of numbers called the \textit{structure constants}. 
 The important thing to note about the Yang-Mills is that the covariant derivative can be \textit{non-Abelian}, meaning that the commutator of the operator becomes
 $$
 \left[D_\mu,D_\nu\right] = -igF_{\mu\nu}^at^a
@@ -58,26 +59,34 @@ this new $t^a$ factor is a Lie algebra generator, which for our purposes represe
 \begin{equation}\label{eq:struc_const}
     [t^a,t^b]=if^{abc}t^c
 \end{equation}
-The difference between the Yang-Mills Lagrangian is most noticeable when fully writing
+The difference between the Yang-Mills and the QED Lagrangian is most noticeable when fully writing
 $$
 F_{\mu\nu}^a = \partial_\mu A_\nu^a -\partial_\nu A_\mu^a +gf^{abc}A_\mu^b A_\nu^c
 $$
-Giving that equation of motion
-\begin{equation}\label{eq:YM_eq}
-    \partial^\mu F^a_{\mu\nu} +gf^{abc}A^{b\mu}F^c_{\mu\nu} = -g\overline{\psi}\gamma_\nu t^a\psi
-\end{equation}
 Adding all of this up we get the following Lagrangian
 \begin{equation}\label{eq:YM_lag}
     \mathcal{L}_{YM} = \overline{f}\left(i\slashed{D} -m\right)f -\frac{1}{4}(F^a_{\mu\nu})^2
 \end{equation}
-where we use the notation $f\equiv\begin{pmatrix}f_1&f_2&\cdots&f_n\end{pmatrix}^T$ where $f_i$ is a field. \\
-Using Noether's theorem on the Lagrangian gives us the conserved quantity of the symmetry group. There is also a theorem that states that for an $SU(n)$ symmetry group there are $n^2-1$ vector fields.\\
-\\If we were to choose $U(1)$ as our local symmetry group the generator $t^a = \mathbb{I}$ and all the structure constants to be $f^{abc}=0$, meaning that we get the QED back. 
+where we use the notation $f\equiv\begin{pmatrix}f_1&f_2&\cdots&f_n\end{pmatrix}^T$ where $f_i$ is a field. 
+Using the Euler-Lagrange equation with the Yang-Mills Lagrangian above yields the equation of motion
+\begin{equation}\label{eq:YM_eq}
+    \partial^\mu F^a_{\mu\nu} +gf^{abc}A^{b\mu}F^c_{\mu\nu} = -g\overline{\psi}\gamma_\nu t^a\psi
+\end{equation}
+As using Noether's theorem on the equation of motion gives us the conserved quantity of the theory, we will apply it for every symmetry group in the SM. There is also a theorem\footnote{See Georgi's book \cite{Georgi:1982jb}} that states that for an $SU(n)$ symmetry group there are $n^2-1$ vector fields.\\
+\\If we were to choose $U(1)$ as our local symmetry group the generator $t^a = \mathbb{I}$ and all the structure constants are $f^{abc}=0$, meaning that we get the QED back. 
 Noether's theorem states that the conserved quantity of the Lagrangian is the electric charge $e$.
 
 
 \section{Weak theory}
-Using the Yang-Mills Lagrangian from Eq. (\ref{eq:YM_lag}) on an $SU(2)$, choosing $t^a =\frac{\sigma^i}{2}$, where $\sigma^i$ are the Pauli matrices, and the structure constants to be the Levi-Civita $f^{abc}=\epsilon^{ijk}$. Where $i,j,k\in[1,2,3]$.
+Using the Yang-Mills Lagrangian from Eq. (\ref{eq:YM_lag}) on $SU(2)$, choosing $t^a =\frac{\sigma^i}{2}$, where $\sigma^i$ are the Pauli matrices given as 
+\begin{align}\label{eq:Pauli}
+    \begin{split}
+        \sigma ^{1}={\begin{pmatrix}0&1\\1&0\end{pmatrix}},\quad 
+        \sigma ^{2}={\begin{pmatrix}0&-i\\i&0\end{pmatrix}},\quad 
+        \sigma ^{3}={\begin{pmatrix}1&0\\0&-1\end{pmatrix}}
+    \end{split}
+\end{align} 
+The structure constants are the Levi-Civita $f^{abc}=\epsilon^{ijk}$. Where $i,j,k\in[1,2,3]$.
 The Weak theory gives us the gauge freedoms of
 $$
 \psi \rightarrow \left(1+i \alpha^i \sigma^i + \mathcal{O}(\alpha^2)\right) \psi
@@ -90,7 +99,7 @@ If one were to apply Noether's theorem on this Lagrangian we would get that two 
 
 
 \section{Quantum Chromodynamics}
-Using the Yang-Mills Lagrangian from Eq. (\ref{eq:YM_lag}) on an $SU(3)$, choosing $t^a =\frac{\lambda^a}{2}$, where $\lambda^a$, the \textit{Gell-Mann matrices}, are the equivalent of the SU(2) Pauli matrices:
+Using the Yang-Mills Lagrangian from Eq. (\ref{eq:YM_lag}) on an $SU(3)$, choosing $t^a =\frac{\lambda^a}{2}$, where $\lambda^a$, the \textit{Gell-Mann matrices}, are the $SU(3)$ equivalent of the $SU(2)$ Pauli matrices:
 \begin{align}\label{eq:Gell-Mann}
     \begin{split}
         \lambda ^{1}={\begin{pmatrix}0&1&0\\1&0&0\\0&0&0\end{pmatrix}},\quad 
@@ -103,7 +112,7 @@ Using the Yang-Mills Lagrangian from Eq. (\ref{eq:YM_lag}) on an $SU(3)$, choosi
         \lambda ^{8}={\frac {1}{\sqrt {3}}}{\begin{pmatrix}1&0&0\\0&1&0\\0&0&-2\end{pmatrix}}
     \end{split}
 \end{align} 
-as the structure constant has to obey Eq. (\ref{eq:struc_const}) we get 
+The structure constant have to obey Eq. (\ref{eq:struc_const}), thus we get 
 \begin{align*}
     f^{123}=1\\
     f^{147}=-f^{156}=f^{246}=f^{257}=f^{345}=-f^{367}={\frac{1}{2}}\\
