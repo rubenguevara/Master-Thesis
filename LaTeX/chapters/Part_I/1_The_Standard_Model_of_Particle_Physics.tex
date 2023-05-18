@@ -63,7 +63,7 @@ The difference between the Yang-Mills and the QED Lagrangian is most noticeable 
 $$
 F_{\mu\nu}^a = \partial_\mu A_\nu^a -\partial_\nu A_\mu^a +gf^{abc}A_\mu^b A_\nu^c
 $$
-Adding all of this up we get the following Lagrangian
+Where the last term takes into account the \textit{self interaction} of bosons. Adding all of this up we get the following Lagrangian
 \begin{equation}\label{eq:YM_lag}
     \mathcal{L}_{YM} = \overline{f}\left(i\slashed{D} -m\right)f -\frac{1}{4}(F^a_{\mu\nu})^2
 \end{equation}
@@ -89,13 +89,22 @@ Using the Yang-Mills Lagrangian from Eq. (\ref{eq:YM_lag}) on $SU(2)$, choosing 
 The structure constants are the Levi-Civita $f^{abc}=\epsilon^{ijk}$. Where $i,j,k\in[1,2,3]$.
 The Weak theory gives us the gauge freedoms of
 $$
-\psi \rightarrow \left(1+i \alpha^i \sigma^i + \mathcal{O}(\alpha^2)\right) \psi
+f \rightarrow \left(1+i \alpha^i \sigma^i + \mathcal{O}(\alpha^2)\right) f
 $$ 
 Using the notation of $A_\mu\rightarrow W_\mu$ we get that there are $2^2-1$, meaning three vector fields 
 $$
 W_\mu^i \rightarrow W^i_\mu +\frac{1}{g}\partial_\mu\alpha^i +\epsilon^{ijk}W_\mu^j\alpha^k
 $$
-If one were to apply Noether's theorem on this Lagrangian we would get that two quantities are conserves, the \textit{hypercharge} and \textit{isospin}.
+If one were to apply Noether's theorem on this Lagrangian we would get that two quantities are conserved, the \textit{hypercharge} and \textit{isospin}. In this theory we have isospin doublets, meaning 
+$$
+f=\begin{pmatrix}
+    f_1\\f_2
+\end{pmatrix}
+\rightarrow \begin{pmatrix}
+    U\\D
+\end{pmatrix}
+$$
+For \textit{up and down type} particles.
 
 
 \section{Quantum Chromodynamics}
@@ -155,9 +164,8 @@ where $H$ is real scalar field, expands the potential to be
     V(H) =\frac{1}{2}m_H^2H^2 + \frac{1}{2v}m_H^2H^3 +\frac{1}{8v^2}m_H^2H^4
 \end{equation}
 where we have used that $m_H = \sqrt{2\lambda}v$. This potential is the so-called \textit{Sombrero potential}, and we can reveal that this scalar field $H$ is the Higgs boson. 
-The consequences of writing our complex scalar field using Eq. (\ref{eq:Higgs}) comes when from the shape of the potential\todo{Should I add a figure?}, this gives rise to the mass of particles. The SSB comes from the fact that the fields have two minima 
-on the potential but can move around in a higher dimensional space (around the sombrero edge) to get to the other minima. To explicitly show how this SSB phenomena gives mass to particles one can do a unitary gauge transformation of the scalar field, and 
-this would add mass terms to every particle that interacts with the Higgs field on the Lagrangian.\\
+The consequences of writing our complex scalar field using Eq. (\ref{eq:Higgs}) comes when from the shape of the potential, this gives rise to the mass of particles. The SSB comes from the fact that the fields have two minima 
+on the potential but can move around in a higher dimensional space (around the sombrero edge) to get to the other minima.\\
 \\Another thing that follows from Eq. (\ref{eq:Higgs}) is that expanding on Eq. (\ref{eq:covar_higgs}) gives rise (after a lot of math) to the following relations
 \begin{equation}\label{eq:W_boson}
     W_\mu^\pm = \frac{W_\mu^1 \mp iW_\mu^2}{\sqrt{2}}
@@ -168,17 +176,18 @@ this would add mass terms to every particle that interacts with the Higgs field 
 \begin{equation}\label{eq:photon}
     A_\mu = \frac{gB_\mu - eW_\mu^3}{\sqrt{g^2+e^2}}
 \end{equation}
-These are the $W$ and $Z$ boson as well as the photon, respectively. It also adds an extra term on the Lagrangian called the $Yukawa$ Lagrangian
+These are the $W$ and $Z$ boson as well as the photon, respectively. To explicitly show how the SSB phenomena gives mass to every other particle, one can compute the unitary gauge transformation of the scalar field, 
+this adds an extra term on the Lagrangian called the $Yukawa$ Lagrangian
 $$
 \mathcal{L}_{YU} = \psi_i y_{ij}\psi_j\phi = \overline{U}_L G_u U_R \phi^0 + \overline{D}_L G_u U_R \phi^- \overline{U}_L G_D D_R \phi^+ \overline{D}_L G_u D_R \phi^0
 $$
-where $G_{u,d}$ is the Yukawa coupling and as we are looking at a complex scalar field in the $SU(2)$ representation we have from the Yang-Mills theory that we can write
+where $G_{u,d}$ are the Yukawa couplings. As we are looking at a complex scalar field in the $SU(2)$ representation we have from the Yang-Mills theory that we can write
 $$
 f=\begin{pmatrix}
     U\\D
 \end{pmatrix}
 $$
-where $U,D$ is the field \textit{up and down} spinor. For example this can be the quark two component spinor $Q = \begin{pmatrix}
+where $U,D$ is the field \textit{up and down type} spinor. For example this can be the first generation quark two component spinor $Q = \begin{pmatrix}
     u\\ d
 \end{pmatrix}$ consisting of the $up$ and $down$ quark. The standard for weak interactions is to define $right$ and $left$ handed helicity using the operators 
 $$
@@ -239,7 +248,7 @@ where $E_i$ is the energy of the particle and $a_i,b_i$ and $a^\dagger_i,b^\dagg
 $$
 \psi \equiv\int\frac{d^3p}{(2\pi)^3}\frac{1}{\sqrt{2E_\mathbf{p}}}\left(\sum_sa^s_\mathbf{p}u^s(p)e^{-ip\cdot x}+b^{s\dagger}_\mathbf{p}v^s(p)e^{ip\cdot x}\right) =\psi^+_p+\psi^-_p
 $$
-where depending on $\psi^+$ (for $u(p)$) and $\psi^-$ (for $v(p)$) are the particle and antiparticle fields\todo{Check if that is the real name}, respectively. It is standard convention to say that ingoing particles and anti-particles 
+Where, depending on $\psi^+$ (for $u(p)$) and $\psi^-$ (for $v(p)$) are the particle and antiparticle fields \textbf{Is this the real name}, respectively. It is standard convention to say that ingoing particles and anti-particles 
 on an interaction are written as $\psi^+$ and $\overline{\psi}^-$, respectively, and their hermitian conjugate when they are outgoing. With this information we can connect the initial and final particles to their fields, solving the bra we have
 $$
 \bra{e^-e^+}\overline{\psi}(x)\psi(x) = (2\sqrt{E_pE_k})\bra{0}a_{p}b^\dagger_{k}\overline{\psi}^-_{k'}\psi^+_{p'},
@@ -260,7 +269,7 @@ Giving us
 $$
 (2\pi)^4\delta^{(4)}(p_1+p_2-p'_1-p'_2)\overline{v}(p_1)\gamma^\mu u(p_2) \frac{g_{\mu\nu}}{q^2}\overline{u}(p'_1)\gamma^\nu v(p'_2)
 $$
-we can relate the scattering amplitude to a variable called the \textit{matrix amplitude}\todo{Is this the real name}, $\mathcal{M}_{fi}$ by using 
+we can relate the scattering amplitude to a variable called the \textit{matrix amplitude} \textbf{Is this the real name}, $\mathcal{M}_{fi}$ by using 
 $$
 \bra{f}\mathcal{S}\ket{i} = i(2\pi)^4\delta^{(4)}\left(\sum_i p_i -\sum_f p_f\right)\mathcal{M}_{fi}
 $$
@@ -345,7 +354,7 @@ All of this is great at explaining what we know so far, which is depicted in Fig
     \includegraphics[width=0.75\textwidth]{SM.jpeg}
     \caption[The Standard Model]{The Standard Model of particle physics. Image taken from Wikipedia \textbf{[how to cite]}}\label{fig:SM}
 \end{figure}
-\\From Figure \ref{fig:SM} we can see all the particles on the standard model. These include the quarks $u,d,c,s,t$ and $b$, the leptons $e,\mu$ and $\tau$ as well as their neutrino partner\footnote{Since neutrinos only interact via the weak force it is only present in a field doublet}, the carrier of the strong force $g$, the carriers of the weak force $W^\pm$ and $Z$, 
+\\From Figure \ref{fig:SM} we can see all the particles of the standard model. These include the quarks $u,d,c,s,t$ and $b$, the leptons $e,\mu$ and $\tau$ as well as their neutrino partners, the carrier of the strong force $g$, the carriers of the weak force $W^\pm$ and $Z$, 
 the carrier of the electromagnetic force $\gamma$ and the Higgs boson $H$. From the figure we can also see which particles can interact with each of the bosons. \\
 \\These are the building blocks of nature, as mesons, subatomic particles consisting of two quarks, and baryons, meaning subatomic particles consisting of three quarks (such as the proton and neutron) can further build atoms with electrons to furthermore create chemistry via 
 quantum mechanical processes. 
