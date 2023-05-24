@@ -228,7 +228,7 @@ Quantum ML, but as of today we are still in an early stage of the technology \ci
 the signal and background are made is by Monte Carlo (MC) simulations, such that we can more easily identify SM background from DM and then compare our results with real data. As it wouldn't be a real experimental physics discovery without making a statistical 
 analysis of the results we will also explain how we utilize this tool. To guide us through this process I will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the success of this method.
 
-\subsection{Cut and count}
+\subsection{Cut and count method}
 The cut and count method is what is currently the standard method of doing data analysis with CERN related research\footnote{This standard method is shifting towards machine learning}. As the name implies, the cut and count method works by making cuts on kinematical variables and afterwards counting how many events are left. 
 The goal of using this method is to make cuts such that we remove as many background events as possible while also keeping as many signal events as possible. For example, if we were to study a new physics model with a new light vector boson behaving similarly to the $Z$ boson, but with a higher mass, 
 then a good kinematical cut to remove many background processes would be to require that $m_{ll}>100$ GeV, as this would remove the majority of $Z$-resonance from the final state, making it easier to "find" the new physics model. \\
@@ -253,7 +253,7 @@ The results of the 2012 discovery is shown Figure \ref{fig:Higgs_ZZ}.\\
 Not to mention the state-of-the-art technology to be able to be to both accelerate the protons to an energy high enough to "create" new physics, and to actually be able to detect it. But this alone was not enough to claim the discovery, as we're physicist we need 
 to be completely sure that what we show is true. We do this with statistics which is the next section.
 \clearpage
-\subsection{Statistical analysis}\label{sec:stat_anal}
+\subsection{Statistical tools}\label{sec:stat_anal}
 To make any sort of claim in modern physics we should be absolutely certain that what we are claiming is true, as just making the cuts and isolating a signal to background is not enough. To be specific we need to be \textit{at least $5\sigma$ sure} to claim any new discoveries. 
 But as not everything in experimental high energy particle physics is a new discovery, but is in fact for the most part \textit{exclusions}. Then we need to explain what an exclusion is, and how to make them. \\ 
 \\This thesis is following Bugge's lecture notes on statistics [\textbf{Question: how do I cite his powerpoint from FYS5555}] and the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
