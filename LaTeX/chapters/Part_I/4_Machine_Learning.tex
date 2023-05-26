@@ -16,7 +16,7 @@ our dataset containing $n$ \textit{features} for each event $m$, and is of the f
         x_{1m} & x_{2m} & x_{3m} & \cdots & x_{nm}\\  
     \end{pmatrix}    
 \end{equation}
-This project will only focus on Supervised Learning, meaning that we know what the output is a binary representation of signal and background, such that we can use target values $\bm{t}$. 
+This project will only focus on Supervised Learning, meaning that we know that the output is a binary representation of signal and background, such that we can use target values $\bm{t}$. 
 Then we give the network a score depending on how close the predicted output is to real values $\bm t $. Then we repeat the process after tweaking the parameters $\bm \beta $ and see if the score gets better.\\
 \\To this end, we will first provide a mathematical foundation for ML, starting with a brief overview of the different types of ML algorithms we will study, such as Neural Networks (NN) and Boosted Decision Trees (BDT). 
 Other aspects such as the importance of feature selection and feature engineering in preparing the data for ML algorithms, as well as the concept of model evaluation and optimization will be discussed in Chapter \ref{chap:Method_ML}.
@@ -47,13 +47,12 @@ to tell (the network) whether it predicted correctly or wrong. We can then use a
 Seeing how the results fare we can then back-propagate to shift the weights and biases and repeat the process until we are satisfied with our result. Each of these iterations is called an epoch.\\
 \\To generalize our artificial neuron to a whole network we can look at a Multilayer Perceptron (MLP). An MLP is a network consisting of at least three layers of neurons, the input, one or more hidden layers, and an output. 
 The number of neurons can vary for each layer. The above explanation is a very dense and simplified one. In reality, it is complicated to find out which cost function, activation function, metric, etc. are best suited to the given problem. 
-But before we get into the gory details we can explore the mathematical model that illustrates what was tried to be explained above. 
+But before we get into the gory details we can explore the mathematical model that illustrates what was explained above. 
 
 \subsection{Optimizers}\label{sec:SGD}
 The way we "tweak the parameters $\bm \beta $ to see if the network prediction gets better" is by using something called an \textit{optimizer}. We will mainly focus on the theory behind the \textit{Stochastic Gradient Descent} (SDG) optimizer as it is more easy to digest. Before explaining the SDG we have to look at the Gradient Descent (GD). \\
 \\Given a cost function $C(\bm{\beta})$ we can get closer to the minimum by calculating the gradient $\nabla_{\beta}C(\bm{\beta})$ wrt. the unknown parameters from the NN $\bm\beta$. If we were to calculate the gradient at a specific 
-point $\bm{\beta}_i$ in the parameter space, the negative gradient would correspond to the direction where a small change $d\bm\beta$ in this parameter space would result in the biggest decrease in the cost function. 
-In the same way we in physics would determine where the local (or global) minima at a complex multidimensional potential numerically. In GD, we can choose (which needs to be optimized) a step size $\eta$ related to the size of an iteration in the parameter space; 
+point $\bm{\beta}_i$ in the parameter space, the negative gradient would correspond to the direction where a small change $d\bm\beta$ in this parameter space would result in the biggest decrease in the cost function, in the same way we in physics would determine where the local (or global) minima is in a complex multidimensional potential numerically. In GD, we can choose (which needs to be optimized) a step size $\eta$ related to the size of an iteration in the parameter space; 
 this is called the \textit{learning rate}. The mathematical function for an iteration in parameter space to optimize the parameter $\bm{\beta}$ such that it minimizes the cost function is given as
 \begin{equation}\label{eq:GD}
     \bm{\beta}_{i+1}=\bm{\beta}_{i} -\eta\nabla_{\beta}C(\bm{\beta}_i)
@@ -76,7 +75,7 @@ The first one is a sigmoid activation function
 \begin{equation}\label{eq:sig}
     f(x) = \frac{1}{1+e^{-x}}
 \end{equation}
-which is the most basic activation function, this will be used from the input layer to our fist hidden layer as the risks of having little neuron activation is minimal here. On all other layers we will utilize a Rectified Linear Unit (ReLU)
+which is the most basic activation function, this will be used from the input layer to our first hidden layer as the risks of having little neuron activation is minimal here. On all other layers we will utilize a Rectified Linear Unit (ReLU)
 \begin{equation}\label{eq:ReLU}
     f(x) = x^+ = \text{max}(0,x) = \begin{cases}x&{\text{if }}x>0,\\0.&{\text{otherwise}}.\end{cases}
 \end{equation}
@@ -120,174 +119,173 @@ task by for example utilizing \verb|TensorFlow| \cite{TensorFlow} or other mathe
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[x=0.5pt,y=0.5pt,yscale=-1,xscale=1]
-       %uncomment if require: \path (0,496); %set diagram left start at 0, and has height of 496
- 
-       %Straight Lines [id:da3125603624631026] 
-       \draw    (205.85,243.68) -- (456.31,453.44) ;
-       %Straight Lines [id:da4017136284587772] 
-       \draw    (44.71,124.36) -- (206.2,71.74) ;
-       %Straight Lines [id:da2227878135161746] 
-       \draw    (46.14,210.32) -- (207.63,157.71) ;
-       %Straight Lines [id:da35416891916640736] 
-       \draw    (45.42,296.29) -- (206.92,243.68) ;
-       %Straight Lines [id:da16193112504220186] 
-       \draw    (45.42,420.09) -- (206.2,329.65) ;
-       %Straight Lines [id:da3497039034753928] 
-       \draw    (44.71,124.36) -- (205.49,157.71) ;
-       %Straight Lines [id:da24573604202629373] 
-       \draw    (46.14,210.32) -- (206.92,243.68) ;
-       %Straight Lines [id:da01718938654762414] 
-       \draw    (45.42,296.29) -- (206.2,329.65) ;
-       %Straight Lines [id:da4694218304226967] 
-       \draw    (45.42,420.09) -- (206.2,453.44) ;
-       %Straight Lines [id:da6780505366621903] 
-       \draw    (44.71,124.36) -- (206.92,243.68) ;
-       %Straight Lines [id:da3700806633588325] 
-       \draw    (46.14,210.32) -- (208.35,329.65) ;
-       %Straight Lines [id:da7204661169538961] 
-       \draw    (45.42,296.29) -- (206.2,453.44) ;
-       %Straight Lines [id:da03352111792760715] 
-       \draw    (49.89,126.59) -- (206.2,329.65) ;
-       %Straight Lines [id:da7880697711535636] 
-       \draw    (44.71,124.36) -- (206.2,453.44) ;
-       %Straight Lines [id:da8177807044758987] 
-       \draw    (46.14,210.32) -- (206.2,453.44) ;
-       %Straight Lines [id:da5902292990985858] 
-       \draw    (49.89,210.5) -- (206.2,71.74) ;
-       %Straight Lines [id:da7293359024356544] 
-       \draw    (45.42,296.29) -- (206.2,71.74) ;
-       %Straight Lines [id:da8672682409124693] 
-       \draw    (45.42,420.09) -- (206.2,71.74) ;
-       %Straight Lines [id:da14015258542164877] 
-       \draw    (52.03,295.09) -- (205.49,157.71) ;
-       %Straight Lines [id:da6510778766409582] 
-       \draw    (45.42,420.09) -- (205.49,157.71) ;
-       %Straight Lines [id:da19048953930291812] 
-       \draw    (45.42,420.09) -- (205.85,243.68) ;
-       %Straight Lines [id:da5900414918521127] 
-       \draw    (205.52,72.77) -- (459.29,73.12) ;
-       %Straight Lines [id:da9923475282888197] 
-       \draw    (204.06,158.74) -- (459.29,73.12) ;
-       %Straight Lines [id:da6224502087859033] 
-       \draw    (206.98,244.71) -- (462.21,159.09) ;
-       %Straight Lines [id:da21387151774072322] 
-       \draw    (205.52,330.68) -- (460.75,245.05) ;
-       %Straight Lines [id:da40912543404428503] 
-       \draw    (205.52,454.47) -- (459.29,331.02) ;
-       %Straight Lines [id:da6756606943081097] 
-       \draw    (208.44,158.74) -- (462.21,159.09) ;
-       %Straight Lines [id:da16137493446626694] 
-       \draw    (206.98,244.71) -- (460.75,245.05) ;
-       %Straight Lines [id:da10150687813127202] 
-       \draw    (205.52,330.68) -- (459.29,331.02) ;
-       %Straight Lines [id:da0030866090013578207] 
-       \draw    (205.52,454.47) -- (459.29,454.82) ;
-       %Straight Lines [id:da5047969586038915] 
-       \draw    (206.98,244.71) -- (459.29,73.12) ;
-       %Straight Lines [id:da16781805884673007] 
-       \draw    (204.43,334.29) -- (459.29,73.12) ;
-       %Straight Lines [id:da5565130910620758] 
-       \draw    (205.52,454.47) -- (459.29,73.12) ;
-       %Straight Lines [id:da36371826499194726] 
-       \draw    (205.52,454.47) -- (462.21,159.09) ;
-       %Straight Lines [id:da11821496918512042] 
-       \draw    (205.52,330.68) -- (462.21,159.09) ;
-       %Straight Lines [id:da7692636391915034] 
-       \draw    (205.52,72.77) -- (457.83,159.09) ;
-       %Straight Lines [id:da6770318174394677] 
-       \draw    (208.44,158.74) -- (460.75,245.05) ;
-       %Straight Lines [id:da9309923147992141] 
-       \draw    (206.98,244.71) -- (459.29,331.02) ;
-       %Straight Lines [id:da7413198534186101] 
-       \draw    (213.18,73.63) -- (460.75,245.05) ;
-       %Straight Lines [id:da26068921273410117] 
-       \draw    (213.18,73.63) -- (459.29,331.02) ;
-       %Straight Lines [id:da8585525579192329] 
-       \draw    (205.52,72.77) -- (459.29,454.82) ;
-       %Straight Lines [id:da2270863173532055] 
-       \draw    (213.18,162.87) -- (459.29,454.82) ;
-       %Straight Lines [id:da5864780819119888] 
-       \draw    (205.52,330.68) -- (459.29,454.82) ;
-       %Straight Lines [id:da16348930210331503] 
-       \draw    (205.52,454.47) -- (460.75,245.05) ;
-       %Straight Lines [id:da2425074417898001] 
-       \draw    (208.44,158.74) -- (459.29,331.02) ;
-       %Straight Lines [id:da13422732156968453] 
-       \draw    (456.31,71.74) -- (617.09,259.84) ;
-       %Straight Lines [id:da7308781194762678] 
-       \draw    (457.74,157.71) -- (617.09,259.84) ;
-       %Straight Lines [id:da5359704776892366] 
-       \draw    (457.02,243.68) -- (617.09,259.84) ;
-       %Straight Lines [id:da3406152128273612] 
-       \draw    (456.31,329.65) -- (617.09,259.84) ;
-       %Straight Lines [id:da14904168253418448] 
-       \draw    (456.31,453.44) -- (617.09,259.84) ;
-       %Shape: Ellipse [id:dp8560274429988182] 
-       \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (8.8,124.36) .. controls (8.8,105.27) and (24.88,89.8) .. (44.71,89.8) .. controls (64.54,89.8) and (80.62,105.27) .. (80.62,124.36) .. controls (80.62,143.44) and (64.54,158.91) .. (44.71,158.91) .. controls (24.88,158.91) and (8.8,143.44) .. (8.8,124.36) -- cycle ;
-       %Shape: Ellipse [id:dp5971121909630736] 
-       \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (10.23,210.32) .. controls (10.23,191.24) and (26.31,175.76) .. (46.14,175.76) .. controls (65.97,175.76) and (82.05,191.24) .. (82.05,210.32) .. controls (82.05,229.41) and (65.97,244.88) .. (46.14,244.88) .. controls (26.31,244.88) and (10.23,229.41) .. (10.23,210.32) -- cycle ;
-       %Shape: Ellipse [id:dp024903598729203225] 
-       \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (9.51,296.29) .. controls (9.51,277.21) and (25.59,261.73) .. (45.42,261.73) .. controls (65.25,261.73) and (81.33,277.21) .. (81.33,296.29) .. controls (81.33,315.38) and (65.25,330.85) .. (45.42,330.85) .. controls (25.59,330.85) and (9.51,315.38) .. (9.51,296.29) -- cycle ;
-       %Shape: Ellipse [id:dp2752980849146809] 
-       \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (9.51,420.09) .. controls (9.51,401) and (25.59,385.53) .. (45.42,385.53) .. controls (65.25,385.53) and (81.33,401) .. (81.33,420.09) .. controls (81.33,439.17) and (65.25,454.64) .. (45.42,454.64) .. controls (25.59,454.64) and (9.51,439.17) .. (9.51,420.09) -- cycle ;
- 
-       %Shape: Ellipse [id:dp22212680764969794] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.01,71.06) .. controls (171.01,51.97) and (187.09,36.5) .. (206.92,36.5) .. controls (226.75,36.5) and (242.83,51.97) .. (242.83,71.06) .. controls (242.83,90.14) and (226.75,105.61) .. (206.92,105.61) .. controls (187.09,105.61) and (171.01,90.14) .. (171.01,71.06) -- cycle ;
-       %Shape: Ellipse [id:dp31615925311964466] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (170.3,157.02) .. controls (170.3,137.94) and (186.37,122.46) .. (206.2,122.46) .. controls (226.04,122.46) and (242.11,137.94) .. (242.11,157.02) .. controls (242.11,176.11) and (226.04,191.58) .. (206.2,191.58) .. controls (186.37,191.58) and (170.3,176.11) .. (170.3,157.02) -- cycle ;
-       %Shape: Ellipse [id:dp763257580789] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.73,242.99) .. controls (171.73,223.9) and (187.8,208.43) .. (207.63,208.43) .. controls (227.47,208.43) and (243.54,223.9) .. (243.54,242.99) .. controls (243.54,262.08) and (227.47,277.55) .. (207.63,277.55) .. controls (187.8,277.55) and (171.73,262.08) .. (171.73,242.99) -- cycle ;
-       %Shape: Ellipse [id:dp41332126656266754] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.01,328.96) .. controls (171.01,309.87) and (187.09,294.4) .. (206.92,294.4) .. controls (226.75,294.4) and (242.83,309.87) .. (242.83,328.96) .. controls (242.83,348.05) and (226.75,363.52) .. (206.92,363.52) .. controls (187.09,363.52) and (171.01,348.05) .. (171.01,328.96) -- cycle ;
-       %Shape: Ellipse [id:dp3269904901419234] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (170.3,453.44) .. controls (170.3,434.35) and (186.37,418.88) .. (206.2,418.88) .. controls (226.04,418.88) and (242.11,434.35) .. (242.11,453.44) .. controls (242.11,472.53) and (226.04,488) .. (206.2,488) .. controls (186.37,488) and (170.3,472.53) .. (170.3,453.44) -- cycle ;
-       %Shape: Ellipse [id:dp43598218516443177] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,71.74) .. controls (420.4,52.66) and (436.48,37.18) .. (456.31,37.18) .. controls (476.14,37.18) and (492.22,52.66) .. (492.22,71.74) .. controls (492.22,90.83) and (476.14,106.3) .. (456.31,106.3) .. controls (436.48,106.3) and (420.4,90.83) .. (420.4,71.74) -- cycle ;
-       %Shape: Ellipse [id:dp5839593265260355] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (419.69,157.71) .. controls (419.69,138.62) and (435.76,123.15) .. (455.6,123.15) .. controls (475.43,123.15) and (491.5,138.62) .. (491.5,157.71) .. controls (491.5,176.8) and (475.43,192.27) .. (455.6,192.27) .. controls (435.76,192.27) and (419.69,176.8) .. (419.69,157.71) -- cycle ;
-       %Shape: Ellipse [id:dp5046190422661424] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (421.12,243.68) .. controls (421.12,224.59) and (437.19,209.12) .. (457.02,209.12) .. controls (476.86,209.12) and (492.93,224.59) .. (492.93,243.68) .. controls (492.93,262.77) and (476.86,278.24) .. (457.02,278.24) .. controls (437.19,278.24) and (421.12,262.77) .. (421.12,243.68) -- cycle ;
-       %Shape: Ellipse [id:dp04717464708306185] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,329.65) .. controls (420.4,310.56) and (436.48,295.09) .. (456.31,295.09) .. controls (476.14,295.09) and (492.22,310.56) .. (492.22,329.65) .. controls (492.22,348.73) and (476.14,364.21) .. (456.31,364.21) .. controls (436.48,364.21) and (420.4,348.73) .. (420.4,329.65) -- cycle ;
-       %Shape: Ellipse [id:dp9408343992389916] 
-       \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,453.44) .. controls (420.4,434.35) and (436.48,418.88) .. (456.31,418.88) .. controls (476.14,418.88) and (492.22,434.35) .. (492.22,453.44) .. controls (492.22,472.53) and (476.14,488) .. (456.31,488) .. controls (436.48,488) and (420.4,472.53) .. (420.4,453.44) -- cycle ;
-       %Shape: Ellipse [id:dp47294074537144504] 
-       \draw  [fill={rgb, 255:red, 209; green, 132; blue, 132 }  ,fill opacity=1 ] (581.18,259.84) .. controls (581.18,240.75) and (597.26,225.28) .. (617.09,225.28) .. controls (636.92,225.28) and (653,240.75) .. (653,259.84) .. controls (653,278.93) and (636.92,294.4) .. (617.09,294.4) .. controls (597.26,294.4) and (581.18,278.93) .. (581.18,259.84) -- cycle ;
-       % Text Node
-       \draw (50,340) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
-       % Text Node
-       \draw (210,371) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
-       % Text Node
-       \draw (460,371) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
-       % Text Node
-       \draw (312,420) node [anchor=north west][inner sep=0.75pt]  [rotate=0] [align=left] {. . .};
-       % Text Node
-       \draw (22,30) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 198; green, 235; blue, 167 }  ,opacity=1 ] [align=left] {\begin{minipage}[lt]{22.16pt}\setlength\topsep{0pt}
-       \begin{center}
-       {\scriptsize \textcolor[rgb]{0.7,0.83,0.59}{\textbf{input\\layer}}}
-       \end{center}
- 
-       \end{minipage}};
-       % Text Node
-       \draw (270.19,36.82) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\scriptsize \textcolor[rgb]{0.51,0.64,0.79}{\textbf{hidden layer(s)}}}};
-       % Text Node
-       \draw (590.42,160.07) node [anchor=north west][inner sep=0.75pt]   [align=left] {\begin{minipage}[lt]{26.92pt}\setlength\topsep{0pt}
-       \begin{center}
-       {\scriptsize \textbf{\textcolor[rgb]{0.75,0.49,0.49}{output\\layer}}}
-       \end{center}
- 
-       \end{minipage}};
-       % Text Node
-    %    \draw (80.17,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
-       % Text Node
-    %    \draw (295.11,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
-       % Text Node
-    %    \draw (528.6,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = Sigmoid}};
- 
- 
-    \end{tikzpicture}
-    \caption[Basic Neural Network Illustration]{Basic illustration of a network with two hidden layers.}
-    \label{fig:FFN}
+        %uncomment if require: \path (0,496); %set diagram left start at 0, and has height of 496
+  
+        %Straight Lines [id:da3125603624631026] 
+        \draw    (205.85,243.68) -- (456.31,453.44) ;
+        %Straight Lines [id:da4017136284587772] 
+        \draw    (44.71,124.36) -- (206.2,71.74) ;
+        %Straight Lines [id:da2227878135161746] 
+        \draw    (46.14,210.32) -- (207.63,157.71) ;
+        %Straight Lines [id:da35416891916640736] 
+        \draw    (45.42,296.29) -- (206.92,243.68) ;
+        %Straight Lines [id:da16193112504220186] 
+        \draw    (45.42,420.09) -- (206.2,329.65) ;
+        %Straight Lines [id:da3497039034753928] 
+        \draw    (44.71,124.36) -- (205.49,157.71) ;
+        %Straight Lines [id:da24573604202629373] 
+        \draw    (46.14,210.32) -- (206.92,243.68) ;
+        %Straight Lines [id:da01718938654762414] 
+        \draw    (45.42,296.29) -- (206.2,329.65) ;
+        %Straight Lines [id:da4694218304226967] 
+        \draw    (45.42,420.09) -- (206.2,453.44) ;
+        %Straight Lines [id:da6780505366621903] 
+        \draw    (44.71,124.36) -- (206.92,243.68) ;
+        %Straight Lines [id:da3700806633588325] 
+        \draw    (46.14,210.32) -- (208.35,329.65) ;
+        %Straight Lines [id:da7204661169538961] 
+        \draw    (45.42,296.29) -- (206.2,453.44) ;
+        %Straight Lines [id:da03352111792760715] 
+        \draw    (49.89,126.59) -- (206.2,329.65) ;
+        %Straight Lines [id:da7880697711535636] 
+        \draw    (44.71,124.36) -- (206.2,453.44) ;
+        %Straight Lines [id:da8177807044758987] 
+        \draw    (46.14,210.32) -- (206.2,453.44) ;
+        %Straight Lines [id:da5902292990985858] 
+        \draw    (49.89,210.5) -- (206.2,71.74) ;
+        %Straight Lines [id:da7293359024356544] 
+        \draw    (45.42,296.29) -- (206.2,71.74) ;
+        %Straight Lines [id:da8672682409124693] 
+        \draw    (45.42,420.09) -- (206.2,71.74) ;
+        %Straight Lines [id:da14015258542164877] 
+        \draw    (52.03,295.09) -- (205.49,157.71) ;
+        %Straight Lines [id:da6510778766409582] 
+        \draw    (45.42,420.09) -- (205.49,157.71) ;
+        %Straight Lines [id:da19048953930291812] 
+        \draw    (45.42,420.09) -- (205.85,243.68) ;
+        %Straight Lines [id:da5900414918521127] 
+        \draw    (205.52,72.77) -- (459.29,73.12) ;
+        %Straight Lines [id:da9923475282888197] 
+        \draw    (204.06,158.74) -- (459.29,73.12) ;
+        %Straight Lines [id:da6224502087859033] 
+        \draw    (206.98,244.71) -- (462.21,159.09) ;
+        %Straight Lines [id:da21387151774072322] 
+        \draw    (205.52,330.68) -- (460.75,245.05) ;
+        %Straight Lines [id:da40912543404428503] 
+        \draw    (205.52,454.47) -- (459.29,331.02) ;
+        %Straight Lines [id:da6756606943081097] 
+        \draw    (208.44,158.74) -- (462.21,159.09) ;
+        %Straight Lines [id:da16137493446626694] 
+        \draw    (206.98,244.71) -- (460.75,245.05) ;
+        %Straight Lines [id:da10150687813127202] 
+        \draw    (205.52,330.68) -- (459.29,331.02) ;
+        %Straight Lines [id:da0030866090013578207] 
+        \draw    (205.52,454.47) -- (459.29,454.82) ;
+        %Straight Lines [id:da5047969586038915] 
+        \draw    (206.98,244.71) -- (459.29,73.12) ;
+        %Straight Lines [id:da16781805884673007] 
+        \draw    (204.43,334.29) -- (459.29,73.12) ;
+        %Straight Lines [id:da5565130910620758] 
+        \draw    (205.52,454.47) -- (459.29,73.12) ;
+        %Straight Lines [id:da36371826499194726] 
+        \draw    (205.52,454.47) -- (462.21,159.09) ;
+        %Straight Lines [id:da11821496918512042] 
+        \draw    (205.52,330.68) -- (462.21,159.09) ;
+        %Straight Lines [id:da7692636391915034] 
+        \draw    (205.52,72.77) -- (457.83,159.09) ;
+        %Straight Lines [id:da6770318174394677] 
+        \draw    (208.44,158.74) -- (460.75,245.05) ;
+        %Straight Lines [id:da9309923147992141] 
+        \draw    (206.98,244.71) -- (459.29,331.02) ;
+        %Straight Lines [id:da7413198534186101] 
+        \draw    (213.18,73.63) -- (460.75,245.05) ;
+        %Straight Lines [id:da26068921273410117] 
+        \draw    (213.18,73.63) -- (459.29,331.02) ;
+        %Straight Lines [id:da8585525579192329] 
+        \draw    (205.52,72.77) -- (459.29,454.82) ;
+        %Straight Lines [id:da2270863173532055] 
+        \draw    (213.18,162.87) -- (459.29,454.82) ;
+        %Straight Lines [id:da5864780819119888] 
+        \draw    (205.52,330.68) -- (459.29,454.82) ;
+        %Straight Lines [id:da16348930210331503] 
+        \draw    (205.52,454.47) -- (460.75,245.05) ;
+        %Straight Lines [id:da2425074417898001] 
+        \draw    (208.44,158.74) -- (459.29,331.02) ;
+        %Straight Lines [id:da13422732156968453] 
+        \draw    (456.31,71.74) -- (617.09,259.84) ;
+        %Straight Lines [id:da7308781194762678] 
+        \draw    (457.74,157.71) -- (617.09,259.84) ;
+        %Straight Lines [id:da5359704776892366] 
+        \draw    (457.02,243.68) -- (617.09,259.84) ;
+        %Straight Lines [id:da3406152128273612] 
+        \draw    (456.31,329.65) -- (617.09,259.84) ;
+        %Straight Lines [id:da14904168253418448] 
+        \draw    (456.31,453.44) -- (617.09,259.84) ;
+        %Shape: Ellipse [id:dp8560274429988182] 
+        \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (8.8,124.36) .. controls (8.8,105.27) and (24.88,89.8) .. (44.71,89.8) .. controls (64.54,89.8) and (80.62,105.27) .. (80.62,124.36) .. controls (80.62,143.44) and (64.54,158.91) .. (44.71,158.91) .. controls (24.88,158.91) and (8.8,143.44) .. (8.8,124.36) -- cycle ;
+        %Shape: Ellipse [id:dp5971121909630736] 
+        \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (10.23,210.32) .. controls (10.23,191.24) and (26.31,175.76) .. (46.14,175.76) .. controls (65.97,175.76) and (82.05,191.24) .. (82.05,210.32) .. controls (82.05,229.41) and (65.97,244.88) .. (46.14,244.88) .. controls (26.31,244.88) and (10.23,229.41) .. (10.23,210.32) -- cycle ;
+        %Shape: Ellipse [id:dp024903598729203225] 
+        \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (9.51,296.29) .. controls (9.51,277.21) and (25.59,261.73) .. (45.42,261.73) .. controls (65.25,261.73) and (81.33,277.21) .. (81.33,296.29) .. controls (81.33,315.38) and (65.25,330.85) .. (45.42,330.85) .. controls (25.59,330.85) and (9.51,315.38) .. (9.51,296.29) -- cycle ;
+        %Shape: Ellipse [id:dp2752980849146809] 
+        \draw  [fill={rgb, 255:red, 198; green, 235; blue, 167 }  ,fill opacity=1 ] (9.51,420.09) .. controls (9.51,401) and (25.59,385.53) .. (45.42,385.53) .. controls (65.25,385.53) and (81.33,401) .. (81.33,420.09) .. controls (81.33,439.17) and (65.25,454.64) .. (45.42,454.64) .. controls (25.59,454.64) and (9.51,439.17) .. (9.51,420.09) -- cycle ;
+  
+        %Shape: Ellipse [id:dp22212680764969794] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.01,71.06) .. controls (171.01,51.97) and (187.09,36.5) .. (206.92,36.5) .. controls (226.75,36.5) and (242.83,51.97) .. (242.83,71.06) .. controls (242.83,90.14) and (226.75,105.61) .. (206.92,105.61) .. controls (187.09,105.61) and (171.01,90.14) .. (171.01,71.06) -- cycle ;
+        %Shape: Ellipse [id:dp31615925311964466] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (170.3,157.02) .. controls (170.3,137.94) and (186.37,122.46) .. (206.2,122.46) .. controls (226.04,122.46) and (242.11,137.94) .. (242.11,157.02) .. controls (242.11,176.11) and (226.04,191.58) .. (206.2,191.58) .. controls (186.37,191.58) and (170.3,176.11) .. (170.3,157.02) -- cycle ;
+        %Shape: Ellipse [id:dp763257580789] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.73,242.99) .. controls (171.73,223.9) and (187.8,208.43) .. (207.63,208.43) .. controls (227.47,208.43) and (243.54,223.9) .. (243.54,242.99) .. controls (243.54,262.08) and (227.47,277.55) .. (207.63,277.55) .. controls (187.8,277.55) and (171.73,262.08) .. (171.73,242.99) -- cycle ;
+        %Shape: Ellipse [id:dp41332126656266754] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (171.01,328.96) .. controls (171.01,309.87) and (187.09,294.4) .. (206.92,294.4) .. controls (226.75,294.4) and (242.83,309.87) .. (242.83,328.96) .. controls (242.83,348.05) and (226.75,363.52) .. (206.92,363.52) .. controls (187.09,363.52) and (171.01,348.05) .. (171.01,328.96) -- cycle ;
+        %Shape: Ellipse [id:dp3269904901419234] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (170.3,453.44) .. controls (170.3,434.35) and (186.37,418.88) .. (206.2,418.88) .. controls (226.04,418.88) and (242.11,434.35) .. (242.11,453.44) .. controls (242.11,472.53) and (226.04,488) .. (206.2,488) .. controls (186.37,488) and (170.3,472.53) .. (170.3,453.44) -- cycle ;
+        %Shape: Ellipse [id:dp43598218516443177] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,71.74) .. controls (420.4,52.66) and (436.48,37.18) .. (456.31,37.18) .. controls (476.14,37.18) and (492.22,52.66) .. (492.22,71.74) .. controls (492.22,90.83) and (476.14,106.3) .. (456.31,106.3) .. controls (436.48,106.3) and (420.4,90.83) .. (420.4,71.74) -- cycle ;
+        %Shape: Ellipse [id:dp5839593265260355] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (419.69,157.71) .. controls (419.69,138.62) and (435.76,123.15) .. (455.6,123.15) .. controls (475.43,123.15) and (491.5,138.62) .. (491.5,157.71) .. controls (491.5,176.8) and (475.43,192.27) .. (455.6,192.27) .. controls (435.76,192.27) and (419.69,176.8) .. (419.69,157.71) -- cycle ;
+        %Shape: Ellipse [id:dp5046190422661424] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (421.12,243.68) .. controls (421.12,224.59) and (437.19,209.12) .. (457.02,209.12) .. controls (476.86,209.12) and (492.93,224.59) .. (492.93,243.68) .. controls (492.93,262.77) and (476.86,278.24) .. (457.02,278.24) .. controls (437.19,278.24) and (421.12,262.77) .. (421.12,243.68) -- cycle ;
+        %Shape: Ellipse [id:dp04717464708306185] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,329.65) .. controls (420.4,310.56) and (436.48,295.09) .. (456.31,295.09) .. controls (476.14,295.09) and (492.22,310.56) .. (492.22,329.65) .. controls (492.22,348.73) and (476.14,364.21) .. (456.31,364.21) .. controls (436.48,364.21) and (420.4,348.73) .. (420.4,329.65) -- cycle ;
+        %Shape: Ellipse [id:dp9408343992389916] 
+        \draw  [fill={rgb, 255:red, 143; green, 179; blue, 221 }  ,fill opacity=1 ] (420.4,453.44) .. controls (420.4,434.35) and (436.48,418.88) .. (456.31,418.88) .. controls (476.14,418.88) and (492.22,434.35) .. (492.22,453.44) .. controls (492.22,472.53) and (476.14,488) .. (456.31,488) .. controls (436.48,488) and (420.4,472.53) .. (420.4,453.44) -- cycle ;
+        %Shape: Ellipse [id:dp47294074537144504] 
+        \draw  [fill={rgb, 255:red, 209; green, 132; blue, 132 }  ,fill opacity=1 ] (581.18,259.84) .. controls (581.18,240.75) and (597.26,225.28) .. (617.09,225.28) .. controls (636.92,225.28) and (653,240.75) .. (653,259.84) .. controls (653,278.93) and (636.92,294.4) .. (617.09,294.4) .. controls (597.26,294.4) and (581.18,278.93) .. (581.18,259.84) -- cycle ;
+        % Text Node
+        \draw (50,340) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
+        % Text Node
+        \draw (210,371) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
+        % Text Node
+        \draw (460,371) node [anchor=north west][inner sep=0.75pt]  [rotate=-90] [align=left] {. . .};
+        % Text Node
+        \draw (312,420) node [anchor=north west][inner sep=0.75pt]  [rotate=0] [align=left] {. . .};
+        % Text Node
+        \draw (22,39.75) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 198; green, 235; blue, 167 }  ,opacity=1 ] [align=left] {\begin{minipage}[lt]{22.16pt}\setlength\topsep{0pt}
+        \begin{center}
+        {\scriptsize \textcolor[rgb]{0.7,0.83,0.59}{\textbf{input\\layer}}}
+        \end{center}
+  
+        \end{minipage}};
+        % Text Node
+        \draw (270.19,36.82) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\scriptsize \textcolor[rgb]{0.51,0.64,0.79}{\textbf{hidden layer(s)}}}};
+        % Text Node
+        \draw (590.42,160.07) node [anchor=north west][inner sep=0.75pt]   [align=left] {\begin{minipage}[lt]{26.92pt}\setlength\topsep{0pt}
+        \begin{center}
+        {\scriptsize \textbf{\textcolor[rgb]{0.75,0.49,0.49}{output\\layer}}}
+        \end{center}
+  
+        \end{minipage}};
+        % Text Node
+        \draw (80.17,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
+        % Text Node
+        \draw (295.11,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = ReLu}};
+        % Text Node
+        \draw (528.6,460) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\tiny f(x) = Sigmoid}};
+  
+  
+     \end{tikzpicture}
+    \caption[Basic Neural Network Illustration]{Basic illustration of a network with two hidden layers.}\label{fig:FFN}
 \end{figure}
 
 
@@ -397,17 +395,17 @@ such as distinguishing signal from background events. The idea of the BDTs used 
 In particular, in the ATLAS collaboration challenge \textit{The Higgs boson machine learning challenge} \cite{HiggsChallenge} the creation of a BDT package called \verb|XGBoost| \cite{XGBoost} increased the popularity even more as they won the challenge. 
 Today \verb|XGBoost| has become a standard ML tool used in the field.\\
 \\In this chapter, we will explore the theory behind BDTs in the context of \textit{extreme gradient boosting}, for this we are mainly interested in two ways of making DTs, a set of Classification And Regression Trees (CART). 
-The theory is mainly based of Hjort-Jensen's lecture notes \cite{MORTYY4, MORTYY5} and section 2 on the original \verb|XGBoost| paper \cite{XGBoost}.
+The theory is mainly based on Hjort-Jensen's lecture notes \cite{MORTYY4, MORTYY5} and section 2 on the original \verb|XGBoost| paper \cite{XGBoost}.
 \newpage
 \subsection{Decision trees}
-Starting with Decision Trees (DT) in the context of this DM search. The idea behind DTs is to find the most important features which contain the most information of signal (DM), and then split the dataset along the values of these features with the goal of creating a dataset containing pure signal. 
-As we are going to use kinematical variables as features we will use this to both augment and automate the classical cut and count method (Chapter \ref{sec:data_anal}), which is based of making kinematical cuts on the variables. To find which kinematical features are most important 
+Starting with Decision Trees (DT) in the context of this DM search. The idea behind DTs is to find the most important features which contain the most information about the signal (DM), and then split the dataset along the values of these features with the goal of creating a dataset containing pure signal. 
+As we are going to use kinematical variables as features we will use this to both augment and automate the classical cut and count method (Chapter \ref{sec:data_anal}), which is based on making kinematical cuts on the variables. To find which kinematical features are most important 
 in splitting the dataset we have to achieve a stopping criterion where we end up on a so-called \textit{leaf node}.\\
 \\A DT is typically divided into \textit{root nodes}, \textit{interior nodes} and a final \textit{leaf nodes}, also called leaves, which are all connected by \textit{branches}, hence the name decision \textit{tree}. As mentioned in the start of this chapter, we will look at two ways of making DTs, 
 the first one we will look at is the \textit{regression tree}. 
 
 \subsection{Regression trees}
-As previously mentioned the leaves contain the prediction of a trained network, and are used to make new predictions on new datasets based on the information the DT learning in the branching process. As how to construct trees, there are mainly two steps we need to follow:
+As previously mentioned the leaves contain the prediction of a trained network, and are used to make new predictions on new datasets based on the information of the DT learning in the branching process. As how to construct trees, there are mainly two steps we need to follow:
 \begin{enumerate}
     \item Split the predictor space (set of possible values $x_1,x_2,\cdots,x_p$) into $J$ distinct and non-overlapping regions, $R_1,R_2,\cdots,R_J$\todo{Is this too similar to 9.3 in \cite{MORTYY4}?}
     \item For every observation that falls into the region $R_j$, we make the same prediction, which is the mean of the response values for the training observations in $R_J$
@@ -418,7 +416,7 @@ $$
 \sum_{j=1}^{J}\sum_{i\in R_j}(y_i -\bar{y}_{R_j})^2
 $$
 where $\bar{y}_{R_j}$ is the mean response for the training observations withing box $j$. Ideally we would consider every possible partition of the feature space into $J$ boxes, but his is computationally infeasible. Thus, the common approach is to begin at the top of the tree, 
-where all observations belong to a single region, and then split the predictor space; where every split is indicated via two new branches down in the tree. This is greedy (as in \textit{Greedy Function Approximation} \cite{BDT_Friedman}) since the best split is mad in the first step, 
+where all observations belong to a single region, and then split the predictor space; where every split is indicated via two new branches down in the tree. This is greedy (as in \textit{Greedy Function Approximation} \cite{BDT_Friedman}) since the best split is made in the first step, 
 rather than looking ahead and picking a split that might lead to a better tree in a future step.\\ 
 To make any split we start by selecting the predictor $x_j$ and a cut point $s$ that splits the predictor space into two regions $R_1$ and $R_2$
 $$
@@ -437,7 +435,7 @@ For regression procedures, the algorithm, rather than considering every possible
 \begin{equation}\label{eq:REG_tree_Cost}
     \sum_{m=1}^{\bar{T}}\sum_{i:x_i\in R_m}(y_i -\bar{y}_{R_m})^2 + \alpha T
 \end{equation}
-is as small possible. In the equation above $T$ is the number of terminal nodes of the tree $T$, $R_m$ is the rectangle corresponding to the $m$-th terminal node. This tuning parameter $\alpha$ controls a trade-off between the subtree's complexity and its fit to the training data. 
+is as small as possible. In the equation above $T$ is the number of terminal nodes of the tree $T$, $R_m$ is the rectangle corresponding to the $m$-th terminal node. This tuning parameter $\alpha$ controls a trade-off between the subtree's complexity and its fit to the training data. 
 As $\alpha$ increases, the above equation will give us a higher value, meaning that our trees would normally prioritize less complex models. This procedure is repeated until we minimize Eq. (\ref{eq:REG_tree_Cost}) and choose a suitable value for $\alpha$. This is the essence of regression trees.
 
 \subsection{Classification trees}
@@ -466,7 +464,7 @@ $$
 
 \subsection{The CART algorithm} 
 As we are going to look at extreme gradient boosting, the main algorithm for this type of DT is the Classification And Regression Tree (CART). For classification, the CART algorithm splits the dataset in two subsets using a single feature $k$ and threshold $t_k$. This could for example be 
-a threshold set by a value of the invariant mass of an event we are trying to classify as background or signal. The way we optimize the pair $(k,t_k)$ such that we get the purest subset is by for example using the Gini factor $G$. With this the cost function tries to minimize
+a threshold set on the value of the invariant mass of an event we are trying to classify as background or signal. The way we optimize the pair $(k,t_k)$ such that we get the purest subset is by for example using the Gini factor $G$. With this the cost function tries to minimize
 $$
 C(k,t_k)=\frac{m_{left}}{m}G_{left}+\frac{m_{right}}{m}G_{right}
 $$
@@ -486,7 +484,7 @@ $$
 $$
 
 \subsection{Ensemble modeling and (extreme) gradient boosting}
-Now that we have explained how DTs work, we still need more information to get the full picture of \textit{Boosted} DTs. For this section of the chapter we. As we are going to look at a massive dataset, a single tree is not strong enough to be used in practice. What is actually used is the \textit{ensemble model}, which 
+Now that we have explained how DTs work, we still need more information to get the full picture of \textit{Boosted} DTs. As we are going to look at a massive dataset, a single tree is not strong enough to be used in practice. What is actually used is the \textit{ensemble model}, which 
 sums up the prediction of multiple trees together. What is important of these models is that the different trees we are summing together try to complement each other. For example if the first split on one tree is on the invariant mass of a dilepton pair, while on another tree it is the MET, 
 then we know physically that these are important features that DM + dilepton models have as a signature, meaning that it should be a good combination. Mathematically, we can write the prediction of an ensemble model in the form
 \begin{equation}\label{eq:ensemble}
@@ -524,7 +522,7 @@ Such that the specific objective at step $t$ becomes
 \begin{equation}\label{eq:new_obj}
     \sum_{i=1}^{n}\left[ g_i f_t(x_i) +\frac{1}{2}h_i f_t^2(x_i)\right] +\Omega(f_t)
 \end{equation}
-where we removed all constants. Such that Eq (\ref{eq:new_obj}) becomes the optimization goal for the new tree. As we can see the above equation can take into account any cost function as it is written in a general form with a Taylor expansion. Furthermore, we can rewrite this by expanding 
+where we removed all constants, such that Eq (\ref{eq:new_obj}) becomes the optimization goal for the new tree. As we can see the above equation can take into account any cost function as it is written in a general form with a Taylor expansion. Furthermore, we can rewrite this by expanding 
 $$
 \Omega(f_t) \rightarrow \alpha T + \frac{1}{2}\lambda\sum_{j=1}^{T} w_j^2 
 $$ 
@@ -549,7 +547,7 @@ So in short BDTs split datasets based on different values of the features on the
 \begin{figure}[!ht]
 	\centering
     \includegraphics[width=1\textwidth]{BDT_image.png}
-    \caption[Basic Decision Tree illustration]{Image showcasing how decision trees work by splitting a dataset of $N$ events with $M$ features whenever a threshold $X, Y$ or $Z$ for a feature is passed. The label $S$ and $B$ state whether the event is signal or background respectively.}\label{fig:DT_ilus}
+    \caption[Basic Decision Tree illustration]{Illustration showcasing how decision trees work by splitting a dataset of $N$ events with $M$ features whenever a threshold $X, Y$ or $Z$ for a feature is passed. The label $S$ and $B$ state whether the event is signal or background respectively.}\label{fig:DT_ilus}
 \end{figure}
 \\The above illustration just shows how one tree might work, in reality we can choose to have an arbitrary number of trees and combine their results with the ensembling and boosting method. Then after combining the generated tree structures we use Eq. (\ref{eq:opt_wgt_bdt}) and Eq. (\ref{eq:opt_obj_bdt}) 
 to minimize the objective to get the most accurate predictions as possible. 
@@ -600,7 +598,7 @@ This is so that less significant features still have some influence over the fin
 
 \subsection{Sample weight}\label{sec:sample_weight}
 A "sample weights" array is an array of numbers that specify how much weight each sample in a batch should have in computing the total loss. 
-It is commonly used in imbalanced classification problems (the idea being to give more weight to rarely-seen classes). Taken from the original documentation \cite{tf_sample_wgt}. To mathematically illustrate how this 
+It is commonly used in imbalanced classification problems (the idea being to give more weight to rarely-seen classes) \cite{tf_sample_wgt}. To mathematically illustrate how this 
 weight works is by multiplying a constant term $\chi$ into the cost/loss function that is used further on the error propagation. As an example we can extend the simple MSE, Eq. (\ref{eq:cost}) to
 \begin{equation}\label{eq:sample_weight}
     C(\hat{W})=\frac{1}{2}\sum_{i=1}^n\chi_i(y_i-t_i)^2
@@ -609,8 +607,8 @@ This will become an important feature when discussing network optimization in Ch
 
 
 \subsection{Area under the ROC-curve}
-To evaluate how well our networks do. We will use the accuracy, which literally tells us how many events it guessed right. But also take into account a more advanced metrics, this is the Area Under the "Receiver Operating Characteristic (ROC)" Curve (AUC). 
-Before explaining what the AUC is we first need to explore the ROC curves. The ROC curves helps us illustrate how successful a network is a \textit{binary classification} (only). The ROC curve, as the name states is a curve, where we plot the \textit{True Positive Rate} (TPR) against 
+To evaluate how well our networks do. We will use the accuracy, which literally tells us how many events it guessed right. But also take into account a more advanced metrics, this is the Area Under the "Receiver Operating Characteristic (ROC)" Curve (AUC). The theory for this section if based on the Wikipedia page \cite{roc_wikipedia}.
+Before explaining what the AUC is we first need to explore the ROC curves. The ROC curves helps us illustrate how successful a network is doing \textit{binary classification} (only). The ROC curve, as the name states, is a curve, where we plot the \textit{True Positive Rate} (TPR) against 
 the \textit{False Positive Rate} (FPR). The TPR is defined by dividing the \textit{True Positive} (TP), which is when the network correctly guesses a signal event to be a signal event, by the \textit{Positive} (P), which is the total number of signal events in the data. 
 $$
 \text{TPR} =\frac{\text{TP}}{\text{P}}
@@ -620,7 +618,7 @@ $$
 \text{FPR} =\frac{\text{FP}}{\text{N}}
 $$
 To get a numerical value of how well a network classifies data we thus calculate the AUC. The TP and the FP are both going to be predictions from the networks, which for this thesis will give an event a score from 0 to 1\footnote{Where 0 means that the network believes an event has 0\% chance of being a signal event, and 1 means that the networks believes with 100\% certainty that an event is a signal event.}, 
-meaning that if we had a perfect network which guesses everything correctly we would only get TPs and thus an AUC of 1. If we were to get an area of 0.5 this would mean that the network is randomly guessing whether an event is a signal or background, practically making a coin toss for every event. 
+meaning that if we had a perfect network which guessed everything correctly we would only get TPs and thus an AUC of 1. If we were to get an area of 0.5 this would mean that the network is randomly guessing whether an event is a signal or background, practically making a coin toss for every event. 
 The goal is to have a network to give an AUC score as closely to 1 as possible. \\
 \\While only using the accuracy as a metric is not a bad start, it is not favorable to use as a metric if datasets are unbalanced. As en example, if we had a dataset with 100 events, where 95 were background events and 5 were signal events, if we only used accuracy as a metric we would 
 be inclined to think that an accuracy of 95\% is great. However, as the dataset is unbalanced, the network could easily take a shortcut and guess every event to be a background event. Meaning that the network learned nothing.
@@ -632,13 +630,11 @@ if we were to plot this we would get a flat line on the FPR and TPR axis, meanin
     \includegraphics[width=0.65\textwidth]{ROC.pdf}
     \caption[ROC curve illustration]{Illustration of a ROC curve. The orange line is the result of a network, while the dashed blue line is to illustrate a random guess}\label{fig:ROC}
 \end{figure}
-\\\textit{Comment for farid/eirik, I used wikipedia as a source on the theory here, how do I cite that?}
 
 \subsection{Validation plots}\label{sec:validation}
-Another tool that we will use to evaluate how well a network does is by making so-called \textit{validation plots}\todo{Is this the real name of the plots?}. The way these plots work is by first dividing the \textit{already predicted} data set into background and signal. Then making histograms from 0-1 
-with the prediction score of the network for each event. As a score closer to 1 means that the network predicts an event to be a signal event, and 0 means that the network predicts a background event. Then we would ideally have all the signal events shoved to the right and all the background events shoved to the left. 
+Another tool that we will use to evaluate how well a network does is by making so-called \textit{validation plots}. The way these plots work is by making a distribution with histograms of the ML output for both signal and background. As a score closer to 1 means that the network predicts an event to be a signal event, and 0 means that the network predicts a background event. Then we would ideally have all the signal events shoved to the right and all the background events shoved to the left. 
 Usually this is not the case in high energy particle physics, as some background events might be similar to signal events. We will therefore utilize this kind of plots to see the distribution of the network predictions. \\
-\\In addition to just sorting events by the ML score, we will also re-weight the events (which are MC events) into expected events\footnote{See Chapter \ref{sec:wgts} for more information}. The difference this makes can be seen in Figure \ref{fig:VAL}. We can however still use the non-re-weighted plots to see how well the network has learned to sort, but these plots will not be 
+\\In addition to just sorting events by the ML score, we will also re-weight the events (which are MC events) into expected events\footnote{See Chapter \ref{sec:wgts} for more information}, which takes into account the cross-section of every event. The difference this makes can be seen in Figure \ref{fig:VAL}. We can however still use the non-re-weighted plots to see how well the network has learned to sort, but these plots will not be 
 used in this thesis, and can rather be found on the GitHub repo. \\
 \begin{figure}[!ht]
 	\centering
@@ -692,4 +688,8 @@ Where the first one is the standard used by \verb|XGBoost|.
 
 \subsubsection{Metric and loss evolution}
 For NNs we can plot how the metrics (AUC and binary accuracy) as well as the loss function change over the training epochs. We will plot these changes for both the training and testing set. Where the goal is that the metric and loss converge to the same point for the training and testing set.
+\newpage
+\section{Summary}
+Now that we have explored the theoretical foundation of the ML algorithms we will be studying, as well as the tools we will be using to test how well the algorithm has done, we are ready to start speaking about the methods we will be utilizing in this thesis. The next part will be about the data preparation process, 
+which shows the kinematical variables that we will use as features, as well as the size of the dataset. We will also present in the next part the challenges that arise when using extreme datasets as we do in high energy physics, and the methods we have made to mitigate these problems. 
 \end{document}

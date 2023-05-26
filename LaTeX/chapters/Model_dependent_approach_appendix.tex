@@ -1,7 +1,28 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}
-\chapter{Model dependent approach}
+\chapter{Model dependent approach}\label{apx:MDA}
 \graphicspath{{../../Plots/}}
+
+\section{Dark Higgs Heavy Dark Sector}
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.7\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{XGBoost/DH_HDS/feature_importance/total_cover.pdf}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.7\textwidth}
+         \centering
+         \includegraphics[width=1\textwidth]{XGBoost/DH_HDS/feature_importance/total_gain.pdf}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.7\textwidth}
+         \centering
+         \includegraphics[width=1\textwidth]{XGBoost/DH_HDS/feature_importance/weight.pdf}
+      \end{subfigure}
+   \caption{Full feature importance for network trained on Z' DH HDS}
+\end{figure}
+
 \section{Dark Higgs Light Dark Sector}
 \begin{figure}[!ht]
 	\centering
