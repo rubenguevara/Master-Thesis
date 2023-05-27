@@ -24,7 +24,7 @@ dilepton final state, label telling us whether an event is signal or background 
 \begin{table}[!h]
    \centering
     \caption[Dataset used for ML]{Table showcasing the number of simulated events and expected events for every background channel and DM model that will be used in this thesis.}
-   \begin{tabular}{l|r|r}\midrule\midrule
+    \footnotesize\begin{tabular}{l|r|r}\midrule\midrule
       Channel                                                                         & Simulated Events            & Expected events for 139 fb$^{-1}$ \\\midrule
       W                                                                               & 38,684                & 5,436.3        \\
       Drell Yan                                                                       & 47,201,697            & 2,198,257.6    \\
@@ -37,7 +37,9 @@ dilepton final state, label telling us whether an event is signal or background 
       $Z'$ Light Vector Heavy Dark Sector                                             & 521,759               & 39.82         \\
       $Z'$ Light Vector Light Dark Sector                                             & 470,352               & 235.70         \\
       $Z'$ Effective Field Theory Heavy Dark Sector                                   & 715,409               & 0.0004           \\
-      $Z'$ Effective Field Theory Light Dark Sector                                   & 640,963               & 0.0007          \\\midrule\midrule
+      $Z'$ Effective Field Theory Light Dark Sector                                   & 640,963               & 0.0007          \\
+      Supersymmetric direct slepton production                                        & -               & -          \\
+      2HDM + a                                                                        & -               & -          \\\midrule\midrule
    \end{tabular}
    \label{tab:dataset}
 \end{table}
@@ -187,7 +189,7 @@ crucial when using real data on our predictions, as these have no weights.\\
 \verb|sample_weight| takes in individual weights for every single event that goes into the network, meaning that it is crucial that we know that the desired weight matches the desired event. Ideally we would use both weighting methods, \verb|class_weight| to balance the signal to 
 background ratio and \verb|sample_weight| with the re-weighting weights that include the cross-section. However, there is a bug in \verb|TensorFlow| (up to version \verb|GPU 2.7.1|) that makes it, so the program doesn't run when using both parameters. This is not a big problem though, as when looking at the source code \cite{Keras_source_code} 
 one can see that what \verb|TensorFlow| does with both weights is multiply them together. \\
-\\For this thesis we tried testing four different methods to re-weight and balance the dataset. Firstly all background events will be re-weighted to expected events%\footnote{The reason we do not re-weight the signal events is both because we do not actually know what the cross-section is, and because the cross-section is so low compared to the SM that it would punish the ML algorithm}, 
+\\For this thesis we tried testing four different methods to re-weight and balance the dataset. Firstly all background events will be re-weighted to expected events %\footnote{The reason we do not re-weight the signal events is both because we do not actually know what the cross-section is, and because the cross-section is so low compared to the SM that it would punish the ML algorithm}, 
 and in addition we expanded the balancing ratio from Chapter \ref{sec:balance_NN} to be
 \begin{enumerate}
    \item $\frac{N_{sig,MC}}{N_{bkg,MC}}$ where we weigh down all background events wrt. the number of simulated events
@@ -238,7 +240,7 @@ Mathematically speaking, if we have an array of weights $W$, we can update this 
 such that the weights are at least on the same scale. 
 
 \subsection{Architecture and hyperparameter tuning}\label{sec:BDTGriddy}
-Making a BDT for our purposes is fairly easy as well using XGBoost. One way to do it is using the code below in Algorithm \ref{alg:xgb}. 
+Making a BDT for our purposes is fairly easy as well using XGBoost. One way to do it is using the algorithm shown in Algorithm \ref{alg:xgb}. 
 To get the best performance on our BDT we have to do a grid search here as well. The trainable hyperparameters here are different from NN's, with XGBoost we will focus on the following hyperparameters
 \begin{itemize}
    \item Tree depth: how many times we split the data
@@ -246,8 +248,49 @@ To get the best performance on our BDT we have to do a grid search here as well.
    \item The learning rate $\eta$
    \item L2-regressor $\lambda$, to stop overtraining
 \end{itemize}
-The same procedure for hyperparameter optimizations as described above for NN will be used for BDTs as well.
+The same procedure for hyperparameter optimizations as described above for NNs will be used for BDTs as well.
 
+\newpage
 \section{Results}
-When testing all the methods presented in this chapter we bla bla
+We tested all the methods explained in this chapter, the full results can be seen in Appendix \ref{chap:network_opt}, in this part we will highlight the main results. We observed that for the NNs using \verb|Batch_normalization| as the normalization method yielded best results, using ADAM as the optimizer yielded far better results than using SGD. 
+As sample weights we saw that the method that yielded the best results was the one that re-weighted every background event and balanced the dataset by weighing up all signal events by the ratio of expected number of background events over signal MC events, $\frac{N_{bkg,exp}}{N_{sig,MC}}$. We also observed that the new padding method presented 
+performed better than the other methods. \\
+\\For the BDT we observed that while conducting a grid search for the optimal hyperparameters, we never hit a plateau where the scores seemed to flat out when increasing the tree depth. However, we decided to take the conservative approach of having a tree depth of maximum 6. The sample weights we decided to use further with BDTs were the ones 
+that only looked at the positive weights of the dataset. \\
+\\The best results from the BDT and NN trained using the model dependent approach on the Dark Higgs Heavy Dark Sector model can be seen in Figure \ref{fig:BDT_vs_NN}.
+\newpage
+\begin{figure}[!ht]
+	\centering
+   \graphicspath{{../../../Plots/XGBoost/Weighting_methods/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Pos_wgt/VAL.pdf}
+      \caption{BDT result}
+   \end{subfigure}
+   \graphicspath{{../../../Plots/NeuralNetwork/Padding/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{New_pad/VAL.pdf}
+      \caption{NN result}
+   \end{subfigure}
+   \graphicspath{{../../../Plots/XGBoost/Weighting_methods/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Pos_wgt/EXP_SIG.pdf}
+      \caption{Significance of a)}
+   \end{subfigure}
+   \graphicspath{{../../../Plots/NeuralNetwork/Padding/}}
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{New_pad/EXP_SIG.pdf}
+      \caption{Significance of b)}
+   \end{subfigure}
+   \caption[Comparison of BDT and NN]{Comparison of BDT and NN. Both networks were tested on the DH HDM dataset using the model dependent approach}\label{fig:BDT_vs_NN}
+\end{figure}
+\noindent From these results we can see that the BDTs perform better than NNs. As using BDTs is easier than NNs, as well as BDTs having greater interpretability, we will for the remainder of the thesis opt to only use BDTs as our main ML algorithm. We have now explored the methods that will be used for this search, and all the challenges that need to be mitigated. The next part of this thesis will present 
+the results of both the model dependent and independent approach for every model. 
+
+
+
+
 \end{document}

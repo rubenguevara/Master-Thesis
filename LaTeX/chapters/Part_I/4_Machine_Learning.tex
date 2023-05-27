@@ -407,7 +407,7 @@ the first one we will look at is the \textit{regression tree}.
 \subsection{Regression trees}
 As previously mentioned the leaves contain the prediction of a trained network, and are used to make new predictions on new datasets based on the information of the DT learning in the branching process. As how to construct trees, there are mainly two steps we need to follow:
 \begin{enumerate}
-    \item Split the predictor space (set of possible values $x_1,x_2,\cdots,x_p$) into $J$ distinct and non-overlapping regions, $R_1,R_2,\cdots,R_J$\todo{Is this too similar to 9.3 in \cite{MORTYY4}?}
+    \item Split the predictor space (set of possible values $x_1,x_2,\cdots,x_p$) into $J$ distinct and non-overlapping regions, $R_1,R_2,\cdots,R_J$
     \item For every observation that falls into the region $R_j$, we make the same prediction, which is the mean of the response values for the training observations in $R_J$
 \end{enumerate}
 But how do we construct the regions $R_1,R_2,\cdots,R_J$? In theory these regions could have any shape, but for simplicity and pedagogical reasons we will choose to divide the predictor shape into high-dimensional rectangles, or boxes. This means that the goal is to find boxes 
@@ -495,7 +495,7 @@ $$
     \mathcal{L} = \sum_{i}^{n}C(y_i,\hat{y}_i)+\sum_{k=1}^{K}\Omega(f_k)
 $$
 where we sum over $n$ leaves, $C$ is training cost function (for example it can be the MSE), and $\Omega(f_k)$ is the complexity of the tree $f_k$, which penalizes the more complex models. We can see from both functions above that we need to learn all trees at once to make predictions, this is however both 
-computationally demanding and intractable. Instead, we can use an additive strategy, where we fix what we have learned, and add a new tree at a time. Using Eq. \ref{eq:ensemble} with 0 trees and going up we see that we get
+computationally demanding and intractable. Instead, we can use an additive strategy, where we fix what we have learned, and add a new tree at a time. Using Eq. (\ref{eq:ensemble}) with 0 trees and going up we see that we get
 \begin{align*}
     &\hat{y}_i^{(0)} = 0\\
     &\hat{y}_i^{(1)} = f_1(x_i)=\hat{y}_i^{(0)}+f_1(x_i)\\
@@ -588,7 +588,7 @@ By taking the parameter $\bm{\beta}$ to first order in $x_i$ and reordering the 
 This equation we will use throughout the thesis and is known as the \textit{cross entropy}. The two beta parameters used are the weight and biases, $\beta_1 = w$ and $\beta_0 = b$. The goal is to change these parameters such that it minimizes the cost function. 
 \subsubsection*{L2-regularization}
 Furthermore, we will add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they don't grow out of control, 
-this is to reduce \textit{overfitting}. We will use the so-called \textit{L2-norm} \todo{Add source for article?}where the cost function becomes
+this is to reduce \textit{overfitting}. We will use the so-called \textit{L2-norm} where the cost function becomes
 \begin{equation}\label{eq:L2-reg}
     C(\bm\beta)\rightarrow C(\bm\beta)+\lambda\sum_{ij}w_{ij}^2
 \end{equation}

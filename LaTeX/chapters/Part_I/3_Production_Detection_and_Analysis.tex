@@ -205,7 +205,7 @@ The MDTs and CSCs are used for tracking while the RPCs and TGCs are used for tri
 \section{Data analysis}\label{sec:data_anal}
 The time has come to explore how we can search for new physics phenomena, now that it has been established how particles are produced and how we detect them. In this section we will take into account the classic way of searching for new physics which is called 
 the \textit{cut and count method}, but there are other methods to search for new physics, such as Machine Learning (ML) which is the method pursued in this thesis. There might be other methods, such as 
-Quantum ML, but as of today we are still in an early stage of the technology \cite{QML}\textbf{Question: Can I include this?}. To give a short description of the cut and count method, it makes kinematical \textit{cuts} such that we isolate signal from background. The way 
+Quantum ML, but as of today we are still in an early stage of the technology \cite{QML}\textbf{Question: Can I include this? (it iss my QML project)}. To give a short description of the cut and count method, it makes kinematical \textit{cuts} such that we isolate signal from background. The way 
 the signal and background are made is by Monte Carlo (MC) simulations, which is necessary for guiding us on where to place efficient cuts and understand our sensitivity to a given BSM model. As it wouldn't be a real experimental physics discovery without making a statistical 
 analysis of the results we will also explain how we utilize this tool. To guide us through this process I will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the success of this method.
 
@@ -253,7 +253,7 @@ We include uncertainties by introducing nuisance parameters $\theta_i$, each wit
     \mathcal{L}_B(N_{\text{obs}}\vert \sigma B)=\int\mathcal{L}(N_{\text{obs}}\vert \sigma B)\prod g_i(\theta_i)d\theta_i
 \end{equation}
 where a log-normal distribution is used for the $g_i(\theta_i)$. The nuisance parameters are taken to be: $L_{\text{int}}, \varepsilon_{\text{sig}}$ and $N_{\text{bkg}}$, with the appropriate correlation accounted for between the first and the third parameters. The measurements of 
-the two decay channels (muon or electron final state for $H\rightarrow lll'l'$) are combined assuming the same branching fraction for each, thus Eq. \ref{eq:observed_events_nuisance} remains valid with the Poisson likelihood replaced by the product of the Poisson likelihoods for the two channels. 
+the two decay channels (muon or electron final state for $H\rightarrow lll'l'$) are combined assuming the same branching fraction for each, thus Eq. (\ref{eq:observed_events_nuisance}) remains valid with the Poisson likelihood replaced by the product of the Poisson likelihoods for the two channels. 
 The integrated luminosities for the electron and muon channels are fully correlated. We can further use Bayes' theorem which gives the posterior probability that the signal has signal strength $\sigma B$:
 \begin{equation}\label{eq:prior_prob}
     P_{\text{post}}(\sigma B\vert N_{\text{obs}}) = N \mathcal{L}_B (N_{\text{obs}}\vert\sigma B) P_{\text{prior}}(\sigma B)
@@ -269,17 +269,24 @@ or \textit{more} given only background
 \begin{equation}\label{eq:p-value}
     p = P(N\ge N_{\text{obs}}\vert \lambda = N_{\text{bkg}}) = \sum_{k=N_{\text{obs}}}^{\infty}\mathcal{L}(k\vert N_{\text{bkg}})
 \end{equation}
-The smaller the $p-$value, the less compatible an observation is with the background only hypothesis, meaning more likely to be a discovery. From this we can find the significance $Z$ by
+The smaller the $p-$value, the less compatible an observation is with the background only hypothesis, meaning more likely to be a discovery. In Figure \ref{fig:p-val} we can see how the $p-$value could look for an arbitrary distribution
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{p-val_Z.png}
+    \caption[$p-$value and significance $Z$ relation]{Illustration showing how the $p-$value of an arbitrary distribution might look (shaded area). We can also see the relation of the $p-$value to the significance $Z$ in this illusteation.}\label{fig:p-val}
+\end{figure}
+\\From this figure we also see the relation between the $p-$value and the significance $Z$. Mathematically the relation is expressed by
 $$
     p = \int_{-\infty}^{-Z} \frac{e^{-x^2/2}}{\sqrt{2\pi}}dx
 $$
 As mentioned in the start of this subsection, a discovery in particle physics is defined to be at least a $Z=5\sigma$ deviation from the background hypothesis, meaning that we would have a $p-$value of $p\le2.87\times10^{-7}$. In other words, with a $5\sigma$ deviation, the probability to 
 falsely discover something is at worst one in roughly 3.5 million.\\ 
-\\As the significance is an interesting quantity we can give it its own definition. In this thesis we will use the low statistics formula for the significance, as this is the most general one. We can either define the significance as the \textit{observed significance} by
-\begin{equation}\label{eq:obs_sig}
+\\As the significance is an interesting quantity we can give it its own definition. In this thesis we will not show the derivation to arrive at the formula, but to give a short description; we arrive to it by taking the logarithms of the likelihood formulas above when making some approximations.  We will use the low statistics formula for the significance, 
+as this is the most general one. We can either define the significance as the \textit{observed significance} by
+$$
     Z = \sqrt{2\left[N_{\text{obs}}\ln\frac{N_{\text{obs}}}{N_{\text{bkg}}}-N_{\text{obs}}+N_{\text{bkg}}\right]}
-\end{equation}
-or as the \textit{expected significance} by changing $N_{\text{obs}} \rightarrow N_{\text{sig}}+N_{\text{bkg}}$, where $N_{\text{sig}}$ is the number of signal events
+$$
+For our purposes, as we will exclusively use the signal+background hypothesis, we will use the \textit{expected significance}, which we get by changing $N_{\text{obs}} \rightarrow N_{\text{sig}}+N_{\text{bkg}}$, where $N_{\text{sig}}$ is the number of signal events
 \begin{equation}\label{eq:exp_sig}
     Z = \sqrt{2\left[(N_{\text{sig}}+N_{\text{bkg}})\ln\left(1+\frac{N_{\text{sig}}}{N_{\text{bkg}}}\right)-N_{\text{sig}}\right]}
 \end{equation}
@@ -288,21 +295,22 @@ However, Eq. (\ref{eq:p-value}) did not include any nuisance parameters, it used
 $$
 Z = \left[-2\left(N_{\text{obs}}\ln\left[\frac{N_{\text{obs}}+m}{(1+\tau)N_{\text{obs}}}\right] + m\ln\left[\frac{\tau(N_{\text{obs}}+m)}{(1+\tau)m}\right]\right)\right]^{1/2}
 $$
-where $m=\tau N_{\text{bkg}}$ and Eq. (19) that reads
+where $m=\tau N_{\text{bkg}}$ and where we have Eq. (19) on his paper that says
 $$
 \tau=\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}
 $$
-where $\sigma_{\text{bkg}}$ is the uncertainty of the background. This gives us
+where $\sigma_{\text{bkg}}$ is the uncertainty of the background. Changing $N_{\text{obs}} \rightarrow N_{\text{sig}}+N_{\text{bkg}}$ gives us
 \begin{equation}\label{eq:significance}
-    Z = \sqrt{-2\left(N_{\text{obs}}\ln\left[\frac{N_{\text{obs}}+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} }{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})N_{\text{obs}}}\right] + \frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} \ln\left[\frac{\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}(N_{\text{obs}}+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} )}{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2}}\right]\right)}
+    \textstyle    Z = \sqrt{-2\left((N_{\text{sig}}+N_{\text{bkg}})\ln\left[\frac{(N_{\text{sig}}+N_{\text{bkg}})+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} }{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})(N_{\text{sig}}+N_{\text{bkg}})}\right] + \frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} \ln\left[\frac{\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}((N_{\text{sig}}+N_{\text{bkg}})+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} )}{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2}}\right]\right)}
 \end{equation}
-Which makes for a better estimate of the significance one has in reality.\\
-\\The 95 \% CL limit results from the 2012 Higgs discovery \cite{Higgs_discovery_2012} can be seen in Figure \ref{fig:HIGGS_CL}, where we can see that there is a statistical fluctuation of the observed data compared to the background with $m_H=125$ GeV
+Which makes for a better estimate of the significance one has in reality.
+\newpage\noindent The 95 \% CL limit results from the 2012 Higgs discovery \cite{Higgs_discovery_2012} can be seen in Figure \ref{fig:HIGGS_CL}, where we can see that there is a statistical fluctuation of the observed data compared to the background with $m_H=125$ GeV
 \begin{figure}[!ht]
 	\centering
     \includegraphics[width=0.7\textwidth]{CL_Higgs.jpg}
     \caption[Confidence Limit on the Higgs discovery]{Confidence limit on the 2012 Higgs discovery, excerpt taken from Ref. \cite{Higgs_discovery_2012}}\label{fig:HIGGS_CL}
 \end{figure}
+\\\textbf{Question: I show some results from the Higgs discovery, should I rather show the mass exclusion of the W' we saw in FYS555, as this is closer to the mass exclusion of the Z' I studied? Should I also show some SUSY exclusions to show how one excludes using the significance?}
 
 \clearpage
 \section{Summary}

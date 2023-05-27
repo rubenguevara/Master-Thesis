@@ -13,7 +13,6 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage[USenglish]{uiomasterfp}
 %\usepackage{indentfirst}
-%\usepackage{simpler-wick}
 \usepackage{booktabs}
 \usepackage{multirow}
 %\usepackage{siunitx}
@@ -106,8 +105,9 @@ image = {gort}
 
 \newpage
 \section*{Acknowledgements}
-Thank you everybody<3<3\\
-Most importantly I want to thank the coffee machine at the section for High Energy Particle Physics for the incredible support in times of need, as the coffee was free. \coffeestainA{1}{0.85}{-25}{3cm}{1.3cm}
+First and foremost I want to thank my supervisor Farid Ould-Saada for supporting my crazy ideas, such as me trying to make a QML algorithm to use in HEP, and to include new models to update my results two weeks before I hand in. I also 
+want to thank Eirik Gramstad for putting up with my constant nagging and the in depth discussions we had about ML. \todo{Finish this!}\\
+\\Most importantly I want to thank the coffee machine at the section for High Energy Particle Physics for the incredible support in times of need, as the coffee was free. \coffeestainA{1}{0.85}{-25}{3cm}{1.3cm}
 
 
 
@@ -133,7 +133,8 @@ Most importantly I want to thank the coffee machine at the section for High Ener
 \chapter{Introduction}\label{chap:intro}
 \subfile{chapters/Introduction.tex}
 
-\part{The theory behind modern particle physics / Background}
+% \part{The theory behind modern particle physics / Background}
+\part{Background}
 \chapter{The Standard Model of Particle Physics}\label{chap:SM}
 \subfile{chapters/Part_I/1_The_Standard_Model_of_Particle_Physics.tex}
 
@@ -143,11 +144,12 @@ Most importantly I want to thank the coffee machine at the section for High Ener
 \chapter{Production, Detection and Analysis}\label{chap:CERN_method}
 \subfile{chapters/Part_I/3_Production_Detection_and_Analysis.tex}
 
-\chapter{Machine Learning}
+\chapter{Machine Learning}\label{chap:theo_ML}
 \subfile{chapters/Part_I/4_Machine_Learning.tex}
 
 
-\part{Implementation / Methods}
+% \part{Implementation}
+\part{Methods}
 
 
 \chapter{Data Preparation}\label{chap:data_prep}
@@ -170,7 +172,9 @@ Most importantly I want to thank the coffee machine at the section for High Ener
 
 \appendix
 
-\subfile{chapters/DSIDs.tex}
+\subfile{chapters/Part_III/7_Machine_Learning.tex}
+
+\subfile{chapters/Algorithms.tex}
 
 \subfile{chapters/Distributions_CR.tex}
 
@@ -178,19 +182,17 @@ Most importantly I want to thank the coffee machine at the section for High Ener
 
 \subfile{chapters/New_features.tex}
 
-\subfile{chapters/Part_III/7_Machine_Learning.tex}
-
-\subfile{chapters/Limits_tables.tex}
-
 \subfile{chapters/Model_dependent_approach_appendix.tex}
 
 \subfile{chapters/Model_independent_approach_appendix.tex}
 
-\subfile{chapters/Algorithms.tex}
+\subfile{chapters/DSIDs.tex}
 
-% \subfile{chapters/Part_III/8_Results.tex}
+\subfile{chapters/Limits_tables.tex}
 
 \subfile{chapters/Depth_of_30.tex}
+
+
 
 \clearpage
 \phantomsection

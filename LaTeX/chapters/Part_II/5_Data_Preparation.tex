@@ -144,44 +144,44 @@ For the EFT model.
 
 
 \section{Object selection}\label{sec:obj_sel}
-Before getting into our DM search and the regions we will study we have to define how standard objects are defined. By standard objects we mean electrons, muons and jets. As this thesis is made using ATLAS data and simulations we will be following the central recommendations.\\
-\\The electrons \todo{I don't know how else to present these}are selected using the criteria on Table \ref{tab:E_selec}. The muons are selected using the criteria on Table \ref{tab:mu_selec}. The jets are selected using the criteria on Table \ref{tab:jet_selec}. The missing transverse energy is reconstructed from jets selected and calibrated according to the information in Table \ref{tab:jet_selec}. In addition to these a kinematical cut of $m_{ll}>10$ GeV will be made to exclude hadron productions.
-\begin{table}[!h]
-    \centering\caption[Electron selection criteria]{Electron selection criteria.}
-    \begin{tabular}{l|r}\midrule\midrule
-        Feature                                                                 & Selection criteria        \\\midrule
-        Transverse momentum                                                     & $p_T > 25$ GeV     \\
-        Pseudorapidity range                                                    & $\abs{\eta}<1.37$ or  $1.52<\abs{\eta}<2.47$ \\
-        $d_0$ significance cut                                                  & $\abs{d_0(\sigma)}<5$    \\
-        $z_0$ cut                                                               & $\abs{\Delta z_0\sin\theta}<0.5$mm    \\\midrule\midrule
-    \end{tabular}
-    \label{tab:E_selec}
-\end{table}
-\begin{table}[!h]
-    \centering\caption[Muon selection criteria]{Muon selection criteria.}
-    \begin{tabular}{l|r}\midrule\midrule
-        Feature                                                                 & Selection criteria        \\\midrule
-        Transverse momentum                                                      & $p_T > 27(20)$ GeV for leading (sub-leading)     \\
-        Pseudorapidity cut                                                      & $\abs{\eta}<2.5$ \\
-        $d_0$ significance cut                                                  & $\abs{d_0(\sigma)}<5$    \\
-        $z_0$ cut                                                               & $\abs{\Delta z_0\sin\theta}<0.5$mm    \\\midrule\midrule
-    \end{tabular}
-    \label{tab:mu_selec}
-\end{table}
-\begin{table}[!h]
-    \centering\caption[Jet selection criteria]{Jet selection criteria.}
-    \begin{tabular}{l|r}\midrule\midrule
-        Feature                                                                 & Selection criteria        \\\midrule
-        Algorithm                                                               & Anti-$k_t$     \\
-        $R$-parameter                                                           & 0.4     \\\midrule
-        Transverse momentum                                                     & $p_T > 20$ GeV     \\
-        Pseudorapidity cut                                                      & $\abs{\eta}<4.5$ \\
-        Jet Vertex Tagger                                                       & $>0.5$ for $p_T<60$ GeV, $\abs{\eta}<2.4$ \\
-        forward JVT                                                             & fJVT $<0.4$ and |timing| < 10 ns for $p_T<120$ GeV, $2.5<\abs{\eta}<4.5$ \\\midrule
-        b-jet tagging                                                           & DL1r score > 0.665 with 85\% efficiency \\\midrule\midrule
-    \end{tabular}
-    \label{tab:jet_selec}
-\end{table}
+Before getting into our DM search and the regions we will study we have to define how standard objects are defined. By standard objects we mean electrons, muons and jets. As this thesis is made using ATLAS data and simulations we will be following the central recommendations.%\\
+% \\The electrons \todo{I don't know how else to present these}are selected using the criteria on Table \ref{tab:E_selec}. The muons are selected using the criteria on Table \ref{tab:mu_selec}. The jets are selected using the criteria on Table \ref{tab:jet_selec}. The missing transverse energy is reconstructed from jets selected and calibrated according to the information in Table \ref{tab:jet_selec}. In addition to these a kinematical cut of $m_{ll}>10$ GeV will be made to exclude hadron productions.
+% \begin{table}[!h]
+%     \centering\caption[Electron selection criteria]{Electron selection criteria.}
+%     \begin{tabular}{l|r}\midrule\midrule
+%         Feature                                                                 & Selection criteria        \\\midrule
+%         Transverse momentum                                                     & $p_T > 25$ GeV     \\
+%         Pseudorapidity range                                                    & $\abs{\eta}<1.37$ or  $1.52<\abs{\eta}<2.47$ \\
+%         $d_0$ significance cut                                                  & $\abs{d_0(\sigma)}<5$    \\
+%         $z_0$ cut                                                               & $\abs{\Delta z_0\sin\theta}<0.5$mm    \\\midrule\midrule
+%     \end{tabular}
+%     \label{tab:E_selec}
+% \end{table}
+% \begin{table}[!h]
+%     \centering\caption[Muon selection criteria]{Muon selection criteria.}
+%     \begin{tabular}{l|r}\midrule\midrule
+%         Feature                                                                 & Selection criteria        \\\midrule
+%         Transverse momentum                                                      & $p_T > 27(20)$ GeV for leading (sub-leading)     \\
+%         Pseudorapidity cut                                                      & $\abs{\eta}<2.5$ \\
+%         $d_0$ significance cut                                                  & $\abs{d_0(\sigma)}<5$    \\
+%         $z_0$ cut                                                               & $\abs{\Delta z_0\sin\theta}<0.5$mm    \\\midrule\midrule
+%     \end{tabular}
+%     \label{tab:mu_selec}
+% \end{table}
+% \begin{table}[!h]
+%     \centering\caption[Jet selection criteria]{Jet selection criteria.}
+%     \begin{tabular}{l|r}\midrule\midrule
+%         Feature                                                                 & Selection criteria        \\\midrule
+%         Algorithm                                                               & Anti-$k_t$     \\
+%         $R$-parameter                                                           & 0.4     \\\midrule
+%         Transverse momentum                                                     & $p_T > 20$ GeV     \\
+%         Pseudorapidity cut                                                      & $\abs{\eta}<4.5$ \\
+%         Jet Vertex Tagger                                                       & $>0.5$ for $p_T<60$ GeV, $\abs{\eta}<2.4$ \\
+%         forward JVT                                                             & fJVT $<0.4$ and |timing| < 10 ns for $p_T<120$ GeV, $2.5<\abs{\eta}<4.5$ \\\midrule
+%         b-jet tagging                                                           & DL1r score > 0.665 with 85\% efficiency \\\midrule\midrule
+%     \end{tabular}
+%     \label{tab:jet_selec}
+% \end{table}
 
 
 
