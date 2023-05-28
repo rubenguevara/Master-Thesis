@@ -2,7 +2,7 @@
 \begin{document}
 
 Now is the time to focus on the critical task of preparing the data for our DM search using ML. This task is essential because accurately distinguishing between signal and background events is a key challenge in searching for any new signal event, 
-as seen in Section \ref{sec:data_anal}. In this chapter we will define what \textit{background} and \textit{signal} actually are, as well as selecting appropriate kinematical cuts to define the preselection region for our search. In addition, we will 
+as seen in Chapter \ref{sec:data_anal}. In this chapter we will define what \textit{background} and \textit{signal} actually are, as well as selecting appropriate kinematical cuts to define the preselection region for our search. In addition, we will 
 explain the data preparing procedure such that it is in a format that is well-suited for our ML algorithms. The reason this process is of great importance is, so we can maximize the chances of our ML algorithm to accurately identify any DM signals. 
 Moreover, by providing a detailed explanation of the data preparation process, we can ensure that our dataset is both reliable and effective, and that our analysis is robust and trustworthy. In short, this chapter represents a critical step towards 
 achieving our goal of using ML to classify DM from SM events using ATLAS data, and it is essential to the success of our overall research goal.
@@ -10,7 +10,7 @@ achieving our goal of using ML to classify DM from SM events using ATLAS data, a
 
 
 \clearpage
-\section{Standard Model background estimation}
+\section{Standard Model background estimation}\label{sec:SM_bkgs}
 As we are going to look at dilepton final states with missing transverse energy to try to teach our ML to learn DM signatures, then we need to take into account all possible SM background event that have this kind of final states. The SM backgrounds processes we will look at are explained in the next subsections. 
 In Appendix \ref{appendix:DSIDs} is the full list of dataset IDs for background process used in this thesis.
 
@@ -107,6 +107,7 @@ or $W\rightarrow l\nu_l$, where the prime means a different lepton flavor. The m
 \end{figure}
 
 \section{Dark Matter samples}\label{chap:DM_sample}
+\subsection{Mono-Z'}
 The models in Chapter \ref{chap:DM} contain three relevant couplings
 \begin{itemize}
     \item the coupling $g_D$ between the $Z'$ and the DM particles ($Z'Z'h_D$ or $Z'\chi_1\chi_2$)
@@ -140,8 +141,10 @@ $$
 m_{Z'} = [130, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500] GeV.
 $$
 For the EFT model.
-
-
+\subsection{SUSY}
+The parameters that will be changed in this thesis are the masses of the slepton $m_{\tilde{\ell}}$ and the neutralino $m_{\tilde{\chi}_1^0}$. The masses used in this thesis are shown below
+\subsection{2HDM + a}
+For this model there are three important parameters, the mass of the new Higgs, which we will call $m_H$\footnote{Not to be confused with the SM Higgs mass, which we will not use in this thesis!}. The mass of the pseudoscalar $a$, $m_a$ and ratio between the vacuum expectation values of the Higgs doublet, $\tan\beta$. The values used for this thesis can be sen below.
 
 \section{Object selection}\label{sec:obj_sel}
 Before getting into our DM search and the regions we will study we have to define how standard objects are defined. By standard objects we mean electrons, muons and jets. As this thesis is made using ATLAS data and simulations we will be following the central recommendations.%\\
