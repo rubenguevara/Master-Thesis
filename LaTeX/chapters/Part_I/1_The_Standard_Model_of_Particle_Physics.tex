@@ -1,18 +1,19 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}
-\begin{equation}\label{eq:sm}
-    \mathcal{L}_{SM} = -\frac{1}{4}F_{\mu\nu}F^{\mu\nu} + i\overline{\psi}\slashed{D}\psi + \psi_iy_{ij}\psi_j\phi + h.c. + \abs{D_\mu\phi}^2 - V(\phi)
-\end{equation}
-Equation (\ref{eq:sm}) represents the elegant equation which can explain phenomena in nature with great precision, and is the mathematical foundation of what us known as the Standard Model (SM) of particle physics. 
-It consists of three \textit{symmetry groups}. The gauge group explaining electromagnetism $U(1)$, the gauge group describing the weak force $SU(2)_L$ and the gauge group describing the strong force $SU(3)_C$. 
-In this chapter we will delve into each of these groups, the spontaneous symmetry breaking phenomena that gives mass to particles, as well as how to calculate the cross-section of processes.\\
-\\As the SM is described using Quantum Field Theory, we will now give a description of what a \textit{field} is. A quantum field is a fundamental concept in quantum physics that describes the underlying fabric of reality, 
-where particles and their interactions are represented as excitations or vibrations of these fields.\\
+The Standard Model (SM) of particle physics is the framework of particle physics, it unveils the secrets of the universe's building blocks and their interactions. With its framework, it offers a rich understanding 
+of the structure and behavior of matter, solidifying its place as a bedrock in the realm of modern physics. At its core, the Standard Model describes three of the fundamental forces of nature: the electromagnetic force, 
+the weak force, and the strong force. These forces are mediated by particles known as gauge bosons, which act as carriers of the forces between matter particles.\\
+% Equation (\ref{eq:sm}) represents the elegant equation which can explain phenomena in nature with great precision, and is the mathematical foundation of what us known as the Standard Model (SM) of particle physics. 
+% It consists of three \textit{symmetry groups}. The gauge group explaining electromagnetism $U(1)$, the gauge group describing the weak force $SU(2)_L$ and the gauge group describing the strong force $SU(3)_C$. 
+\\As the SM is described using Quantum Field Theory (QFT), we need the description of what a \textit{field} is. A quantum field is a fundamental concept in quantum physics that describes the underlying fabric of reality, 
+where particles and their interactions are represented as excitations or vibrations of these fields. In this chapter we will delve into every of the aforementioned forces, the spontaneous symmetry breaking phenomena that 
+gives mass to particles, as well as how to calculate the cross-section of processes. We will start by describing electromagnetism in terms of QFT, namely Quantum Electrodynamics.\\
 \\The theory of this section is mainly based of Peskin's and Schroeder's "An Introduction to Quantum Field Theory" \cite{Peskin:1995ev} and partly Thomson's "Modern Particle Physics" \cite{THOMSON}.
 
 \clearpage
 \section{Quantum Electrodynamics}
-In the beginning there was nothing; \textit{then God said, “Let there be light,” and there was light.} This lead us to the first part of the Standard Model, Quantum Electrodynamics, or QED for short,
+In the beginning there was nothing; \textit{then God said, “Let there be light,” and there was light.} The first part of the Standard Model, Quantum Electrodynamics, or QED for short, described the processes in nature involving the photon. 
+The Lagrangian of QED can be seen below
 \begin{equation}\label{eq:QED}
     \mathcal{L}_{QED} = \overline{\psi}\left(i\slashed{D} -m\right)\psi -\frac{1}{4}B^{\mu\nu}B_{\mu\nu}
 \end{equation}
@@ -158,7 +159,7 @@ where $W_\mu$ and $B_\mu$ are vector fields of the $SU(2)$ and $U(1)$ group resp
 Writing 
 \begin{equation}\label{eq:Higgs}
     \phi = \begin{pmatrix}
-        o\\v+H(x)
+        0\\v+H(x)
     \end{pmatrix}
 \end{equation}
 where $H$ is real scalar field, expands the potential to be
@@ -347,19 +348,21 @@ Feynman realized this and made Feynman rules to construct diagrams. The rules ar
 
 \section{Adding it all up}
 Combining the three groups $U(1)_Y\otimes SU(2)_L\otimes SU(3)_C$ as well as introducing the Higgs field from Eq. (\ref{eq:Higgs}) gives us the SM Lagrangian
-$$
+\begin{equation}\label{eq:sm}
     \mathcal{L}_{SM} = -\frac{1}{4}F_{\mu\nu}F^{\mu\nu} + i\overline{\psi}\slashed{D}\psi + \psi_iy_{ij}\psi_j\phi + h.c. + \abs{D_\mu\phi}^2 - V(\phi)
-$$
-All of this is great at explaining what we know so far, which is depicted in Figure \ref{fig:SM}
+\end{equation}
+To give an illustration of the elements in Eq. (\ref{eq:sm}) we can see Figure \ref{fig:SM}
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{SM.jpeg}
+    \includegraphics[width=0.7\textwidth]{SM.jpeg}
     \caption[The Standard Model]{The Standard Model of particle physics. Image taken from Wikipedia \cite{sm_wikipedia}}\label{fig:SM}
 \end{figure}
 \\From Figure \ref{fig:SM} we can see all the particles of the standard model. These include the quarks $u,d,c,s,t$ and $b$, the leptons $e,\mu$ and $\tau$ as well as their neutrino partners, the carrier of the strong force $g$, the carriers of the weak force $W^\pm$ and $Z$, 
 the carrier of the electromagnetic force $\gamma$ and the Higgs boson $H$. From the figure we can also see which particles can interact with each of the bosons. \\
 \\These are the building blocks of nature, as mesons, subatomic particles consisting of two quarks, and baryons, meaning subatomic particles consisting of three quarks (such as the proton and neutron) can further build atoms with electrons to furthermore create chemistry via 
-quantum mechanical processes. 
+quantum mechanical processes. \\ 
+\\However, while the SM excels at explaining most\footnote{The SM cannot describe gravity} of the observable matter in the universe, that it still only roughly 4\% of the matter in the universe. Approximately 72\% of the universe is composed of \textit{Dark Energy}, which follows 
+from the cosmological constant in Einsteins Field Equations \cite{Peebles:2002gy}, and the remaining 23\% of the matter in the universe is \textit{Dark Matter}. The next chapter of this thesis will present a brief description Dark Matter, and present the Beyond SM models with Dark Matter candidates we will study.
 
 
 \end{document}

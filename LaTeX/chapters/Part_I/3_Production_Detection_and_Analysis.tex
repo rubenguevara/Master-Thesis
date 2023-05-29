@@ -9,13 +9,13 @@ followed by an examination of particle detection with the ATLAS detector at the 
 
 \clearpage
 \section{Particle production}
-Having already been introduces to the SM we are now ready to dive into the subject of how we can produce the particles that we wish to detect. In this chapter we will start from the basic kinematics of particles 
+Having already been introduced to the SM we are now ready to dive into the subject of how we can produce the particles that we wish to detect. In this chapter we will start from the basic kinematics of particles 
 and then move to more complex variables that will be of use when analyzing data from detectors. The material for the first section is based on Thomson's book Modern Particle Physics \cite{THOMSON}, Jacksons' "Kinematics" \cite{Jackson_kin}
 and Vadla's PhD. thesis \cite{KNUT_VADLA}.
 
 \subsection{Particle kinematics}\label{sec:particle_kinematics}
 When working on a relativistic setting, such as we do in high energy particle physics, four vectors are the natural object to consider to generally describe our particles. As we are mainly interested in the motion of the particles, 
-we will look at the four-momentum. Instead of using general variables, we will describe the particles using the four-momentum in terms of the geometry of the detectors (See Chapter \ref{sec:ATLAS}), that means we will use 
+we will look at the four-momentum. Instead of using general variables, we will describe the particles using the four-momentum in terms of the geometry of the detectors (See Section \ref{sec:ATLAS}), that means we will use 
 the polar angle, $\theta$, and the azimuthal angle, $\phi$, such that we have
 \begin{equation}\label{eq:four-momentum}
     p^\mu = (E, p_x, p_y, p_z) \overset{Lab}{\longrightarrow} (E, p_T\cos\phi, p_T\sin\phi, \abs{\mathbf{p}}\cos\theta)
@@ -24,8 +24,7 @@ where $p_T$ is the \textit{transverse momentum} expressed as
 \begin{equation}\label{eq:transverse_momentum}
     p_T \equiv\sqrt{p_x^2 +p_y^2} = \abs{\mathbf{p}}\sin\theta
 \end{equation}
-Where the relativistic energy and momentum are given as, $E=\gamma\beta$ and $\mathbf{p}=\gamma m\bm\beta$, with $\gamma = 1/\sqrt{1-\beta^2}$ and $\bm\beta = \mathbf{v}/c$\footnote{As this is a particle physics thesis I will convert to Natural Units where we set $c=1$} 
-where $m$ is the mass of the particle 
+Where the relativistic energy and momentum are given as, $E=\gamma m$ and $\mathbf{p}=\gamma m\bm\beta$, with $\gamma = 1/\sqrt{1-\beta^2}$ and $\bm\beta = \mathbf{v}/c$\footnote{As this is a particle physics thesis I will convert to Natural Units where we set $c=1$, $\hbar = 1$}, $m$ is the mass of the particle 
 and $c$ is the speed of light in vacuum. By contracting\footnote{Using the particle physicists convention of the Minkowski metric tensor $\eta_{\mu\nu}$,  (+, -, -, -)} two four-momenta we get the important Lorentz invariant 
 square of the \textit{invariant mass}
 $$
@@ -35,41 +34,42 @@ which can be generalized for a system containing $n$ particles as
 \begin{equation}\label{eq:invariant_mass}
     m^2 = p_\mu p^\mu = \left(\sum_{i=1}^n E_i\right)^2 - \left(\sum_{i=1}^n\mathbf{p}_i\right)^2
 \end{equation}
-As this thesis will focus on a dilepton (and missing transverse energy) final state, which is of the type $2\rightarrow2$ (+MET) then the invariant mass of the two leptons in the final state will be of interest, 
-we will denote this as $m_{ll}$. From this we can also get another interesting variable, the \textit{transverse energy}. This follows directly from Eq. (\ref{eq:invariant_mass})
+As this thesis will focus on a dilepton (and missing transverse energy) final state, which is of the type $2\rightarrow4$ where two are invisible, but the invariant mass of the two visible leptons in the final state will be of interest, 
+we will denote this as $m_{ll}$. From this we can also get another interesting variable, the \textit{transverse energy}. This follows directly from Eq. (\ref{eq:invariant_mass}) by using the transverse momentum
 \begin{equation}\label{eq:transverse_energy}
     E_T = \sqrt{m^2 + p_T^2}
 \end{equation}
 The invariant mass is what we measure in the final state only. 
 As we analyze data\footnote{And mostly simulations mimicking the ATLAS detector} from Run II on LHC, which operated at $\sqrt s = 13$ TeV, it is important to consider the determination of the center-of-mass energy, which characterizes the initial state of the colliding protons. 
 While the LHC controls the initial state, it is crucial to understand that the 13 TeV energy value associated with the incoming protons does not directly define the center-of-mass energy of the initial state. Instead, it is the partons, 
-primarily gluons but also including quarks, that contribute to the center-of-mass energy. These partons have the ability to possess any collision energy below 13 TeV. The momentum fractions of the partons are determined by the product of 
-the invariant mass and the pseudorapidity $(m/\eta)$ of the final state particles, for more info on partons see Chapter \ref{sec:pdf}.\\
-\\The aim of this thesis is to search for DM, which we know interacts weakly with matter in the same way as neutrinos, meaning it leaves no signal in detectors. So how can we detect its presence? 
-As we know that the transverse momenta before a particle collision is zero\footnote{Because protons travel along the beam axis on our coordinates}, then we know that the sum of transverse momenta must be zero after the collision as well, to conserve momentum.
-From this we often can infer the presence of the non-interacting particles from the presence of \textit{missing transverse energy}\footnote{Also called \textit{missing momentum}. While energy is a scalar quantity without direction, we use the term "missing transverse energy" to emphasize the magnitude of the missing transverse momentum vector. This convention is adopted due to the nature of our energy measurements in calorimeters, which actually gives us directions} 
+primarily gluons but also including quarks and anti-quarks, that contribute to the center-of-mass energy, see Section \ref{sec:pdf} for more details.\\
+% These partons have the ability to possess any collision energy below 13 TeV. The momentum fractions of the partons are determined by the product of 
+% the invariant mass and the pseudorapidity $(m/\eta)$ of the final state particles, for more info on partons see Chapter \ref{sec:pdf}.\\
+\\The aim of this thesis is to search for DM, which we know interacts weakly with matter in the "same way" as neutrinos, meaning it leaves no signal in detectors such as ATLAS\footnote{Neutrinos interact in dense and large mediums however}. So how can we detect its presence? 
+As we know that the transverse momenta before a particle collision is zero\footnote{Because protons travel along the beam axis}, then we know that the sum of transverse momenta must be zero after the collision as well, to conserve momentum.
+From this we often can infer the presence of the non-interacting particles from the presence of \textit{missing transverse energy}\footnote{Also called \textit{missing momentum}. While energy is a scalar quantity without direction, we use the term "missing transverse energy" to emphasize the magnitude of the missing transverse momentum vector. This convention is adopted due to the nature of our energy measurements in calorimeters, which actually give us directions} 
 (MET), which is defined by 
 \begin{equation}\label{eq:MET}
-    E_T^{miss} = \mathbf{p}_{miss} \equiv -\sum_i \mathbf{p}_{T,i}
+    E_T^{miss} = \abs{\mathbf{p}_T^{miss}},\quad\text{where }\quad \mathbf{p}_T^{miss} \equiv -\sum_i \mathbf{p}_{T,i}
 \end{equation}
-where the sum extends over the measured momenta of all the observed particles in an event, as well as all the tracks which are reconstructed, but not associated with any particle\footnote{Referred to as \textit{soft terms}}. From this formula, if all particles produced in the collision have been detected, then this sum should be zero. Meaning that 
-significant MET is an indicative of the presence of undetected particles. \\
+where the sum extends over the measured momenta of all the observed particles in an event, as well as all the low energy tracks which are reconstructed, but not associated with any particle\footnote{Referred to as \textit{soft terms}}. From this formula, if all particles produced in the collision have been detected, then this sum should be zero. Meaning that 
+in ideal cases, significant MET is an indicative of the presence of undetected particles. \\
 \\Another useful kinematic variable is the \textit{hadronic activity} which is the scalar sum of the transverse momentum of all jets in an event, defined as
 \begin{equation}\label{eq:HT}
     H_T = \sum_{i\in\{jets\}} \vert\vert \mathbf{p}_{T,i}\vert\vert
 \end{equation}
-This gives a measurement of the hadronic energy scale of an event. Another handy trick comes from the realization that the centre-of-mass frame is between the hadrons, where the total momentum is given as a function of the energy of the hadron. 
-This means that the final state particles are boosted along the beam axis. With this realization we can now introduce a Lorentz invariant\footnote{Under boosts along the beam axis} kinematic property known as the \textit{rapidity, y} used to express the lepton angles
+This gives a measurement of the hadronic energy scale of an event. Another handy trick comes from the realization that the centre-of-mass frame is between the hadrons in jets, where the total momentum is given as a function of the energy of the hadrons. 
+This means that the final state particles are boosted along the beam axis. With this realization we can now introduce a Lorentz invariant\footnote{Under boosts along the beam axis} kinematic property known as the \textit{rapidity, y} used to express the polar angles
 \begin{equation}\label{eq:rapidity}
     y \equiv \frac{1}{2}\ln\left(\frac{E+p_z}{E-p_z}\right)  
 \end{equation} 
 We can use that $p_Z = E\cos\theta$ in the high-energy limit as the mass is negligible. In this limit we can use the \textit{pseudorapidity}, $\eta$, defined by
 \begin{equation}\label{eq:pseudorapidity}
-    \eta \equiv -\ln\left(\tan\frac{\theta}{2}\right)
+    y\approx \eta \equiv -\ln\left(\tan\frac{\theta}{2}\right)
 \end{equation}
 The pseudorapidity is an interesting variable as, in the same was as $\theta$, it can tell us how close to the beam the final state particles are\footnote{Where the higher $\vert\eta\vert$ means closer to the beam}, but this time independently of the boost as it does not include the mass of the particle. The
-pseudorapidity also gives us that for a single particle the phase space is uniformly distributed on $(\eta,\phi)-$space. This variable can also be negative, meaning it is boosted along the other beam direction. 
-From this we can define a new variable which will come handy with particle identification, which is called the \textit{R-cone}, that defines a circle in $(\eta,\phi)$-space surrounding the object of interest. It is defined as
+pseudorapidity also gives us that for a single particle the phase space is more uniformly distributed on $(\eta,\phi)$ than $(\theta,\phi)-$space. The $\eta$ variable can also be negative, meaning it is boosted along the other beam direction. 
+From this we can define a new variable which will come handy with particle identification, which is called the \textit{R-cone}, that defines a circle in $(\eta,\phi)$-space. It is defined as
 \begin{equation}\label{eq:R-cone}
     \Delta R = \sqrt{(\Delta\eta)^2+(\Delta\phi)^2}
 \end{equation}
@@ -91,31 +91,31 @@ $$
 m_T^2 \left(\mathbf{p}_T, \mathbf{q}_T\right) = 2(p_T q_T - \mathbf{p}_T\cdot\mathbf{q}_T)
 $$
 For a more detailed explanation and interpretation of the stransverse mass we refer the reader to the paper by Barr et al. \cite{Barr_2003}. Even though the stransverse mass was made with neutralinos in mind, it can still 
-be used to calculate SM processes. For example, if we want to reduce $WW$ background events, we can first recall that each boson can decay as $W\rightarrow l+\nu_l$ with the $W$ mass as an endpoint. 
-Meaning that we can use $m_{T2}$ to reduce the $WW$ events in a dilepton final state by requiring that $m_{T2} > m_W$.
+be used to calculate SM processes. For example, if we want to reduce $W^+W^-$ background events, we can first recall that each boson can decay as $W^+\rightarrow l^++\nu_l$ (and $W^-\rightarrow l^-+\overline{\nu}_l$) with the $W$ mass, $m_W$, as an endpoint. 
+Meaning that we can use $m_{T2}$ to reduce the $W^+W^-$ events in a dilepton final state by requiring that $m_{T2} > m_W$.
 
 \subsection{Proton-proton collisions}
-With all the kinematics out of the way the question of how the particles are produced still remains. The answer could be an electron positron collider, as they did in LEP, a proton anti-proton collider, like the Sp$\overline{\mbox{p}}$S. As this thesis uses LHC data we will look at proton-proton collisions.
-Protons are made of elementary particles, two \textit{up} and one \textit{down} to be specific. Because of this it is not hard to realize that the Feynman rules acquired from the SM (Chapter \ref{chap:SM}) also apply here. In this subsection we will study how different effects of $pp-$collisions affect 
+With all the kinematics out of the way the question of how the particles are produced still remains. The answer could be an electron-positron collider, as they did in LEP, a proton anti-proton collider, like the Sp$\overline{\mbox{p}}$S. As this thesis uses LHC data we will look at proton-proton collisions.
+Protons are made of elementary particles, two \textit{up-} and one \textit{down-}quarks to be specific. Because of this it is not hard to realize that the Feynman rules acquired from the SM (Figure \ref{fig:feynman_rules}) also apply here. In this subsection we will study how different effects of $pp-$collisions affect 
 the cross-section, and therefore the expected number of events to occur, from a kinematical point of view.
 
 \subsubsection{Parton Distribution Functions}\label{sec:pdf}
-Although the proton is made up of two up quarks and one down quark, called the \textit{valence quarks}, the proton also consists of gluons and other quarks, called \textit{sea quarks}. These sea quarks become important in deep inelastic scatterings, 
-where the proton breaks apart due the high energies in the collisions. As we accelerate the protons before colliding them, we also accelerate the quarks and gluons inside it, each of the partons carry a momentum fraction $x$, 
-called the Bjorken $x$. We can then calculate the invariant mass of two colliding partons $q_1$ and $q_2$\footnote{See Figure \ref{fig:Feynann_PDF} for a visual description of partons momentum}, with the momentum fraction $x_1$ and $x_2$, from the proton's momentum $p_1$ and $p_2$ respectively as
+Although the proton is made up of two up quarks and one down quark, called the \textit{valence quarks}, the proton also consists of gluons and other quarks and anti-quarks, called \textit{sea quarks}. These sea quarks become important in deep inelastic scattering, 
+where the proton breaks apart due the high energies in the collisions. As we accelerate the protons before colliding them, we also accelerate the quarks and "gluons" inside it, each of the partons carry a momentum fraction $x$ of the proton, 
+referred to as the Bjorken $x$. We can then calculate the reduced centre-of-mass, $\hat{s}$ of two colliding partons $q_1$ and $q_2$, as seen in Figure \ref{fig:Feynann_PDF}, with the proton momentum fraction $x_1$ and $x_2$, from the proton's momentum $p_1$ and $p_2$ respectively as
 $$
-m^2=x_1x_2s
+\hat{s}=x_1x_2s
 $$
-where $s$ is the centre-of-mass energy squared of the $pp-$system. The valence quarks in the proton do not only interact with the other valence quarks in the other proton, but they might also emit gluons which decay into quark anti-quarks pairs, 
-making a “sea” of gluons and quarks around the valence quarks. The momentum of the partons inside the proton are dependent on the momentum transfer $Q^2$ and is represented by an experimentally determined momentum distribution, 
+where $s$ is the centre-of-mass energy squared of the $pp-$system. The valence quarks in the proton do not only interact with the other valence quarks in the other proton, but they might also emit gluons which split into quark anti-quarks pairs 
+or gluon-gluon, making a “sea” of gluons, quarks and anti-quarks around the valence quarks. The momentum of the partons inside the proton are dependent on the momentum transfer $Q^2$ and is represented by an experimentally determined momentum distribution, 
 known as the \textit{parton distribution function} (PDF) \cite{PDF} $f(x,Q^2)$. In other words, the PDFs give the probability of a parton to carry the momentum fraction $x$ of a proton. The shape and form the PDFs play 
-an important role of estimating the processes that occur after the proton collisions, and therefore are crucial when simulating events using Monte Carlo \cite{MC_PDF}.  If we take as an example the process 
+an important role in estimating the process cross-section that occur after the $pp-$collisions, and therefore are crucial when simulating events using Monte Carlo \cite{MC_PDF}.  If we take as an example the process 
 $pp\rightarrow l^+l^-+X$ where $X$ denotes any hadrons formed by the remaining quarks. Figure \ref{fig:Feynann_PDF} showcases the process.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\textwidth]{PP_Feynmann_Diagram.png}
-    \caption[Feynman diagram from $pp-$collision]{Feynman diagram depicting the $pp\rightarrow l^+l^-+X$ process where $X$ denotes any hadrons formed by the remaining quarks
-    not taking part in the $q\bar{q}-$collisionc. The colliding valence quarks are defined as $q_i=x_ip_i$ where each quark $q_i$ is carrying the momentum fraction $x_i$ of the proton momentum $p_i$.}\label{fig:Feynann_PDF}
+    \caption[Feynman diagram from $pp-$collision]{Feynman diagram depicting the $pp\rightarrow l^+l^-+X$ process where $X$ denotes any hadrons formed by partons
+    not taking part in the hard process $q\bar{q}\rightarrow l^+l^-$. The colliding valence quarks are defined as $q_i=x_ip_i$ where each quark $q_i$ is carrying the momentum fraction $x_i$ of the proton momentum $p_i$.}\label{fig:Feynann_PDF}
 \end{figure}
 \\The cross-section for the process is 
 $$
@@ -124,17 +124,17 @@ $$
 \begin{equation}\label{eq:PDF_xsec}
     \int_{0}^{1}\int_{0}^{1}\sum_{f}f_f(x_1)f_{\bar{f}}(x_2)\cdot\sigma\left(q_f(x_1p_1)+\bar{q}_f(x_2p_2)\rightarrow l^+l^- \right) dx_2dx_1
 \end{equation}
-where $\sigma\left(q_f(x_1p_1)+\bar{q}_f(x_2p_2)\rightarrow l^+l^- \right)$ is calculated using the rules explained in Chapter \ref{chap:SM}, and $f$ are the PDFs. As we can see this can drastically change the cross-section, and with that the 
-probability, for an event we want to study. 
+where $\sigma\left(q_f(x_1p_1)+\bar{q}_f(x_2p_2)\rightarrow l^+l^- \right)$ is calculated using the Feynman rules given in Figure \ref{fig:feynman_rules}, and $f$ are the PDFs. %As we can see this can drastically change the cross-section, and with that the 
+% probability, for an event we want to study. 
 
 \subsubsection{Breit-Wigner resonance}
-Another important aspect when looking at particle collisions is the \textit{Breit-Wigner resonance}. All unstable particles have a decay rate, $\Gamma$, (given as inverse of the lifetime $\tau$) which is present in the wave function, 
+Another important aspect when looking at particle collisions is the \textit{Breit-Wigner resonance}. All unstable particles have a decay rate or width, $\Gamma$, (given as inverse of the lifetime $\tau$) which is present in the wave function, 
 $\Psi \propto e^{-i(m-i\Gamma/2)}$. This decay rate also becomes apparent when the unstable particle is the propagator of the interaction we are studying 
 \begin{equation}\label{eq:Breit-Wigner}
     \sigma \propto\frac{1}{(s-m^2)^2-m^2\Gamma^2}
 \end{equation}
-From this we can see that as the square of the centre-of-mass energy $s$, approaches the unstable particles mass $m$, there will be a resonance at the invariant mass of the unstable particle, this is called the Breit-Wigner resonance. 
-It is because of resonances like this that we can identify particles such as the $Z$ boson. This resonance will also be present when studying some BSM DM models in this thesis.\\
+From this we can see that, as the square of the centre-of-mass energy $s$, approaches the unstable particles mass $m$, there will be a resonance at the invariant mass of the final state particles, this is called the Breit-Wigner resonance. 
+It is because of resonances like this that we can identify particles such as the $Z$ boson. A new resonance $Z'$ resonance is predicted by some BSM DM models studied in this thesis.\\
 
 
 \subsubsection{Expected events}
