@@ -133,17 +133,17 @@ $\Psi \propto e^{-i(m-i\Gamma/2)}$. This decay rate also becomes apparent when t
 \begin{equation}\label{eq:Breit-Wigner}
     \sigma \propto\frac{1}{(s-m^2)^2-m^2\Gamma^2}
 \end{equation}
-From this we can see that, as the square of the centre-of-mass energy $s$, approaches the unstable particles mass $m$, there will be a resonance at the invariant mass of the final state particles, this is called the Breit-Wigner resonance. 
+From this we can see that, as the square of the centre-of-mass energy $s$, approaches the unstable particles mass $m$, there will be a resonance at the invariant mass of the final state particles that "show" the mass of the unstable particle, this is called the Breit-Wigner resonance. 
 It is because of resonances like this that we can identify particles such as the $Z$ boson. A new resonance $Z'$ resonance is predicted by some BSM DM models studied in this thesis.\\
 
 
 \subsubsection{Expected events}
-The most important value we need to know when studying $pp-$collisions is the number of interactions taking place, this is defined as
+The most important value we need to know when studying $pp-$collisions is the number of events $N$ expected for a process, this is defined as
 \begin{equation}\label{eq:expected_events}
     N=\sigma\int\mathcal{L}(t)dt, \qquad\text{where}\quad \mathcal{L}=f\frac{n_1n_2}{\sigma_x\sigma_y}
 \end{equation}
-where $\sigma$ is the cross-section of the interaction as expressed in Eq (\ref{eq:cross_sec}) while also taking into account the effects from Eq. (\ref{eq:PDF_xsec}) and Eq. (\ref{eq:Breit-Wigner}).
-The last three symbols come from accelerator kinematics where $\sigma_{x,y}$ denotes the beam size, $f$ is the frequency of bunch crossings, and $n_{1,2}$ is the number of particles in bunches.
+where $\sigma$ is the cross-section of the process as expressed in Eq (\ref{eq:cross_sec}) while also taking into account the PDF functions in Eq. (\ref{eq:PDF_xsec}) and the decay widht in Eq. (\ref{eq:Breit-Wigner}).
+The last three symbols come from accelerator kinematics where $\sigma_{x,y}$ denotes the beam size, $f$ is the frequency of bunch crossings, and $n_{1,2}$ is the number of protons in bunches.
 
 
 
@@ -151,13 +151,13 @@ The last three symbols come from accelerator kinematics where $\sigma_{x,y}$ den
 
 \clearpage
 \section{The ATLAS detector}\label{sec:ATLAS}
-We have so far in this chapter discussed how particles are produced. But we have yet explained how we actually detect them, arguably the most important matter in the field of experimental high energy particle physics.
+We have so far in this chapter discussed how particles are produced. But we have not yet explained how we actually detect them, arguably the most important matter in the field of experimental high energy particle physics.
 This section of the chapter is just about that, and we will explain how the detection happens in A Toroidal LHC ApparatuS, or more commonly know as the ATLAS detector. Figure \ref{fig:ATLAS_detector} showcases 
 the detector and its size. The information of this section is largely based on the original ATLAS Technical Design Report \cite{Aad:1129811}.\\
 \\The ATLAS detector is a general multipurpose\footnote{Probing $pp-$ and $AA-$ (heavy ions) collisions.} detector located at the LHC and covers nearly the entire solid angle 
-around the collision point, as described with the $(\eta,\phi)-$coordinates in Section \ref{sec:particle_kinematics}. The ATLAS detector consists of four main subdetectors; ($i$) an inner tracking detector (ID), 
-an ($ii$) electromagnetic calorimeter (ECAL), and a ($iii$) hadronic calorimeter (HCAL), and lastly ($iv$) a muon spectrometer (MS). Figure \ref{fig:ATLAS_layers} visualizes the four $(i)-(iv)$ main sub-detectors, 
-along with how the different particle types interact with each layer. A brief description of each layer is explained in this section.
+around the collision point, as described in the reference frame depicted in Figure \ref{fig:ATLAS_detector}. The ATLAS detector consists of four main subdetectors; ($i$) an inner tracking detector (ID), 
+an ($ii$) electromagnetic calorimeter (ECAL), a ($iii$) hadronic calorimeter (HCAL), and lastly ($iv$) a muon spectrometer (MS). Figure \ref{fig:ATLAS_layers} visualizes in the transverse plane the four $(i)-(iv)$ main sub-detectors, 
+along with how the different particle types interact with each layer. A brief description of each layer is given in this section.
 \begin{figure}[!ht]
 	\centering
     \includegraphics[width=1\textwidth]{ATLAS_detector.jpg}
@@ -171,58 +171,51 @@ along with how the different particle types interact with each layer. A brief de
 \\
 \subsection{Inner detector}\label{sec:ID} 
 The inner-detector (ID) system is immersed in a 2T axial magnetic field and provides charged-particle tracking in the range $\abs{\eta}<2.5$. The ID provides the first measurements of the 
-momentum and identification of electrically charged particles, as these can be determined by the curvature of their reconstructed tracks. 
+momentum and charge of electrically charged particles, as these can be determined by the curvature of their reconstructed tracks. 
 The ID is made of three independent systems; the pixel detector, the semiconductor tracker (SCT) and 
 the transition radiation tracker (TRT). \\
 \\The pixel detector is made up of 80 million silicon pixel sensors, each of size $50\times400\mu$m$^2$, %with a resolution of $14\times155\mu$m$^2$, 
-and spread over multiple layers. Outside the pixel layers 
-are the SCTs, which consist of silicon microstrips trackers, also placed on multiple layers. The SCT covers the pseudorapidity region $\abs{\eta}<2.5$. Lastly we have the TRT, 
-which consist of 4 mm in diameter straw tubes, which enables track-following up to $\abs{\eta}=2.0$ 
+and spread over four layers. Outside the pixel layers 
+are the SCT, which consists of silicon microstrip detectors, also placed on multiple layers. The SCT covers the pseudorapidity region $\abs{\eta}<2.5$. Lastly we have the TRT, 
+which consist of 4 mm in diameter straw tubes, which enable track-following up to $\abs{\eta}=2.0$ and allows for electron identification. 
 
 \subsection{The calorimeters}\label{sec:calories}
 The ATLAS detector has two types of calorimeters, the \textit{electromagnetic calorimeter} (ECAL) and the \textit{hadronic calorimeter} (HCAL), both designed to fully stop certain types of particles. 
 The ECAL is immediately surrounding the inner detector and is divided into a barrel part ($\abs{\eta}<1.475$) and two end-cap components ($1.375<\abs{\eta}<3.2$). 
 The ECAL consists of absorbing lead plates, with liquid Argon (LAr) in between. The thickness of the calorimeter is made to fully measure the shower of photons and electrons/positrons. The muons will only lose 
-a small fraction of their energy as they have longer interaction lengths with lead.\\
+a small fraction of their energy as they have longer interaction lengths in lead.\\
 \\The HCAL is immediately surrounding the ECAL on all sides and consists of two types of detectors. In the barrel ($\abs{\eta}<1.0$) and the extended barrel regions ($0.8<\abs{\eta}<1.7$), the HCAL is made of 
 steel plates with plastic scintillator tiles as active material. While on the end-cap regions ($1.5<\abs{\eta}<3.2$) there are hadronic LAr detectors, with absorbing copper plates as active material; in the 
 forward region ($3.1<\abs{\eta}<4.9$) a combination of copper and tungsten plates are used as active material. The active materials are chosen to maximize the interaction cross-section with hadrons, such as neutrons, 
-protons and pions. The depth of the HCALs is also designed to fully stop the particles and their showers in order to measure their total energies. Hadrons are efficiently stopped at the HCALs, meaning that only 
+protons and charged pions. The depth of the HCALs is also designed to fully stop hadrons and their showers, which corresponds to the deposited energies. Hadrons are efficiently stopped at the HCALs, meaning that only 
 muons and invisible particles, such as neutrinos and potentially dark matter, leave the HCAL.
 
 \subsection{Muon spectrometer}\label{sec:MS}
-The outermost layer of the ATLAS detector is the \textit{muon spectrometer} (MS), dedicated to the measurement of the muons momenta. The MS, similar to the ID, consists of multiple layers of detector material, 
-and is immersed in a strong magnetic field to bend the trajectories of the charged muons. The MS is made of four different types of detector component: $(i)$ Monitored Drift Tubes (MDTs) on the barrel, 
+The outermost layer of the ATLAS detector is the \textit{muon spectrometer} (MS), dedicated to the measurement and identification of the muons momenta. The MS consists of multiple layers of detector material, 
+and is immersed in a strong magnetic field to bend the trajectories of the charged muons. The MS is made of four different types of detector component: $(i)$ Monitored Drift Tubes (MDTs) in the barrel, 
 $(ii)$ Cathode Strip Chambers (CSCs) dealing with the events closer to the beam line in the end cap, $(iii)$ Resistive Plate Chambers (RPCs) in the barrel and ($iv$) Thin Gap Chambers (TGCs) in the end caps. 
-The MDTs and CSCs are used for tracking while the RPCs and TGCs are used for triggers. The tracking is provided for pseudorapidities up to $\abs{\eta}<2.7$, and the trigger system only extends to $\abs{\eta}<2.4$.
+The MDTs and CSCs are used for tracking while the RPCs and TGCs are used for triggering. The tracking is provided for pseudorapidities up to $\abs{\eta}<2.7$, and the trigger system only extends to $\abs{\eta}<2.5$.
 
-
-
-
-
-
-\clearpage
 \section{Data analysis}\label{sec:data_anal}
 The time has come to explore how we can search for new physics phenomena, now that it has been established how particles are produced and how we detect them. In this section we will take into account the classic way of searching for new physics which is called 
 the \textit{cut and count method}, but there are other methods to search for new physics, such as Machine Learning (ML) which is the method pursued in this thesis. There might be other methods, such as 
-Quantum ML, but as of today we are still in an early stage of the technology \cite{QML}\textbf{Question: Can I include this? (it iss my QML project)}. To give a short description of the cut and count method, it makes kinematical \textit{cuts} such that we isolate signal from background. The way 
-the signal and background are made is by Monte Carlo (MC) simulations, which is necessary for guiding us on where to place efficient cuts and understand our sensitivity to a given BSM model. As it wouldn't be a real experimental physics discovery without making a statistical 
+Quantum ML, but as of today we are still in a too early stage of the technology \cite{QML}. To give a short description of the cut and count method, it makes kinematical \textit{cuts} on various variables to isolate signal from background. The way 
+the signal and background\footnote{There are also data driven methods, but on this thesis we will focus on simulations} are made is by Monte Carlo (MC) simulations, which is necessary for guiding us on where to place efficient cuts and understand our sensitivity to a given BSM model. As it wouldn't be a real experimental physics discovery without making a statistical 
 analysis of the results we will also explain how we utilize this tool. To guide us through this process I will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the success of this method.
 
 \subsection{Cut and count method}
-The cut and count method is what is currently the standard method of doing data analysis with LHC data analysis\footnote{This standard method is shifting towards machine learning}. As the name implies, the cut and count method works by making cuts on kinematical variables and afterwards counting how many events are left. 
+The cut and count method is what has been the standard method of doing data analysis with LHC data. As the name implies, the cut and count method works by making cuts on kinematical variables and afterwards counting how many events are left. 
 The goal of using this method is to make cuts such that we remove as many background events as possible while also keeping as many signal events as possible. For example, if we were to study a new physics model with a new light vector boson behaving similarly to the $Z$ boson, but with a higher mass, 
 then a good kinematical cut to remove many background processes would be to require that $m_{ll}>100$ GeV, as this would remove the majority of $Z$-resonance from the final state, making it easier to "find" the new physics model. \\
-\\To more thoroughly explore the cut and count method we can look at the Higgs discovery, in particular the $H\rightarrow ZZ^{(*)} \rightarrow 4l$\footnote{Where $l$ is for lepton, but only means $e^\pm$ or $\mu^\pm$. \textit{Question: should I explain why not $\tau$?}} channel. 
-In section 4.1 of the original article \cite{Higgs_discovery_2012} there is something called \textit{event selection}. The event selection are the kinematical cuts used. The kinematical cuts used in the article, aside from the \textit{standard selection criteria} 
-(see Chapter \ref{sec:obj_sel}), were:
+\\To more thoroughly explore the cut and count method we can look at the Higgs discovery, in particular the $H\rightarrow ZZ^{(*)} \rightarrow 4l$\footnote{Where $l$ is for lepton, but only means $e^\pm$ or $\mu^\pm$} channel. 
+The event selection consist of kinematical cuts used. The kinematical cuts include (aside from the \textit{acceptane cuts}), were:
 \begin{itemize}
     \item Single-lepton or dilepton triggers
-    \item Four leptons final state with $p_T >20,15,10,7$ GeV
+    \item Four leptons final state with ordered $p_T >20,15,10,7$ GeV
     \item Higgs-boson candidates are formed by selecting two same flavor opposite charge lepton pairs
 \end{itemize}
 The first "cut" is to make sure that the event contains leptons with sufficient quality to have fired one of the relevant triggers. The second cut is to have the sufficient number of leptons in the final state with $p_T$ above the trigger thresholds. And lastly we want to have two lepton pairs of the same-flavor 
-with opposite-charge, this is to make sure that the leptons that we observe actually decay from $Z$-bosons. What now remains is to explore the "count" part of this method. When counting the events that pass the event selection one usually counts the background events that pass, the data 
+with opposite-charge, this is to make sure that one lepton pair actually decays from a $Z$-boson. What now remains is to explore the "count" part of this method. When counting the events that pass the event selection one usually counts the background events that pass, the data 
 points that pass, and also the signal events that pass. For the 2012 Higgs discovery, the Higgs channel with a Higgs mass of 125 GeV was used as signal. 
 The results of the 2012 discovery is shown in Figure \ref{fig:Higgs_ZZ}.\\
 \begin{figure}[!ht]
@@ -236,10 +229,10 @@ to claim anything we need to look at statistics, which is the subject of the nex
 
 
 \subsection{Statistical tools}\label{sec:stat_anal}
-To make any sort of claim in modern physics we should be absolutely certain that what we are claiming is true, as just making the cuts and isolating a signal to background is not enough. To be specific we need to be \textit{at least $5\sigma$ sure} to claim any new discoveries. 
-But as not everything in experimental high energy particle physics is a new discovery, but is in fact for the most part \textit{exclusions}. In this section we will explain the mathematical details for the statistical tools that will be used in this thesis.\\ 
-\\This thesis is the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
-where a Bayesian analysis is performed to set limits on the studied processes. Using the signal+background hypothesis, the expected number of events in each channel of a process we are studying is 
+To make any sort of claim in modern physics we should be absolutely certain that what we are claiming is true, as just making the cuts and isolating a signal to background is not enough. To be specific we need to be "\textit{at least $5\sigma$ sure}" to claim any new discoveries. 
+But as not everything in experimental high energy particle physics is a new discovery, we will also look at \textit{exclusions}. In this section we will present some mathematical details behind the statistical tools that will be used in this thesis.\\ 
+\\This\todo{Fix this intro} thesis follows the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
+where a Bayesian analysis is performed to set limits on the existence of a new $W'$ boson. Using the signal+background hypothesis, the expected number of events in each lepton channel, $ee, \mu\mu$, of the process $W^-\rightarrow l\nu$ is 
 $$
     N_{\text{exp}} = \varepsilon_{\text{sig}}L_{\text{int}}\sigma B + N_{\text{bkg}}
 $$
@@ -252,8 +245,8 @@ We include uncertainties by introducing nuisance parameters $\theta_i$, each wit
 \begin{equation}\label{eq:observed_events_nuisance}
     \mathcal{L}_B(N_{\text{obs}}\vert \sigma B)=\int\mathcal{L}(N_{\text{obs}}\vert \sigma B)\prod g_i(\theta_i)d\theta_i
 \end{equation}
-where a log-normal distribution is used for the $g_i(\theta_i)$. The nuisance parameters are taken to be: $L_{\text{int}}, \varepsilon_{\text{sig}}$ and $N_{\text{bkg}}$, with the appropriate correlation accounted for between the first and the third parameters. The measurements of 
-the two decay channels (muon or electron final state for $H\rightarrow lll'l'$) are combined assuming the same branching fraction for each, thus Eq. (\ref{eq:observed_events_nuisance}) remains valid with the Poisson likelihood replaced by the product of the Poisson likelihoods for the two channels. 
+where a log-normal distribution is used for the $g_i(\theta_i)$. The nuisance parameters are taken to be: $L_{\text{int}}, \varepsilon_{\text{sig}}$ and $N_{\text{bkg}}$. The measurements of 
+the two decay channels (muon or electron final state for $W'\rightarrow l\nu$) are combined assuming the same branching fraction for each, thus Eq. (\ref{eq:observed_events_nuisance}) remains valid with the Poisson likelihood replaced by the product of the Poisson likelihoods for the two channels. 
 The integrated luminosities for the electron and muon channels are fully correlated. We can further use Bayes' theorem which gives the posterior probability that the signal has signal strength $\sigma B$:
 \begin{equation}\label{eq:prior_prob}
     P_{\text{post}}(\sigma B\vert N_{\text{obs}}) = N \mathcal{L}_B (N_{\text{obs}}\vert\sigma B) P_{\text{prior}}(\sigma B)
@@ -261,9 +254,9 @@ The integrated luminosities for the electron and muon channels are fully correla
 where $P_{\text{prior}}(\sigma B)$ is the assumed prior probability, here chosen to be flat in $\sigma B$, for $\sigma B$ > 0. The constant factor $N$ normalizes the total probability to one. The posterior probability is evaluated for each mass and decay channel as well as for their 
 combination, and then used to set a limit on $\sigma B$.\\
 \\As we can see, the inputs for the evaluation of $\mathcal{L}_B$ (and $P_{\text{post}}$) are $\varepsilon_{\text{sig}}$, $L_{\text{int}}$, $N_{\text{bkg}}$ and $N_{\text{obs}}$ and the uncertainties of the first three. The uncertainties for these should account for experimental 
-and theoretical systematic effects as well as the statistics of the simulated samples. For this thesis the systematic uncertainties will not be calculated, but will rather be assumed to be $\pm$ 30\% of the background, as this is roughly the standard value of ATLAS papers.\\
+and theoretical systematic effects as well as the statistics of the simulated samples. For this thesis the systematic uncertainties will not be calculated, but will rather be assumed to be flat and $\pm$ 20\% of the background.\\
 \\To make exclusions we can use Eq. (\ref{eq:prior_prob}) to establish a \textit{confidence limit} (CL). CLs are defined as the probability to observe the number of events observed in an experiment, $N_{\text{obs}}$, or \textit{less} given signal+background. We usually define a signal+background 
-hypothesis to be excluded when CL$_{s+b}$ < 5\%. Meaning a 95\% CL. Such that the probability to falsely exclude an existing signal(+background) is 5\%. The standard practice in particle physics when using CL is to \textit{set limits} on theoretical models, rather than exclude them.\\
+hypothesis to be excluded when CL$_{s+b}$ < 5\%. Meaning a 95\% CL, such that the probability to falsely exclude an existing signal(+background) is 5\%. We will use CL is to \textit{set limits} on theoretical models, rather than exclude them.\\
 \\On the other side, to claim any discovery in particle physics we need to know the \textit{significance} of any statistical fluctuation. Before getting to the significance we can discuss the \textit{p-value}, defined as the probability to observe the number of events observed in the experiment, $n_{\text{obs}}$, 
 or \textit{more} given only background
 \begin{equation}\label{eq:p-value}
@@ -281,17 +274,17 @@ $$
 $$
 As mentioned in the start of this subsection, a discovery in particle physics is defined to be at least a $Z=5\sigma$ deviation from the background hypothesis, meaning that we would have a $p-$value of $p\le2.87\times10^{-7}$. In other words, with a $5\sigma$ deviation, the probability to 
 falsely discover something is at worst one in roughly 3.5 million.\\ 
-\\As the significance is an interesting quantity we can give it its own definition. In this thesis we will not show the derivation to arrive at the formula, but to give a short description; we arrive to it by taking the logarithms of the likelihood formulas above when making some approximations.  We will use the low statistics formula for the significance, 
-as this is the most general one. We can either define the significance as the \textit{observed significance} by
+\\As the significance is an interesting quantity we can give it its own definition. We will use the low statistics formula for the significance, 
+as this is the most general one. We can either define the significance as the \textit{observed significance} with the equation
 $$
     Z = \sqrt{2\left[N_{\text{obs}}\ln\frac{N_{\text{obs}}}{N_{\text{bkg}}}-N_{\text{obs}}+N_{\text{bkg}}\right]}
 $$
-For our purposes, as we will exclusively use the signal+background hypothesis, we will use the \textit{expected significance}, which we get by changing $N_{\text{obs}} \rightarrow N_{\text{sig}}+N_{\text{bkg}}$, where $N_{\text{sig}}$ is the number of signal events
+However, for our purposes, as we will use the signal+background hypothesis, we will use the \textit{expected significance}, which we get by changing $N_{\text{obs}} \rightarrow N_{\text{sig}}+N_{\text{bkg}}$, where $N_{\text{sig}}$ is the number of signal events
 \begin{equation}\label{eq:exp_sig}
     Z = \sqrt{2\left[(N_{\text{sig}}+N_{\text{bkg}})\ln\left(1+\frac{N_{\text{sig}}}{N_{\text{bkg}}}\right)-N_{\text{sig}}\right]}
 \end{equation}
-However, Eq. (\ref{eq:p-value}) did not include any nuisance parameters, it used Eq. (\ref{eq:observed_events_prob}) instead of Eq. (\ref{eq:observed_events_nuisance}). We want to express the significance with uncertainties. From "Discovery sensitivity for a counting experiment with background uncertainty" from Glen Cowan
-\cite{Cowan_Uncertainty_in_sig}, we can use Eq. (17) on his paper that reads
+However, as Eq. (\ref{eq:p-value}) did not include any nuisance parameters, it used Eq. (\ref{eq:observed_events_prob}) instead of Eq. (\ref{eq:observed_events_nuisance}). We want to express the significance with uncertainties. From "Discovery sensitivity for a counting experiment with background uncertainty" from Glen Cowan
+\cite{Cowan_Uncertainty_in_sig}, we can use then Eq. (17) on his paper that reads
 $$
 Z = \left[-2\left(N_{\text{obs}}\ln\left[\frac{N_{\text{obs}}+m}{(1+\tau)N_{\text{obs}}}\right] + m\ln\left[\frac{\tau(N_{\text{obs}}+m)}{(1+\tau)m}\right]\right)\right]^{1/2}
 $$
@@ -299,7 +292,7 @@ where $m=\tau N_{\text{bkg}}$ and where we have Eq. (19) on his paper that says
 $$
 \tau=\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}
 $$
-where $\sigma_{\text{bkg}}$ is the uncertainty of the background. Changing $N_{\text{obs}} \rightarrow N_{\text{sig}}+N_{\text{bkg}}$ gives us
+where $\sigma_{\text{bkg}}$ is the uncertainty of the background. Using the prior definitions of $m$ and $\tau$, as well as changing $N_{\text{obs}} \rightarrow N_{\text{sig}}+N_{\text{bkg}}$ gives us
 \begin{equation}\label{eq:significance}
     \textstyle    Z = \sqrt{-2\left((N_{\text{sig}}+N_{\text{bkg}})\ln\left[\frac{(N_{\text{sig}}+N_{\text{bkg}})+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} }{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})(N_{\text{sig}}+N_{\text{bkg}})}\right] + \frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} \ln\left[\frac{\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}((N_{\text{sig}}+N_{\text{bkg}})+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} )}{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2}}\right]\right)}
 \end{equation}
@@ -316,8 +309,8 @@ Which makes for a better estimate of the significance one has in reality.
 \section{Summary}
 In this chapter, we have studied how one can discover new physics from calculating the number of expected events from $pp-$collisions. Using special relativity as a tool, we can express the four-momentum of the particles with 
 detector-coordinates, $p^\mu=(E,p_T\cos\phi,p_T\sin\phi,\abs{p}\cos\theta)$. From this four-momentum vector we can thereafter calculate interesting kinematic variables such as the invariant mass $m_{ll}$, missing transverse energy $E_T^{miss}$, 
-stransverse momentum, $m_{T2}$, among others. Using the advanced ATLAS detector with the main four parts; \textit{inner-detector} (ID), \textit{electromagnetic calorimeter} (ECAL), \textit{hadronic calorimeter} (HCAL), and the \textit{muon spectrometer} (MS). 
-We can get the four-momentum can be recorded from the accelerated protons at the LHC, see Figure \ref{fig:ATLAS_layers} which shows visually how different particles interact with the detector.\\
+stransverse mass, $m_{T2}$, among others. Using the advanced ATLAS detector with the main four parts; \textit{inner-detector} (ID), \textit{electromagnetic calorimeter} (ECAL), \textit{hadronic calorimeter} (HCAL), and the \textit{muon spectrometer} (MS), 
+\todo{fix this}we can get the four-momentum can be recorded from the accelerated protons at the LHC, see Figure \ref{fig:ATLAS_layers} which shows visually how different particles interact with the detector.\\
 \\With the recorded data and MC simulations taking into account the experimental features such as the PDFs and Breit-Wigner resonance, as well as the ATLAS kinematics, we can compare how the simulated events fare with the data recorded. 
 By playing around with the kinematical variables of the particles and making cuts to isolate new physics signal, we can see if there is a discrepancy between the data recorded and the SM background. After creating this signal region with the cut and count 
 method we conduct a statistical analysis to see how the new theory/observed data deviates from our current understanding of physics.\\
