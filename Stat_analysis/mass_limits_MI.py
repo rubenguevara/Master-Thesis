@@ -14,7 +14,7 @@ met_reg = args.met_reg
 dataset = dm_model
 save_dir = '../Plots/Limits/Model_independent/'+met_reg+'/'+dataset+'/'
 
-save_txt_path = 'Data/'+met_reg+'/'
+save_txt_path = 'Data_frfr/'+met_reg+'/'
 try:
     os.makedirs(save_dir)
 

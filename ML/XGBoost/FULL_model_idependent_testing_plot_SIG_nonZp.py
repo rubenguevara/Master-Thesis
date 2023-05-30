@@ -52,7 +52,7 @@ directories_plot = directories[:10]
 N = 15
 plt.rcParams["axes.prop_cycle"] = plt.cycler("color", plt.cm.PuRd_r(np.linspace(0.1,0.95,N)))
 if channel != 'll':
-    plot_dir = '../../Plots/XGBoost/Model_independent_frfr/'+met_reg+'/'+dm_model+'/'
+    plot_dir = '../../Plots/XGBoost/Model_independent/'+met_reg+'/'+dm_model+'/'
     plt.figure(figsize=(10,6))
     X_axis = [0.5, 0.6, 0.7, 0.8, 0.9, 0.99]
 

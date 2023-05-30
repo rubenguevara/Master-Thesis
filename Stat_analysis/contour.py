@@ -62,14 +62,14 @@ if dm_model == 'SlepSlep':
     m_y = "'m_{ #tilde{#chi}_{1}^{0}} [GeV]'"
 
     if channel == 'ee':
-        title = "'#tilde{e}#tilde{e} #rightarrow ee #tilde{#chi}_{1}^{0}#tilde{#chi}_{1}^{0}, 20% systematic uncertainty'"
+        title = "'#tilde{e}#tilde{e} #rightarrow ee #tilde{#chi}_{1}^{0}#tilde{#chi}_{1}^{0}, Combined SRs'"
         m_x = "'m_{ #tilde{e}} [GeV]'"
     if channel == 'uu':
-        title = "'#tilde{#mu}#tilde{#mu} #rightarrow #mu#mu #tilde{#chi}_{1}^{0}#tilde{#chi}_{1}^{0}, 20% systematic uncertainty'"
+        title = "'#tilde{#mu}#tilde{#mu} #rightarrow #mu#mu #tilde{#chi}_{1}^{0}#tilde{#chi}_{1}^{0}, Combined SRs'"
         m_x = "'m_{ #tilde{#mu}} [GeV]'"
     if channel == 'll':
         m_x = "'m_{ #tilde{l}} [GeV]'"
-        title = "'#tilde{l} #tilde{l} #rightarrow ll #tilde{#chi}_{1}^{0}#tilde{#chi}_{1}^{0}, 20% systematic uncertainty'"
+        title = "'#tilde{l} #tilde{l} #rightarrow ll #tilde{#chi}_{1}^{0}#tilde{#chi}_{1}^{0}, Combined SRs'"
 
 if dm_model == '2HDM':
     m_y = "'m_{a} [GeV]'"

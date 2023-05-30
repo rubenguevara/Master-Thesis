@@ -10,9 +10,9 @@ args = parser.parse_args()
 dm_model = args.dm_model
 
 dataset = dm_model
-save_dir = '../Plots/Limits/Model_independent/'+dataset+'/'
+save_dir = '../Plots/Limits/Model_independent_frfr/'+dataset+'/'
 
-save_txt_path = 'Data/Model_independent/'
+save_txt_path = 'Data_frfr/Model_independent/'
 try:
     os.makedirs(save_dir)
 

@@ -20,7 +20,7 @@ json_file2.close()
 met_reg = '150'
 directories = [] 
 files = 0 
-save_path = '../ML/Data/XGB/'+met_reg+'/'+dm_model+'/'
+save_path = '/storage/racarcam/Data/XGB_frfr/'+met_reg+'/'+dm_model+'/'
 for (dirpath, dirnames, filenames) in os.walk(save_path):
     if filenames == []: continue
     directories.append(dirpath)
@@ -43,7 +43,7 @@ for f in files:
     elif 'ee' in f: 
         filenames.append(f)
 
-save_txt_path = 'Data/Model_independent/'
+save_txt_path = 'Data_frfr/Model_independent/'
 
 try:
     os.makedirs(save_txt_path)
