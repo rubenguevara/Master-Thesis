@@ -273,76 +273,18 @@ Bool_t EventSelector::Process(Long64_t entry){
     if(dataset=="data18"){yr=2018;} 
   } 
 
-  // //==================================//
-  // // Triggers, isolation and cleaning SUSY //
-  // //==================================//
+  //==================================//
+  // Triggers, isolation and cleaning SUSY //
+  //==================================//
 
-  // Int_t ee_trig = *pass_ee_trig, uu_trig = *pass_uu_trig, e_trig = *pass_e_trig, u_trig = *pass_u_trig;
-  // Int_t mu_trig = uu_trig, el_trig = ee_trig; 
+  Int_t ee_trig = *pass_ee_trig, uu_trig = *pass_uu_trig, e_trig = *pass_e_trig, u_trig = *pass_u_trig;
+  Int_t mu_trig = uu_trig, el_trig = ee_trig; 
 
-  // Int_t pass_l_trig = 0, pass_ll_trig = 0;
-  // if(ee_trig || uu_trig){ pass_ll_trig = 1; }
-  // if( u_trig ){pass_l_trig = 1; } // e_trig ||
+  Int_t pass_l_trig = 0, pass_ll_trig = 0;
+  if(ee_trig || uu_trig){ pass_ll_trig = 1; }
+  if( u_trig ){pass_l_trig = 1; } // e_trig ||
   
-  // if (pass_ll_trig == 0 && pass_l_trig == 0){ return kTRUE; }
-
-  // if(*jetCleaning_eventClean == 0){ return kTRUE; } 
-  // if(doCutflow==1){
-  //   if(mu_trig==1){ n_jetclean_u++;} 
-  //   if(el_trig==1){ n_jetclean_e++;} 
-  // }
-
-  // Int_t n_loose_mu = 0; vector<Int_t> loose_mu = {}; 
-  // Int_t n_loose_mu_f = 0; vector<Int_t> loose_mu_f = {}; 
-  // Int_t n_mu_bad = 0; 
-
-
-  // n_mu = mu_pt.GetSize();
-  // for(Int_t i = 0; i<n_mu; i++){
-  //   // if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
-  //   if(mu_passTTVA[i]){n_loose_mu++; loose_mu.push_back(i);}
-  //   // if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
-  //   if(mu_isBad[i]){n_mu_bad++; } 
-  // }
-  n_jet = jet_eta.GetSize();
-  // n_el = el_pt.GetSize();
-
-  // for(Int_t i = 0; i<n_jet; i++){
-  //   float jetpt = jet_pt[i];}
-  // Int_t n_loose_el = 0; vector<Int_t> loose_el = {}; 
-  // for(Int_t i = 0; i<n_el; i++){
-  //   // if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
-  //   if(el_passTTVA[i]){n_loose_el++; loose_el.push_back(i);}
-  // }
-
-
-  //==================================//
-  // Triggers, isolation and cleaning //
-  //==================================//
-
-  Int_t el_trig = 0, mu_trig = 0;  
-
-  if(yr==2015){ 
-    if( *trigger_HLT_2e12_lhloose_L12EM10VH ){ el_trig = 1; n_trig_e++; }
-    if( *trigger_HLT_mu26_imedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
-  }
-  if(yr==2016){ 
-    if( *trigger_HLT_2e17_lhvloose_nod0 ){ el_trig = 1; n_trig_e++; }
-    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
-  }
-  if(yr==2017){
-    if( *trigger_HLT_2e24_lhvloose_nod0 ){el_trig = 1; n_trig_e++;}
-    if((isData && (*run<326834 || *run>328393)) || isMC ){ // (isMC && *systName=="" && doSyst && (*randomRunNumber<326834 || *randomRunNumber>328393)) ){
-      if( *trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI ){el_trig = 1; n_trig_e++;}
-    }  
-    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
-  }
-  if(yr==2018){
-    if( *trigger_HLT_2e24_lhvloose_nod0 || *trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI ){el_trig = 1; n_trig_e++;}
-    if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
-  }
-
-  if( el_trig == 0 && mu_trig == 0 ){ return kTRUE; } 
+  if (pass_ll_trig == 0 && pass_l_trig == 0){ return kTRUE; }
 
   if(*jetCleaning_eventClean == 0){ return kTRUE; } 
   if(doCutflow==1){
@@ -353,15 +295,76 @@ Bool_t EventSelector::Process(Long64_t entry){
   Int_t n_loose_mu = 0; vector<Int_t> loose_mu = {}; 
   Int_t n_loose_mu_f = 0; vector<Int_t> loose_mu_f = {}; 
   Int_t n_mu_bad = 0; 
-  for(Int_t i = 0; i<*n_mu; i++){
-    if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
-    if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
+
+
+  n_mu = mu_pt.GetSize();
+  for(Int_t i = 0; i<n_mu; i++){
+    // if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
+    if(mu_passTTVA[i]){n_loose_mu++; loose_mu.push_back(i);}
+    // if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
     if(mu_isBad[i]){n_mu_bad++; } 
   }
+  n_jet = jet_eta.GetSize();        // needs to stay uncommented
+  n_el = el_pt.GetSize();
+
+  for(Int_t i = 0; i<n_jet; i++){
+    float jetpt = jet_pt[i];}
   Int_t n_loose_el = 0; vector<Int_t> loose_el = {}; 
-  for(Int_t i = 0; i<*n_el; i++){
-    if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
+  for(Int_t i = 0; i<n_el; i++){
+    // if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
+    if(el_passTTVA[i]){n_loose_el++; loose_el.push_back(i);}
   }
+
+
+  // //==================================//
+  // // Triggers, isolation and cleaning //
+  // //==================================//
+
+  // Int_t el_trig = 0, mu_trig = 0;  
+
+  // if(yr==2015){ 
+  //   if( *trigger_HLT_2e12_lhloose_L12EM10VH ){ el_trig = 1; n_trig_e++; }
+  //   if( *trigger_HLT_mu26_imedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
+  // }
+  // if(yr==2016){ 
+  //   if( *trigger_HLT_2e17_lhvloose_nod0 ){ el_trig = 1; n_trig_e++; }
+  //   if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
+  // }
+  // if(yr==2017){
+  //   if( *trigger_HLT_2e24_lhvloose_nod0 ){el_trig = 1; n_trig_e++;}
+  //   if((isData && (*run<326834 || *run>328393)) || isMC ){ // (isMC && *systName=="" && doSyst && (*randomRunNumber<326834 || *randomRunNumber>328393)) ){
+  //     if( *trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI ){el_trig = 1; n_trig_e++;}
+  //   }  
+  //   if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
+  // }
+  // if(yr==2018){
+  //   if( *trigger_HLT_2e24_lhvloose_nod0 || *trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI ){el_trig = 1; n_trig_e++;}
+  //   if( *trigger_HLT_mu26_ivarmedium || *trigger_HLT_mu50 ){ mu_trig = 1; n_trig_u++;}
+  // }
+
+  // if( el_trig == 0 && mu_trig == 0 ){ return kTRUE; } 
+
+  // if(*jetCleaning_eventClean == 0){ return kTRUE; } 
+  // if(doCutflow==1){
+  //   if(mu_trig==1){ n_jetclean_u++;} 
+  //   if(el_trig==1){ n_jetclean_e++;} 
+  // }
+
+
+  // Int_t n_loose_mu = 0; vector<Int_t> loose_mu = {}; 
+  // Int_t n_loose_mu_f = 0; vector<Int_t> loose_mu_f = {}; 
+  // Int_t n_mu_bad = 0; 
+  // for(Int_t i = 0; i<*n_mu; i++){
+  //   if(fabs(mu_d0sig[i])<3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu++; loose_mu.push_back(i);} 
+  //   if(fabs(mu_d0sig[i])>3. && fabs(mu_z0sinTheta[i])<0.5){n_loose_mu_f++; loose_mu_f.push_back(i);} 
+  //   if(mu_isBad[i]){n_mu_bad++; } 
+  // }
+  // Int_t n_loose_el = 0; vector<Int_t> loose_el = {}; 
+  // for(Int_t i = 0; i<*n_el; i++){
+  //   if(fabs(el_d0sig[i])<5. && fabs(el_z0sinTheta[i])<0.5){n_loose_el++; loose_el.push_back(i);}
+  // }
+  
+  // Uncomment untill here to use susy
 
   Int_t n_loose_lep = n_loose_el + n_loose_mu;
   Int_t lep1=-999, lep2=-999, lep3=-999;
@@ -537,9 +540,9 @@ Bool_t EventSelector::Process(Long64_t entry){
   passed_channels = {}; isTreeChannel=0; 
   
   if(mll > 10 && met > 50){passed_channels.push_back("CtrlReg_50MET");}
-  if(mll > 120 && met < 100){passed_channels.push_back("MetReg_50-100_50MET");}
-  if(mll > 120 && met > 100 && met < 150){passed_channels.push_back("MetReg_100-150_50MET");}
-  if(mll > 120 && met > 150){passed_channels.push_back("MetReg_150_50MET");}
+  if(mll > 110 && met < 100){passed_channels.push_back("MetReg_50-100_50MET");}
+  if(mll > 110 && met > 100 && met < 150){passed_channels.push_back("MetReg_100-150_50MET");}
+  if(mll > 110 && met > 150){passed_channels.push_back("MetReg_150_50MET");}
 
   // if(dileptons=="ee" && isOS == 0){passed_channels.push_back("ee_SS_50MET");}   
   // if(dileptons=="uu" && isOS == 0){passed_channels.push_back("uu_SS_50MET");} 
@@ -780,7 +783,8 @@ Bool_t EventSelector::Process(Long64_t entry){
   MY->bMY_dPhiLLMet = (ll.DeltaPhi(met_lor));  
   MY->bMY_dPhiCloseMet = (dPhiCloseMet);  
   MY->bMY_dPhiLeadMet = (dPhiLeadMet);  
-  MY->bMY_Dileptons = (dileptons);
+  MY->bMY_Dileptons = (dileptons);  
+  MY->bMY_isOS = (isOS);
   MY->bMY_CrossSection = (xs);
   MY->bMY_EventID = (*event);
   MY->bMY_RunNumber = (*run);  

@@ -1,4 +1,4 @@
-import os, time
+import os, time, argparse
 import xgboost as xgb
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -12,20 +12,25 @@ t0 = time.time()
 start = time.asctime(time.localtime())
 print('Started', start)
 
-"""
-Choose which model!
-"""
-dm_model = 'DH_HDS'
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--dm_model', type=str, default="DH_HDS", help="Dataset to test")
+args = parser.parse_args()
+
+dm_model = args.dm_model
+
 
 save_dir = "/storage/racarcam/"
-bkg_file = save_dir+'bkgs_final.h5'
-sig_file = save_dir+'/DM_Models/DM_Zp_'+dm_model.lower()+'.h5'
+bkg_file = save_dir+'bkgs_frfr.h5'
+if dm_model == 'SlepSlep' or dm_model == 'Stop':
+    sig_file = save_dir+'/DM_Models/DM_'+dm_model+'.h5'
+else:
+    sig_file = save_dir+'/DM_Models/DM_Zp_'+dm_model.lower()+'.h5'
 
 df_bkg = pd.read_hdf(bkg_file, key='df_tot')
 df_sig = pd.read_hdf(sig_file, key='df_tot')
 
 df = pd.concat([df_bkg, df_sig])
-
 
 extra_variables = ['n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps']
 
@@ -35,13 +40,19 @@ df_EventID = df_features.pop('EventID')
 df_CrossSection = df_features.pop('CrossSection')
 df_RunNumber = df_features.pop('RunNumber')
 df_Dileptons = df_features.pop('Dileptons')
+df_Dileptons = df_features.pop('isOS')
 df_RunPeriod = df_features.pop('RunPeriod')
 df_features = df_features.drop(extra_variables, axis=1)
 
-df_features = df_features.loc[df_features['mll'] > 110]                             # First signal region cut
+# df_features = df_features.loc[df_features['mll'] > 110]                             # First signal region cut
 df_features = df_features.loc[df_features['Weight'] > 0]                            # Only positive weights                     
 
-print('Doing mll > 110 and met > 50 on '+dm_model+" Z' model")
+if dm_model == 'SlepSlep' or dm_model == 'Stop':
+    print('Doing mll > 110 and met > 50 on '+dm_model+" model")
+
+else:
+    print('Doing mll > 110 and met > 50 on '+dm_model+" Z' model")    
+
 print('Saving as: best_'+dm_model+'.txt')
 df_labels = df_features.pop('Label')
 
@@ -50,10 +61,6 @@ X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test
 
 W_train = X_train.pop('Weight')
 W_test = X_test.pop('Weight')
-
-
-sow_sig = sum(W_train[Y_train==1])
-sow_bkg = sum(W_train[Y_train==0])
 
 
 better_wgt = np.ones(len(W_train))

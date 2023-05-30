@@ -59,7 +59,7 @@ sow_sig = sum(W_train[Y_train==1])
 sow_bkg = sum(W_train[Y_train==0])
 
 
-plot_dir = '../../Plots/XGBoost/Weighting_methods/'+method+'/'
+plot_dir = '../../Plots/XGBoost/Weighting_methods_full_data/'+method+'/'
 
 try:
     os.makedirs(plot_dir)
@@ -121,9 +121,9 @@ data_pred_prob = xgbclassifier.predict_proba(data_test)
 
 pred = y_pred_prob[:,1]
 data_pred = data_pred_prob[:,1]
-
+    
 
 [sig_pred, bkg_pred], [unc_sig, unc_bkg_sav], data_hist = scaled_validation([514560,514561], pred, W_test, Y_test, DSID_test, data_pred, plot_dir, dm_model='DH HDS')
-ROC_curve(Y_test, pred, [514560,514561], plot_dir)
-feature_importance(xgbclassifier, plot_dir)
-expected_significance(sig_pred, bkg_pred, "DH HDS $m_{Z'}$ 130 GeV", 'DH HDS', plot_dir)
+# ROC_curve(Y_test, pred, [514560,514561], plot_dir)
+# feature_importance(xgbclassifier, plot_dir)
+# expected_significance(sig_pred, bkg_pred, "DH HDS $m_{Z'}$ 130 GeV", 'DH HDS', plot_dir)

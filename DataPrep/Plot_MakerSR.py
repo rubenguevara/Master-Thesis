@@ -12,7 +12,9 @@ def Plot_Maker(stack, legend, isjet, met_region, hist, data, dir, sig=None):
     pad.SetTickx(False)
     pad.SetTicky(False)
     pad.SetBottomMargin(0.09)
+    # if hist != 'mjj':
     pad.SetLogy()
+    
     pad2.SetBottomMargin(0.5)
     pad2.SetTopMargin(0.009)
     pad.Draw()
@@ -255,7 +257,7 @@ def Plot_Maker(stack, legend, isjet, met_region, hist, data, dir, sig=None):
     elif met_region[0] == 'CtrlReg':
         save_dir = dir+'/Control_region/'
     else:
-        save_dir = dir+'/'+met_region[1]+'_MET-120_mll/'
+        save_dir = dir+'/'+met_region[1]+'_MET-110_mll/'
 
     try:
         os.makedirs(save_dir)
@@ -275,8 +277,8 @@ def Plot_Maker(stack, legend, isjet, met_region, hist, data, dir, sig=None):
         
     elif met_region[0] != 'CtrReg' and met_region[0] != 'Uncut':
         if hist =='mll' or hist=='mt':
-            stack.GetXaxis().SetRangeUser(120, 3500)
-            data_clone.GetXaxis().SetRangeUser(120, 3500)
+            stack.GetXaxis().SetRangeUser(110, 3500)
+            data_clone.GetXaxis().SetRangeUser(110, 3500)
         elif hist =='met': 
             if '-' in met_region[1]:
                 stack.GetXaxis().SetRangeUser(int(mets[0]), int(mets[1]))

@@ -18,7 +18,7 @@ Choose which model and channel!
 """
 parser = argparse.ArgumentParser()
 parser.add_argument('--met_reg', type=str, default="50-100", help="MET signal region")
-parser.add_argument('--dm_model', type=str, default="DH_HDS", help="Dataset to test")
+parser.add_argument('--dm_model', type=str, default="SlepSlep", help="Dataset to test")
 parser.add_argument('--channel', type=str, default="ee", help="Lepton channel to test")
 args = parser.parse_args()
 
@@ -31,36 +31,36 @@ channel = args.channel
 N = 15
 plt.rcParams["axes.prop_cycle"] = plt.cycler("color", plt.cm.PuRd_r(np.linspace(0.1,0.95,N)))
 
+json_file = open('DM_DICT_SUSY_models.json')
+
 model_dsids = []
-json_file = open('DM_DICT_Zp_dsid.json')
 DM_file = json.load(json_file)
 for key in DM_file.keys():
-    word = key.split('_')
-    model_sec = word[0]+'_'+word[1]
-    if model_sec == dm_model.lower():
-        model_dsids.append(DM_file[key])
-
-plt.figure(figsize=[8,6])
-lw = 2
+    word = DM_file[key][0]
+    if dm_model == 'Stop':
+        if word.split(' ')[-1] != 'D10': continue
+        if word.split(' ')[0] != '2HDMa': continue
     
+    if dm_model == 'SlepSlep':
+        if word.split(' ')[0] != 'SUSY': continue
+        if word.split(' ')[-1] == 'MET75': continue
+    model_dsids.append(key)
+if dm_model == 'Stop':
+    dm_model = '2HDM'
 
-for i in range(len(model_dsids)):
-    json_file2 = open('DM_DICT.json')
-    model_names = json.load(json_file2)
-    save_as = 'mZp_'+model_names[model_dsids[i][0]].split(' ')[-2]+'/'
+for i in model_dsids:
+    save_as = DM_file[i][0].replace(' ', '_')+'/'
     save_dir = "/storage/racarcam/"
-    bkg_file = save_dir+'bkgs_final.h5'
-    sig_file1 = save_dir+'/Zp_DMS/'+model_dsids[i][0]+'.h5'
-    sig_file2 = save_dir+'/Zp_DMS/'+model_dsids[i][1]+'.h5'
-    data_file = save_dir+'dataFINAL.h5'
+    bkg_file = save_dir+'bkgs_frfr.h5'
+    sig_file1 = save_dir+'/DMS_dsid/'+i+'.h5'
+    data_file = save_dir+'datafrfr.h5'
     df_bkg = pd.read_hdf(bkg_file, key='df_tot')
     df_sig1 = pd.read_hdf(sig_file1, key='df_tot')
-    df_sig2 = pd.read_hdf(sig_file2, key='df_tot')
     df_dat = pd.read_hdf(data_file, key='df')
-    df = pd.concat([df_bkg, df_sig1, df_sig2])
+    df = pd.concat([df_bkg, df_sig1])
 
 
-    extra_variables = ['n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps']
+    extra_variables = ['n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps', 'isOS']
 
 
     df_features = df.copy()
@@ -96,7 +96,7 @@ for i in range(len(model_dsids)):
         df_features = df_features.loc[df_features['met'] > 150]        
         df_data = df_data.loc[df_data['met'] > 150] 
     
-    print('Doing mll > 110 and met reg '+met_reg+' on '+dm_model+" "+save_as[:-1]+" Z' model on",channel,'channel')
+    print('Doing mll > 110 and met reg '+met_reg+' on '+dm_model+" "+save_as[:-1]+" model on",channel,'channel')
     df_labels = df_features.pop('Label')
 
     test_size = 0.2
@@ -114,7 +114,7 @@ for i in range(len(model_dsids)):
     scaler = 1/test_size
     data_scaler = 1/data_test_size
 
-    model_dir = '../Models/XGB/Model_independent/'
+    model_dir = '../Models/XGB/Model_independent_frfr/'
     xgbclassifier = xgb.XGBClassifier()
     xgbclassifier.load_model(model_dir+met_reg+'.txt')
     
@@ -131,7 +131,7 @@ for i in range(len(model_dsids)):
     data_pred = data_pred_prob[:,1]
     data_w = np.ones(len(data_pred))*10
     n_bins = 50
-    plot_dir = '../../Plots/XGBoost/Model_independent/'+met_reg+'/'+dm_model+'/'+save_as
+    plot_dir = '../../Plots/XGBoost/Model_independent_frfr/'+met_reg+'/'+dm_model+'/'+save_as
 
     try:
         os.makedirs(plot_dir)
@@ -141,7 +141,7 @@ for i in range(len(model_dsids)):
     
     
     
-    np_dir = '../Data/XGB/'+met_reg+'/'+dm_model+'/'+save_as
+    np_dir = save_dir+'Data/XGB_frfr/'+met_reg+'/'+dm_model+'/'+save_as
     try:
         os.makedirs(np_dir)
 
@@ -149,8 +149,8 @@ for i in range(len(model_dsids)):
         pass
     
     fpr, tpr, thresholds = roc_curve(Y_test, pred, pos_label=1)
-    [sig_pred, bkg_pred], [unc_sig, unc_bkg], data_prediction = scaled_validation(model_dsids[i], pred, W_test, Y_test, DSID_test, data_pred, plot_dir, dm_model=dm_model, channel=channel, met_reg=met_reg)
-    unscaled_validation(pred, Y_test, 50, model_dsids[i], plot_dir, channel=channel)
+    [sig_pred, bkg_pred], [unc_sig, unc_bkg], data_prediction = scaled_validation(DM_file[i], pred, W_test, Y_test, DSID_test, data_pred, plot_dir, dm_model=dm_model, channel=channel, met_reg=met_reg)
+    unscaled_validation(pred, Y_test, 50, DM_file[i], plot_dir, channel=channel)
     plt.close('all')
     np.save(np_dir+'sig_pred_'+channel, sig_pred)
     np.save(np_dir+'bkg_pred_'+channel, bkg_pred)

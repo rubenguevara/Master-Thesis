@@ -19,6 +19,7 @@ for mc in mc_runs:
     for subdir, dirs, files in os.walk(input_dir+mc+'/'):
         for dir in dirs:
             dsid = dir.split('.')[4]
+            if dsid != '505944': continue
             sow = 0
             for file in os.listdir(input_dir+mc+'/'+dir):
                 tf = R.TFile(input_dir+mc+'/'+dir+'/'+file)
@@ -26,6 +27,7 @@ for mc in mc_runs:
                 sow += h.GetBinContent(1)
             SOW_SIG[mc][dsid] = sow
 
+print(sow)
 print(SOW_SIG)
 # print(SOW_SIG['mc16d']['505889'])
 # print(SOW_SIG['mc16e']['505889'])

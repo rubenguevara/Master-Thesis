@@ -12,8 +12,8 @@ t0 = time.time()
 start = time.asctime(time.localtime())
 print('Started', start)
 
-save_dir = "../../../../storage/racarcam/"
-filename = 'FULL_Zp_FINAL.h5'
+save_dir = "/storage/racarcam/"
+filename = 'FINAL_FULL_DATASET.h5'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--met_reg', type=str, default="50-100", help="MET signal region")
@@ -24,7 +24,7 @@ met_reg = args.met_reg
 df = pd.read_hdf(save_dir+filename, key='df_tot')
 
 
-extra_variables = ['dPhiCloseMet', 'dPhiLeps', 'n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50']
+extra_variables = ['dPhiCloseMet', 'dPhiLeps', 'n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50', 'isOS']
 
 df_features = df.copy()
 df_EventID = df_features.pop('EventID')
@@ -34,8 +34,7 @@ df_Dileptons = df_features.pop('Dileptons')
 df_RunPeriod = df_features.pop('RunPeriod')
 df_features = df_features.drop(extra_variables, axis=1)
 
-df_features = df_features.loc[df_features['mll'] > 110]                             # First signal region cut
-df_features = df_features.loc[df_features['Weight'] > 0]                            # Only positive weights                     
+df_features = df_features.loc[df_features['mll'] > 110]                             # First signal region cut              
 
 if met_reg == '50-100':
     df_features = df_features.loc[df_features['met'] < 100]                     
@@ -55,6 +54,10 @@ X_train, X_test, Y_train, Y_test = train_test_split(df_features, df_labels, test
 X_train_w = X_train.pop('Weight')
 W_test = X_test.pop('Weight')
 
+
+sclr = sum(X_train_w)/sum(abs(X_train_w))
+X_train_w = abs(X_train_w)*sclr
+
 W_train = np.ones(len(Y_train))
 W_train[Y_train==0] = X_train_w[Y_train==0]
 sow_sig = sum(W_train[Y_train==1])
@@ -62,14 +65,14 @@ sow_bkg = sum(W_train[Y_train==0])
 
 scaler = 1/test_size
 
-model_dir = '../Models/XGB/Model_independent/'
+model_dir = '../Models/XGB/Model_independent_frfr/'
 try:
     os.makedirs(model_dir)
 
 except FileExistsError:
     pass
 
-plot_dir = '../../Plots/XGBoost/Model_independent/'+met_reg+'/GRIDSEARCH/'
+plot_dir = '../../Plots/XGBoost/Model_independent_frfr/'+met_reg+'/GRIDSEARCH/'
 
 try:
     os.makedirs(plot_dir)
@@ -78,7 +81,7 @@ except FileExistsError:
     pass
 
 
-np_dir = '../Data/XGB/'+met_reg+'/'
+np_dir = save_dir+'Data/XGB_frfr/'+met_reg+'/'
 
 try:
     os.makedirs(np_dir)

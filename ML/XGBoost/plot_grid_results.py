@@ -5,7 +5,7 @@ from matplotlib.cm import YlGn_r as color
 
 warnings.filterwarnings("ignore")                                                   # To remove old matplotlib "ticks warning" message
 
-dm_model = 'EFT_HDS'
+dm_model = 'Stop'
 
 plot_dir = '../../Plots/XGBoost/'+dm_model+'/GRIDSEARCH/'
 try:

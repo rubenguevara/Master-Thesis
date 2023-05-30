@@ -3,15 +3,20 @@ import numpy as np
 import os, time, json
 
 save_dir = "../../../storage/racarcam/"
-filename = 'FULL_Zp_FINAL.h5'                                                       # Change file if needed
+# filename = 'FULL_Zp_FINAL.h5'                                                       # Change file if needed
+filename ='FINAL_FULL_DATASET.h5' 
 
 df = pd.read_hdf(save_dir+filename, key='df_tot')
+
+json_file2 = open('DM_DICT_SUSY_dsid.json')
+SUSY_dict = json.load(json_file2)
 
 model_dict = open('DM_DICT_Zp_models.json')
 DM_DICT = json.load(model_dict)
 
 dm_df = df.loc[df['Label'] == 1]
 df = df.drop(df[df['Label'] == 1].index)
+df.to_hdf(save_dir+'bkgs_frfr.h5', key='df_tot')
 
 print(dm_df)
 print(df)
@@ -22,7 +27,7 @@ print("=="*40)
 
 dm_dsids = dm_df['RunNumber'].unique()
 dm_models = {}
-models = ['lv_lds', 'eft_lds', 'dh_lds', 'lv_hds', 'eft_hds', 'dh_hds']
+models = ['lv_lds', 'eft_lds', 'dh_lds', 'lv_hds', 'eft_hds', 'dh_hds', 'SlepSlep', 'Stop']
 for m in models:
     dm_models[m] = []
 
@@ -41,9 +46,17 @@ for dm_dsid in dm_dsids:
         dm_models['eft_hds'].append(dm_dict[dm_dsid])
     elif str(dm_dsid) in DM_DICT['dh_hds']:
         dm_models['dh_hds'].append(dm_dict[dm_dsid])
+    elif str(dm_dsid) in SUSY_dict['SlepSlep']:
+        dm_models['SlepSlep'].append(dm_dict[dm_dsid])
+    elif str(dm_dsid) in SUSY_dict['Stop']:
+        dm_models['Stop'].append(dm_dict[dm_dsid])
 
 for m in models:
-    newfile = 'DM_Models/DM_Zp_'+str(m)+'.h5'
+    if m != 'SlepSlep' or m != 'Stop':
+        newfile = 'DM_Models/DM_Zp_'+str(m)+'.h5'
+    else:
+        newfile = 'DM_Models/'+str(m)+'.h5'
+        
     print('Events in ', m, " : ", np.shape(pd.concat(dm_models[m]))[0])
     print('Making file '+newfile)
     pd.concat(dm_models[m]).to_hdf(save_dir+newfile, key='df_tot')
@@ -53,8 +66,8 @@ print('Testing time')
 print("=="*40)
 
 t0 = time.time()
-models = ['lv', 'eft', 'dh']
-new_df = pd.read_hdf(save_dir+'bkgs_final.h5', key='df_tot')
+models = ['SlepSlep', 'Stop']
+new_df = pd.read_hdf(save_dir+'bkgs_frfr.h5', key='df_tot')
 for m in models:
     new_dm = pd.read_hdf(save_dir+'DM_Models/DM_Zp_'+str(m)+'.h5', key='df_tot')
     print(new_dm)

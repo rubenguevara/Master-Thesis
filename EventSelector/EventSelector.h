@@ -188,35 +188,35 @@ public :
   TTreeReaderArray<float> jet_fjvt = {fReader, "jet_fjvt"};
   
 
-  //Trigger selector non-susy
-  TTreeReaderValue<Int_t> trigger_HLT_2e12_lhloose_L12EM10VH = {fReader, "trigger_HLT_2e12_lhloose_L12EM10VH"};
-  TTreeReaderValue<Int_t> trigger_HLT_2e17_lhvloose_nod0 = {fReader, "trigger_HLT_2e17_lhvloose_nod0"};
-  TTreeReaderValue<Int_t> trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI = {fReader, "trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI"};
-  TTreeReaderValue<Int_t> trigger_HLT_2e24_lhvloose_nod0 = {fReader, "trigger_HLT_2e24_lhvloose_nod0"};
-  TTreeReaderValue<Int_t> trigger_HLT_e120_lhvloose_nod0 = {fReader, "trigger_HLT_e120_lhvloose_nod0"};
-  TTreeReaderValue<Int_t> trigger_HLT_e140_lhvloose_nod0 = {fReader, "trigger_HLT_e140_lhvloose_nod0"};
-  TTreeReaderValue<Int_t> trigger_HLT_e200_etcut = {fReader, "trigger_HLT_e200_etcut"};
-  TTreeReaderValue<Int_t> trigger_HLT_e26_lhvloose_nod0_L1EM20VH = {fReader, "trigger_HLT_e26_lhvloose_nod0_L1EM20VH"};
-  TTreeReaderValue<Int_t> trigger_HLT_e300_etcut = {fReader, "trigger_HLT_e300_etcut"};
-  TTreeReaderValue<Int_t> trigger_HLT_e60_lhvloose_nod0 = {fReader, "trigger_HLT_e60_lhvloose_nod0"};
-  TTreeReaderValue<Int_t> trigger_HLT_mu26_imedium = {fReader, "trigger_HLT_mu26_imedium"};
-  TTreeReaderValue<Int_t> trigger_HLT_mu26_ivarmedium = {fReader, "trigger_HLT_mu26_ivarmedium"};
-  TTreeReaderValue<Int_t> trigger_HLT_mu50 = {fReader, "trigger_HLT_mu50"};
-  TTreeReaderArray<float> mu_d0sig = {fReader, "mu_d0sig"};
-  TTreeReaderArray<float> mu_z0sinTheta = {fReader, "mu_z0sinTheta"};
-  TTreeReaderArray<float> el_d0sig = {fReader, "el_d0sig"};
-  TTreeReaderArray<float> el_z0sinTheta = {fReader, "el_z0sinTheta"};
-  TTreeReaderValue<Int_t> n_el = {fReader, "n_el"};
-  TTreeReaderValue<Int_t> n_mu = {fReader, "n_mu"};
+  // // Trigger selector non-susy
+  // TTreeReaderValue<Int_t> trigger_HLT_2e12_lhloose_L12EM10VH = {fReader, "trigger_HLT_2e12_lhloose_L12EM10VH"};
+  // TTreeReaderValue<Int_t> trigger_HLT_2e17_lhvloose_nod0 = {fReader, "trigger_HLT_2e17_lhvloose_nod0"};
+  // TTreeReaderValue<Int_t> trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI = {fReader, "trigger_HLT_2e17_lhvloose_nod0_L12EM15VHI"};
+  // TTreeReaderValue<Int_t> trigger_HLT_2e24_lhvloose_nod0 = {fReader, "trigger_HLT_2e24_lhvloose_nod0"};
+  // TTreeReaderValue<Int_t> trigger_HLT_e120_lhvloose_nod0 = {fReader, "trigger_HLT_e120_lhvloose_nod0"};
+  // TTreeReaderValue<Int_t> trigger_HLT_e140_lhvloose_nod0 = {fReader, "trigger_HLT_e140_lhvloose_nod0"};
+  // TTreeReaderValue<Int_t> trigger_HLT_e200_etcut = {fReader, "trigger_HLT_e200_etcut"};
+  // TTreeReaderValue<Int_t> trigger_HLT_e26_lhvloose_nod0_L1EM20VH = {fReader, "trigger_HLT_e26_lhvloose_nod0_L1EM20VH"};
+  // TTreeReaderValue<Int_t> trigger_HLT_e300_etcut = {fReader, "trigger_HLT_e300_etcut"};
+  // TTreeReaderValue<Int_t> trigger_HLT_e60_lhvloose_nod0 = {fReader, "trigger_HLT_e60_lhvloose_nod0"};
+  // TTreeReaderValue<Int_t> trigger_HLT_mu26_imedium = {fReader, "trigger_HLT_mu26_imedium"};
+  // TTreeReaderValue<Int_t> trigger_HLT_mu26_ivarmedium = {fReader, "trigger_HLT_mu26_ivarmedium"};
+  // TTreeReaderValue<Int_t> trigger_HLT_mu50 = {fReader, "trigger_HLT_mu50"};
+  // TTreeReaderArray<float> mu_d0sig = {fReader, "mu_d0sig"};
+  // TTreeReaderArray<float> mu_z0sinTheta = {fReader, "mu_z0sinTheta"};
+  // TTreeReaderArray<float> el_d0sig = {fReader, "el_d0sig"};
+  // TTreeReaderArray<float> el_z0sinTheta = {fReader, "el_z0sinTheta"};
+  // TTreeReaderValue<Int_t> n_el = {fReader, "n_el"};
+  // TTreeReaderValue<Int_t> n_mu = {fReader, "n_mu"};
 
 
-  // // New variables
-  // TTreeReaderValue<Int_t> pass_ee_trig = {fReader, "pass_ee_trig"};  
-  // TTreeReaderValue<Int_t> pass_uu_trig = {fReader, "pass_uu_trig"};
-  // TTreeReaderValue<Int_t> pass_e_trig = {fReader, "pass_e_trig"};
-  // TTreeReaderValue<Int_t> pass_u_trig = {fReader, "pass_u_trig"};
-  // TTreeReaderArray<int> mu_passTTVA = {fReader, "mu_passTTVA"};
-  // TTreeReaderArray<int> el_passTTVA = {fReader, "el_passTTVA"};
+  // New variables
+  TTreeReaderValue<Int_t> pass_ee_trig = {fReader, "pass_ee_trig"};  
+  TTreeReaderValue<Int_t> pass_uu_trig = {fReader, "pass_uu_trig"};
+  TTreeReaderValue<Int_t> pass_e_trig = {fReader, "pass_e_trig"};
+  TTreeReaderValue<Int_t> pass_u_trig = {fReader, "pass_u_trig"};
+  TTreeReaderArray<int> mu_passTTVA = {fReader, "mu_passTTVA"};
+  TTreeReaderArray<int> el_passTTVA = {fReader, "el_passTTVA"};
   
   EventSelector(TTree * /*tree*/ =0) { }
   virtual ~EventSelector() { }

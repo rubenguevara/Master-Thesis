@@ -25,8 +25,8 @@ def stat_unc(prediction, bins, weights):
 
 
 save_dir = "../../../storage/racarcam/"
-filename = "bkgs.h5"
-datafile = 'data.h5'
+filename = "bkgs_frfr.h5"
+datafile = 'data_frfr.h5'
 
 df_data = pd.read_hdf(save_dir+datafile, key='df')
 dataID = df_data.pop('EventID') 

@@ -3,16 +3,23 @@ import os, time, json
 from EventIDs import IDs
 import numpy as np
 import uproot as up
+from collections import OrderedDict
 
 t0 = time.time()
 
-save_dir = "../../../storage/racarcam/"
+save_dir = "/storage/racarcam/"
 
 
-## Customize files here
-dm1 = save_dir + "ZpxDMxFINAL.root"
-Run2_bkgs = save_dir + "Run2FINAL.root"
-filename = 'FULL_Zp_FINAL.h5' 
+# ## Customize files here
+# dm1 = save_dir + "ZpxDMxFINAL.root"
+# Run2_bkgs = save_dir + "Run2FINAL.root"
+# filename = 'FULL_DM_FINAL.h5' 
+
+
+dm1 = save_dir + "monoZp.root"
+dm2 = save_dir + "SUSY.root"
+Run2_bkgs = save_dir + "Run2frfr.root"
+filename = 'FINAL_FULL_DATASET.h5' 
 
 thing = up.open(Run2_bkgs)
 
@@ -60,6 +67,27 @@ print(dm_df)
 dm_df['Label'] = np.isin(dm_df['RunNumber'], IDs["dm_sig"]).astype(int)
 print(dm_df)
 
+susy_thing = up.open(dm2)
+
+susy_tree_a = susy_thing['id_mc16a']
+susy_tree_d = susy_thing['id_mc16d']
+susy_tree_e = susy_thing['id_mc16e']
+
+susy_df1 = susy_tree_a.arrays(library="pd")
+susy_df2 = susy_tree_d.arrays(library="pd")
+susy_df3 = susy_tree_e.arrays(library="pd")
+print(susy_df1)
+print(susy_df2)
+print(susy_df3)
+
+susy_dfs = [susy_df1, susy_df2, susy_df3]
+susy_df = pd.concat(susy_dfs).sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle and fix indices
+print(susy_df)
+
+susy_df['Label'] = np.isin(susy_df['RunNumber'], IDs["SUSY"]).astype(int)
+print(susy_df)
+
+
 t = "{:.2f}".format(int( time.time()-t1 )/60.)
 print( "---"*40)
 print( "Time spent making sig df: "+str(t)+" min")  
@@ -67,7 +95,7 @@ print( "---"*40)
 
 t2 = time.time()
 
-s_and_b = [df, dm_df]
+s_and_b = [df, dm_df, susy_df]
 df_tot = pd.concat(s_and_b).sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle and fix indices
 print(df_tot)
 
@@ -90,6 +118,12 @@ sow_bkg_file = open('SOW_bkg.json')
 SOW_bkg = json.load(sow_bkg_file)
 sow_sig_file = open('SOW_sig_AFII.json')
 SOW_sig = json.load(sow_sig_file)
+sow_susy_file = open('SOW_SIG_SUSY.json')
+SOW_SUSY = json.load(sow_susy_file)
+
+SOW_a = OrderedDict(list(SOW_SUSY['mc16a'].items()) + list(SOW_sig['mc16a'].items()))
+SOW_d = OrderedDict(list(SOW_SUSY['mc16d'].items()) + list(SOW_sig['mc16d'].items()))
+SOW_e = OrderedDict(list(SOW_SUSY['mc16e'].items()) + list(SOW_sig['mc16e'].items()))
 
 cols = df_tot.columns.tolist()
 
@@ -100,7 +134,12 @@ for w, dsid, mcrun, label in zip(df_tot['OldWeight'], df_tot['RunNumber'], df_to
     if label == 0:
         sow = SOW_bkg[mcrun][str(dsid)]
     elif label == 1:
-        sow = SOW_sig[mcrun][str(dsid)]
+        if mcrun == 'mc16a':
+            sow = SOW_a[str(dsid)]
+        elif mcrun == 'mc16d':
+            sow = SOW_d[str(dsid)]
+        elif mcrun == 'mc16e':
+            sow = SOW_e[str(dsid)]
     
     if mcrun == 'mc16a':
         lumi = 36.2
@@ -113,12 +152,13 @@ for w, dsid, mcrun, label in zip(df_tot['OldWeight'], df_tot['RunNumber'], df_to
 sow_bkg_file.close()
 sow_sig_file.close()
 
+print(df_tot['OldWeight'][df_tot["RunNumber"]==503057])
 old = df_tot.pop('OldWeight')
 df_tot['Weight'] = new_weights
 df_tot = df_tot[cols]
-
+print(df_tot['Weight'][df_tot["RunNumber"]==503057])
 print(df_tot)
-
+exit()
 t = "{:.2f}".format(int( time.time()-t0 )/60.)
 print( "---"*40)
 print( "TOTAL time spent preparing df: "+str(t)+" min")  

@@ -76,7 +76,8 @@ class makeMYTree  {
   Float_t                                    bMY_dPhiLeadMet;                                                         
   Float_t                                    bMY_mll;                                                               
   Float_t                                    bMY_mjj;                                                             
-  TString                                    bMY_Dileptons;                                                    
+  TString                                    bMY_Dileptons;                                                       
+  Int_t                                      bMY_isOS;                                                    
   Float_t                                    bMY_CrossSection;                                                   
   ULong64_t                                  bMY_EventID;                                           
   Int_t                                      bMY_RunNumber;                                             

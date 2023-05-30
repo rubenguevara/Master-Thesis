@@ -20,13 +20,14 @@ dm_model = args.dm_model
 channel = args.channel 
 
 
+save_dir = "/storage/racarcam/"
 
 N = 15
 plt.rcParams["axes.prop_cycle"] = plt.cycler("color", plt.cm.PuRd_r(np.linspace(0.1,0.95,N)))
 
 
 
-np_dir = '../Data/XGB/'+met_reg+'/'+dm_model+'/'
+np_dir = save_dir+'Data/XGB/'+met_reg+'/'+dm_model+'/'
 
 model_dsids = []
 json_file = open('DM_DICT_Zp_dsid.json')
@@ -40,11 +41,10 @@ for key in DM_file.keys():
 json_file2 = open('DM_DICT.json')
 model_names = json.load(json_file2)
 save_as = 'mZp_'+model_names[model_dsids[0][0]].split(' ')[-2]+'/'
-save_dir = "/storage/racarcam/"
-bkg_file = save_dir+'bkgs_final.h5'
+bkg_file = save_dir+'bkgs_frfr.h5'
 sig_file1 = save_dir+'/Zp_DMS/'+model_dsids[0][0]+'.h5'
 sig_file2 = save_dir+'/Zp_DMS/'+model_dsids[0][1]+'.h5'
-data_file = save_dir+'dataFINAL.h5'
+data_file = save_dir+'datafrfr.h5'
 df_bkg = pd.read_hdf(bkg_file, key='df_tot')
 df_sig1 = pd.read_hdf(sig_file1, key='df_tot')
 df_sig2 = pd.read_hdf(sig_file2, key='df_tot')
@@ -52,7 +52,7 @@ df_dat = pd.read_hdf(data_file, key='df')
 df = pd.concat([df_bkg, df_sig1, df_sig2])
 
 
-extra_variables = ['n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps']
+extra_variables = ['n_bjetPt20', 'n_ljetPt40', 'jetEtaCentral', 'jetEtaForward50', 'dPhiCloseMet', 'dPhiLeps', 'isOS']
 
 
 df_features = df.copy()
@@ -113,7 +113,7 @@ DSID_test = DSID_test[Dilepton_test==channel]
 X_test = X_test[Dilepton_test==channel]
 data_test = data_test[dilepton_data==channel]
 
-model_dir = '../Models/XGB/Model_independent/'
+model_dir = '../Models/XGB/Model_independent_frfr/'
 xgbclassifier = xgb.XGBClassifier()
 xgbclassifier.load_model(model_dir+met_reg+'.txt')
 
@@ -125,7 +125,7 @@ data_pred = data_pred_prob[:,1]
 data_w = np.ones(len(data_pred))*10
 bins = 50
 
-plot_dir = '../../Plots/XGBoost/Model_independent/'+met_reg+'/'+dm_model+'/'
+plot_dir = '../../Plots/XGBoost/Model_independent_frfr/'+met_reg+'/'+dm_model+'/'
 
 data_w = np.ones(len(data_pred))
 
@@ -266,7 +266,7 @@ elif met_reg =='150':
 plt.legend(loc="lower right",ncol=2)
 plt.savefig(plot_dir+'ROC_'+channel+'.pdf')
 
-plot_dir2 = '../../Plots/XGBoost/Model_independent/'+met_reg+'/feature_importance/'
+plot_dir2 = '../../Plots/XGBoost/Model_independent_frfr/'+met_reg+'/feature_importance/'
 try:
     os.makedirs(plot_dir2)
 

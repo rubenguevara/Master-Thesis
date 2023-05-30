@@ -81,11 +81,11 @@ for subdir, dirs, files in os.walk(rootdir):
                 histogram = myfile.Get(variable)
                 histogram.SetDirectory(0)
                 BigDic[mc_run]["W"][variable].append(histogram)
-        # elif dsid in IDs[sig_var]:
-        #     # if not dsid == DM_MODEL: continue
-        #     dsid_list[mc_run]['Signal'].append(str(dsid))
-        #     for variable in variables:
-        #         BigDic[mc_run]["Signal"][variable].append(myfile.Get(variable))
+        elif dsid in IDs[sig_var]:
+            # if not dsid == DM_MODEL: continue
+            dsid_list[mc_run]['Signal'].append(str(dsid))
+            for variable in variables:
+                BigDic[mc_run]["Signal"][variable].append(myfile.Get(variable))
         elif dsid in [514560, 514561]:
             # if not dsid == DM_MODEL: continue
             dsid_list[mc_run]["DH HDS m_{Z'} 130"].append(str(dsid))

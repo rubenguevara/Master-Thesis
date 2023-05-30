@@ -36,7 +36,7 @@ def Z_score_array(sig_pred, bkg_pred):
                 low_stat_Z(sum(sig_pred[45:]), sum(bkg_pred[45:])), 
                 low_stat_Z(sig_pred[-1], bkg_pred[-1])]
 
-np_dir = '../Data/XGB/'+met_reg+'/'+dm_model+'/'
+np_dir = '/storage/racarcam/Data/XGB_frfr/'+met_reg+'/'+dm_model+'/'
 
 sig_mzp_130 = np.load(np_dir+'mZp_130/sig_pred_'+channel+'.npy')
 sig_mzp_200 = np.load(np_dir+'mZp_200/sig_pred_'+channel+'.npy')
@@ -61,7 +61,7 @@ json_file2 = open('DM_DICT.json')
 model_names = json.load(json_file2)
 save_as = 'mZp_'+model_names[model_dsids[0][0]].split(' ')[-2]+'/'
 
-plot_dir = '../../Plots/XGBoost/Model_independent/'+met_reg+'/'+dm_model+'/'
+plot_dir = '../../Plots/XGBoost/Model_independent_frfr/'+met_reg+'/'+dm_model+'/'
 
 plt.figure(figsize=(11,8))
 X_axis = [0.5, 0.6, 0.7, 0.8, 0.9, 0.99]

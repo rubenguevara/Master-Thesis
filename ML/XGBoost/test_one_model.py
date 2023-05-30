@@ -49,10 +49,10 @@ for i in range(len(model_dsids)):
     model_names = json.load(json_file2)
     save_as = 'mZp_'+model_names[model_dsids[i][0]].split(' ')[-2]+'/'
     save_dir = "/storage/racarcam/"
-    bkg_file = save_dir+'bkgs_final.h5'
+    bkg_file = save_dir+'bkgs_frfr.h5'
     sig_file1 = save_dir+'/Zp_DMS/'+model_dsids[i][0]+'.h5'
     sig_file2 = save_dir+'/Zp_DMS/'+model_dsids[i][1]+'.h5'
-    data_file = save_dir+'dataFINAL.h5'
+    data_file = save_dir+'datafrfr.h5'
     df_bkg = pd.read_hdf(bkg_file, key='df_tot')
     df_sig1 = pd.read_hdf(sig_file1, key='df_tot')
     df_sig2 = pd.read_hdf(sig_file2, key='df_tot')

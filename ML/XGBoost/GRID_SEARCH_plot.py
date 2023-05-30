@@ -11,7 +11,7 @@ args = parser.parse_args()
 met_reg = args.met_reg
 
 
-plot_dir = '../../Plots/XGBoost/Model_independent/'+met_reg+'GRIDSEARCH/'
+plot_dir = '../../Plots/XGBoost/Model_independent_frfr/'+met_reg+'/GRIDSEARCH/'
 try:
     os.makedirs(plot_dir+'AUC/')
 
@@ -25,7 +25,7 @@ except FileExistsError:
     pass
 
 
-np_dir = '../Data/XGB/'+met_reg+'/'
+np_dir = '/storage/racarcam/Data/XGB_frfr/'+met_reg+'/'
 
 """ Choose variables"""
 eta = [0.001, 0.01, 0.1, 1]

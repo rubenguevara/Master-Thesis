@@ -8,16 +8,24 @@ from matplotlib import ticker as mticker
 from matplotlib.colors import LogNorm
 from matplotlib.cm import RdPu, YlGnBu_r
 
-def low_stat_Z(sig, bkg, sig_unc = None, bkg_unc = None):
+def low_stat_Z(sig, bkg, bkg_unc = None):
     """
     Calcultes the expected significance of the signal. Can be done with and without uncertainties. Default is without
     
     """
     
-    if sig_unc != None and bkg_unc != None:
-        Z == 0
+    if bkg_unc != None:
+        n_obs = sig + bkg
+        Z =np.sqrt(-2*(n_obs*np.log(( n_obs + bkg**2/bkg_unc**2 )/((1+bkg/(bkg_unc)**2)*n_obs) )  + bkg**2/bkg_unc**2*np.log((bkg/bkg_unc**2*(n_obs + bkg**2/bkg_unc**2 ))/((1+bkg/(bkg_unc)**2)*bkg**2/bkg_unc**2) )   ))
     else:   
         Z = np.sqrt(2*( (sig + bkg)*np.log(1 + sig/bkg) - sig ))
+    
+    if Z < 0:
+        Z = 0
+    if Z == -0.0:
+        Z = 0
+    if str(Z) == 'nan':
+        Z = 0
     return Z
 
 def stat_unc(prediction, bins, weights, d_scaler = None):
@@ -69,13 +77,15 @@ def scaled_validation(dsid_int, MC_pred, MC_wgt, MC_label, MC_dsid, Data_pred, p
     
     Returns [sig_pred, bkg_pred], [unc_sig, unc_bkg], data_hist
     """
-    
-    dsid1 = str(dsid_int[0])
-    dsid2 = str(dsid_int[1])
-    dsid_name = DM_DICT[dsid1].split(' ')
-    dsid_title = dsid_name[0] +' '+ dsid_name[1] +' '+ dsid_name[2] +' '+ dsid_name[3]
-    dsid_save = 'mZp_' + dsid_name[3]
-
+    if len(dsid_int)>=2:
+        dsid1 = str(dsid_int[0])
+        dsid2 = str(dsid_int[1])
+        dsid_name = DM_DICT[dsid1].split(' ')
+        dsid_title = dsid_name[0] +' '+ dsid_name[1] +' '+ dsid_name[2] +' '+ dsid_name[3]
+        dsid_save = 'mZp_' + dsid_name[3]
+    else:
+        dsid_title = dsid_int[0].replace('_', ' ')
+        dsid_save = dsid_int[0]+'/'
     pred = MC_pred
     W_test = MC_wgt
     Y_test = MC_label
@@ -150,8 +160,7 @@ def scaled_validation(dsid_int, MC_pred, MC_wgt, MC_label, MC_dsid, Data_pred, p
     n, bins, patches = ax1.hist(pred[Y_test==1], weights = W_test[Y_test==1]*scaler, bins = binning, color='#F42069', label="Signal", zorder = 5, histtype='step')
     ax1.bar(x_axis, 2*stat_unc_bkgs, bottom=bkg_pred-stat_unc_bkgs, fill=False, hatch='XXXXX', label='Stat. Unc.', width = widths, lw=0.0, alpha=0.3, edgecolor='r')
     ax1.bar(x_axis, 2*syst_unc_bkgs, bottom=bkg_pred-syst_unc_bkgs, fill=False, hatch='XXXXX', label='Syst. Unc.', width = widths, lw=0.0, alpha=0.3)
-    
-    ax1.text(0.15, max(bkg_pred), '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, $m_{ll}>110$ GeV, '+channel)
+    ax1.text(0.15, max(bkg_pred), '$\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, '+channel)
     
     if met_reg == '50-100' :
         ax1.text(0.15, max(bkg_pred)/2.5, '100 GeV > $E_{T}^{miss}$ > 50 GeV')
@@ -163,6 +172,7 @@ def scaled_validation(dsid_int, MC_pred, MC_wgt, MC_label, MC_dsid, Data_pred, p
         ax1.text(0.15, max(bkg_pred)/2.5, '$>50$ GeV $E_{T}^{miss}$')
         
     ax1.errorbar(x_axis[:30], data_hist[:30], yerr = unc_data[:30], fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2, lolims=0)
+    # ax1.errorbar(x_axis, data_hist, yerr = unc_data, fmt='o', color='black', label='Data', zorder = 10, ms=3, lw=1, capsize=2, lolims=0)
     ax1.set_ylabel('Events')
     ax1.set_yscale('log')
     ax1.set_xlim([0,1])
@@ -173,6 +183,7 @@ def scaled_validation(dsid_int, MC_pred, MC_wgt, MC_label, MC_dsid, Data_pred, p
     ax1.tick_params(bottom=True, top=True, left=True, right=True, which='both')
     ax2.set_ylabel('Events / Bkg')
     ax2.errorbar(x_axis[:30], ratio[:30], yerr = unc_ratio_stat[:30], fmt='o', color='black', ms=3, lw=1, lolims=0)
+    # ax2.errorbar(x_axis, ratio, yerr = unc_ratio_stat, fmt='o', color='black', ms=3, lw=1, lolims=0)
     ax2.plot(line, np.ones(len(line)), linestyle='-', color='black', lw=2, alpha=0.3)
     # ax2.bar(x_axis, 2*unc_ratio, bottom=ratio-unc_ratio, color='grey', width = widths, lw=0.0, alpha=0.3)
     ax2.bar(x_axis, 2*unc_bkg, bottom=np.ones(len(x_axis))-unc_bkg, color='grey', width = widths, lw=0.0, alpha=0.3)
@@ -215,11 +226,16 @@ def ROC_curve(Y_test, pred, dsid_int, plot_dir, ML_type = 'XGBoost'):
     plt.clf()
 
 def unscaled_validation(pred, Y_test, binning, dsid_int, plot_dir, ML_type = 'XGBoost', channel = ''):    
-    dsid1 = str(dsid_int[0])
-    dsid2 = str(dsid_int[1])
-    dsid_name = DM_DICT[dsid1].split(' ')
-    dsid_title = dsid_name[0] +' '+ dsid_name[1] +' '+ dsid_name[2] +' '+ dsid_name[3]
-    dsid_save = dsid_name[0] +'_'+ dsid_name[1] + '_mZp_' + dsid_name[3]
+    if len(dsid_int)>=2:
+        dsid1 = str(dsid_int[0])
+        dsid2 = str(dsid_int[1])
+        dsid_name = DM_DICT[dsid1].split(' ')
+        dsid_title = dsid_name[0] +' '+ dsid_name[1] +' '+ dsid_name[2] +' '+ dsid_name[3]
+        dsid_save = 'mZp_' + dsid_name[3]
+    else:
+        dsid_title = dsid_int[0].replace('_', ' ')
+        dsid_save = dsid_int[0]+'/'
+    
     plt.figure(figsize=[10,6])
     n, bins, patches = plt.hist(pred[Y_test==0], bins = binning, facecolor='blue', alpha=0.2,label="Background")
     n, bins, patches = plt.hist(pred[Y_test==1], bins = binning, facecolor='red', alpha=0.2, label="Signal")
