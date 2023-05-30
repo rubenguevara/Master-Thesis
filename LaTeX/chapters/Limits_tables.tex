@@ -1,6 +1,6 @@
 \documentclass[12pt, a4paper]{book}
-\begin{document}\label{chap:Limit_Tabs}
-\chapter{Limit calculation tables}
+\begin{document}
+\chapter{Limit calculation tables}\label{chap:Limit_Tabs}
 To calculate the signal efficiency $\varepsilon_{sig}$, we used the following formula
 $$
 \varepsilon_{sig}=\frac{N_{sig}}{\sigma B \times \text{lumi}_{RunII}}
@@ -9,7 +9,7 @@ where $N_{sig}$ are the number of signal events after the cut, and where we calc
 $$
 \sigma B \times \text{lumi}_{RunII} = \sum_{period}\sigma B_{period} \times \text{lumi}_{period}
 $$
-extracting the cross section of the DM sample from the DSID on each MC period and converting it to fb units, and using
+extracting the cross-section of the DM sample from the DSID on each MC period and converting it to fb units, and using
 $$
 \text{lumi}_{period} = \begin{cases}
                36.4\text{ fb}^{-1},& \text{for period = a}\\
@@ -18,41 +18,7 @@ $$
                \end{cases}
 $$
 
-
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
-    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
-    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
-    and is the same for all inputs.}
-    \small\begin{tabular}{@{}ccc|ccc@{}}
-       \midrule\midrule 
-          $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times10^{-1}]$& $N_{\text{sig}}$ & $N_{\text{bkg}}$ \\\midrule\midrule
-          \multirow{2}{*}[-2\baselineskip]{130}& \multirow{2}{*}[-2\baselineskip]{$1.11$}& $ee$ & $0.25\pm0.05$ & $7.80\pm1.58$ & $108.4\pm23.0$ \\ 
-          & & $\mu\mu$ & $0.20\pm0.04$ & $6.28\pm1.27$ & $124.9\pm26.1$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{200}& \multirow{2}{*}[-2\baselineskip]{$2.46\times10^{-1}$}& $ee$ & $0.54\pm0.11$ & $3.67\pm0.74$ & $114.1\pm24.4$ \\ 
-          & & $\mu\mu$ & $0.41\pm0.08$ & $2.78\pm0.56$ & $123.2\pm25.8$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{400}& \multirow{2}{*}[-2\baselineskip]{$1.49\times10^{-2}$}& $ee$ & $1.13\pm0.23$ & $4.67\times10^{-1}\pm9.37\times10^{-2}$ & $107.0\pm23.4$ \\ 
-          & & $\mu\mu$ & $0.79\pm0.16$ & $3.29\times10^{-1}\pm6.60\times10^{-2}$ & $127.5\pm26.6$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{600}& \multirow{2}{*}[-2\baselineskip]{$2.35\times10^{-3}$}& $ee$ & $1.40\pm0.28$ & $9.12\times10^{-2}\pm1.83\times10^{-2}$ & $126.3\pm26.7$ \\ 
-          & & $\mu\mu$ & $1.01\pm0.20$ & $6.59\times10^{-2}\pm1.32\times10^{-2}$ & $126.3\pm26.3$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{800}& \multirow{2}{*}[-2\baselineskip]{$5.43\times10^{-4}$}& $ee$ & $1.59\pm0.32$ & $2.40\times10^{-2}\pm4.81\times10^{-3}$ & $118.8\pm25.6$ \\ 
-          & & $\mu\mu$ & $1.11\pm0.22$ & $1.67\times10^{-2}\pm3.36\times10^{-3}$ & $113.2\pm23.6$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{900}& \multirow{2}{*}[-2\baselineskip]{$2.82\times10^{-4}$}& $ee$ & $1.60\pm0.32$ & $1.25\times10^{-2}\pm2.51\times10^{-3}$ & $119.3\pm25.7$ \\ 
-          & & $\mu\mu$ & $1.12\pm0.22$ & $8.78\times10^{-3}\pm1.76\times10^{-3}$ & $114.8\pm24.0$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{1100}& \multirow{2}{*}[-2\baselineskip]{$8.40\times10^{-5}$}& $ee$ & $1.63\pm0.33$ & $3.81\times10^{-3}\pm7.64\times10^{-4}$ & $114.3\pm24.4$ \\ 
-          & & $\mu\mu$ & $1.16\pm0.23$ & $2.70\times10^{-3}\pm5.42\times10^{-4}$ & $118.6\pm24.7$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{1200}& \multirow{2}{*}[-2\baselineskip]{$4.75\times10^{-5}$}& $ee$ & $1.65\pm0.33$ & $2.18\times10^{-3}\pm4.37\times10^{-4}$ & $118.4\pm25.1$ \\ 
-          & & $\mu\mu$ & $1.14\pm0.23$ & $1.50\times10^{-3}\pm3.01\times10^{-4}$ & $125.6\pm26.3$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{1300}& \multirow{2}{*}[-2\baselineskip]{$2.73\times10^{-5}$}& $ee$ & $1.69\pm0.34$ & $1.28\times10^{-3}\pm2.57\times10^{-4}$ & $123.9\pm26.5$ \\ 
-          & & $\mu\mu$ & $1.15\pm0.23$ & $8.72\times10^{-4}\pm1.75\times10^{-4}$ & $130.7\pm27.2$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{1400}& \multirow{2}{*}[-2\baselineskip]{$1.60\times10^{-5}$}& $ee$ & $1.67\pm0.33$ & $7.43\times10^{-4}\pm1.49\times10^{-4}$ & $115.8\pm24.5$ \\ 
-          & & $\mu\mu$ & $1.16\pm0.23$ & $5.15\times10^{-4}\pm1.03\times10^{-4}$ & $125.4\pm26.1$ \\ \midrule
-          \multirow{2}{*}[-2\baselineskip]{1500}& \multirow{2}{*}[-2\baselineskip]{$9.42\times10^{-6}$}& $ee$ & $1.69\pm0.34$ & $4.44\times10^{-4}\pm8.90\times10^{-5}$ & $123.9\pm26.5$ \\ 
-          & & $\mu\mu$ & $1.13\pm0.23$ & $2.97\times10^{-4}\pm5.96\times10^{-5}$ & $130.7\pm27.2$ \\
-       \midrule\midrule
-    \end{tabular}
-    \label{tab:stat_vals_DH_HDS}
- \end{table}
- \begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+ \begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
     The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
     and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
     and is the same for all inputs.}
@@ -85,7 +51,7 @@ $$
     \end{tabular}
     \label{tab:stat_vals_DH_LDS}
  \end{table} 
- \begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+ \begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
     The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
     and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
     and is the same for all inputs.}
@@ -118,7 +84,7 @@ $$
     \end{tabular}
     \label{tab:stat_vals_LV_HDS}
  \end{table} 
- \begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+ \begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
     The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
     and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
     and is the same for all inputs.}
@@ -151,7 +117,7 @@ $$
     \end{tabular}
     \label{tab:stat_vals_LV_LDS}
  \end{table} 
- \begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations]{Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+ \begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations]{Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
     The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
     and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
     and is the same for all inputs.}
@@ -192,7 +158,7 @@ $$
     \end{tabular}
     \label{tab:stat_vals_EFT_HDS}
  \end{table} 
- \begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations]{Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+ \begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations]{Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
     The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
     and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
     and is the same for all inputs.}
@@ -234,7 +200,7 @@ $$
     \label{tab:stat_vals_EFT_LDS}
  \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR1]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR1]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -268,7 +234,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_DH_HDS_SR1}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR2]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR2]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -301,7 +267,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \end{tabular}
    \label{tab:stat_vals_DH_HDS_SR2}
 \end{table} 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR3]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR3]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -335,7 +301,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_DH_HDS_SR3}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR1]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR1]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -369,7 +335,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_DH_LDS_SR1}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR2]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR2]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -402,7 +368,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \end{tabular}
    \label{tab:stat_vals_DH_LDS_SR2}
 \end{table} 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR3]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR3]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ LDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -437,7 +403,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
 \end{table} 
 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -471,7 +437,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_LV_HDS_SR1}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -504,7 +470,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \end{tabular}
    \label{tab:stat_vals_LV_HDS_SR2}
 \end{table} 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ HDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -538,7 +504,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_LV_HDS_SR3}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -572,7 +538,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_LV_LDS_SR1}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -605,7 +571,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \end{tabular}
    \label{tab:stat_vals_LV_LDS_SR2}
 \end{table} 
-\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR2]{Inputs for the $Z'\chi_2\rightarrow l^+l^-\chi_1\chi_1$ LDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -639,7 +605,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_LV_LDS_SR3}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -681,7 +647,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_EFT_HDS_SR1}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -722,7 +688,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \end{tabular}
    \label{tab:stat_vals_EFT_HDS_SR2}
 \end{table} 
-\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ HDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -765,7 +731,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
 \end{table} 
 
 
-\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR1. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -807,7 +773,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \label{tab:stat_vals_EFT_LDS_SR1}
 \end{table} 
 
-\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR2. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
@@ -848,7 +814,7 @@ $m_{Z'}$ [GeV] & $\sigma B$ [fb] & Channel & $\varepsilon_{\text{sig}}$ $[\times
    \end{tabular}
    \label{tab:stat_vals_EFT_LDS_SR2}
 \end{table} 
-\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi \chi$ LDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
+\begin{table}[!ht]\centering\caption[Inputs for the EFT $\rightarrow Z'\chi \chi$ LDS $\sigma B$ calculations in SR2]{Inputs for the EFT $\rightarrow Z'\chi\chi$ LDS $\sigma B$ calculations in SR3. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
    The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
    and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
