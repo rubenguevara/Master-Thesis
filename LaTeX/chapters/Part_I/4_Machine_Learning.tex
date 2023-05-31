@@ -17,9 +17,9 @@ our dataset containing $n$ \textit{features} for each event $m$, and is of the f
     \end{pmatrix}    
 \end{equation}
 This project will only focus on Supervised Learning, meaning that we know that the output is a binary representation of signal and background, such that we can use target values $\bm{t}$. 
-Then we give the network a score depending on how close the predicted output is to real values $\bm t $. Then we repeat the process after tweaking the parameters $\bm \beta $ and see if the score gets better.\\
+Then we give the network a score depending on how close the predicted output is to the real values $\bm t $. Then we repeat the process after tweaking the parameters $\bm \beta $ and see if the score gets better.\\
 \\To this end, we will first provide a mathematical foundation for ML, starting with a brief overview of the different types of ML algorithms we will study, such as Neural Networks (NN) and Boosted Decision Trees (BDT). 
-Other aspects such as the importance of feature selection and feature engineering in preparing the data for ML algorithms, as well as the concept of model evaluation and optimization will be discussed in Chapter \ref{chap:Method_ML}.
+Other aspects such as the importance of feature selection and feature engineering in preparing the data for ML algorithms, as well as the concept of model evaluation and optimization will be discussed in Chapter \ref{chap:chap:data_prep} and Chapter \ref{chap:Method_ML}, respectively.
 
 
 \newpage
@@ -37,12 +37,12 @@ To describe the behavior of a neuron mathematically we can use the following mod
 \begin{equation}\label{eq:neurons}
     y=f\left(\sum_{i=1}^{n}w_ix_i\right)=f(z)
 \end{equation}
-Where $y$, the output of the neuron, is the value of its \textit{activation function} (See section \ref{sec:act}), which has the weighted, $w_i$, sum of signals $x_i,\cdots,x_n$ received by $n$ neurons that are in a presiding layer.\\
-\\The goal of NNs is to mimic the biological nervous system by letting each neuron interact with each other by sending signals, for us is in the form of a mathematical function between each layer, called the activation function. 
+Where $y$, the output of the neuron, is the value of its \textit{activation function} (See section \ref{sec:act}), which has the weighted, $w_i$, sum of signals $x_i,\cdots,x_n$ received by $n$ neurons that are in a presiding layer. We will call this weighted sum for $z$ to ease the notation.\\
+\\The goal of NNs is to mimic the biological nervous system by letting each neuron interact with each other by sending signals, for us, it is in the form of a mathematical function between each layer, called the activation function. 
 Most NNs consist of an input layer, an output layer and intermediate layers, called hidden layers. All the layers can contain an arbitrary number of neurons, and each connection between two neurons is associated with a weight variable $w_i$.
-The goal of using NNs is to teach the network the patterns of the data to then predict some target. In the context of our search for DM, by giving a NN our data set of events as its input layer, we can then train the network to classify events as signal or background.\\
-\\Explained in greater detail if we were to look at a single event of the data, we start with an input with all the relevant features of the event, $\bm X$. Using Eq. (\ref{eq:neurons}) on every neuron on the next layer we can teach the network if there 
-are any connections between the features, we can repeat this process for \textit{n} layers. As an output we want a single neuron to see if it has predicted the event to be a signal or background, since this is binary output. After analyzing the prediction we can use the labels on the target data $\bm t$ 
+The goal of using NNs is to teach the network the patterns of the data to then predict some target. In the context of our search for DM, by giving a NN our dataset of events as "its input layer", we can then train the network to classify events as signal or background.\\
+\\Explained in greater detail if we were to look at a single data event, we start with an input with all the relevant features of the event, $\bm X$\footnote{See Eq. (\ref{eq:dataset})}. Using Eq. (\ref{eq:neurons}) on every neuron on the next layer we can teach the network if there 
+are any connections between the $n$ features, we can repeat this process for as many \textit{hidden layers} as we want. As an output we want a single neuron to see if it has predicted the event to be a signal or background, since this is binary output. After analyzing the prediction we can use the labels on the target data $\bm t$ 
 to tell (the network) whether it predicted correctly or wrong. We can then use a \textit{cost function} and a specific \textit{metric} to evaluate numerically how well the network predicted the output by giving it a score. 
 Seeing how the results fare we can then back-propagate to shift the weights and biases and repeat the process until we are satisfied with our result. Each of these iterations is called an epoch.\\
 \\To generalize our artificial neuron to a whole network we can look at a Multilayer Perceptron (MLP). An MLP is a network consisting of at least three layers of neurons, the input, one or more hidden layers, and an output. 
@@ -50,9 +50,9 @@ The number of neurons can vary for each layer. The above explanation is a very d
 But before we get into the gory details we can explore the mathematical model that illustrates what was explained above. 
 
 \subsection{Optimizers}\label{sec:SGD}
-The way we "tweak the parameters $\bm \beta $ to see if the network prediction gets better" is by using something called an \textit{optimizer}. We will mainly focus on the theory behind the \textit{Stochastic Gradient Descent} (SDG) optimizer as it is more easy to digest. Before explaining the SDG we have to look at the Gradient Descent (GD). \\
-\\Given a cost function $C(\bm{\beta})$ we can get closer to the minimum by calculating the gradient $\nabla_{\beta}C(\bm{\beta})$ wrt. the unknown parameters from the NN $\bm\beta$. If we were to calculate the gradient at a specific 
-point $\bm{\beta}_i$ in the parameter space, the negative gradient would correspond to the direction where a small change $d\bm\beta$ in this parameter space would result in the biggest decrease in the cost function, in the same way we in physics would determine where the local (or global) minima is in a complex multidimensional potential numerically. In GD, we can choose (which needs to be optimized) a step size $\eta$ related to the size of an iteration in the parameter space; 
+The way we "tweak the parameters $\bm \beta $ to see if the network prediction gets better" is by using an \textit{optimizer}. We will mainly focus on the theory behind the \textit{Stochastic Gradient Descent} (SDG) optimizer as it is easier to digest. Before explaining the SDG we have to look at the Gradient Descent (GD). \\
+\\Given a cost function $C(\bm{\beta})$ we can get closer to the minimum by calculating the gradient $\nabla_{\beta}C(\bm{\beta})$ wrt. the unknown parameters $\bm\beta$ from the NN. If we were to calculate the gradient at a specific 
+point $\bm{\beta}_i$ in the parameter space, the negative gradient would correspond to the direction where a small change $d\bm\beta$ in this parameter space would result in the biggest decrease in the cost function, in the same way we in physics would determine where the local (or global) minima are in a complex multidimensional potential numerically. In GD, we can choose a step size $\eta$ (which needs to be optimized) related to the size of an iteration in the parameter space; 
 this is called the \textit{learning rate}. The mathematical function for an iteration in parameter space to optimize the parameter $\bm{\beta}$ such that it minimizes the cost function is given as
 \begin{equation}\label{eq:GD}
     \bm{\beta}_{i+1}=\bm{\beta}_{i} -\eta\nabla_{\beta}C(\bm{\beta}_i)
@@ -60,13 +60,13 @@ this is called the \textit{learning rate}. The mathematical function for an iter
 To converge towards a minimum we should select a learning rate $\eta$ small enough to not "step over" the minimum point of the cost-function-space, but also not too small to get stuck on a local minimum rather than the global minimum. 
 Thus using the learning rate as a hyperparameter in a grid search is a good way to optimize a NN for a given task.\\
 \\In GD one computes the cost function and its gradient globally for all data points. This quickly becomes computationally heavy when dealing with large datasets. Thus, a common approach is to compute the gradient over batches of the data. 
-For our purposes it would be optimal to use GD, but our data size is massive, of the order of $10^{8}$ events (13 GB), becoming computationally impossible. Thus instead of making an $n\times10^8$ matrix (see Eq. (\ref{eq:dataset})), 
-we could for example split it into ten smaller matrices of $n\times10^7$ to then perform a parameter update, making the computation possible. This is where SGD comes in, for each step, or epoch the data is divided randomly into 
-\textit{N} batches of size \textit{n}. Then for each batch we use Eq. (\ref{eq:GD}) to update the parameters, thus updating $\bm{\beta}_{i+1}$ \textit{N}-times for each epoch. The idea of SGD comes from the observation that the 
-cost function can almost always be written as a sum over \textit{n} data points. The main advantage of SGD is not to ease the computation however, as using more batches also reduces the risk of getting stuck in a local minimum since it introduces a randomness of which part of the parameter space we move through, 
+For our purposes it would be optimal to use GD, but our data size is massive, of the order of $10^{8}$ events (13 GB), becoming computationally challenging. Thus instead of making an $n\times10^8$ data matrix (see Eq. (\ref{eq:dataset})), 
+we could for example split it into ten smaller matrices of $n\times10^7$ to then perform a parameter update, making the computation affordable. This is where SGD comes in, for each step, or epoch the data is divided randomly into 
+\textit{N} batches of size \textit{n}. Then for each batch we use the cost function minimization, Eq. (\ref{eq:GD}), to update the parameters, thus updating $\bm{\beta}_{i+1}$ \textit{N}-times for each epoch. The idea of SGD comes from the observation that the 
+cost function can almost always be written as a sum over \textit{n} data points. The main advantage of SGD is not to ease the computation however, as using more batches also reduces the risk of getting stuck in a local minimum since the SGD introduces a randomness of which part of the parameter space we move through, 
 but this is at the cost of reducing statistics which might not be ideal for every problem.\\
 \\There are other optimization algorithms we could use, such as the popular ADAM \cite{kingma2017adam}. The Adaptive Moment Estimation (ADAM) is a more advanced optimization algorithm that uses adaptive learning rates. It computes individual learning rates for each weight based on the average of past gradients 
-and their variances. ADAM also uses momentum to accelerate the convergence of the optimization algorithm. We will test both ADAM and SGD when optimizing our networks.
+and their variances. ADAM also uses momentum\footnote{Past gradients influence current updates, improving optimization by considering direction and magnitude of previous gradients.} to accelerate the convergence of the optimization algorithm. We will test both ADAM and SGD when optimizing our networks.
 
 \subsection{Activation functions}\label{sec:act}
 As seen in Section \ref{sec:neurons}, an important aspect of NNs are activation functions and cost functions. As shall become apparent in Section \ref{sec:FFN}, when evaluating an activation function we get the neuron output, but what are these activation functions? 
@@ -75,16 +75,16 @@ The first one is a sigmoid activation function
 \begin{equation}\label{eq:sig}
     f(x) = \frac{1}{1+e^{-x}}
 \end{equation}
-which is the most basic activation function, this will be used from the input layer to our first hidden layer as the risks of having little neuron activation is minimal here. On all other layers we will utilize a Rectified Linear Unit (ReLU)
+which is the most basic activation function, this will be used from the input layer to our first hidden layer as the risk of having little neuron activation is minimal here. On all other layers we will utilize a Rectified Linear Unit (ReLU)
 \begin{equation}\label{eq:ReLU}
     f(x) = x^+ = \text{max}(0,x) = \begin{cases}x&{\text{if }}x>0,\\0.&{\text{otherwise}}.\end{cases}
 \end{equation}
-Which has better gradient propagation, meaning that there are fewer vanishing gradient problems compared to the sigmoidial function.
+ReLu has better gradient propagation, meaning that there are fewer vanishing gradient problems compared to the sigmoid function.
 
 
 \subsection{Feed Forward network}\label{sec:FFN}
 To describe how the network "guesses" outputs in a mathematical model we can start by looking at Eq. (\ref{eq:neurons}) where we got an output $y$ from an activation function $f$ that receives $x_i$ as input. 
-We can expand the function as following
+We can expand the function's input as follows
 \begin{equation}\label{eq:activation}
     y=f\left(\sum_{i=1}^nw_ix_i+b_i\right)=f(z)
 \end{equation} 
