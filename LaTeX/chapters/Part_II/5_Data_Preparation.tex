@@ -5,19 +5,18 @@ Now is the time to focus on the critical task of preparing the data for our DM s
 as seen in Chapter \ref{sec:data_anal}. In this chapter we will define what \textit{background} and \textit{signal} actually are, as well as selecting appropriate kinematical cuts to define the preselection region for our search. In addition, we will 
 explain the data preparing procedure such that it is in a format that is well-suited for our ML algorithms. The reason this process is of great importance is, so we can maximize the chances of our ML algorithm to accurately identify any DM signals. 
 Moreover, by providing a detailed explanation of the data preparation process, we can ensure that our dataset is both reliable and effective, and that our analysis is robust and trustworthy. In short, this chapter represents a critical step towards 
-achieving our goal of using ML to classify DM from SM events using ATLAS data, and it is essential to the success of our overall research goal.
+achieving our goal of using ML to classify DM from SM events using ATLAS data, and this is essential to the success of our overall research goal.
 
 
 
 \clearpage
 \section{Standard Model background estimation}\label{sec:SM_bkgs}
-As we are going to look at dilepton final states with missing transverse energy to try to teach our ML to learn DM signatures, then we need to take into account all possible SM background event that have this kind of final states. The SM backgrounds processes we will look at are explained in the next subsections. 
-In Appendix \ref{appendix:DSIDs} is the full list of dataset IDs for background process used in this thesis.
+As we are going to look at dilepton final states with missing transverse energy to try to teach our ML to learn DM signatures, then we need to take into account all possible SM backgrounds events that share the same final states. The SM backgrounds processes we will look at are explained in the next subsections. 
+Appendix \ref{appendix:DSIDs} gives the full list of dataset IDs for background processes used in this thesis.
 
 \subsection{W and Drell Yan}
-$W$+jets and $Z/\gamma^*$+jets can decay into final states that mimic the one we are searching for. The $W$ boson can give us a lepton and neutrino $W\rightarrow l\nu_l$, which gives us MET, and $Z/\gamma\rightarrow ll$, which gives us a dilepton final state. 
-The dominant production mechanism for these background processes be seen in Figure \ref{fig:WZG_BKG}. As the $W$ boson behaves differently than the $Z$ and $\gamma$, as the $W$ boson can decay into neutrinos giving us MET. 
-We will divide these background processes into two, $W$ and \textit{Drell Yan} processes, where the latter is $Z/\gamma^*$ + jets. To simulate these background processes Sherpa 2.2.11 \cite{Sherpa} was used.
+$W$+jets and $Z^*/\gamma^*$+jets can lead to final states that mimic the one we are searching for. The $W$ boson can decay to a lepton and neutrino $W\rightarrow l\nu_l$, which features MET, and $Z/\gamma\rightarrow ll$, which ends as a dilepton final state. 
+The dominant production mechanisms for these background processes are shown in Figure \ref{fig:WZG_BKG}. Where the quark jet can keep on decaying, potentially weakly creating another lepton and neutrino giving rise to a dilepton final state. We will divide these background processes into two, $W$ and \textit{Drell Yan} processes, where the latter is $Z/\gamma^*$ + jets. To simulate these background processes Sherpa 2.2.11 \cite{Sherpa} was used.
 \graphicspath{{../../figures/}}
 \begin{figure}[!ht]
     \centering
@@ -26,8 +25,8 @@ We will divide these background processes into two, $W$ and \textit{Drell Yan} p
 \end{figure}
 
 \subsection{Top pair}
-Another SM background process we will look at are processes that have a $t\bar{t}$ in them. Since the top has a close to 100\% branching ratio of decaying into a $b$-quark\footnote{Making $b-$tagging an effective method to isolate this background channel} and a $W$ boson, $t\rightarrow bW^+$, where the $W$ boson can again decay into a neutrino and lepton,
-where the first gives us MET. The main production mechanism for these processes can be seen in Figure \ref{fig:TT_BKG}. To simulate these background processes Powheg-Box v2 \cite{PowHeg} interfaced with Pythia 8 \cite{Pythia} was used.
+Another SM background process we will look at are $t\bar{t}$ processes. Since the top has a close to 100\% branching ratio of decaying into a $b$-quark\footnote{Making $b-$tagging an effective method to reduce this background channel} and a $W$ boson, $t\rightarrow bW^+$, where the $W$ boson can again decay into a neutrino and lepton,
+where the first leads to MET. The overall final state is dilepton with MET together with two b-jets. The main production mechanism for these processes can be seen in Figure \ref{fig:TT_BKG}. To simulate these background processes Powheg-Box v2 \cite{PowHeg} interfaced with Pythia 8 \cite{Pythia} was used.
 \begin{figure}[!ht]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
@@ -51,8 +50,8 @@ where the first gives us MET. The main production mechanism for these processes 
 \end{figure}
 
 \subsection{Single top}
-On the same note we have processes with a single top. Where again the top has a high branching ratio of decaying into a $b$-quark and a $W$ boson, $t\rightarrow bW^+$, where the $W$ boson can again decay into a neutrino giving 
-us MET. The main production mechanism for these processes can be seen in Figure \ref{fig:T_BKG}. To simulate these background processes Powheg-Box v2 \cite{PowHeg} interfaced with Pythia 8 \cite{Pythia} was used.
+On the same note we have processes with a single top, where again the top has a high branching ratio of decaying into a $b$-quark and a $W$ boson, $t\rightarrow bW^+$, where the $W$ boson can again decay into a lepton and neutrino, giving 
+MET. The main production mechanism for these processes can be seen in Figure \ref{fig:T_BKG}. The b-mesons, and quark (for t-channel) can occasionally decay semi-leptonically giving us the second lepton and another neutrino. To simulate these background processes Powheg-Box v2 \cite{PowHeg} interfaced with Pythia 8 \cite{Pythia} was used.
 \begin{figure}[!ht]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
@@ -77,7 +76,8 @@ us MET. The main production mechanism for these processes can be seen in Figure 
 
 \subsection{Diboson}
 The last SM background process we will look at are processes containing two bosons, called \textit{diboson} backgrounds. The two SM bosons we will consider when looking into these final states are the $W$ and $Z$, as these can decay as $Z\rightarrow ll$ 
-or $W\rightarrow l\nu_l$, where the prime means a different lepton flavor. The main production mechanism for these processes can be seen in Figure \ref{fig:Diboson_BKG}. To simulate these background processes Sherpa 2.2.11 \cite{Sherpa} was used.
+or $W\rightarrow l\nu_l$, where the prime means a different lepton flavor. The main production mechanism for these processes can be seen in Figure \ref{fig:Diboson_BKG}. From these diagrams we have that $WW\rightarrow ll+\nu\nu$, $WZ\rightarrow l\nu+ll$\footnote{Where one lepton is not reconstructed} and $ZZ\rightarrow ll+\nu\nu$, 
+which all lead to a dilepton with MET final state. To simulate these background processes Sherpa 2.2.11 \cite{Sherpa} was used.
 \begin{figure}[!ht]
     \centering 
     \begin{subfigure}[b]{0.4\textwidth}
@@ -106,11 +106,34 @@ or $W\rightarrow l\nu_l$, where the prime means a different lepton flavor. The m
     \caption[Diboson production]{Diagrams showcasing SM diboson production. A star superscript on a boson indicates that the boson needs to be virtual and off mass shell.  A quark marked with a prime, indicated that the quark might be a different flavor after interacting with a boson. }\label{fig:Diboson_BKG}
 \end{figure}
 
+\newpage
 \section{Dark Matter samples}\label{chap:DM_sample}
 \subsection{Mono-Z'}
-The models in Chapter \ref{chap:DM} contain three relevant couplings
+The $Z'-$aware DM models described in Chapter \ref{chap:DM} showcased in Figure \ref{fig:monoZp}. 
+\begin{figure}[!ht]
+    \centering 
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{DH.png}
+        \caption{Dark Higgs}\label{fig:DH_5}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{LV.png}
+        \caption{Light Vector}\label{fig:LV_5}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{EFT.png}
+        \caption{Inelastic EFT}\label{fig:EFT_5}
+    \end{subfigure}
+    \caption{Mono Z' models}\label{fig:monoZp}
+\end{figure}
+\\These models contain three relevant couplings
 \begin{itemize}
-    \item the coupling $g_D$ between the $Z'$ and the DM particles ($Z'Z'h_D$ or $Z'\chi_1\chi_2$)
+    \item the coupling $g_D$ between the $Z'$ and the dark sector particles ($Z'Z'h_D$ (See Figure \ref{fig:DH_5}) or $Z'\chi_1\chi_2$ (See Figure \ref{fig:LV_5} and \ref{fig:EFT_5}))
     \item the coupling $g_q$ between the $Z'$ and quarks
     \item and the coupling $g_l$ between the $Z'$ and leptons
 \end{itemize}
@@ -120,7 +143,7 @@ The coupling to quarks and leptons are assumed to be the same for all generation
     \item $g_q=0.1$,
     \item and $g_l=0.01$.
 \end{itemize}
-In addition to the couplings, as mentioned on Chapter \ref{chap:DM}, we will divide the three models, DH, LV and EFT into two more regions. The difference being the masses, Table \ref{tab:DMass} showcases the definition of the Light Dark Sector (LDS) and Heavy Dark Sector (HDS).
+In addition to the couplings, as mentioned on Chapter \ref{chap:DM}, we will divide the three models, Dark Higgs, Light Vector and inelastic EFT into two more regions. The difference being the masses, Table \ref{tab:DMass} showcases the definition of the Light Dark Sector (LDS) and Heavy Dark Sector (HDS).
 \begin{table}[!h]
     \centering\caption{Dark sector masses in light- and heavy dark sector models}
     \begin{tabular}{l|c|c}\midrule\midrule
@@ -142,40 +165,50 @@ m_{Z'} = [130, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1
 $$
 or the EFT model.
 \subsection{Supersymmetric direct slepton production}
-For the supersymmetric direct slepton production model, $\tilde{\ell}\tilde{\ell}\rightarrow \ell\ell\tilde{\chi}_1^0\tilde{\chi}_1^0$, the masses of the sleptons, $m_{\tilde{\ell}}$, and neutralinos, $m_{\tilde{\chi}_1^0}$ are the parameters that will be changed. 
-The masses used in this thesis are shown below 
-$$
-m_{\tilde{\ell}} = [90, 100, 125, 150, 175, 200, 225, 250, 275, 300, 350, 400]\text{ GeV},
-$$
-and
-$$
-m_{\tilde{\chi}_1^0} = [1, 25, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 100, 105, 110, 120, 125,
-$$
-$$
-130, 135, 140, 145, 150, 155,
-160, 170, 175, 180, 185, 195, 200, 205
-$$
-$$
-210, 220, 230, 235,
- 245, 250, 255, 260, 270, 280, 300, 330, 350, 380 ]\text{ GeV}
-$$
+For the supersymmetric direct slepton production model, $\tilde{\ell}\tilde{\ell}\rightarrow \ell\ell\tilde{\chi}_1^0\tilde{\chi}_1^0$, depicted in the Feynman diagram in Figure \ref{fig:designer_got_me_slepslep}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{SlepSlep.png}
+    \caption{Direct slepton production}\label{fig:designer_got_me_slepslep}
+\end{figure}
+\\for this thesis the masses of the sleptons, $m_{\tilde{\ell}}$, and neutralinos, $m_{\tilde{\chi}_1^0}$ are the parameters that will be changed. 
+The mass pairs of the neutralinos and sleptons used in this thesis are shown in a scatter plot in Figure \ref{fig:slepslep_mass}.
+\graphicspath{{../../../Plots/2d_masses/}}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{SlepSlep.pdf}
+    \caption[$\tilde{\chi}_1^0$ and $\tilde{\ell}$ mass pairs for direct slepton production]{Scatter plot showcasing the $\tilde{\chi}_1^0$ and $\tilde{\ell}$ mass pairs for direct slepton production studied in this thesis. Each dot represents a simulated direct slepton process using the masses.}\label{fig:slepslep_mass}
+\end{figure}
+\graphicspath{{../../figures/}}
 \subsection{2HDM + a}
-For the Two Higgs Doublet Model with an additional pseudoscalar $a$ which decays into DM there are three important parameters, the mass of the new charged Higgs, which we will call $m_{H^-}$. The mass of the pseudoscalar $a$, $m_a$ and ratio between the vacuum expectation values of the Higgs doublet, $\tan\beta$. The values used for this thesis can be sen below.
-$$
-m_{H^-} = [300, 400, 500, 600, 700, 800, 900, 1000, 1200, 
-$$
-$$
-1250, 1300, 1500, 1600, 1700, 1800, 2000, 2100]\text{ GeV},
-$$
-and 
-$$
-m_a = [100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800]\text{ GeV},
-$$
-and 
-$$
-\tan\beta = [1, 5, 10, 20, 30]
-$$
-In this thesis we assume the DM candidate mass of this model to be $m_{\chi}=10$ GeV. 
+For the Two Higgs Doublet Model with an additional pseudoscalar $a$ (2HDM +a) which decays into DM shown by the Feynman diagram in Figure \ref{fig:2HDM}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.3\textwidth]{2HDMa.png}
+    \caption{2HDM + a}\label{fig:2HDM}
+\end{figure}
+\\ There are three important parameters for this model the mass of the new charged Higgs, $m_{H^-}$, the mass of the pseudoscalar $a$, $m_a$, and the ratio between the vacuum expectation values of the Higgs doublet, $\tan\beta$. The values used for this thesis can be sen below.
+\graphicspath{{../../../Plots/2d_masses/}}
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{2HDM_tb1.pdf}    
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{2HDM_tb5.pdf}    
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{2HDM_tb10.pdf}    
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{2HDM_tb20.pdf}    
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{2HDM_tb30.pdf}    
+    \end{subfigure}
+    \caption[$m_a$ and $m_{H^-}$ mass pairs for 2HDM + a model]{Scatter plot showcasing the $m_a$ and $m_{H^-}$ mass pairs for 2HDM + a model studied in this thesis. Each dot represents a simulated 2HDM + a process using the masses. As we have different values for $\tan\beta$ we show the different simulated samples for each mass for each value.}\label{fig:2HDM_mass}
+\end{figure}
+In addition to these values, we assume the DM candidate mass to be $m_{\chi}=10$ GeV. 
 \section{Object selection}\label{sec:obj_sel}
 Before getting into our DM search and the regions we will study we have to define how standard objects are defined. By standard objects we mean electrons, muons and jets. As this thesis is made using ATLAS data and simulations we will be following the central recommendations.%\\
 % \\The electrons \todo{I don't know how else to present these}are selected using the criteria on Table \ref{tab:E_selec}. The muons are selected using the criteria on Table \ref{tab:mu_selec}. The jets are selected using the criteria on Table \ref{tab:jet_selec}. The missing transverse energy is reconstructed from jets selected and calibrated according to the information in Table \ref{tab:jet_selec}. In addition to these a kinematical cut of $m_{ll}>10$ GeV will be made to exclude hadron productions.
@@ -224,14 +257,14 @@ our kinematical cuts to be minimal and as general as possible. As we are looking
 Same Flavor Opposite Sign (SFOS) leptons ($e^\pm e^\mp, \mu^\pm\mu^\mp$). However, to stay as general, and model independent, as possible we will also study other possible combinations as these might be important for theories such as SUSY or Lepton Flavor Violating 
 (LFV) models. These are Different Flavor Same Sign (DFSS), DFOS and SFSS lepton pairs.\\
 \\Since we are looking for DM, which we expect to behave similarly to a neutrino, then a nice kinematical variable to set a general cut to isolate signal from background is the MET, we can see the 
-distribution of MET on all of Run II in a dilepton final state in Figure \ref{fig:uncut_met}.\\
+distribution of MET on all of Run II in a dilepton final state in Figure \ref{fig:uncut_met}, where we have applied a cut of $m_{ll}>10$ GeV to exclude hadrons, as well as the central recommendations cuts.\\
 \\As we are conducting a model independent search, we want to use minimal cuts. The MET cut made in this thesis was chosen to be of 50 GeV (violet line in plot), meaning we will \textit{only} look at events where the MET is greater than this. As we can see from Figure \ref{fig:uncut_met} 
 by making a kinematical cut on 50 GeV we are cutting out a massive part of the background processes while only losing a small part of the signal. \\
 \graphicspath{{../../../Plots/Data_Analysis/SRs/Uncut/}} 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\textwidth]{met.pdf}
-    \caption[$E_T^{miss}$ distribution in dilepton final state Run II]{Distribution of MET when looking at a dilepton final state in all of Run II. The violet line shows where we will make out MET cut to create a preselection region. The DM models here have the highest cross-section making them the most visible to our purposes.}\label{fig:uncut_met}
+    \caption[$E_T^{miss}$ distribution in dilepton final state Run II]{Distribution of MET when looking at a dilepton final state in all of Run II. The violet line shows a MET cut of 50 GeV to create a preselection region. Five DM models are also shown, in addition to the SM expectations.}\label{fig:uncut_met}
 \end{figure}
 \\Other than the object selection criteria, these are the only cuts that will be used to define the preselection region. Their summary can be seen in Table \ref{tab:CR_cuts}
 \begin{table}[!h]
@@ -250,8 +283,8 @@ For this thesis there are many possible kinematic variables that can be used as 
 might help our ML algorithm to correctly learn the patters of SM background and DM signal events. \\
 \\As we are studying a final state with two leptons it is natural to look at the kinematics for both of these objects. The first thing we will look at is the transverse momentum, $p_T$, of each lepton as defined in Eq. (\ref{eq:transverse_momentum}). 
 We will also look at the azimuthal angle, $\phi$ and the pseudorapidity, $\eta$ defined in Eq. (\ref{eq:pseudorapidity}). 
-With this we have practically constructed a four-momentum from which we could learn all particle kinematics. However, we want to help our ML algorithm as much as possible in the task of learning SM background and DM signal. A powerful kinematical variable for this is 
-therefor the invariant mass, $m_{ll}$ defined in Eq. (\ref{eq:invariant_mass}), which can help the ML algorithm sort out resonant models. Another variable of interest is the transverse energy, $E_T$ defined in Eq. (\ref{eq:transverse_energy}) for the lepton pair. 
+With this we have practically constructed a four-momentum from which we could learn all particle kinematics. However, we want to help our ML algorithm as much as possible in the task of learning SM background and DM signals. A powerful kinematical variable for this is 
+therefor the invariant mass, $m_{ll}$ defined in Eq. (\ref{eq:invariant_mass}), which might as an example can help the ML algorithm sort out resonant models. Another variable of interest is the transverse energy, $E_T$ defined in Eq. (\ref{eq:transverse_energy}) for the lepton pair. 
 The distribution of the invariant mass can be seen in Figure \ref{fig:mll_dist}.\\
 \graphicspath{{../../../Plots/Data_Analysis/SRs/Control_region/}} 
 \begin{figure}[!ht]
@@ -265,7 +298,7 @@ weighing the value of $E_T^{miss}$ by the precision of its reconstruction. It is
 \begin{equation}\label{eq:METsig}
     E_T^{miss,sig} = \frac{E_T^{miss}}{\sigma(E_T^{miss})}
 \end{equation}
-where $\sigma(E_T^{miss})$ is the uncertainty of the reconstruction of the $E_T^{miss}$, which consider the individual uncertainties of the objects that enter the $E_T^{miss}$ calculation. The distribution of this variable can ve seen in Figure \ref{fig:met_sig_dist}. 
+where $\sigma(E_T^{miss})$ is the uncertainty of the reconstruction of the $E_T^{miss}$, which consider the individual uncertainties of the objects that enter the $E_T^{miss}$ calculation. The distribution of this variable can be seen in Figure \ref{fig:met_sig_dist}. 
 In this thesis we will use both $E_T^{miss}$ and $E_T^{miss,sig}$ even though they are correlated, as the algorithm might choose in different instances\footnote{Meaning different \textit{signal regions} when conducting a model independent search. See Chapter \ref{sec:SRs}} 
 which of these is of more importance.\\
 \begin{figure}[!ht]
@@ -274,11 +307,10 @@ which of these is of more importance.\\
     \caption{Distribution of $E_{T}^{miss,sig}$ in preselection region.}\label{fig:met_sig_dist}
 \end{figure}
 \\To keep the trend of variables for invisible particles, we will also study the transverse mass, $m_T$ defined in Eq. (\ref{eq:transverse_mass}), and stransverse mass, $m_{T2}$ defined in Eq. (\ref{eq:stransverse_mass}). 
-The distribution of the stransverse mass can be seen in Figure \ref{fig:mt2_dist}. Moving on to jet related variables, we will count the number of b- and light jets with $p_T \ge 30, 40$ GeV respectively. As the jet reconstruction is already a hard task, 
-which becomes even harder when pushing the limits of our selection criteria with a MET cut. In Appendix \ref{appendix:JetSelection} we can see how the data and MC simulations of the SM agree when counting the number of b- and light jets with a $p_T$ cut of $\ge30$ GeV and $\ge40$ GeV respectively. 
-The agreement with different $p_T$ cuts can be seen in Appendix \ref{appendix:JetSelection}. We will also look at the $p_T$, $\eta$ and $\phi$ of the three most energetic jets, as these have the best MC and data agreement 
-(see Figure \ref{fig:jetcuts}), and the invariant mass of the two most energetic jets $m_{jj}$.\\ 
-\\Another variable we will look at is the hadronic activity, $H_T$ defined in Eq. (\ref{eq:HT}), from which we will also look at the ratio between the MET and hadronic activity, $E_T^{miss}/H_T$.\\
+The distribution of the stransverse mass can be seen in Figure \ref{fig:mt2_dist}. Moving on to jet related variables, we will count the number of b- and light jets with $p_T \ge 30, 40$ GeV respectively. As the jet reconstruction is tricky, 
+especially when requiring a MET cut. In Appendix \ref{appendix:JetSelection} we can see how the data and MC simulations of the SM agree when counting the number of b- and light jets with a $p_T$ cut of $\ge30$ GeV and $\ge40$ GeV respectively. 
+The agreement with different $p_T$ cuts can be seen in Appendix \ref{appendix:JetSelection}. We will also look at the $p_T$, $\eta$ and $\phi$ of the three most energetic jets, as these have the best MC and data agreement, and the invariant mass of the two most energetic jets $m_{jj}$.\\ 
+\\Another variable we will look at is the hadronic activity, $H_T$ defined in Eq. (\ref{eq:HT}), from which we can also get the ratio between the MET and hadronic activity, $E_T^{miss}/H_T$.\\
 \begin{figure}[!ht]
     \centering
         \includegraphics[width=0.8\textwidth]{mt2.pdf}
@@ -298,8 +330,8 @@ The agreement with different $p_T$ cuts can be seen in Appendix \ref{appendix:Je
 %     \caption[b- and light jet distributions in preselection region]{b- and light jet distributions with $p_T \ge30$ and $\ge40$ GeV, respectively.}\label{fig:jetcuts}
 % \end{figure}
 \graphicspath{{../../../Plots/Data_Analysis/SRs/Control_region/}} 
-\\To know the distance between the lepton and MET we will look at the difference in azimuthal angle between: the lepton pair, $\Delta\phi(l_1,l_2)$, the dilepton system and MET, $\Delta\phi(ll,E_T^{miss})$, the leading lepton and MET, $\Delta\phi(l_l,E_T^{miss})$, 
-and the lepton closest to the MET and the MET, $\Delta\phi(l_c,E_T^{miss})$. In some of the models we are studying it is expected for DM and the lepton pair to be back to back. The distribution of $\Delta\phi(ll,E_T^{miss})$ can be seen in Figure \ref{fig:dPhiLLMET_dist}.
+\\To know the distance between the lepton and MET the difference in azimuthal angle is studied between: the lepton pair, $\Delta\phi(l_1,l_2)$, the dilepton system and MET, $\Delta\phi(ll,E_T^{miss})$, the leading lepton and MET, $\Delta\phi(l_l,E_T^{miss})$, 
+and the lepton closest to the MET and the MET, $\Delta\phi(l_c,E_T^{miss})$. In some of the models we are studying it is expected for DM and the lepton pair to be back to back\todo{See if you have examples}, the distribution of $\Delta\phi(ll,E_T^{miss})$ shown in Figure \ref{fig:dPhiLLMET_dist}.
 \begin{figure}[!ht]
     \centering
         \includegraphics[width=0.8\textwidth]{dPhiLLMET.pdf}
@@ -309,7 +341,8 @@ and the lepton closest to the MET and the MET, $\Delta\phi(l_c,E_T^{miss})$. In 
 \clearpage\noindent The kinematic variables used are summarized in Table \ref{tab:variables} and the distribution of the remaining kinematical variables are shown in Appendix \ref{apendix:Kin_var_in_CR}.
 \begin{table}[!h]
     \centering
-    \caption[Kinematic variables used as features]{Table showcasing the kinematic variables that will be used as features on our ML algorithm.\\ * These have poor MC and data agreement. $^\dagger$ These create \textit{jagged arrays}.}
+    \caption[Kinematic variables used as features]{Table showcasing the kinematic variables that will be used as features on our ML algorithm. \\
+    The variables marked with * have poor MC and data agreement. The variables marked with $^\dagger$ create \textit{jagged arrays}. What this means and what we will do with this is explored in Section \ref{sec:star} and \ref{sec:padding_NN}, respectively.}
     \begin{tabular}{l|r}\midrule\midrule
         Kinematic variable                                                              & Feature name          \\\midrule
         $p_T$ of both leptons                                                           & lep1pt \& lep2pt      \\
@@ -337,16 +370,16 @@ and the lepton closest to the MET and the MET, $\Delta\phi(l_c,E_T^{miss})$. In 
     \label{tab:variables}
 \end{table}
 
-\subsection{MC and data disagreement} 
-There is a challenge, with the final states that are not SFOS, as the MC generated background on these tend to be lower than the recorded data. The number of events that are not SFOS are minimal though, 
-and we think the reason it does not fit the data is because we are not including fake leptons. The features where these are prominent are marked by a * on Table \ref{tab:variables}.
+\subsection{MC and data disagreement}\label{sec:star}
+There is a challenge, with the final states that are not $e^+e^-$ or $\mu^+\mu^-$ (SFOS), as the MC generated background tends to be lower than the recorded data. The number of events that are not SFOS are minimal though\footnote{For all kinematical variables divided into their respective dilepton final state see the GitHub repo, available here: }\todo{MAKE THE FIGURES}, 
+and we think the reason it does not fit the data is because we are not including fake leptons\footnote{Fake leptons refer to reconstructed particles that appear to be leptons but are actually misidentified hadrons or non-prompt particles.}. The features where these are prominent are marked by a * In Table \ref{tab:variables}. As we want the MC simulations of the background to agree as much as possible, we will not use the features marked with a * when using our ML algorithms.
 
-\section{Transfer to ML friendly syntax}
+\section{Transfer to ML-friendly syntax}
 We have so far explained how the data will be used and carefully selected, however the question of how the data is made, and the number of samples we will work with still remains unanswered. \\
-\\The MC simulations are made into \verb|ROOT| \cite{ROOT} NTuples which contain the information of the objects passing our selection criteria in each event. What remains is to set the kinematical cuts, so we have our preselection region. 
-To do this as well as saving the remaining events into a new file which will be used for our ML algorithm I utilized the algorithms on \verb|EventSelector|\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/EventSelector}{https://github.com/rubenguevara/Master-Thesis/tree/master/EventSelector}}, 
-which also saved the events that passed the event selection criteria as \verb|ROOT| histograms to make plotting the distributions easier. After saving the events that passed the selection criteria I used the algorithms on \verb|DataPrep|\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/DataPrep}{https://github.com/rubenguevara/Master-Thesis/tree/master/DataPrep}} 
-to plot the actual distributions of kinematical variables, and more importantly converting all the events that passed the event selection into an ML friendly syntax. For this thesis we are converting from \verb|ROOT| NTuples to \verb|pandas DataFrame| \cite{pd.DataFrame} 
+\\The MC simulations are made available in \verb|ROOT| \cite{ROOT} NTuples which contain the information of the objects passing the selection criteria in each event. What remains is to set the kinematical cuts, so we have our preselection region. 
+To do this, as well as saving the remaining events into a new file which will be fed into the ML algorithm, we utilized the algorithms on \verb|EventSelector|\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/EventSelector}{https://github.com/rubenguevara/Master-Thesis/tree/master/EventSelector}}, 
+which also saved the events that passed the event selection criteria as \verb|ROOT| histograms (to make plotting the distributions easier). After saving the events that passed the selection criteria we used the algorithms on \verb|DataPrep|\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/DataPrep}{https://github.com/rubenguevara/Master-Thesis/tree/master/DataPrep}} 
+to plot the actual distributions of kinematical variables, and more importantly converting all the events that passed the event selection into an ML-friendly syntax. For this thesis we are converting from \verb|ROOT| NTuples to \verb|pandas DataFrame| \cite{pd.DataFrame} 
 which can furthermore be saved as \verb|h5| files to be read more efficiently. The reason we chose \verb|pandas DataFrame| is because of the easily readable kinematics per event, the easily applicable kinematical cuts to the whole dataset 
 (to more effectively create signal regions), and most importantly because of the compatibility with \verb|XGBoost| \cite{XGBoost} and \verb|TensorFlow| \cite{TensorFlow} which will be the ML packages we will utilize for both BDTs and NNs. 
 With this we are ready to discuss the preparation of our ML algorithms.

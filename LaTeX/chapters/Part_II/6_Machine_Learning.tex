@@ -2,10 +2,10 @@
 \begin{document}\label{chap:Method_ML}
 We have now presented the dataset and theory, and are thus ready to start making our ML algorithms. The first part of this chapter will be a presentation of the dataset in more details, included all the events and the \textit{weights} variable.
 We will also explore how we divide our dataset into a training and testing set. Afterwards we will discuss the crucial task of optimizing the architecture and hyperparameters of the ML models for obtaining high-performance classifiers. In this field, the challenge is often to 
-distinguish between signal events from rare physics phenomena, such as our DM interactions, and the much more common SM background events. Since the signals events are extremely rare, the classifiers need to be highly optimized in order to effectively separate them from 
-the background. In addition, the datasets have numerous features, which can lead to overfitting or poor generalization if not properly optimized. Another hardship is how to mitigate the phenomena of jagged arrays and missing variables described in the previous chapter.\\
+distinguish between signal events from rare physics phenomena, and the much more common SM background processes. Since the signals events are extremely rare, the classifiers need to be highly optimized in order to effectively separate them from 
+the background. In addition, the datasets have numerous features, which can lead to overfitting or poor generalization if not properly optimized. Another hardship is how to mitigate the phenomena of \textit{jagged arrays} and missing variables.\\
 \\It is essential to carefully choose the model architecture and hyperparameters, as well as the dataset pre-processing techniques, in order to achieve the best possible performance in the search for the rare DM physics phenomena. This can involve optimizing 
-parameters such as the learning rate, the regularization strength. Exclusively for the NNs we have the number of layers and the number of neurons per layer. Exclusively for the BDTs we have the number of trees and the tree depth. The second and third part of this chapter will be just about optimization for the NNs and BDTs respectively.
+parameters such as the learning rate and the regularization strength. Exclusively for the NNs we have the number of layers and the number of neurons per layer. Exclusively for the BDTs we have the number of trees and the tree depth. The second and third part of this chapter will be just about optimization for the NNs and BDTs respectively.
 
 \clearpage
 \section{The datasets}
@@ -15,23 +15,23 @@ The way we are making datasets in this project, to keep it as close to model ind
    \item Make a dataset with all the SM backgrounds and all the DM models, divided into different signal regions and statistically combine the results of each signal region
 \end{itemize}
 The idea behind the first one is to start with a model dependent approach, where we train an ML algorithm to learn just one model at a time. The reason for taking this approach, is because it is still closer to being more model independent than normal ML HEP searches, as these usually train on the whole SM background dataset with just one 
-signal model with fixed masses and parameters. While what we would be doing is combining all the different masses and parameters into one.\\
+signal model with fixed masses and parameters. While what we would be doing is combining all the different masses and parameters into one dataset for each model.\\
 \\For the second one, if we created Signal Regions (SR) in kinematically orthogonal regions, then some models might be more important than other in each region. Meaning that the approach would teach the ML algorithm the signatures of the DM physics in the final state, rather than making an algorithm that is good at learning one individual model.
-Furthermore, the plan is to combine the results of each respective region to get an overall view of all of Run II.\\
-\\In this project we will look at real and simulated data from the ATLAS detector from all running periods of Run II. This is from period 2015-2016, 2017 and 2018 each with an integrated luminosity of $36.4, 44.3$ and 58.5 $fb^{-1}$ respectively. 
-In Table \ref{tab:dataset} we can see the overall number of MC simulated events for each process and expected events (i.e. scaled to the relevant cross-section and integrated luminosity) for all background channels as well as DM models. In addition to using the features in Table \ref{tab:variables}, we will also include the EventID, dataset ID, period, 
+Furthermore, the plan is to combine the results of each respective region to get an overall view of all the signal regions studied.\\
+\\In this project we will look at real data from the ATLAS detector from all running periods of Run II. This is from period 2015-2016, 2017 and 2018 each with an integrated luminosity of $36.4, 44.3$ and 58.5 $fb^{-1}$, respectively. 
+In Table \ref{tab:dataset} we list the overall number of corresponding MC simulated events for each process, together with the expected events (i.e. scaled to the relevant cross-section and integrated luminosity), for all SM background and the as DM models considered. In addition to using the features in Table \ref{tab:variables}, we will also include the EventID, dataset ID (DSID), period, 
 dilepton final state, label telling us whether an event is signal or background and the \textit{weight} of each event.
 \begin{table}[!h]
    \centering
-    \caption[Dataset used for ML]{Table showcasing the number of simulated events and expected events for every background channel and DM model that will be used in this thesis.}
+    \caption[Dataset used for ML]{Table showcasing the number of simulated events and expected events for every SM background channel and DM model that will be used in this thesis.}
     \footnotesize\begin{tabular}{l|r|r}\midrule\midrule
       Channel                                                                         & Simulated Events            & Expected events for 139 fb$^{-1}$ \\\midrule
-      W                                                                               & 38,684                & 5,436.3        \\
-      Drell Yan                                                                       & 47,201,697            & 2,198,257.6    \\
-      TTbar                                                                           & 28,126,697            & 978,530.8      \\
-      Single top                                                                      & 729,624               & 93,898.5       \\
-      Diboson                                                                         & 10,983,689            & 116,653.5      \\\midrule
-      Standard model total                                                            & 87,080,391            & 3,392,776.7    \\\midrule
+      W                                                                               & 38,684                & 5,436        \\
+      Drell Yan                                                                       & 47,201,697            & 2,198,258    \\
+      TTbar                                                                           & 28,126,697            & 978,531      \\
+      Single top                                                                      & 729,624               & 93,899       \\
+      Diboson                                                                         & 10,983,689            & 116,654      \\\midrule
+      Standard model total                                                            & 87,080,391            & 3,392,777    \\\midrule
       $Z'$ Dark Higgs Heavy Dark Sector                                               & 498,621               & 54.92\footnote{The expected number of events for any BSM model has prefixed assumptions about for example cross-section, decay width, etc. As we do not empirically know if any of these assumptions are correct, these are not set in stone.}         \\
       $Z'$ Dark Higgs Light Dark Sector                                               & 892,365               & 155.37         \\
       $Z'$ Light Vector Heavy Dark Sector                                             & 521,759               & 39.82         \\
@@ -45,14 +45,14 @@ dilepton final state, label telling us whether an event is signal or background 
 \end{table}
 
 \subsection{Weights}\label{sec:wgts}
-The weights are crucial for most of what is to come further in this thesis. The weights only apply to MC simulations and can be interpreted as corrections to the simulations. The weights on this project are defined as Eq. (\ref{eq:wgts})
+The weights are crucial for most of what is to come further in this thesis. The weights only apply to MC simulations and can be interpreted as corrections to the simulations. The weights are defined as Eq. (\ref{eq:wgts})
 \begin{equation}\label{eq:wgts}
    W = w_{mc}\times w_{pu}\times w_{xs}\times w_{lsf} \times w_{nlo,ew} \times w_{ttbar} \times w_{jet} \times w_{bjet} \times \frac{\text{lumi}_{period}}{\sum w_{mc, DSID}}
 \end{equation}
 This equation has a lot of information in it, so every part of this will be discussed. Starting from the MC weight, $w_{mc}$, which gives the relative probability of an event within a sample \cite{Pythia}, the pile-up weight $w_{pu}$, is a weight used to correct object reconstruction as it can be possible for multiple objects to cross on the 
 identification process. \cite{Soyez:2018opl}\\ 
-\\The cross-section weight $w_{xs}$, defined as $w_{xs} := xs \times w_{kf} \times g_{eff}$ where $xs$ is the cross-section of the process, $w_{kf}$ is the $k-$factor which tries to correct for the absence of these higher-order term, 
-for more details we refer the reader to the study done by Catani et al. \cite{Catani:2001cr}. $g_{eff}$ is the filter efficiency, which is the expected fraction of MC events that pass through the generator criteria.\\
+\\The cross-section weight $w_{xs}$, defined as $w_{xs} := xs \times w_{kf} \times g_{eff}$ where $xs$ is the cross-section of the process, $w_{kf}$ is the $k-$factor which tries to take into account the higher-order QCD corrections, 
+for more details we refer the reader to the study done by Catani et al. \cite{Catani:2001cr}. $g_{eff}$ is the filter efficiency, which is the expected fraction of MC events that pass through the acceptance criteria.\\
 \\The Lepton and trigger Scale Factor (LSF), $w_{lsf}$, which are applied in order to correct for differences in reconstruction in MC with respect to data, the Next to Leading Order (NLO) electroweak correction $w_{nlo,ew}$, which corrects for higher order EW diagrams, 
 for more details we refer the reader to the paper by Denner et al. \cite{Denner:2022pwc}. \\
 \\The $w_{ttbar}, w_{jet}$ and $w_{bjet}$, which are reconstruction corrections for $t\overline{t}$ \cite{Czakon:2015owf}, jets \cite{ATLAS:2014hvo} and b-jets \cite{ATLAS:2019bwq}, respectively. And lastly the luminosity of the period, meaning
@@ -78,9 +78,9 @@ The goal of having kinematically orthogonal SRs when training is to allow the co
 
 
 \subsection{Train and test split}\label{sec:train_test}
-When training our networks we will use 80\% of the dataset, the remaining 20\% will be used to test whether the networks are learning any physical patterns or learning the dataset. When splitting the datasets however, we need to be absolutely certain that the distributions 
-follow the same shape and have the same ratio of background channels as well as having good MC and data agreement. In this thesis we will utilize a function from \verb|scikit learn| \cite{scikit-learn} called \verb|train_test_split| which can easily split our dataset into 
-a training and testing set of a chosen size, while also sorting the label of the event. Another benefit of using this function is that is has included a random seed such that we can always split the datasets in the same shape.
+When training our networks we will use 80\% of the dataset, the remaining 20\% will be used to test whether the networks are learning any physical patterns or just getting really good at guessing events in the dataset. When splitting the datasets however, we need to be absolutely certain that the distributions 
+follow the same shape and have the same ratio of background channels as well as having good MC and data agreement in the training and testing data sets. In this thesis we will utilize a function from \verb|scikit learn| \cite{scikit-learn} called \verb|train_test_split| which can easily split our dataset into 
+a training and testing set of a chosen size, while also sorting the label of the even, meaning whether the event is signal or background. 
 \graphicspath{{../../../Plots/Data_Analysis/train_test_split/}}
 \begin{figure}[!ht]
 	\centering
@@ -95,9 +95,9 @@ a training and testing set of a chosen size, while also sorting the label of the
         \includegraphics[width=1\textwidth]{mt2_test.pdf}
         \caption{Testing distribution}
      \end{subfigure}
-	\caption[Train-test split distribution]{Train and test distribution of the stransverse mass when dividing SM background and DM samples into 80\% and 20\% datasets. The integrated luminosity for each distribution is 80\% and 20\% of 139 $fb^{-1}$ respectively. We also included an estimated 20\% flat systematic uncertainty to the simulated events.}\label{fig:train-test}
+	\caption[Train-test split distribution]{Distribution of the stransverse mass when dividing SM background and DM samples into 80\% training and 20\% testing datasets. The integrated luminosity for each distribution is 80\% and 20\% of 139 $fb^{-1}$ respectively. We also included an estimated 20\% flat systematic uncertainty to the simulated events.}\label{fig:train-test}
 \end{figure}
-\\In Figure \ref{fig:train-test} we can see that the distribution remains the same when we split the dataset into 80-20, where we also see the data and MC agree. To see the distribution of every other kinematical variable see the GitHub repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/Data_Analysis/train_test_split}{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/\\Data\_Analysis/train\_test\_split}}.
+\\In Figure \ref{fig:train-test} we can see that the distribution has the same shape when we split the dataset into 80-20. The data and MC agree reasonably in both datasets, meaning the distributions are split correctly. To see the distribution of every other kinematical variable see the GitHub repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/Data_Analysis/train_test_split}{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/\\Data\_Analysis/train\_test\_split}}.
 
 
 \clearpage
@@ -105,7 +105,7 @@ a training and testing set of a chosen size, while also sorting the label of the
 For this thesis we utilize \verb|TensorFlow v. 2.7.1 GPU| for all NNs. After creating the dataset, the first and most important thing is to marinate the \verb|batch_size| whenever we try anything while using the dataset. This is to optimize wrt. to both the size 
 of the dataset and the imbalance between signal and background events.\\
 \\The highest possible batch size that could be used for this thesis was $2^{22}$,\footnote{It has to be a power of two because of the alignment of virtual processors (VP) onto physical processors (PP) of the GPU. As the number of PP is often a power of 2, using a number of VP different from a power of 2 leads to poor performance.} 
-leading to roughly 4 million samples per batch. This is the best that a dedicated GPU, \verb|NVIDIA A100-PCIE-40GB|, could handle. The batch size also decreases the more complex the NN becomes, as this requires greater computational power.\\
+leading to roughly 4 million simulated events per batch. This is the best that a dedicated GPU, \verb|NVIDIA A100-PCIE-40GB|, could handle. The batch size also decreases the more complex the NN becomes, as this requires greater computational power.\\
 \\With this out of the way there are still a few challenges to mitigate to optimize our NN. These are described below.
 
 \subsection{Padding of data}\label{sec:padding_NN}
