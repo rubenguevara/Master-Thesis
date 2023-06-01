@@ -8,6 +8,7 @@
 \usepackage[margin=1in,marginpar=0.9in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, bm}
 \usepackage{coffeestains}
+\usepackage[font={small,rm,sl}]{caption}
 %\usepackage{xcolor}
 %\usepackage{mdframed}
 \usepackage[shortlabels]{enumitem}
@@ -87,12 +88,12 @@
 \pagenumbering{roman}
 
 \uiomasterfp[
-colour = orange,
+colour = pink,
 dept = {Department of Physics},
 long,
 program = {Physics: Nuclear and Particle Physics},
 supervisors = {Professor Farid Ould-Saada \and Dr. Eirik Gramstad},
-image = {gort}
+% image = {gort}
 ]
 
 
@@ -138,7 +139,8 @@ want to thank Eirik Gramstad for putting up with my constant nagging and the in 
 \chapter{Introduction}\label{chap:intro}
 \subfile{chapters/Introduction.tex}
 
-% \part{The theory behind modern particle physics / Background}
+
+
 \part{Background}
 \chapter{The Standard Model of Particle Physics}\label{chap:SM}
 \subfile{chapters/Part_I/1_The_Standard_Model_of_Particle_Physics.tex}
@@ -153,23 +155,17 @@ want to thank Eirik Gramstad for putting up with my constant nagging and the in 
 \subfile{chapters/Part_I/4_Machine_Learning.tex}
 
 
-% \part{Implementation}
+
 \part{Methods}
-
-
 \chapter{Data Preparation}\label{chap:data_prep}
 \subfile{chapters/Part_II/5_Data_Preparation.tex}
 
 \chapter{Machine Learning preparation}\label{chap:ML}
 \subfile{chapters/Part_II/6_Machine_Learning.tex}
 
-\part{Results}
-
+\part{Results and conclusion}
 \subfile{chapters/Part_III/8_Results.tex}
-% \subfile{chapters/Part_III/8_Model_dependent_approach.tex}
-% \subfile{chapters/Part_III/9_Model_independent_approach.tex}
-
-\chapter{Conclusion}\label{chap:conclusion}
+\chapter{Conclusion and outlook}\label{chap:conclusion}
 \subfile{chapters/Conclusion.tex}
 
 \clearpage

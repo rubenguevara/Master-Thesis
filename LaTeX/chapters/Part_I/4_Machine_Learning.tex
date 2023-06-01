@@ -334,7 +334,7 @@ $$
 \delta^L = f'(\hat z ^L)\circ \frac{\partial C}{\partial \hat y ^L}
 $$
 where on the right-hand side we wrote this as a Hadamard product\footnote{Also called \textit{element-wise} product, $(A\circ B)_{ij} = (A\odot B)_{ij} = (A)_{ij}(B)_{ij}$}. This error $\delta^L$ is an important expression, since as we can see in the index form of this expression in Eq. (\ref{eq:delta}), we can measure how fast 
-the cost function is changing as a function of the $j$-th output activation. This means that if the cost function doesn't depend on a particular neuron $j$, then $\delta_j^L$ would be small.  \\
+the cost function is changing as a function of the $j$-th output activation. This means that if the cost function does not depend on a particular neuron $j$, then $\delta_j^L$ would be small.  \\
 \\We also notice that everything in Eq. (\ref{eq:delta}) is easily computed. Thus, we can also see how the weights change the cost function using Eq. (\ref{eq:CostW}) quite easily. 
 Another thing we can compute with Eq. (\ref{eq:delta}) is
 $$
@@ -587,7 +587,7 @@ By taking the parameter $\bm{\beta}$ to first order in $x_i$ and reordering the 
 \end{equation}
 This equation we will use throughout the thesis and is known as the \textit{cross entropy}. The two beta parameters used are the weight and biases, $\beta_1 = w$ and $\beta_0 = b$. The goal is to optimize these parameters such that it minimizes the cost function. 
 \subsubsection*{L2-regularization}
-Furthermore, we will add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they don't grow out of control, 
+Furthermore, we will add an extra term to the cost function, proportional to the size of the weights. We do this to constrain the size of the weights, so they do not grow out of control, 
 this is to reduce \textit{overfitting}. We will use the so-called \textit{L2-norm} where the cost function becomes
 \begin{equation}\label{eq:L2-reg}
     C(\bm\beta)\rightarrow C(\bm\beta)+\lambda\sum_{ij}w_{ij}^2

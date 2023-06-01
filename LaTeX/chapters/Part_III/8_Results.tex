@@ -1,28 +1,36 @@
 \documentclass[12pt, a4paper]{book}
 \begin{document}
 \chapter{Results}\label{chap:results}
-The time has come to test how our networks fare on learning our models. This chapter showcases the results of boths methods we used. The first method, which we called the model dependent approach, which trains one BDT for each model we have, including all the mass points and simulated samples. 
-And the second method, which we called the model independent approach, where we split the dataset in orthogonal Signal Regions (SR). The regions we studied are
+The time has come to test how our networks fare on learning the eight models with DM candidates we are studying: The three mono-$Z'$ models, Dark Higgs (DH), Light Vector (LV) and light Effective Field Theory (EFT) in the Heavy Dark Sector (HDS) and Light Dark Sector (LDS)\footnote{Where HDS and LDS denotes the assumed DM masses as shown in Table \ref{tab:DMass}}, 
+the supersymmetric direct slepton production, and the Two Higgs Doublet Model with an additional pseudoscalar $a$ (2HDM + a). As we got better results when using BDTs rather than NNs (see Section \ref{sec:opt_res}), only the BDT will be followed up. \\
+\\This chapter showcases the results of both methods we used to train a BDT to classify signal (DM events) and background (SM events). The first method, which we called the model dependent approach, which trains one BDT for each model we have, including all the mass points and simulated samples as seen in Section \ref{chap:DM_sample}. \\
+\\The second method, which we called the model independent approach, where we split the dataset in orthogonal Signal Regions (SR). The SRs we studied are
 \begin{itemize}
    \item SR1: $m_{ll} >110$ GeV and $E_T^{miss} \in [50, 100]$ GeV
    \item SR2: $m_{ll} >110$ GeV and $E_T^{miss} \in [100, 150]$ GeV
    \item SR3: $m_{ll} >110$ GeV and $E_T^{miss} >150$ GeV
 \end{itemize}
 To test how well the networks have learned the models we will create a mass exclusion limits for every model. We decided to make a cut of $m_{ll} >110$ GeV for the mono-Z' models when using the model dependent approach to reduce computational time.\\
-\\To compare the last method to the first we will statistically combine the mass exclusions results for each SR for each final state in a model. To navigate through the process we will look at the Dark Higgs Heavy Dark Sector model, using the model dependent method, 
-as the model independent method does the same with three SRs. Afterwards we will present the combined exclusion limits for every model for both methods.
+\\To compare the model independent approach to the model dependent approach we will statistically combine the mass exclusion results for each SR for each final state channel. To navigate through the process we will look at the Dark Higgs Heavy Dark Sector model, using the model dependent method, 
+as the model independent method does the same with three SRs. Afterwards we will present the combined exclusion limits for all eight models.
 
 
 \graphicspath{{../../../Plots/}}
-\section{Walkthrough of method}\label{sec:Walkthrough}
-We conducted a grid search to optimize the BDT and trained the network using 80\% of the SM background samples and 80\% of every different $Z'$ mass sample of the model. Using this approach for this model gave the features in Figure \ref{fig:DH_HDS_feat} as the most important ones. The most important variables here are the ones which we expect 
-to be important on a dilepton and MET final state.\\
+\section{Model dependent approach}\label{sec:Walkthrough}
+We conducted a grid search to optimize the BDT and trained the network using 80\% of the SM background samples and 80\% of every different $Z'$ mass sample of the DH HDS model. When training the BDT on the DH HDS model we used the feature importance feature to see which kinematical variables were most important for the BDT in 
+categorizing signal (DM events) from background (SM events), this is illustrated in Figure \ref{fig:DH_HDS_feat}. 
 \begin{figure}[!ht]
 	\centering
-      \includegraphics[width=0.75\textwidth]{XGBoost/DH_HDS/feature_importance/weight.pdf}
-   \caption{Feature importance for network trained on Z' DH HDS using the weight metric. To see the feature importance plots with the other metrics see Appendix \ref{apx:MDA}.}\label{fig:DH_HDS_feat}
+      \includegraphics[width=0.8\textwidth]{XGBoost/DH_HDS/feature_importance/weight.pdf}
+   \caption[Feature importance for network trained on Z' DH HD model using the model dependent approach]{Feature importance for network trained on Z' DH HD model using the model dependent approach using the weight metric, which shows how many times a feature appears in a tree. The features in this plot use the labeling presented in Table \ref{tab:variables}. 
+   To see the feature importance plots with the cover metric, which show the number of samples affected by the split using the feature, and gain metric, which measures the relative contribution of a feature to the network's performance, see Appendix \ref{apx:MDA}.}\label{fig:DH_HDS_feat}
 \end{figure}
-\\To showcase how the network sorts signal from background we can see the validation plots in Figure \ref{fig:DH_HDS_vals} showing some of the signal samples.\\
+\\From Figure \ref{fig:DH_HDS_feat} we can see that the most important kinematical variable for the BDT in classifying DM signal from the DH HDS model from SM background was the invariant mass $m_{ll}$, this is what we expect as the DH HDS model is based 
+on a mono-$Z'$ theory including a new $Z'$ boson decaying to two leptons, and this includes a resonance on the mass of the $Z'$ as explained by the Breit-Wigner resonance in Eq (\ref{eq:Breit-Wigner}). Furthermore, we see that the three following features are all MET related, which is how we predict to measure the presence of DM. 
+These are the MET-significane, $E_T^{miss,sig}$, the stransverse mass $m_{T2}$, and the ratio between MET and hadronic activity $E_T^{miss}/H_T$. Something to note of the features in Figure \ref{fig:DH_HDS_vals} is that we use both $E_T^{miss}$ and $E_T^{miss,sig}$ which are correlated, the reason for using both is because the BDT 
+might find that one is better at classifying DM signal from SM background when training on other models.\\
+\\To showcase how the network categorizes signal from background the validation plots in Figure \ref{fig:DH_HDS_vals} is made on the 20\% test samples for some the signal samples, together with the SM predictions and data. The data in the plots will not be shown for an output score of 0.6 or greater as this is the signal region and 
+we need to go through an unblinding procedure to show data in this region.\\
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -34,10 +42,11 @@ to be important on a dilepton and MET final state.\\
       \centering
       \includegraphics[width=1\textwidth]{XGBoost/DH_HDS/VAL_uu.pdf}
       \end{subfigure}
-   \caption{Validation plots for network trained on Z' DH HDS}\label{fig:DH_HDS_vals}
+   \caption[Validation plots for network trained on Z' DH HDS model using the model dependent approach.]{Validation plots for network trained on Z' DH HDS model using the model dependent approach. The validation plots show the distribution of the BDT score for every event from 0-1, where 1 is signal. On the left we have the results for the $ee$ channel, and on the right we have the result for the $\mu\mu$ channel. Both results were 
+   trained by the same network consisting of a general dilepton final state.}\label{fig:DH_HDS_vals}
 \end{figure}
-\\While the validation plot might indicate that the network is not doing an impressive job at sorting signal from background, we can actually see how well the network learns the different mass points by looking at the ROC curves for each mass point, this is shown in Figure \ref{fig:DH_HDS_ROCS}. 
-Here we see that the network struggles a tiny bit to learn the models with lowest $m_{Z'}$, but the AUC score is still 0.96, meaning that it actually learned to sort the signal from SM background.\\
+\\While the validation plot might indicate that the network is not doing an impressive job at sorting signal from background, we can actually see how well the network learns the different mass points on the DH HDS model by looking at the ROC curves for each mass point, shown in Figure \ref{fig:DH_HDS_ROCS} for the $ee$ channel (left) and the $\mu\mu$ channel (right). 
+Here we see that the network struggles a tiny bit to learn the DH HDS models with the lowest $m_{Z'}$, but the AUC score is still 0.96, meaning that it actually learned to sort the signal from SM background.\\
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -49,10 +58,11 @@ Here we see that the network struggles a tiny bit to learn the models with lowes
       \centering
       \includegraphics[width=1\textwidth]{XGBoost/DH_HDS/ROC_uu.pdf}
       \end{subfigure}
-   \caption{ROC plots for every Z' mass point on network trained on Z' DH HDS}\label{fig:DH_HDS_ROCS}
+   \caption[ROC plots for every Z' mass point on network trained on Z' DH HDS model using the model dependent approach]{ROC plots for every Z' mass point on network trained on Z' DH HDS model using the model dependent approach. On the left we have the results for the $ee$ channel, and on the right we have the result for the $\mu\mu$ channel. Both results were 
+   trained by the same network consisting of a general dilepton final state. The dashed blue line showcases the score of a random guess (AUC = 0.5)}\label{fig:DH_HDS_ROCS}
 \end{figure}
-\\To define the region we will use to make any exclusions we can choose the validation plot bin that gives us the highest significance, this can be seen in Figure \ref{fig:DH_HDS_exp_sig} for a few mass points. From this we see that we get the best expected significance 
-of approximately 0.7$\sigma$ (without uncertainties), even though the network got an AUC score of 0.96 for the mass point on the muon channel. From this we see that even with an AUC of 0.96 we do not manage to exclude the model.\\
+\\To define the region we will use to set any expected exclusion limits, we can choose the validation plot bin that gives us the highest expected significance. In Figure \ref{fig:DH_HDS_exp_sig} we show the calculation of the expected significance as a function of the lower cut on the BDT output 
+for a few mass points.
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -64,13 +74,14 @@ of approximately 0.7$\sigma$ (without uncertainties), even though the network go
       \centering
       \includegraphics[width=1\textwidth]{XGBoost/DH_HDS/EXP_SIG_uu.pdf}
       \end{subfigure}
-   \caption{Expected significance plots for Z' mass points on network trained on Z' DH HDS}\label{fig:DH_HDS_exp_sig}
+   \caption{Expected significance plots for Z' mass points as a function on the lower cut on the BDT output on BDT trained on the Z' DH HDS model using the model dependent approach}\label{fig:DH_HDS_exp_sig}
 \end{figure}
-\\As the last bin has the greatest significance, we can effectively make a cut based on the BDT score. Counting the number of events on this last bin, as well as their uncertainties we can calculate a mass exclusion for both electron and muon channel. 
-Following the method explained in Chapter \ref{sec:stat_anal} using the $\varepsilon_{\text{sig}}$, $N_{\text{bkg}}$ and $\sigma B$ from Table \ref{tab:stat_vals_DH_HDS} we can create a mass exclusion for each leptonic channel. 
+\\In Figure \ref{fig:DH_HDS_exp_sig} we see that we get the best expected significance of approximately 0.7$\sigma$ (without uncertainties), even though the network got an AUC score of 0.96 for the mass point on the muon channel. From this we see that even with an AUC of 0.96 we do not manage to exclude the model.\\
+\\As the last bin of the BDT output on the validation plots scores the greatest expected significance for every $m_{Z'}$, we can effectively make a cut based on the BDT score. Counting the number of events in this last bin, as well as their uncertainties we can calculate a mass exclusion for both the $ee$ and $\mu\mu$ channels. 
+Utilizing Bayesian statistics with the signal+background hypothesis, we can use the values of $\varepsilon_{\text{sig}}$, $N_{\text{bkg}}$ and $\sigma B$ from Table \ref{tab:stat_vals_DH_HDS} for each mass points for each leptonic channel, to make a 95\% CL expected exclusion. \\
 \begin{table}[!ht]\centering\caption[Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations]{Inputs for the $Z'h_D\rightarrow l^+l^-\chi\chi$ HDS $\sigma B$ calculations. The first three columns are the $Z'$ mass, the theoretical cross-section times branching ratio $\sigma B$, and what $Z'$ decay channel we are looking at. 
-   The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the theoretical number of signal events after the cuts. The last two columns are the number of background events, $N_{\text{bkg}}$, 
-   and the events observed in the data, $N_{\text{obs}}$. The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
+   The next two are $\varepsilon_{\text{sig}}$, which is the signal selection efficiency, and $N_{\text{sig}}$, which is the predicted number of signal events after the cuts. The last column is the number of background events, $N_{\text{bkg}}$. 
+   The uncertainties of $\varepsilon_{\text{sig}}$, $N_{\text{sig}}$ and $N_{\text{bkg}}$ are statistical with an assumed 20\% flat systematic uncertainty. The MET threshold is $E_{\text{T,min}}^{\text{miss}}=50$GeV and the invariant mass threshold is $m_{ll}^{min}=110$GeV 
    and is the same for all inputs.}
    \small\begin{tabular}{@{}ccc|ccc@{}}
       \midrule\midrule 
@@ -101,7 +112,12 @@ Following the method explained in Chapter \ref{sec:stat_anal} using the $\vareps
    \end{tabular}
    \label{tab:stat_vals_DH_HDS}
 \end{table}
-The results can be seen in Figure \ref{fig:DH_HDS_exclusion_ee_uu}.
+\\The mass exclusion limits can be seen in Figure \ref{fig:DH_HDS_exclusion_ee_uu} for the $ee$ (left) and $\mu\mu$ (right) channel for Z' Dark Higgs Heavy Dark Sector model using the model dependent approach. The y-axis of both plots represents the cross-section times branching ratio of the process we are studying. 
+The x-axis is the mass of the $Z'$ boson. We did not interpolate between the available masses we had simulated, and have rather just connected the values calculated for each mass point in Table \ref{tab:stat_vals_DH_HDS} by connecting the points. There we see the expected 95\% CL limit using 
+the values of from Table \ref{tab:stat_vals_DH_HDS} with a 1 $\sigma$ and 2 $\sigma$ deviation. Included in the plots we show how the exclusions look when varying the value of the lepton coupling $g_l$ between the leptons and the $Z'$ boson. The simulated events in this thesis utilized the value $g_l=0.01$, 
+we increase this coupling to 0.05 and 0.1 to see how the exclusions change.\\
+\\We see that we cannot exclude any mass point of the DH HDS model (as the dashed red lines do not cross the dashed black line) when the lepton coupling is set to $g_l=0.01$, we can however see that as we increse the lepton coupling, 
+we can exclude more points. The highest mass exclusion in both the $ee$ and $\mu\mu$ channel is roughly at $m_{Z'}=300$ GeV (meaning we exclude masses where the dashed line is above the expected limit) when setting $g_{l}=0.1$
 \clearpage
 \begin{figure}[!ht]
 	\centering
@@ -114,48 +130,33 @@ The results can be seen in Figure \ref{fig:DH_HDS_exclusion_ee_uu}.
       \centering
       \includegraphics[width=1\textwidth]{Limits/DH_HDS/mass_exclusion_uu.pdf}
       \end{subfigure}
-   \caption{Mass exclusion limits of $ee$ and $\mu\mu$ channel for all Z' DH HDS model}\label{fig:DH_HDS_exclusion_ee_uu}
+   \caption[Mass exclusion limits of $ee$ and $\mu\mu$ channel for Z' DH HDS model using the model dependent approach]{Mass exclusion limits of $ee$ (left) and $\mu\mu$ (right) channel for Z' Dark Higgs Heavy Dark Sector model using the model dependent approach. The y-axis of both plots represents the cross-section times branching ratio of the process we are studying. The x-axis is the mass of the $Z'$ boson. We did not interpolate between the available masses we had simulated, 
+   and have rather just connected the values calculated for each mass point in Table \ref{tab:stat_vals_DH_HDS} by connecting the points. The dashed black line is the expected 95\% CL limit calculated using the values of from Table \ref{tab:stat_vals_DH_HDS} with a 1 $\sigma$ and 2 $\sigma$ deviation. 
+   The different dashed lines represent the theoretical cross-section times branching ratio of the process when varying the value of the lepton coupling $g_l$ between the leptons and the $Z'$ boson. The simulated events in this thesis utilized the value $g_l=0.01$, we include the cross-section times branching ratio when increasing this coupling to $0.05$ and 0.1 to see how the exclusions change.  }\label{fig:DH_HDS_exclusion_ee_uu}
 \end{figure}
-\noindent We can furthermore statistically combine both of these results to get the exclusion on a general dilepton final state. Following this method for all other five models\footnote{For more plots look at the GitHub repo: in \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/XGBoost/DH_HDS}{https://github.com/rubenguevara/Master-Thesis\\/tree/master/Plots/XGBoost/DH\_HDS} changing "DH\_HDS" for the model of interest} 
-we can get the results in Chapter \ref{fig:model_dep_exclusions}.\\
-\\One thing to note about the mass exclusion limits above, is that as the lepton coupling for all models being tested was chosen to be $g_l=0.01$. We decided to include how the limits would look if we increased this coupling 
-to $g_l=0.05$ and $g_l=0.1$. Doing so we have assumed that the efficiency of the cuts stays the same, as well as the number of background events on the last bin. This assumption is noteworthy due to the fact that if we increased the lepton coupling constant of our model, this would increase the branching ratio 
+\noindent When changing the lepton coupling $g_l$ we have assumed that the efficiency of the cuts stays the same, as well as the number of background events in the last bin. This assumption is noteworthy due to the fact that if we increased the lepton coupling value of our model, this would increase the branching ratio 
 of the leptonic decays. Meaning that when using MC to simulate we would have gotten more events. As one of the greatest challenges in this thesis was the imbalanced dataset, this fact would have helped mitigate the problem. 
 In addition, a general rule of thumb in ML is that the more statistics one has when training a network, the better the network will learn. 
-This means that if we instead simulated new events with a greater lepton coupling, the network could have achieved a greater efficiency and reduced the number of backgrounds events on the last bin. However, due to time constrains on this thesis we did not have the chance to explore the possibility of simulating more events.
-\clearpage
-\section{Model independent walkthrough}
-To not repeat how we arrive at the mass exclusion limits we will show that we can statistically combine the results for every SR. We will again use the DH HDS as an example. As the regions are orthogonal we assume that they are not correlated, 
-meaning that we statistically combine the results for each SR such that we get a combined mass exclusion limit. This is shown in Figure \ref{fig:DH_HDS_me_SRS} where we can see how the mass exclusion looks for
-the electron channel in every SR, including the combined SR limit. 
+This means that if we instead simulated new events with a greater lepton coupling, the network could have achieved a greater efficiency. However, due to time constrains on this thesis we did not have the chance to explore the possibility of simulating more events, with varying lepton couplings.
+\clearpage\noindent We can furthermore statistically combine both of the $ee$ and $\mu\mu$ results from Figure \ref{fig:DH_HDS_exclusion_ee_uu} to get the exclusion on a dilepton final state. Following this method for all other seven models\footnote{For more plots look at the GitHub repo: in \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/XGBoost/DH_HDS}{https://github.com/rubenguevara/Master-Thesis\\/tree/master/Plots/XGBoost/DH\_HDS} changing "DH\_HDS" for the model of interest} 
+we can get the results in Figure \ref{fig:model_dep_excl} for the direct slepton production and 2HDM + a (only showing $\tan\beta$ = 30) and in Figure \ref{fig:model_dep_mono_Zp_excl} for the mono-$Z'$ models.
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=1\textwidth]{Limits/Model_independent/50-100/DH_HDS/mass_exclusion_ee.pdf}
+      \includegraphics[width=1\textwidth]{Limits/SlepSlep/SlepSlep_ll.pdf}
    \end{subfigure}
    \hfill
    \begin{subfigure}[b]{0.49\textwidth}
       \centering
-      \includegraphics[width=1\textwidth]{Limits/Model_independent/100-150/DH_HDS/mass_exclusion_ee.pdf}
+      \includegraphics[width=1\textwidth]{Limits/2HDM/2HDM_ll_tb30.pdf}
    \end{subfigure}
-   \hfill
-	\begin{subfigure}[b]{0.49\textwidth}
-      \centering
-      \includegraphics[width=1\textwidth]{Limits/Model_independent/150/DH_HDS/mass_exclusion_ee.pdf}
-   \end{subfigure}
-   \hfil\begin{subfigure}[b]{0.49\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{Limits/Model_independent/DH_HDS/mass_exclusion_ee.pdf}
- \end{subfigure}
-   \caption[Electron channel mass exclusions in DH HDS using the model independent approach]{Mass exclusion limits results for DH HDS model on $ee$ channel in all SRs, including the combined SR channel.}\label{fig:DH_HDS_me_SRS}
-\end{figure} 
-\\ This can be generalized for every single model we have available, the exclusion limits for the combined dilepton channel and combined SRs for the other models can be seen in Chapter \ref{fig:model_indep_exclusions}. 
-To see all the plots used to arrive at these limits for every model you can see the GitHub repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/XGBoost}{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots\\/XGBoost}}, 
-and to see all the tables with inputs see Appendix \ref{chap:Limit_Tabs}.
-
-\clearpage
-\section{Mass exclusion limits for model dependent method}\label{fig:model_dep_exclusions}
+   \caption[Mass exclusion limits of combined $ee$ and $\mu\mu$ channel for direct slepton production and 2HDM + a using the model dependent approach]{
+      Mass exclusion limits of combined $ee$ and $\mu\mu$ channel for direct slepton production (left) and 2HDM + a for $\tan\beta=30$ (right) using the model dependent approach. The plots here have the two varying masses as the axes, the z-axis is the expected significance calculated using Eq. (\ref{eq:significance}) with uncertainties. The expected 95\% CL limit was chosen using Frequentist statistics using the significance $Z=1.645$.   
+      For the direct slepton production model we have the slepton mass, $m_{\tilde{\ell}}$, on the x-axis, and the neutralino mass on $m_{\tilde{\chi}_1^0}$ the y-axis. 
+      For the 2HDM + a model we have the charged Higgs mass, $m_{H^-}$, on the x-axis, and the pseudoscalar $a$ mass $m_{a}$ on the y-axis. To see the exclusions for the other values of $\tan\beta$ on the 2HDM + a model see Appendix \ref{apx:MDA}.  
+      }\label{fig:model_dep_excl}
+\end{figure}
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -187,9 +188,47 @@ and to see all the tables with inputs see Appendix \ref{chap:Limit_Tabs}.
       \centering
       \includegraphics[width=1\textwidth]{Limits/EFT_LDS/mass_exclusion_comb.pdf}
    \end{subfigure}
-   \caption[Mass exclusion limits of combined $ee$ and $\mu\mu$ channel for all mono-Z' models using model dependent method]{Mass exclusion limits of combined $ee$ and $\mu\mu$ channel for all mono-Z' models using model dependent method}
+   \caption[Mass exclusion limits of combined $ee$ and $\mu\mu$ channel for all mono-Z' models using model dependent method]{Mass exclusion limits of combined $ee$ and $\mu\mu$ channel for all mono-Z' models in both the Heavy Dark Sector (HDS) and Light Dark Sector (LDS) using model dependent method. 
+   In the top row we have the mass exclusion of the Dark Higgs HDS (left) and Dark Higgs LDS (right) models. In the middle row we have the mass exclusions of the Light Vector HDS (left) and Light Vector LDS (right) models. In the bottom row we have the mass exclusion of the 
+   light EFT HDS (left) and light EFT LDS (right) models.
+   The y-axis of both plots represents the cross-section times branching ratio of the process we are studying. The x-axis is the mass of the $Z'$ boson. We did not interpolate between the available masses we had simulated, 
+   and have rather just connected the values calculated for each mass point by connecting the points. The dashed black line is the expected 95\% CL limit calculated using Bayesian statistics with a 1 $\sigma$ and 2 $\sigma$ deviation. 
+   The different dashed lines represent the theoretical cross-section times branching ratio of the process when varying the value of the lepton coupling $g_l$ between the leptons and the $Z'$ boson. The simulated events in this thesis utilized the value $g_l=0.01$, we include the cross-section times branching ratio when increasing this coupling to $0.05$ and 0.1 to see how the exclusions change. 
+   }\label{fig:model_dep_mono_Zp_excl}
 \end{figure}
+
+
+
 \clearpage
+\section{Model independent approach}
+To not repeat how we arrive at the mass exclusion limits we will show that we can statistically combine the results for every SR. We will again use the DH HDS as an example. As the regions are orthogonal we assume that they are not correlated, 
+meaning that we statistically combine the results for each SR such that we get a combined mass exclusion limit. This is shown in Figure \ref{fig:DH_HDS_me_SRS} where we can see how the mass exclusion looks for
+the electron channel in every SR, including the combined SR limit. 
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Limits/Model_independent/50-100/DH_HDS/mass_exclusion_ee.pdf}
+   \end{subfigure}
+   \hfill
+   \begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Limits/Model_independent/100-150/DH_HDS/mass_exclusion_ee.pdf}
+   \end{subfigure}
+   \hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\textwidth]{Limits/Model_independent/150/DH_HDS/mass_exclusion_ee.pdf}
+   \end{subfigure}
+   \hfil\begin{subfigure}[b]{0.49\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{Limits/Model_independent/DH_HDS/mass_exclusion_ee.pdf}
+ \end{subfigure}
+   \caption[Electron channel mass exclusions in DH HDS using the model independent approach]{Mass exclusion limits results for DH HDS model on $ee$ channel in all SRs, including the combined SR channel.}\label{fig:DH_HDS_me_SRS}
+\end{figure} 
+\\ This can be generalized for every single model we have available, the exclusion limits for the combined dilepton channel and combined SRs for the other models can be seen in Chapter \ref{fig:model_indep_exclusions}. 
+To see all the plots used to arrive at these limits for every model you can see the GitHub repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/XGBoost}{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots\\/XGBoost}}, 
+and to see all the tables with inputs see Appendix \ref{chap:Limit_Tabs}.
 
 
 \clearpage
