@@ -39,13 +39,13 @@ doLoose = args.doLoose
 ml_file = args.ml_file
 
 # Set input and output paths 
-# input_dir = '../../../storage/shared/data/master_students/ZMET/Nominal_june2022/'
-input_dir = '../../../storage/shared/data/master_students/Ruben/'
+input_dir = '../../../storage/shared/data/master_students/ZMET/Nominal_june2022/'
+# input_dir = '../../../storage/shared/data/master_students/Ruben/'
 hist_path = "Histograms"
 
 if 'mc' in data: 
-        # input_dir = input_dir+'MC/'+data+'/' 
-        input_dir = input_dir+'MC_JAN2023/'+data+'/' 
+        input_dir = input_dir+'MC/'+data+'/' 
+        # input_dir = input_dir+'MC_JAN2023/'+data+'/' 
 if 'data' in data: 
         input_dir = input_dir+'Data/'+data+'/'
 

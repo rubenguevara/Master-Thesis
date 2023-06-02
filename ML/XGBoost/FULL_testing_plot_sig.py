@@ -29,7 +29,7 @@ def Z_score_array(sig_pred, bkg_pred):
                 low_stat_Z(sum(sig_pred[45:]), sum(bkg_pred[45:])), 
                 low_stat_Z(sig_pred[-1], bkg_pred[-1])]
     
-np_dir = '../Data/'+dm_model+'_scores/'
+np_dir = '/storage/racarcam/Data/'+dm_model+'_scores/'
 
 sig_mzp_130 = np.load(np_dir+dm_model+'_mZp_130/sig_pred_'+channel+'.npy')
 sig_mzp_200 = np.load(np_dir+dm_model+'_mZp_200/sig_pred_'+channel+'.npy')

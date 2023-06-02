@@ -6,11 +6,11 @@ from SOW import SOW_bkg, SOW_sig_AFII#, SOW_AFII, SOW_sig_AFII
 from collections import OrderedDict
 
 
-rootdir = '../EventSelector/Histograms_SM'
+rootdir = '../EventSelector/Histograms'
 # rootdir = '../EventSelector/Histograms_jet_cuts'
 susydir = '../EventSelector/Histograms_SUSY'
 BigDic = {}; variables = []; dsid_list = {}
-Types = ["Drell Yan", 'Single Top', "Diboson", "W", "TTbar", "DH HDS m_{Z'} 130", "LV HDS m_{Z'} 130", "EFT HDS m_{Z'} 130", 'SlepSlep', 'Stop']
+Types = ["Drell Yan", 'Single Top', "Diboson", "W", "TTbar", "DH HDS m_{Z'} 130", "LV HDS m_{Z'} 130", "EFT HDS m_{Z'} 130", 'SUSY (m_{#tilde{l}}, m_{#tilde{#chi}_{1}^{0}}) = (90, 1)', '2HDMa (m_{a}, m_{H^{-}}) = (150, 400)']
 mc_year = ['mc16a', 'mc16d', 'mc16e']
 
 
@@ -123,17 +123,17 @@ for subdir, dirs, files in os.walk(susydir):
             print('Skipping AFII file:',c)
             continue
         if dsid == 503085:
-            dsid_list[mc_run]['SlepSlep'].append(str(dsid))
+            dsid_list[mc_run]['SUSY (m_{#tilde{l}}, m_{#tilde{#chi}_{1}^{0}}) = (90, 1)'].append(str(dsid))
             for variable in variables:
                 histogram = myfile2.Get(variable)
                 histogram.SetDirectory(0)
-                BigDic[mc_run]["SlepSlep"][variable].append(histogram)
+                BigDic[mc_run]["SUSY (m_{#tilde{l}}, m_{#tilde{#chi}_{1}^{0}}) = (90, 1)"][variable].append(histogram)
         elif dsid == 508116:
-            dsid_list[mc_run]['Stop'].append(str(dsid))
+            dsid_list[mc_run]['2HDMa (m_{a}, m_{H^{-}}) = (150, 400)'].append(str(dsid))
             for variable in variables:
                 histogram = myfile2.Get(variable)
                 histogram.SetDirectory(0)
-                BigDic[mc_run]["Stop"][variable].append(histogram)
+                BigDic[mc_run]["2HDMa (m_{a}, m_{H^{-}}) = (150, 400)"][variable].append(histogram)
 # exit()
 data = {}
 
@@ -154,52 +154,25 @@ SOW_SUSY = json.load(sow_susy_file)
 SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_SUSY['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()))
 SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_SUSY['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()))
 SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_SUSY['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()))
-# SOW_a = OrderedDict(list(SOW_bkg['mc16a'].items()) + list(SOW_sig_AFII['mc16a'].items()) )
-# SOW_d = OrderedDict(list(SOW_bkg['mc16d'].items()) + list(SOW_sig_AFII['mc16d'].items()) )
-# SOW_e = OrderedDict(list(SOW_bkg['mc16e'].items()) + list(SOW_sig_AFII['mc16e'].items()) )
 sow_susy_file.close()
-# for vari in variables:
-#     if not 'CtrlReg' in vari: continue
-#     id = '505944'
-#     variable = 'h_CtrlReg_50MET_dPhiLeadMet'
-#     stack = R.TH1D(BigDic['mc16a']['SUSY'][vari][0])
-#     stack.Scale(36.2/SOW_a[id])    
-#     stack.Add(BigDic['mc16d']['SUSY'][vari][0], 44.3/SOW_d[id])
-#     stack.Add(BigDic['mc16e']['SUSY'][vari][0], 58.5/SOW_e[id])
 
-
-#     # ids = dsid_list[mc_run]['Signal']
-#     # j = 0
-#     # for i in ids:
-#     #     j+=1
-#     #     if j==1: continue
-#     #     stack.Add(BigDic['mc16a']['Signal'][vari][j-1], 36.2/SOW_a[id])    
-#     #     stack.Add(BigDic['mc16d']['Signal'][vari][j-1], 44.3/SOW_d[id])
-#     #     stack.Add(BigDic['mc16e']['Signal'][vari][j-1], 58.5/SOW_e[id])
-#     c = R.TCanvas()
-#     c.SetWindowSize(1000, 800)
-#     c.Draw()
-#     R.gStyle.SetOptStat(0)
-
-#     stack.Draw('HIST')
-#     c.SaveAs('varis/'+vari+'.pdf') 
-# exit()
-
-Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan', "DH HDS m_{Z'} 130", "LV HDS m_{Z'} 130", "EFT HDS m_{Z'} 130", 'SlepSlep', 'Stop']
+Backgrounds = ["W", "Diboson", 'TTbar', 'Single Top', 'Drell Yan', "DH HDS m_{Z'} 130", "LV HDS m_{Z'} 130", "EFT HDS m_{Z'} 130", 
+                'SUSY (m_{#tilde{l}}, m_{#tilde{#chi}_{1}^{0}}) = (90, 1)', '2HDMa (m_{a}, m_{H^{-}}) = (150, 400)']
 
 Colors = {}
 Colors["DH HDS m_{Z'} 130"] = R.TColor.GetColor('#F42069')
 Colors["LV HDS m_{Z'} 130"] = R.TColor.GetColor('#FFC0CB')
 Colors["EFT HDS m_{Z'} 130"] = R.TColor.GetColor('#FF0000')
-Colors["SlepSlep"] = R.TColor.GetColor('#702963')
-Colors["Stop"] = R.TColor.GetColor('#FAA0A0')
+Colors["SUSY (m_{#tilde{l}}, m_{#tilde{#chi}_{1}^{0}}) = (90, 1)"] = R.TColor.GetColor('#702963')
+Colors["2HDMa (m_{a}, m_{H^{-}}) = (150, 400)"] = R.TColor.GetColor('#FAA0A0')
 Colors["Drell Yan"] = R.TColor.GetColor('#8EDC9D')
 Colors['Single Top'] = R.TColor.GetColor('#EF7126')
 Colors["TTbar"] = R.TColor.GetColor('#F9E559')
 Colors["Diboson"] = R.TColor.GetColor('#6CCECB')
 Colors["W"] = R.TColor.GetColor('#218C8D')
 
-save_dir = "../Plots/SUSY_TEST"
+# save_dir = "../Plots/SUSY_TEST"
+save_dir = "../Plots/Data_Analysis/SRs"
 # save_dir = "../Plots/Data_Analysis/JetSelection"
 try:
     os.makedirs(save_dir)
@@ -278,19 +251,17 @@ for vari in variables:
 
 
 for vari in variables:
-    # if hist[vari] != 'met': continue 
-    # if met_region[vari][0] != 'CtrlReg': continue
-    legend = R.TLegend(0.48, 0.72, 0.95, 0.88)
+    legend = R.TLegend(0.41, 0.72, 0.9, 0.88)
     legend.SetTextFont(42)
     legend.SetFillStyle(0)
     legend.SetBorderSize(0)
-    legend.SetTextSize(0.03)
+    legend.SetTextSize(0.025)
     legend.SetNColumns(2)
     data_hist[vari].SetMarkerStyle(20)
     data_hist[vari].SetLineColor(R.kBlack)
     for bkg in Backgrounds:
         for mc in mc_year:
-            if bkg == "DH HDS m_{Z'} 130" or bkg == "LV HDS m_{Z'} 130" or bkg == "EFT HDS m_{Z'} 130" or bkg == 'SlepSlep' or bkg == 'Stop':
+            if bkg == "DH HDS m_{Z'} 130" or bkg == "LV HDS m_{Z'} 130" or bkg == "EFT HDS m_{Z'} 130" or bkg == 'SUSY (m_{#tilde{l}}, m_{#tilde{#chi}_{1}^{0}}) = (90, 1)' or bkg == '2HDMa (m_{a}, m_{H^{-}}) = (150, 400)':
                 thist[vari][mc][bkg].SetFillStyle(0)
                 thist[vari][mc][bkg].SetLineWidth(2)
                 thist[vari][mc][bkg].SetLineColor(Colors[bkg])
@@ -301,9 +272,9 @@ for vari in variables:
                     stackLV[vari].Add(thist[vari][mc][bkg])
                 elif bkg == "EFT HDS m_{Z'} 130":
                     stackEFT[vari].Add(thist[vari][mc][bkg])
-                elif bkg == "SlepSlep":
+                elif bkg == "SUSY (m_{#tilde{l}}, m_{#tilde{#chi}_{1}^{0}}) = (90, 1)":
                     stackSUSY[vari].Add(thist[vari][mc][bkg])
-                elif bkg == "Stop":
+                elif bkg == "2HDMa (m_{a}, m_{H^{-}}) = (150, 400)":
                     stackStop[vari].Add(thist[vari][mc][bkg])
                 
             else:   
@@ -311,6 +282,6 @@ for vari in variables:
                 thist[vari][mc][bkg].SetLineColor(Colors[bkg])
                 stack[vari].Add(thist[vari][mc][bkg])      
         legend.AddEntry(thist[vari][mc][bkg], bkg)
-    legend.AddEntry(data_hist[vari], 'Data')
+    if met_region[vari][0] == 'CtrlReg':
+        legend.AddEntry(data_hist[vari], 'Data')
     Plot_Maker(stack[vari], legend, isjet[vari], met_region[vari], hist[vari], data_hist[vari], save_dir, [stackDH[vari], stackLV[vari], stackEFT[vari], stackSUSY[vari], stackStop[vari]])
-    # break

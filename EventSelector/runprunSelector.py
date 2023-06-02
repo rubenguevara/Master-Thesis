@@ -6,22 +6,22 @@ mc_cmps = ["mc16a", "mc16d", "mc16e"]
 data_cmps =['data15', 'data16', 'data17', 'data18']
 
 sig = 1
-
 data = 0
-data_file = "datafrfr"
-# data_file = "DELETE"
+# data_file = "datafrfr"
+data_file = "DELETE"
 """
 CANNOT USE UNDERSCORE ON FILE NAMES
 """
 if sig == 1:
-    bkg = "SUSY"
-    ml_file = 'SUSY'
-    # bkg = "dm_sig"
+    # bkg = "SUSY"
+    # ml_file = 'SUSY'
+    ml_file = 'DELETE'
+    bkg = "dm_sig"
     # ml_file = "monoZp"
     
 else:
     ml_file = "Run2frfr"
-    # ml_file = "DELETE"
+    ml_file = "DELETE"
     bkg = "all_bkg"
 
 for mc_cmp in mc_cmps: 

@@ -22,7 +22,8 @@ def Plot_Maker(stack, legend, isjet, met_region, hist, data, dir, sig=None):
     pad.cd()
     
     stack.Draw('HIST')
-    data.Draw("EP2SAME")
+    if met_region[0] == 'CtrlReg':
+        data.Draw("EP2SAME")
     legend.Draw('SAME')
     
     if sig != None:
@@ -184,22 +185,28 @@ def Plot_Maker(stack, legend, isjet, met_region, hist, data, dir, sig=None):
     
     if met_region[0] == 'Uncut':
         text.DrawLatex(0.15, 0.82, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+        text.DrawLatex(0.15, 0.78, "m_{ll} > 10 GeV")
         
     elif met_region[0] == 'CtrlReg':
         text.DrawLatex(0.15, 0.82, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
-        text.DrawLatex(0.15, 0.78,"> 50 GeV E_{T}^{miss}")
+        text.DrawLatex(0.15, 0.78,"E_{T}^{miss}> 50 GeV, m_{ll} < 110 GeV")
+    elif met_region[0] == 'PreReg':
+        text.DrawLatex(0.15, 0.82, "#sqrt{s} = 13 TeV, 139 fb^{-1}")
+        text.DrawLatex(0.15, 0.78,"E_{T}^{miss}> 50 GeV")
     else: 
-        text.DrawLatex(0.15, 0.82, "#sqrt{s} = 13 TeV, 139 fb^{-1}, > 120 GeV m_{ll}")
+        text.DrawLatex(0.15, 0.82, "#sqrt{s} = 13 TeV, 139 fb^{-1}, m_{ll} > 110 GeV")
         if "-" in met_region[1]:
             mets = met_region[1].split('-')
             text.DrawLatex(0.15, 0.78, mets[1]+" GeV > E_{T}^{miss} > "+mets[0]+" GeV")
         else: 
-            text.DrawLatex(0.15, 0.78, met_region[1]+" GeV > E_{T}^{miss}")
+            text.DrawLatex(0.15, 0.78, "E_{T}^{miss} > "+met_region[1]+" GeV")
     
     stack.SetMinimum(1e-3)
     if hist == 'eta1' or hist == 'eta2' or hist == 'phi1' or hist == 'eta3' or hist == 'phi3' or hist == 'phi2' or hist=='dPhiLeps' or hist=='dPhiCloseMet' or hist=='dPhiLeadMet' or hist=='dPhiLLmet': 
         stack.SetMaximum(stack.GetMaximum()*1e3)
     elif hist == 'met' and "-" in met_region[1]:
+        stack.SetMaximum(stack.GetMaximum()*2e3)
+    elif hist == 'mll' and met_region[0] == 'CtrlReg':
         stack.SetMaximum(stack.GetMaximum()*2e3)
     else:
         stack.SetMaximum(stack.GetMaximum()*40)
@@ -243,11 +250,16 @@ def Plot_Maker(stack, legend, isjet, met_region, hist, data, dir, sig=None):
     resid_dwn.SetFillStyle(1001)
     
 
+    if met_region[0] != 'CtrlReg':
+        data_clone.SetMarkerColor(R.kWhite)
+        data_clone.SetLineColor(R.kWhite)
+        data_clone.SetFillColor(R.kWhite)
     
     data_clone.Draw("pe0");
     resid_up.Draw("hist][ same");
     resid_dwn.Draw("hist][ same");
-    data_clone.Draw("pe0 same");
+    if met_region[0] == 'CtrlReg':
+        data_clone.Draw("pe0 same");
     data_clone.Draw("axis same");
     data_clone.Draw("axiG same");
     
@@ -256,6 +268,10 @@ def Plot_Maker(stack, legend, isjet, met_region, hist, data, dir, sig=None):
         
     elif met_region[0] == 'CtrlReg':
         save_dir = dir+'/Control_region/'
+    
+    
+    elif met_region[0] == 'PreReg':
+        save_dir = dir+'/Preselection_region/'
     else:
         save_dir = dir+'/'+met_region[1]+'_MET-110_mll/'
 
@@ -270,12 +286,19 @@ def Plot_Maker(stack, legend, isjet, met_region, hist, data, dir, sig=None):
     else:
         savepath = save_dir+hist+'.pdf'
     
-    
-    if met_region[0] == 'CtrlReg' and hist == 'met':
+    if met_region[0] == 'CtrlReg':
+        if hist == 'met':
+            stack.GetXaxis().SetRangeUser(50, 2500)
+            data_clone.GetXaxis().SetRangeUser(50, 2500)
+        if hist =='mll' or hist=='mt':
+            stack.GetXaxis().SetRangeUser(10, 110)
+            data_clone.GetXaxis().SetRangeUser(10, 110)
+            
+    elif met_region[0] == 'PreReg' and hist == 'met':
         stack.GetXaxis().SetRangeUser(50, 2500)
         data_clone.GetXaxis().SetRangeUser(50, 2500)
         
-    elif met_region[0] != 'CtrReg' and met_region[0] != 'Uncut':
+    elif met_region[0] != 'CtrReg' and met_region[0] != 'Uncut' and met_region[0] != 'PreReg':
         if hist =='mll' or hist=='mt':
             stack.GetXaxis().SetRangeUser(110, 3500)
             data_clone.GetXaxis().SetRangeUser(110, 3500)
