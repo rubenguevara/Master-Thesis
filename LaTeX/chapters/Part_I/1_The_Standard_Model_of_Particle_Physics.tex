@@ -3,12 +3,10 @@
 The Standard Model (SM) of particle physics is the framework of particle physics, it unveils the secrets of the universe's building blocks and their interactions. With its framework, it offers a rich understanding 
 of the structure and behavior of matter, solidifying its place as a bedrock in the realm of modern physics. At its core, the Standard Model describes three of the fundamental forces of nature: the electromagnetic force, 
 the weak force, and the strong force. These forces are mediated by particles known as gauge bosons, which act as carriers of the forces between matter particles.\\
-% Equation (\ref{eq:sm}) represents the elegant equation which can explain phenomena in nature with great precision, and is the mathematical foundation of what us known as the Standard Model (SM) of particle physics. 
-% It consists of three \textit{symmetry groups}. The gauge group explaining electromagnetism $U(1)$, the gauge group describing the weak force $SU(2)_L$ and the gauge group describing the strong force $SU(3)_C$. 
 \\As the SM is described using Quantum Field Theory (QFT), we need the description of what a \textit{field} is. A quantum field is a fundamental concept in quantum physics that describes the underlying fabric of reality, 
-where particles and their interactions are represented as excitations or vibrations of these fields. In this chapter we will delve into every of the aforementioned forces, the spontaneous symmetry breaking phenomena that 
+where particles and their interactions are represented as excitations or vibrations of these fields. In this chapter we will delve into every of the aforementioned forces, the spontaneous symmetry breaking phenomenum that 
 gives mass to particles, as well as how to calculate the cross-section of processes. We will start by describing electromagnetism in terms of QFT, namely Quantum Electrodynamics.\\
-\\The theory of this section is mainly based of Peskin's and Schroeder's "An Introduction to Quantum Field Theory" \cite{Peskin:1995ev} and partly Thomson's "Modern Particle Physics" \cite{THOMSON}.
+\\The theory of this section is mainly based on Peskin's and Schroeder's "An Introduction to Quantum Field Theory" \cite{Peskin:1995ev} and partly on Thomson's "Modern Particle Physics" \cite{THOMSON}.
 
 \clearpage
 \section{Quantum Electrodynamics}
@@ -17,7 +15,7 @@ The Lagrangian of QED can be seen below
 \begin{equation}\label{eq:QED}
     \mathcal{L}_{QED} = \overline{\psi}\left(i\slashed{D} -m\right)\psi -\frac{1}{4}B^{\mu\nu}B_{\mu\nu}
 \end{equation}
-with $\overline{\psi}=\psi^\dagger\gamma^0$, where $\psi$ is a bispinor field of spinn-1/2\footnote{In QED, it is the electron or positron field}, $m$ is the mass of $\psi$, $\gamma^\mu$ are the Dirac matrices, defined as 
+with $\overline{\psi}=\psi^\dagger\gamma^0$, where $\psi$ is a bispinor field of spin-1/2\footnote{In QED, it is the electron or positron field}, $m$ is the mass of $\psi$, $\gamma^\mu$ are the Dirac matrices, defined as 
 $$
 \begin{aligned}
     \gamma ^{0}&={\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix}},&\gamma ^{1}&={\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}},\\\\
@@ -26,35 +24,35 @@ $$
 $$
 Furthermore we have $\slashed{D}\equiv \gamma^\mu D_\mu$ where $iD_\mu = i\partial_\mu -eB_\mu$ is the covariant derivative, where $e$ is the coupling constant\footnote{Which in QED is the electric charge of $\psi$.},
 $B_{\mu\nu}=\partial_\mu B_\nu - \partial_\nu B_\mu$ is the electromagnetic field tensor\footnote{Taking $\partial_\mu B^{\mu\nu} + \star \partial_\mu B^{\mu\nu} = 0$ gives all of Maxwell's equations.}. 
-$B_\mu$ is the covariant four-potential\footnote{Defined as $B_\mu = (\frac{1}{c}\phi, \mathbf{B})$ where $\phi$ is the electric potential and $\mathbf{B}$ is the magnetic potential we know and love from electrodynamics. } of the Lagrangian, also known as the gauge field.\\ 
+$B_\mu$ is the covariant four-potential\footnote{Defined as $B_\mu = (\frac{1}{c}\phi, \mathbf{B})$ where $\phi$ is the electric potential and $\mathbf{B}$ is the magnetic potential we know and love from electrodynamics. } of the electromagnetic field, also known as the gauge field.\\ 
 \\The above Lagrangian is described by a $U(1)$ symmetry group, meaning that it corresponds to the $unitary$ group of one unitary matrix with determinant 1\footnote{For more information about group theory we refer the reader to Georgi's "LIE ALGEBRAS IN PARTICLE PHYSICS. FROM ISOSPIN TO UNIFIED THEORIES" \cite{Georgi:1982jb}}. 
-The consequence of QED being described by this symmetry group is, recalling Noether's theorem, that there is only one unique degree of freedom, this is the rotation of phase angle, $\alpha$, of the field $\psi$. This means that 
+The consequence of QED being described by this symmetry group is, recalling Noether's theorem, that there is only one unique degree of freedom, this is the rotation of phase angle, $\alpha(x)$, of the field $\psi$. This means that 
 \begin{equation}\label{eq:gauge_psi}
-    \psi \rightarrow \psi' = e^{i\alpha}\psi
+    \psi \rightarrow \psi' = e^{ie\alpha}\psi
 \end{equation}
-and 
-\begin{equation}
-    B_\mu \rightarrow B_\mu' = \frac{1}{e}D_\mu\alpha
-\end{equation}
-Which yields $\psi = \psi'$ and $B_\mu = B_\mu'$, meaning that our theory is gauge invariant.
+% and 
+% \begin{equation}
+%     B_\mu \rightarrow B_\mu' = \frac{1}{e}D_\mu\alpha
+% \end{equation}
+Inserting $\psi'$ into the Eq. (\ref{eq:QED}) yields that $\mathcal{L}\rightarrow\mathcal{L}'=\mathcal{L}$, meaning that our theory is locally gauge invariant.
 
 \section{Yang-Mills Theory}
 While QED is expressed by the Lagrangian in Eq. (\ref{eq:QED}), which is part of a $U(1)$ symmetry group, it can still be described by a more general Lagrangian using \textit{Yang-Mills} theory.
-The Yang-Mills Lagrangian looks almost identical to the QED Lagrangian, the differences being that the gauge freedom changes from a rotation of the phase angle $\alpha$ of the field $\psi$, to a more general
-gauge in $\alpha^a$ in the field $f_i$ 
+The differences between the Yang-Mills and QED Lagrangian being that the gauge freedom changes from a plane rotation of the phase angle $\alpha$ of the field $\psi$, to a more general
+gauge in $\alpha^a$ in the field $f_i$ (using now the infinitesimal transformation notation)
 $$
-    f_i \rightarrow \left(1+i \alpha^a t^a + \mathcal{O}(\alpha^2)\right) f_i    
+    f_i \rightarrow \left(1+ig \alpha^a t^a + \mathcal{O}(\alpha^2)\right) f_i    
 $$
 The covariant derivative also changes to a more general 
 $$
 iD_\mu = i\partial_\mu -eB_\mu\rightarrow iD_\mu = i\partial_\mu -gA^a_\mu t^a
 $$
-where $e$ is replaced for a more general scale factor $g$, the vector field $B_\mu$ to a more general $A_\mu^a$ which transforms as 
+where $e$ is replaced by a coupling constant $g$, the vector field $B_\mu$ changes to a more general $A_\mu^a$ which transforms as 
 $$
 A_\mu^a \rightarrow A^a_\mu +\frac{1}{g}\partial_\mu\alpha^a +f^{abc}A_\mu^b\alpha^c
 $$
 where $f^{abc}$ is a set of numbers called the \textit{structure constants}. 
-The important thing to note about the Yang-Mills is that the covariant derivative can be \textit{non-Abelian}, meaning that the commutator of the operator becomes
+The important thing to note about the Yang-Mills is that the covariant derivative is \textit{non-Abelian}\footnote{Except in the trivial case where we use the $U(1)$ symmetry group}, meaning that the commutator of the operator becomes
 $$
 \left[D_\mu,D_\nu\right] = -igF_{\mu\nu}^at^a
 $$
@@ -68,7 +66,7 @@ F_{\mu\nu}^a = \partial_\mu A_\nu^a -\partial_\nu A_\mu^a +gf^{abc}A_\mu^b A_\nu
 $$
 Where the last term takes into account the \textit{self interaction} of bosons. Adding all of this up we get the following Lagrangian
 \begin{equation}\label{eq:YM_lag}
-    \mathcal{L}_{YM} = \overline{f}\left(i\slashed{D} -m\right)f -\frac{1}{4}(F^a_{\mu\nu})^2
+    \mathcal{L}_{YM} = \overline{f}\left(i\slashed{D} -m\right)f -\frac{1}{4}F^a_{\mu\nu}F^{\mu\nu}_a
 \end{equation}
 where we use the notation $f\equiv\begin{pmatrix}f_1&f_2&\cdots&f_n\end{pmatrix}^T$ where $f_i$ is a field. 
 Using the Euler-Lagrange equation with the Yang-Mills Lagrangian above yields the equation of motion
@@ -98,7 +96,8 @@ Using the notation of $A_\mu\rightarrow W_\mu$ we get that there are $2^2-1$, me
 $$
 W_\mu^i \rightarrow W^i_\mu +\frac{1}{g}\partial_\mu\alpha^i +\epsilon^{ijk}W_\mu^j\alpha^k
 $$
-If one were to apply Noether's theorem on this Lagrangian we would get that two quantities are conserved, the \textit{hypercharge} and \textit{isospin}. In this theory we have isospin doublets, meaning 
+We cannot directly apply Noether's theorem on this Lagrangian, as it is not renormalizable, but when arriving to \textit{electroweak} theory we would get that two quantities are conserved\footnote{See Section \ref{sec:EW}}, the \textit{hypercharge} and \textit{isospin}. 
+In this theory we have isospin doublets, meaning 
 $$
 f=\begin{pmatrix}
     f_1\\f_2
@@ -107,11 +106,15 @@ f=\begin{pmatrix}
     U\\D
 \end{pmatrix}
 $$
-For \textit{up and down type} particles.
+For \textit{up and down type} particles. i.e. $\begin{pmatrix}
+    l\\\nu_l
+\end{pmatrix}$ for leptons, and $\begin{pmatrix}
+    u\\d
+\end{pmatrix}$ for quarks.
 
 
 \section{Quantum Chromodynamics}
-Using the Yang-Mills Lagrangian from Eq. (\ref{eq:YM_lag}) on an $SU(3)$, choosing $t^a =\frac{\lambda^a}{2}$, where $\lambda^a$, the \textit{Gell-Mann matrices}, are the $SU(3)$ equivalent of the $SU(2)$ Pauli matrices:
+Using the Yang-Mills Lagrangian from Eq. (\ref{eq:YM_lag}) on an $SU(3)_C$, choosing $t^a =\frac{\lambda^a}{2}$, where $\lambda^a$, the \textit{Gell-Mann matrices}, are the $SU(3)$ equivalent of the $SU(2)$ Pauli matrices:
 \begin{align}\label{eq:Gell-Mann}
     \begin{split}
         \lambda ^{1}={\begin{pmatrix}0&1&0\\1&0&0\\0&0&0\end{pmatrix}},\quad 
@@ -132,9 +135,9 @@ The structure constant have to obey Eq. (\ref{eq:struc_const}), thus we get
 \end{align*}
 Using the notation of $A_\mu\rightarrow G_\mu$ we get that there are $3^2-1$, meaning \textit{eight} vector fields 
 $$
-G_\mu^a \rightarrow G^a_\mu +\frac{1}{g}\partial_\mu\alpha^a +\epsilon^{abc}G_\mu^b\alpha^c
+G_\mu^a \rightarrow G^a_\mu +\frac{1}{g_s}\partial_\mu\alpha^a +\epsilon^{abc}G_\mu^b\alpha^c
 $$
-If one were to use Noether's theorem on the $SU(3)$ Yang-Mills Lagrangian, we would get that there are three conserved quantities for this symmetry group. These are the colors, $r,g$ and $b$. With all the information above we can 
+If one were to use Noether's theorem on the $SU(3)_C$ Yang-Mills Lagrangian, we would get that there are three conserved quantities for this symmetry group. These are the colors, $r,g$ and $b$. With all the information above we can 
 fully describe Quantum Chromodynamics, which describe quark interactions. The eight vector fields are the eight different gluons that are in the theory.\\
 \\In this theory we have color triplets
 $$
@@ -144,47 +147,46 @@ f=\begin{pmatrix}
 $$
 where $f_i$ is the color state of the particle we are studying.
 
-\section{Electroweak unification and the BEH Mechanism}
-We have so far explained the three symmetry groups that form the SM, but this is not the full picture yet. To get the full SM we need to talk about the electroweak $U(1)_Y\otimes SU(2)_L$ unification that can be explained when studying the spontaneous symmetry breaking (SSB) phenomena, 
-which also includes the \textit{Higgs} boson. \\
-\\If we introduce a new complex scalar field $\phi$ that transforms in the $SU(2)$ representation, we can write the Lagrangian
+\section{Electroweak unification and the BEH Mechanism}\label{sec:EW}
+We have so far introduced the three symmetry groups that form the SM, but this is not the full picture yet. To get the full SM we need to talk about the electroweak $U(1)_Y\otimes SU(2)_L$ unification that can be explained when studying the spontaneous symmetry breaking (SSB) of the electroweak symmetry.\\% using Glashow-Weinberg-Salam theory .\\
+\\If we introduce a new complex scalar field $\phi$ that transforms under the $SU(2)$ representation, we can write the Lagrangian
 \begin{equation}\label{eq:electroweak}
-    \mathcal{L}=-\frac{1}{2}\Tr\left(W_{\mu\nu}W^{\mu\nu}\right)-\frac{1}{4}B_{\mu\nu}B^{\mu\nu}+\left(D_\mu \phi\right)^\dagger\left(D^\mu \phi\right) -\lambda\left(\phi^\dagger \phi -\frac{v^2}{2}\right)^2
+    \mathcal{L}\supset \mathcal{L}_\phi = \left(D_\mu \phi\right)^\dagger\left(D^\mu \phi\right) -\mu^2\left(\phi^*\phi\right) - \lambda^2\left(\phi^*\phi\right)%-\lambda\left(\phi^\dagger \phi -\frac{v^2}{2}\right)^2
 \end{equation}
 with 
 \begin{equation}\label{eq:covar_higgs}
-    D_\mu \phi =\partial_\mu \phi -igW_\mu^a\sigma^a-i\frac{e}{2}B_\mu \phi
+    D_\mu \phi =\partial_\mu \phi -igW_\mu^a\sigma^a-ig'y_\phi \phi
 \end{equation}
-where $W_\mu$ and $B_\mu$ are vector fields of the $SU(2)$ and $U(1)$ group respectively. And where $ -\lambda\left(\phi^\dagger \phi -\frac{v^2}{2}\right)^2 = V(\phi)$ is the potential of the new complex scalar field. 
-Writing 
+where $W_\mu$ and $B_\mu$ are vector fields of the $SU(2)_L$ and $U(1)_Y$ group respectively. And where $\mu^2\left(\phi^*\phi\right) - \lambda^2\left(\phi^*\phi\right)= V(\phi)$ is the potential of the new complex scalar field. After developing $phi$ we can 
+minimize the potential to find the minima we can rewrite it as $V(\phi)=-\lambda\left(\phi^\dagger \phi -\frac{v^2}{2}\right)^2$. After rotating away the three phases due to $SU(2)_L$ gauge symmetry we can arrive at
 \begin{equation}\label{eq:Higgs}
     \phi = \begin{pmatrix}
         0\\v+H(x)
     \end{pmatrix}
 \end{equation}
-where $H$ is real scalar field, expands the potential to be
+where $H$ is real scalar field. This expands the potential to be
 \begin{equation}\label{eq:sombrero}
     V(H) =\frac{1}{2}m_H^2H^2 + \frac{1}{2v}m_H^2H^3 +\frac{1}{8v^2}m_H^2H^4
 \end{equation}
 where we have used that $m_H = \sqrt{2\lambda}v$. This potential is the so-called \textit{Sombrero potential}, and we can reveal that this scalar field $H$ is the Higgs boson. 
-The consequences of writing our complex scalar field using Eq. (\ref{eq:Higgs}) comes when from the shape of the potential, this gives rise to the mass of particles. The SSB comes from the fact that the fields have two minima 
+The consequences of writing our complex scalar field using Eq. (\ref{eq:Higgs}) comes when from the shape of the potential, this gives rise to the mass of particles. The SSB comes from the fact that the fields have degenerate minima 
 on the potential but can move around in a higher dimensional space (around the sombrero edge) to get to the other minima.\\
 \\Another thing that follows from Eq. (\ref{eq:Higgs}) is that expanding on Eq. (\ref{eq:covar_higgs}) gives rise (after a lot of math) to the following relations
 \begin{equation}\label{eq:W_boson}
     W_\mu^\pm = \frac{W_\mu^1 \mp iW_\mu^2}{\sqrt{2}}
 \end{equation}
 \begin{equation}\label{eq:Z_boson}
-    Z_\mu = \frac{gW_\mu^3 - eB_\mu}{\sqrt{g^2+e^2}}
+    Z_\mu = \frac{gW_\mu^3 - g'B_\mu}{\sqrt{g^2+e^2}}
 \end{equation}
 \begin{equation}\label{eq:photon}
-    A_\mu = \frac{gB_\mu - eW_\mu^3}{\sqrt{g^2+e^2}}
+    A_\mu = \frac{gB_\mu - g'W_\mu^3}{\sqrt{g^2+e^2}}
 \end{equation}
-These are the $W$ and $Z$ boson as well as the photon, respectively. To explicitly show how the SSB phenomena gives mass to every other particle, one can compute the unitary gauge transformation of the scalar field, 
+These are the $W$ and $Z$ boson as well as the photon, respectively. To explicitly show how the SSB phenomena gives mass to every other particle, one can transform the Lagrangian to the the unitary gauge, 
 this adds an extra term on the Lagrangian called the $Yukawa$ Lagrangian
 $$
-\mathcal{L}_{YU} = \psi_i y_{ij}\psi_j\phi = \overline{U}_L G_u U_R \phi^0 + \overline{D}_L G_u U_R \phi^- \overline{U}_L G_D D_R \phi^+ \overline{D}_L G_u D_R \phi^0
+\mathcal{L}_{YU} = \psi_i y_{ij}\psi_j\phi
 $$
-where $G_{u,d}$ are the Yukawa couplings. As we are looking at a complex scalar field in the $SU(2)$ representation we have from the Yang-Mills theory that we can write
+where $y_{i,j}$ are the Yukawa couplings between the scalar, $\phi$, and fermion field, $\psi$. As we are looking at a complex scalar field in the $SU(2)$ representation we have from the Yang-Mills theory
 $$
 f=\begin{pmatrix}
     U\\D
@@ -192,7 +194,9 @@ f=\begin{pmatrix}
 $$
 where $U,D$ is the field \textit{up and down type} spinor. For example this can be the first generation quark two component spinor $Q = \begin{pmatrix}
     u\\ d
-\end{pmatrix}$ consisting of the $up$ and $down$ quark. The standard for weak interactions is to define $right$ and $left$ handed helicity using the operators 
+\end{pmatrix}$ consisting of the $up$ and $down$ quark or the lepton two component spinor $L = \begin{pmatrix}
+    l\\ \nu_l
+\end{pmatrix}$. The standard for weak interactions is to define $right$ and $left$ handed helicity using the operators 
 $$
 L = \frac{1}{2}(\mathbb{I} - \gamma_5),\qquad\text{and}\quad R = \frac{1}{2}(\mathbb{I} + \gamma_5)
 $$
@@ -212,36 +216,36 @@ as well as their hermitian conjugates.
 
 
 \section{S-matrix expansion}
-But how do we calculate processes? To explain this generally, we can conduct an S-matrix expansion. To be more precise and use terms from quantum field theory rather than quantum mechanics, we can use the scattering operator $\mathcal{S}$ on the interaction 
+But how do we predict the occurrences of processes? To explain this generally, we can conduct an S-matrix expansion. To be more precise and use terms from quantum field theory rather than quantum mechanics, we can use the scattering operator $\mathcal{S}$ on the interaction 
 term of the SM Lagrangian $\mathcal{L}_{int}$. Starting by defining the general operator
 \begin{align}\label{eq:S-matrix}
     \begin{split}
         \mathcal{S} = \sum_{i = vertices}\mathcal{S}^{(i)},\qquad\text{where}\quad \mathcal{S}^{(0)} = \mathbb{I}\qquad\text{and}\quad \\
-        \mathcal{S}^{(n)}=(-i)^n\mathcal{T}\int_{-\infty}^{\infty}d^4\mathbf{x}_1\cdots\int_{-\infty}^{\infty}d^4\mathbf{x}_n\left[\mathcal{H}_{int}(x_1)\cdots\mathcal{H}_{int}(x_n)\right]
+        \mathcal{S}^{(n)}=(-i)^n\mathcal{T}\int_{-\infty}^{\infty}d^4\mathbf{x}_1\cdots\int_{-\infty}^{\infty}d^4\mathbf{x}_n\left[\mathcal{L}_{int}(x_1)\cdots\mathcal{L}_{int}(x_n)\right]
     \end{split}
 \end{align}
-where $\mathcal{T}$ is the \textit{time operator} ordering the terms such that we calculate our desired process, $\mathcal{H}_{int}=-\mathcal{L}_{int}$ is the interaction Lagrangian, and $\mathbf{x}_i$ are coordinates in spacetime.  The $\mathcal{S}$ operator sums over all \textit{vertices} 
-of a \textit{Feynman diagram}. To calculate the probability amplitude we can start with an easy example using QED, the Bhabha scattering process $e^- e^+\rightarrow e^-e^+$. The interaction Lagrangian in that gives us this scattering process is 
-$\mathcal{L}_{int} = e\overline{\psi}(x)\gamma^\mu\psi(x)A_\mu$. To calculate the probability amplitude we use the scattering operator in the following way
+where $\mathcal{T}$ is the \textit{time operator} ordering the terms such that we predict our desired transition amplitude, and $\mathbf{x}_i$ are coordinates in spacetime.  The $\mathcal{S}$ operator sums over all \textit{vertices} 
+of a \textit{Feynman diagram}. To calculate the probability amplitude we can start with an easy example using QED, the Bhabha scattering process $e^- e^+\rightarrow e^-e^+$, in particular the annihilation channel where we have $e^+e^-\rightarrow\gamma$ on a vertex level. The interaction Lagrangian of interest for this process is
+$\mathcal{L}_{int} = e\overline{\psi}(x)\gamma^\mu\psi(x)A_\mu$. We use the scattering operator in the following way
 $$
 \bra{f}\mathcal{S}^{(n)}\ket{i} \rightarrow \bra{e^-e^+}S^{(2)}\ket{e^-e^+} 
 $$
 $$
 = \bra{e^-e^+}\left(-e^2\mathcal{T}\int_{-\infty}^{\infty}d^4\mathbf{x} \int_{-\infty}^{\infty}d^4\mathbf{y} \overline{\psi}(x)\gamma^\mu\psi(x)A_\mu(x)\overline{\psi}(y)\gamma^\nu\psi(y)A_\nu(y) \right)\ket{e^-e^+}
 $$
-Starting by using the time operator $\mathcal{T}$ on the integrals, which gives us the \textit{normal order} of the operations, we can start by using \textit{Wicks theorem} to "connect" the two points in spacetime $\mathbf{x}$ and $\mathbf{y}$. As we know there are no photons on the initial or final state, we can connect the photons as \textit{propagators}, meaning
+Starting by using the time operator $\mathcal{T}$ on the integrals, which gives us the \textit{normal order} of the operations, we can start by using \textit{Wicks theorem} to "connect" the two points in spacetime $\mathbf{x}$ and $\mathbf{y}$. As we know there are no photons in the initial or final state, we can connect the photons as \textit{propagators}, meaning
 $$
 \mathcal{S}^{(2)} = -\frac{e^2}{2}\int_{-\infty}^{\infty}d^4\mathbf{x} \int_{-\infty}^{\infty}d^4\mathbf{y} \mathcal{N} \left(\wick{\overline{\psi}(x)\gamma^\mu\c1A_\mu(x)\psi(x)\overline{\psi}(y)\gamma^\nu\c1A_\nu(y)\psi(y)}\right)
 $$
 where 
 $$
-\wick{\c1A_\mu(x)\c1A_\nu(y)} = \bra{0}\mathcal{T}(A_\mu(x)A\nu(y))\ket{0} = \cdots = D_{\mu\nu}^F(x-y) = \int_{-\infty}^{\infty}\frac{d^4q}{(2\pi)^4}D_{\mu\nu}^F(q)e^{-iq(x-y)}
+\wick{\c1A_\mu(x)\c1A_\nu(y)} = \bra{0}\mathcal{T}(A_\mu(x)A_\nu(y))\ket{0} = \cdots = D_{\mu\nu}^F(x-y) = \int_{-\infty}^{\infty}\frac{d^4q}{(2\pi)^4}D_{\mu\nu}^F(q)e^{-iq(x-y)}
 $$
 with
 \begin{equation}\label{eq:p-prop}
-    D_{\mu\nu}^F(k) = \frac{-g_{\mu\nu}+r_{\mu\nu}}{(q^2+i\epsilon)}
+    D_{\mu\nu}^F(k) = \frac{-g_{\mu\nu}+r_{\mu\nu}}{(q^2+i\epsilon)},
 \end{equation}
-Here we have omitted the mathematical details, but to summarize it with words. We calculated the photon propagator which connects two spacetime points $\mathbf{x}$ and $\mathbf{y}$ by calculating the Greens function of the Minkowski space using among other the residue theorem from complex analysis. 
+where $q = q_\mu q^\mu$ is the contracted four-momentum of the particle, and $r_{\mu\nu}=\frac{q_\mu q_\nu}{q^2}$ we will set to zero as we will use the Feynman gauge. Here we have omitted the mathematical details, but to summarize it with words. We calculated the photon propagator which connects two spacetime points $\mathbf{x}$ and $\mathbf{y}$ by calculating the Greens function of the Minkowski space using among other the residue theorem from complex analysis. 
 If we were now to define $\ket{e^-e^+}, \bra{e^-e^+}, \overline{\psi}$ and $\psi$ we could directly calculate the scattering amplitude by setting in the values, as this usually involves solving integrals that use Dirac delta function\footnote{At least while omitting loops, which we will do in this thesis}. 
 To complete our example we define
 $$
@@ -251,7 +255,7 @@ where $E_i$ is the energy of the particle and $a_i,b_i$ and $a^\dagger_i,b^\dagg
 $$
 \psi \equiv\int\frac{d^3p}{(2\pi)^3}\frac{1}{\sqrt{2E_\mathbf{p}}}\left(\sum_sa^s_\mathbf{p}u^s(p)e^{-ip\cdot x}+b^{s\dagger}_\mathbf{p}v^s(p)e^{ip\cdot x}\right) =\psi^+_p+\psi^-_p
 $$
-Where, depending on $\psi^+$ (for $u(p)$) and $\psi^-$ (for $v(p)$) are the particle and antiparticle fields \textbf{Is this the real name}, respectively. It is standard convention to say that ingoing particles and anti-particles 
+Where, depending on $\psi^+$ (for $u(p)$) and $\psi^-$ (for $v(p)$) are the particle and antiparticle fields, respectively. It is standard convention to say that ingoing particles and anti-particles 
 on an interaction are written as $\psi^+$ and $\overline{\psi}^-$, respectively, and their hermitian conjugate when they are outgoing. With this information we can connect the initial and final particles to their fields, solving the bra we have
 $$
 \bra{e^-e^+}\overline{\psi}(x)\psi(x) = (2\sqrt{E_pE_k})\bra{0}a_{p}b^\dagger_{k}\overline{\psi}^-_{k'}\psi^+_{p'},
@@ -341,28 +345,28 @@ Feynman realized this and made Feynman rules to construct diagrams. The rules ar
         
         
     \end{tikzpicture}
-    \caption{Bhabha scattering Feynman diagram}\label{fig:bhabha}
+    \caption{Feynman diagram of Bhabha scattering annihilation}\label{fig:bhabha}
 \end{figure}
 
 \clearpage
 
 \section{Adding it all up}
-Combining the three groups $U(1)_Y\otimes SU(2)_L\otimes SU(3)_C$ as well as introducing the Higgs field from Eq. (\ref{eq:Higgs}) gives us the SM Lagrangian
-\begin{equation}\label{eq:sm}
-    \mathcal{L}_{SM} = -\frac{1}{4}F_{\mu\nu}F^{\mu\nu} + i\overline{\psi}\slashed{D}\psi + \psi_iy_{ij}\psi_j\phi + h.c. + \abs{D_\mu\phi}^2 - V(\phi)
-\end{equation}
-To give an illustration of the elements in Eq. (\ref{eq:sm}) we can see Figure \ref{fig:SM}
+Combining the three groups $U(1)_Y\otimes SU(2)_L\otimes SU(3)_C$ as well as introducing the Higgs field from Eq. (\ref{eq:Higgs}) gives us the SM Lagrangian. 
+% \begin{equation}\label{eq:sm}
+%     \mathcal{L}_{SM} = -\frac{1}{4}F_{\mu\nu}F^{\mu\nu} + i\overline{\psi}\slashed{D}\psi + \psi_iy_{ij}\psi_j\phi + h.c. + \abs{D_\mu\phi}^2 - V(\phi)
+% \end{equation}
+To give an illustration of the elements of the SM we can see Figure \ref{fig:SM}
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.7\textwidth]{SM.jpeg}
+    \includegraphics[width=0.85\textwidth]{SM.jpeg}
     \caption[The Standard Model]{The Standard Model of particle physics. Image taken from Wikipedia \cite{sm_wikipedia}}\label{fig:SM}
 \end{figure}
 \\From Figure \ref{fig:SM} we can see all the particles of the standard model. These include the quarks $u,d,c,s,t$ and $b$, the leptons $e,\mu$ and $\tau$ as well as their neutrino partners, the carrier of the strong force $g$, the carriers of the weak force $W^\pm$ and $Z$, 
-the carrier of the electromagnetic force $\gamma$ and the Higgs boson $H$. From the figure we can also see which particles can interact with each of the bosons. \\
-\\These are the building blocks of nature, as mesons, subatomic particles consisting of two quarks, and baryons, meaning subatomic particles consisting of three quarks (such as the proton and neutron) can further build atoms with electrons to furthermore create chemistry via 
-quantum mechanical processes. \\ 
-\\However, while the SM excels at explaining most\footnote{The SM cannot describe gravity} of the observable matter in the universe, that it still only roughly 4\% of the matter in the universe. Approximately 72\% of the universe is composed of \textit{Dark Energy}, which follows 
-from the cosmological constant in Einsteins Field Equations \cite{Peebles:2002gy}, and the remaining 23\% of the matter in the universe is \textit{Dark Matter}. The next chapter of this thesis will present a brief description Dark Matter, and present the Beyond SM models with Dark Matter candidates we will study.
+the carrier of the electromagnetic force $\gamma$ and the scalar Higgs boson $H$. From the figure we can also see which particles can interact with each of the bosons. \\
+\\These are the building blocks of nature, as mesons, subatomic particles consisting of quark-antiquark pairs, and baryons, meaning subatomic particles consisting of three quarks (such as the proton and neutron) can further build atoms with electrons to furthermore create chemistry via 
+quantum mechanical processes.
+\newpage\noindent However, although the SM successfully accounts for the majority of observable matter in the universe, it represents only approximately 5\% of the total energy content. Approximately 70\% of the universe is composed of \textit{Dark Energy} which we know is there because of the universe's expansion, 
+and is represented in the cosmological constant in Einsteins Field Equations \cite{Peebles:2002gy}, and the remaining 25\% of the energy in the universe is \textit{Dark Matter}. The next chapter of this thesis will present a brief description of Dark Matter, and present the Beyond SM models with Dark Matter candidates we will study.
 
 
 \end{document}
