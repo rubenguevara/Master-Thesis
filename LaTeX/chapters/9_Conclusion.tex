@@ -3,39 +3,36 @@
 
 \section{Conclusion}
 After exploring the intricacies of preparing both a NN and a BDT ML algorithm to learn a binary classification task of DM signal and SM background, we concluded, due to time, that a BDT ML approach was 
-best suited for this search. The searches we conducted were based on models from three different theoretical principles. The first one containing a new $U(1)'$ vector boson, $Z'$, that can decay and couple to a DM WIMP candidate. The first one being $Z'$ coupling to a new scalar boson $h_D$, 
-which we call the Dark Higgs (DH) model. The second is an off-shell $Z'$ decaying into two dark states $\chi_1$ and $\chi_2$, where $\chi_2$ decays again into a $Z'$ and $\chi_1$, which is the DM candidate, this we called the Light Vector (LV) model. 
-The third model, is an inelastic Effective Field Theory model, which is similar to the LV model, with the exception being that there are no assumptions about the quark coupling to the $Z'$, we called this the EFT model. The three models were furthermore 
-split into two groups, the difference being the mass of the DM candidate, we called these for the Heavy- and Light Dark Sector (HDS and LDS) for heavy and light DM respectively. The second theoretical principle we studied was Supersymmetry, 
-in particular a direct slepton production model, where the bosonic superpartner of the lepton, the slepton, $\tilde{\ell}$, decays into a lepton and a first generation neutralino $\tilde{\chi}_1^0$, which is a DM candidate. The las model we studied was 
-a Two Higgs Doublet Model with the addition of a pseudoscalar mediator, $a$, which mediates the interactions between the visible and dark sector, we called this model for 2HDM + a for short.\\
-\\As the ultimate goal for the thesis was to test model independent approaches for new physics searches using ML, we first tested what we called the model dependent approach. This approach consisted of using a dataset 
-with all the simulated SM background events containing a dilepton and MET final state, and one of the DM models, including all the simulated events. 
-To better the performance and the computational time, we only looked at events with MET > 50 GeV, for the mono-$Z'$ we included an additional cut of $m_{ll}>110$ GeV. We trained one BDT 
-for each model using this type of dataset. To test the results of this approach we computed mass exclusion limits using Bayesian and Frequentist statistics for every model.\\
-\\The second approach, which we called the model independent approach, consisted of a dataset containing all the DM models and all the SM background. The difference however was that we trained three BDTs in orthogonal MET spaces which we called Signal Regions (SRs). All the networks only looked at events with $m_{ll}>110$ GeV to reduce the Z-boson peak. 
+better suited for this search. The searches we conducted were based on models from three different theoretical principles. The first one containing a new $U(1)'$ vector boson, $Z'$, that can decay to dileptons and couple to a DM WIMP candidate in three ways: 
+(i)Dark Higgs (DH) model where the $Z'$ couples to a new scalar boson $h_D$; (ii) The Light Vector (LV) model where an off-shell $Z'$ decays into two dark states $\chi_1$ and $\chi_2$, where the heavier $\chi_2$ decays again into a $Z'$ and $\chi_1$, which is the DM candidate;
+(iii) The EFT model is an inelastic Effective Field Theory model, which is similar to the LV model, with the exception that there are no assumptions about the quark coupling to the $Z'$. The three models were furthermore 
+split into two groups, according to the mass of the DM candidate: the Heavy- and Light Dark Sector (HDS and LDS) for heavy and light DM. respectively. The second theory we studied was a simplified Supersymmetry model, 
+in particular a direct slepton production model, where the scalar superpartner of the lepton, the slepton, $\tilde{\ell}$, decays into a lepton and a first generation neutralino $\tilde{\chi}_1^0$, which is a DM candidate. The last model we studied was 
+a Two Higgs Doublet Model with an additional pseudoscalar, $a$, which mediates the interactions between the visible and dark sectors, we called this model for 2HDM + a for short.\\
+\newpage\noindent As the ultimate goal for the thesis was to test model-independent approaches for new physics searches using ML, we first performed a model dependent approach. This approach consisted of using a dataset 
+with all the simulated SM background events containing a dilepton and MET final state, and one of the DM models. To improve the performance and minimize the computational time, we only looked at events with MET > 50 GeV, and for the mono-$Z'$ models we required the dilepton
+invariant mass to be $m_{ll}>110$ GeV in order to avoid the high Drell Yan background region. We trained one BDT for each model separately. To test the results of this approach we computed mass exclusion limits using Bayesian and Frequentist statistics for every model.\\
+\\The second approach, the model independent approach, consisted of a dataset containing all the DM models and all the SM background. The difference however was that we trained three BDTs simultaneously in three orthogonal Signal Regions (SRs). 
+All the networks only looked at events with $m_{ll}>110$ GeV to reduce the Z-boson peak. 
 The three SR we chose to divide the dataset in were 
 \begin{itemize}
    \item SR1: $m_{ll} >110$ GeV and $E_T^{miss} \in [50, 100]$ GeV
    \item SR2: $m_{ll} >110$ GeV and $E_T^{miss} \in [100, 150]$ GeV
    \item SR3: $m_{ll} >110$ GeV and $E_T^{miss} >150$ GeV
 \end{itemize} 
-After training the three networks on each SR we tested each model by computing the expected mass exclusion limit using Bayesian and Frequentist statistics in every respective SR. To compare the model independent approach with the model dependent approach, 
-we statistically combined the mass exclusion limit of all SRs into one combined SR for all eight models. \\
-\\Doing this we observed that we were able to compute higher mass exclusion limits for every model we studied using the model independent approach, the side by side comparison can be seen in Section \ref{sec:comparisons_of_methods}. 
+After training the three networks on each MET SR we tested each model by computing the expected mass exclusion limit in every respective SR. To compare the model independent approach with the model dependent approach, 
+we statistically combined the mass exclusion limit of all SRs into one combined (also combining di-electron and di-muon final states) SR for all eight models. \\
+\\Doing this we observed that we were able to compute higher mass exclusion limits for every model we studied using the model independent approach, the side by side comparisons were presented in Section \ref{sec:comparisons_of_methods}.\\
+\\To perform these analyses, proton-proton collision data collected with the ATLAS detector at the Large Hadron Collider during the Run II data taking period (2015-2018), corresponding to an integrated luminosity of 139 fb${-1}$. The utilization of the ATLAS data provided a crucial foundation for training and evaluating the ML algorithms, 
+ensuring their relevance and applicability to real-world physics phenomena.
 
 \section{Outlook}
 For the future, there are intriguing possibilities to further enhance the model independent approach and achieve even better results with fewer ML networks, building on the promising findings in this thesis. It would be fascinating to explore the potential of Deep Neural Networks (DNNs) 
-with an expanded range of Dark Matter (DM) models, as DNNs thrive when provided with larger datasets and more statistical information.\\
+with an expanded range of Dark Matter (DM) models, as DNNs thrive when provided with larger datasets.\\
 \\Another avenue worth investigating is the Parametrized Neural Network (PNN) approach proposed by Baldi et al. \cite{Baldi_2016}. In this approach, an additional feature is included on the NN input layer to specify the mass of the particle being studied as a signal. 
 Exploring the combination of a DNN and PNN, forming a Deep-Parametrized Neural Network (DPNN), could yield a powerful tool for the model independent approach. By dividing a dataset consisting of multiple models, all sharing the same experimental signatures, into different regions of kinematical phase space, 
 such a general ML network could rapidly test new models and swiftly provide mass exclusion limits.\\
-\\By developing more efficient and versatile ML algorithms, we move closer to understanding physics beyond the standard model. Additionally, these advancements in ML techniques may have broader applications in various scientific domains, further amplifying their impact.
+\\By developing more efficient and versatile ML algorithms, we move closer to investigate physics beyond the standard model. Additionally, these advancements in ML techniques may have broader applications in various scientific domains, further amplifying their impact.
 This progress, in turn, holds the potential to advance our comprehension of spacetime.
 
-% For the future it would be interesting to see if the model dependent approach could be used to train less ML networks and still get good, if not better results as demonstrated by the few models in this thesis. 
-% Another interesting prospect would be to use DNNs with more DM models, as DNNs thrive with more statistics. Another subject of interest for future research would be the PNN approach used by Baldi et al. \cite{Baldi_2016}, where an additional feature is included on the NN input layer stating the mass of the 
-% particle studied as signal. As PNNs train less ML networks, it would be of great interest to see if possibly combining a DNN with a PNN giving a DPNN using the model independent approach of dividing a dataset of multiple models sharing the same experimental signatures in different regions of kinematical phase space, 
-% could create a general ML network which can quickly test new models sharing the same experimental signature and quickly give a mass exclusion limit on said model. Either way, 
-% by making more general and efficient ML algorithms when conducting search for new physics, we can get closer to understanding physics beyond the standard model which in turn might get us closer to understanding more of spacetime.
 \end{document}

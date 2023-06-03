@@ -109,7 +109,7 @@ which all lead to a dilepton with MET final state. To simulate these background 
 \newpage
 \section{Dark Matter samples}\label{chap:DM_sample}
 \subsection{Mono-Z'}
-The $Z'-$aware DM models described in Chapter \ref{chap:DM} showcased in Figure \ref{fig:monoZp}. 
+The $Z'-$aware DM models described in Chapter \ref{chap:DM} are showcased in Figure \ref{fig:monoZp}. 
 \begin{figure}[!ht]
     \centering 
     \begin{subfigure}[b]{0.3\textwidth}
@@ -143,7 +143,7 @@ The coupling to quarks and leptons are assumed to be the same for all generation
     \item $g_q=0.1$,
     \item and $g_l=0.01$.
 \end{itemize}
-In addition to the couplings, as mentioned on Chapter \ref{chap:DM}, we will divide the three models, Dark Higgs, Light Vector and inelastic EFT into two more regions. The difference being the masses, Table \ref{tab:DMass} showcases the definition of the Light Dark Sector (LDS) and Heavy Dark Sector (HDS).
+In addition to the couplings, as mentioned on Chapter \ref{chap:DM}, we will divide the three models, Dark Higgs, Light Vector and inelastic EFT into two more regions. The difference being the masses of the new $Z'$ boson, Table \ref{tab:DMass} showcases the definition of the Light Dark Sector (LDS) and Heavy Dark Sector (HDS).
 \begin{table}[!h]
     \centering\caption{Dark sector masses in light- and heavy dark sector models}
     \begin{tabular}{l|c|c}\midrule\midrule
@@ -155,7 +155,7 @@ In addition to the couplings, as mentioned on Chapter \ref{chap:DM}, we will div
     \end{tabular}
     \label{tab:DMass}
 \end{table}
-\newpage\noindent The simulated masses of the new $Z'$ boson for this thesis are
+\newpage\noindent The simulated masses of the new $Z'$ boson used in this thesis are
 $$
 m_{Z'} = [130, 200, 400, 600, 800, 900, 1100, 1200, 1300, 1400, 1500]\text{ GeV},
 $$
@@ -165,30 +165,41 @@ m_{Z'} = [130, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1
 $$
 or the EFT model.
 \subsection{Supersymmetric direct slepton production}
-For the supersymmetric direct slepton production model, $\tilde{\ell}\tilde{\ell}\rightarrow \ell\ell\tilde{\chi}_1^0\tilde{\chi}_1^0$, depicted in the Feynman diagram in Figure \ref{fig:designer_got_me_slepslep}
+For the supersymmetric direct slepton production model, $pp\rightarrow\tilde{\ell}\tilde{\ell}+X\rightarrow \ell\ell\tilde{\chi}_1^0\tilde{\chi}_1^0+X$, depicted in the Feynman diagram in Figure \ref{fig:designer_got_me_slepslep}
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.3\textwidth]{SlepSlep.png}
     \caption{Direct slepton production}\label{fig:designer_got_me_slepslep}
 \end{figure}
-\\for this thesis the masses of the sleptons, $m_{\tilde{\ell}}$, and neutralinos, $m_{\tilde{\chi}_1^0}$ are the parameters that will be changed. We also assume that there is a 100\% branching ratio on the decay $\tilde{\ell}\rightarrow \ell\tilde{\chi}_1^0$. 
-The mass pairs of the neutralinos and sleptons used in this thesis are shown in a scatter plot in Figure \ref{fig:slepslep_mass}.
+\\The masses of the sleptons, $m_{\tilde{\ell}}$, and neutralino, $m_{\tilde{\chi}_1^0}$, are the free parameters. We also assume that there is a 100\% branching ratio on the decay $\tilde{\ell}\rightarrow \ell\tilde{\chi}_1^0$. 
+The mass pairs of the neutralinos and sleptons used in this thesis are shown in the scatter plot of Figure \ref{fig:slepslep_mass}. $m_{\tilde{\chi}_1^0}(<m_{\tilde{\ell}})$ ranging from 0 (50 GeV) to 380 (400 GeV), respectively.
 \graphicspath{{../../../Plots/2d_masses/}}
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.7\textwidth]{SlepSlep.pdf}
     \caption[$\tilde{\chi}_1^0$ and $\tilde{\ell}$ mass pairs for direct slepton production]{Scatter plot showcasing the $\tilde{\chi}_1^0$ and $\tilde{\ell}$ mass pairs for direct slepton production studied in this thesis. Each dot represents a simulated direct slepton process using the masses.}\label{fig:slepslep_mass}
 \end{figure}
+
+
+
 \graphicspath{{../../figures/}}
 \subsection{2HDM + a}
-For the Two Higgs Doublet Model with an additional pseudoscalar $a$ (2HDM +a) which decays into DM shown by the Feynman diagram in Figure \ref{fig:2HDM}
+The Two Higgs Doublet Model with an additional pseudoscalar $a$ (2HDM +a) which decays into DM represented by the Feynman diagram in Figure \ref{fig:2HDM}.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.3\textwidth]{2HDMa.png}
     \caption{2HDM + a}\label{fig:2HDM}
 \end{figure}
-\\ There are six important parameters for this model the Yukawa coupling constant between the pseudoscalar mediator $a$ and DM, $y_\chi$, which was set to $y_\chi=1$. The electroweak vacuum expectation value, $v$, which was set to $v=246$ GeV. 
-The mass of the DM candidate, $m_\chi$, which was set to $m_\chi=10$ GeV. In addition we have the mass of the new charged Higgs, $m_{H^-}$, the mass of the pseudoscalar $a$, $m_a$, and the ratio between the vacuum expectation values of the Higgs doublet, $\tan\beta$. The values used for this thesis can be sen below.
+\\There are six important parameters for this model:
+\begin{itemize}
+    \item The Yukawa coupling constant between the pseudoscalar mediator $a$ and DM, $y_\chi$, which was set to $y_\chi=1$. 
+    \item The electroweak vacuum expectation value, $v$, which was set to $v=246$ GeV. 
+    \item The mass of the DM candidate, $m_\chi$, which was set to $m_\chi=10$ GeV. 
+    \item The mass of the new charged Higgs, $m_{H^\pm}$ 
+    \item The mass of the pseudoscalar $a$, $m_a$ 
+    \item The ratio between the vacuum expectation values of the Higgs doublet, $\tan\beta$. 
+\end{itemize} 
+The values of the mass pairs ($m_{H^\pm}$, $m_a$) used for this thesis are summarized in Figure \ref{fig:2HDM_mass} for some values of $\tan\beta$ ranging from 1 to 30.
 \graphicspath{{../../../Plots/2d_masses/}}
 \begin{figure}[!ht]
     \centering
