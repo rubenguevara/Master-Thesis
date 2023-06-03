@@ -201,7 +201,8 @@ The time has come to explore how we can search for new physics phenomena, now th
 the \textit{cut and count method}, but there are other methods to search for new physics, such as Machine Learning (ML) which is the method pursued in this thesis. There might be other methods, such as 
 Quantum ML, but as of today we are still in a too early stage of the technology \cite{QML}. To give a short description of the cut and count method, it makes kinematical \textit{cuts} on various variables to isolate signal from background. The way 
 the signal and background\footnote{There are also data driven methods, but on this thesis we will focus on simulations} are made is by Monte Carlo (MC) simulations, which is necessary for guiding us on where to place efficient cuts and understand our sensitivity to a given BSM model. As it would not be a real experimental physics discovery without making a statistical 
-analysis of the results we will also explain how we utilize this tool. To guide us through this process I will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the success of this method.
+analysis of the results we will also explain how we utilize this tool. To guide us through this process I will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the success of the cut and count method, and 
+the search for the existence of a new $W'$ boson studied by ATLAS \cite{Stat}, for the statistical tools.
 
 \subsection{Cut and count method}
 The cut and count method is what has been the standard method of doing data analysis with LHC data. As the name implies, the cut and count method works by making cuts on kinematical variables and afterwards counting how many events are left. 
@@ -231,8 +232,8 @@ to claim anything we need to look at statistics, which is the subject of the nex
 \subsection{Statistical tools}\label{sec:stat_anal}
 To make any sort of claim in modern physics we should be absolutely certain that what we are claiming is true, as just making the cuts and isolating a signal to background is not enough. To be specific we need to be "\textit{at least $5\sigma$ sure}" to claim any new discoveries. 
 But as not everything in experimental high energy particle physics is a new discovery, we will also look at \textit{exclusions}. In this section we will present some mathematical details behind the statistical tools that will be used in this thesis.\\ 
-\\This\todo{Fix this intro} thesis follows the example set by the ATLAS Collaboration article "Search for new particles in events with one lepton and missing transverse momentum in pp collisions at $\sqrt s$ = 8 TeV with the ATLAS detector" \cite{Stat},
-where a Bayesian analysis is performed to set limits on the existence of a new $W'$ boson. Using the signal+background hypothesis, the expected number of events in each lepton channel, $ee, \mu\mu$, of the process $W^-\rightarrow l\nu$ is 
+\\This thesis follows the example set by Dr. Bugge in the FYS5555 course at UiO \cite{magnar_pensum}, here we use as an example the 8 TeV ATLAS $W'$ search \cite{Stat},
+where a Bayesian analysis was performed to set limits on the existence of a new $W'$ boson. Using the signal+background hypothesis, the expected number of events in each lepton channel, $ee, \mu\mu$, of the process $W'\rightarrow l\nu$ is 
 $$
     N_{\text{exp}} = \varepsilon_{\text{sig}}L_{\text{int}}\sigma B + N_{\text{bkg}}
 $$
@@ -297,13 +298,17 @@ where $\sigma_{\text{bkg}}$ is the uncertainty of the background. Using the prio
     \textstyle    Z = \sqrt{-2\left((N_{\text{sig}}+N_{\text{bkg}})\ln\left[\frac{(N_{\text{sig}}+N_{\text{bkg}})+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} }{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})(N_{\text{sig}}+N_{\text{bkg}})}\right] + \frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} \ln\left[\frac{\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2}((N_{\text{sig}}+N_{\text{bkg}})+\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2} )}{(1+\frac{N_{\text{bkg}}}{\sigma_{\text{bkg}}^2})\frac{N_{\text{bkg}}^2}{\sigma_{\text{bkg}}^2}}\right]\right)}
 \end{equation}
 Which makes for a better estimate of the significance one has in reality.
-\newpage\noindent The 95 \% CL limit results from the 2012 Higgs discovery \cite{Higgs_discovery_2012} can be seen in Figure \ref{fig:HIGGS_CL}, where we can see that there is a statistical fluctuation of the observed data compared to the background with $m_H=125$ GeV
+\newpage\noindent The 95 \% CL limit results from the 8 TeV ATLAS $W'$ search \cite{Stat} can be seen in Figure \ref{fig:HIGGS_CL}. To understand the exclusion plot here we will explain what the objects are. The y-axis of the plot represents the cross-section times branching ratio of the process. 
+The x-axis is the mass of the $W'$ boson. The red dashed line is the predicted theoretical cross-section times branching ratio. The black dots represent the observed exclusion limit gathered from real data, in this thesis we will not include real data in the exclusion plots we generate. 
+The dashed black line is the expected 95\% CL limit calculated using the tools presented in this section, with a 1$\sigma$ (green) and 2$\sigma$ (yellow) variance. The way we set limits on the models is by excluding all the mass points that have a higher predicted cross-section times branching ratio than the expected limit. 
+This means that the 8 TeV ATLAS $W'$ search excluded the mass of the $W'$ up to $\approx3100$ GeV, as this is where the red dashed line crosses the black dashed line in Figure \ref{fig:HIGGS_CL}.
 \begin{figure}[!ht]
 	\centering
-    \includegraphics[width=0.7\textwidth]{CL_Higgs.jpg}
-    \caption[Confidence Limit on the Higgs discovery]{Confidence limit on the 2012 Higgs discovery, excerpt taken from Ref. \cite{Higgs_discovery_2012}}\label{fig:HIGGS_CL}
+    \includegraphics[width=0.7\textwidth]{CL_Wp.png}
+    \caption[95\% CL example using the ATLAS $W'$ search at 8 TeV]{95\% CL example using the ATLAS $W'$ search at 8 TeV, figure taken from Ref. \cite{Stat}}\label{fig:HIGGS_CL}
 \end{figure}
-\\\textbf{Question: I show some results from the Higgs discovery, should I rather show the mass exclusion of the W' we saw in FYS555, as this is closer to the mass exclusion of the Z' I studied? Should I also show some SUSY exclusions to show how one excludes using the significance?}
+% \\The exclusion plot in Figure \ref{fig:HIGGS_CL} is great at excluding models with one varying parameter. However, as we will look at the direct slepton production model and the 2HDM + a model, which have two varying parameters, we will also make 2D-exclusion plots. For this thesis we used the 
+% tools made by Dr. Gramstad, available here \cite{eirik_pensum}.
 
 \clearpage
 \section{Summary}
