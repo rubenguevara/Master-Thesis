@@ -187,7 +187,7 @@ For the Two Higgs Doublet Model with an additional pseudoscalar $a$ (2HDM +a) wh
     \includegraphics[width=0.3\textwidth]{2HDMa.png}
     \caption{2HDM + a}\label{fig:2HDM}
 \end{figure}
-\\ There are six important parameters for this model the Yukawa coupling $y_\chi$ constant between the pseudoscalar mediator $a$ and DM, which was set to $y_chi=1$. The electroweak vacuum expectation value, $v$, which was set to $v=246$ GeV. 
+\\ There are six important parameters for this model the Yukawa coupling constant between the pseudoscalar mediator $a$ and DM, $y_\chi$, which was set to $y_\chi=1$. The electroweak vacuum expectation value, $v$, which was set to $v=246$ GeV. 
 The mass of the DM candidate, $m_\chi$, which was set to $m_\chi=10$ GeV. In addition we have the mass of the new charged Higgs, $m_{H^-}$, the mass of the pseudoscalar $a$, $m_a$, and the ratio between the vacuum expectation values of the Higgs doublet, $\tan\beta$. The values used for this thesis can be sen below.
 \graphicspath{{../../../Plots/2d_masses/}}
 \begin{figure}[!ht]
@@ -281,7 +281,8 @@ by making a kinematical cut on 50 GeV we are cutting out a massive part of the b
 
 \section{Feature selection for ML}
 For this thesis there are many possible kinematic variables that can be used as features for our ML algorithms, in this section we will make use of the kinematical variables presented in Section \ref{sec:particle_kinematics} as well as introduce new variables that 
-might help our ML algorithm to correctly learn the patters of SM background and DM signal events. \\
+might help our ML algorithm to correctly learn the patters of SM background and DM signal events. As we cannot show any unblinded data points we will only show the kinematical distributions with real data at the control region, which has $m_{ll}<110$ GeV. For the 
+distributions of the features used in other regions see the GitHub repo, available here: \href{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/Data_Analysis/SRs}{https://github.com/rubenguevara/Master-Thesis/tree/master/Plots/Data\_Analysis/SRs} \\
 \\As we are studying a final state with two leptons it is natural to look at the kinematics for both of these objects. The first thing we will look at is the transverse momentum, $p_T$, of each lepton as defined in Eq. (\ref{eq:transverse_momentum}). 
 We will also look at the azimuthal angle, $\phi$ and the pseudorapidity, $\eta$ defined in Eq. (\ref{eq:pseudorapidity}). 
 With this we have practically constructed a four-momentum from which we could learn all particle kinematics. However, we want to help our ML algorithm as much as possible in the task of learning SM background and DM signals. A powerful kinematical variable for this is 

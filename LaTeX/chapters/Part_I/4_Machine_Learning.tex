@@ -549,7 +549,7 @@ So in short BDTs split datasets based on different values of the features on the
     \includegraphics[width=1\textwidth]{BDT_image.png}
     \caption[Basic Decision Tree illustration]{Illustration showcasing how decision trees work by splitting a dataset of $N$ events with $M$ features whenever a threshold $X, Y$ or $Z$ for a feature is passed. The label $S$ and $B$ state whether the event is signal or background respectively.}\label{fig:DT_ilus}
 \end{figure}
-\\The illustration in Figure \ref{fig:DT_ilus}just shows how one tree might work, in reality we can choose to have an arbitrary number of trees and combine their results with the ensembling and boosting method. Then after combining the generated tree structures we use the optimal weight in Eq. (\ref{eq:opt_wgt_bdt}) and the optimal objective reduction Eq. (\ref{eq:opt_obj_bdt}) 
+\\The illustration in Figure \ref{fig:DT_ilus} just shows how one tree might work, in reality we can choose to have an arbitrary number of trees and combine their results with the ensembling and boosting method. Then after combining the generated tree structures we use the optimal weight in Eq. (\ref{eq:opt_wgt_bdt}) and the optimal objective reduction Eq. (\ref{eq:opt_obj_bdt}) 
 to minimize the objective to get the most accurate predictions as possible. But this will come later when applying these to data in Section \ref{sec:BDTGriddy}.
 
 \clearpage
