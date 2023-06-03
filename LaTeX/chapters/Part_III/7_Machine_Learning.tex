@@ -403,13 +403,61 @@ The results of the different weighting methods can be seen in Figure \ref{fig:BD
    \caption[Difference when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts_sig}
 \end{figure}
 
-\clearpage
-
-\section{Discussion (draft)}
+\clearpage\section{Discussion (draft)}
 \todo{Comment on lack of time and DNN thoughts.} 
 The last thing to be noted is that having a DNN completely removes the possibility of combining the results of multiple networks trained on a single model, as the imbalance becomes too much for the network to see anything.
 A solution to this however, is that instead of combining the results of multiple networks trained on a singular model, one could try the Parametrized NN approach used by Baldi et al. \cite{Baldi_2016}, which could potentially avoid the imbalance problem, but this is 
 proposed as a plausible new research project due to time constrain on this thesis.\\
 \\\todo{Comment on fully converting to XGBoost.} XGBoost >> TensorFlow
 
+
+\clearpage
+\section{NN algorithm}
+\begin{lstlisting}[language=Python, caption={Neural network definition using TensorFlow}, label=alg:nn, captionpos=t]
+   import tensorflow as tf
+   from tensorflow.keras import layers
+   
+   def Neural_Network(inputsize, n_layers, n_neuron, eta, lamda):
+       
+       model=tf.keras.Sequential()      
+       
+       for i in range(n_layers):       
+           if (i==0):                  
+               model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=
+                tf.keras.regularizers.l2(lamda), input_dim=inputsize))
+           else:                       
+               model.add(layers.Dense(n_neuron, activation='relu', kernel_regularizer=
+                       tf.keras.regularizers.l2(lamda)))
+                       
+       model.add(layers.Dense(1,activation='sigmoid')) 
+       
+       opt=tf.optimizers.SGD(learning_rate=eta) # or Adam!
+       
+       model.compile(loss=tf.losses.BinaryCrossentropy(),
+                   optimizer=opt,
+                   metrics = [tf.keras.metrics.BinaryAccuracy()])
+       return model
+\end{lstlisting}
+
+\clearpage
+\section{BDT algorithm}
+\begin{lstlisting}[language=Python, caption={Boosted Decision Tree definition using XGBoost}, label=alg:xgb, captionpos=t]
+   import xgboost as xgb
+   
+   Boosted_Decision_Tree = xgb.XGBClassifier(
+                max_depth, 
+                use_label_encoder=False,
+                n_estimators,
+                learning_rate,
+                reg_lambda,
+                predictor = 'cpu_predictor',
+                tree_method = 'hist',
+                scale_pos_weight = sow_bkg/sow_sig,
+                objective = 'binary:logistic',
+                eval_metric = 'auc',
+                min_child_weight = 1,
+                missing = -999,
+                random_state = 42,
+                verbosity = 1) 
+\end{lstlisting}
 \end{document}
