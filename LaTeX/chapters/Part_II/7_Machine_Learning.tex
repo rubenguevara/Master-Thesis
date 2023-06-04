@@ -38,12 +38,12 @@ dilepton final state, label telling us whether an event is signal or background 
       $Z'$ Light Vector Light Dark Sector                                             & 470,352               & 235.70         \\
       $Z'$ Effective Field Theory Heavy Dark Sector                                   & 715,409               & 0.0004           \\
       $Z'$ Effective Field Theory Light Dark Sector                                   & 640,963               & 0.0007          \\
-      Supersymmetric direct slepton production                                        & -               & -          \\
-      2HDM + a                                                                        & -               & -          \\\midrule\midrule
+      Supersymmetric direct slepton production                                        & 684,276               & 413,044.46        \\
+      2HDM + a                                                                        & 3,371,806             & 65,211.31         \\\midrule\midrule
    \end{tabular}
    \label{tab:dataset}
 \end{table}
-\\From this dataset we can see one of the main challenges that will follow throughout the thesis, especially with the model dependent approach. This is the unbalance of the dataset, as an example lets look at the DH HDS model using the model dependent approach. Here we would train using all 87,080,391 simulated background events and 498,621 simulated signal events, as the numbers 
+\newpage\noindent From this dataset we can see one of the main challenges that will follow throughout the thesis, especially with the model dependent approach. This is the unbalance of the dataset, as an example lets look at the DH HDS model using the model dependent approach. Here we would train using all 87,080,391 simulated background events and 498,621 simulated signal events, as the numbers 
 show, the majority of the dataset consists of background events, making the task of learning harder for any ML algorithm. This becomes even harder when applying the weights used for re-weighting simulated events to expected events at 139 fb$^{-1}$. What these weights used are is the subject of the next section.
 
 \subsection{Weights}\label{sec:wgts}
@@ -128,7 +128,7 @@ states how close to the beam line the objects recorded are. However, having a $p
 \\Another approach is to remove the features with missing values to conserve statistics, albeit make it harder for the network to see any pattern that we might miss, but this is also not a desirable mitigation. 
 Instead, we have tried to limit ourselves to the use of number of jets of defined categories that work around the need of padding. These features are just \textit{event features}, meaning that we count the number of jets that fulfill some criteria, 
 such as the number of b-jets with $p_T > 20$ GeV, the number of light jets with $p_T>40$ GeV, the number of jets recorded in the central calorimeter ($\abs{\eta} < 2.5$), and the number of 
-jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$). The $p_T$ cuts are optimized to allow a good agreement between data and simulations, the full distributions with different cuts in the preselection region can be seen in Appendix \ref{appendix:no_padding}\todo{To come}. 
+jets with $p_T>50$ GeV recorded in the forward calorimeter ($\abs{\eta} > 2.5$). The $p_T$ cuts are optimized to allow a good agreement between data and simulations, the distributions can be seen in the GitHub repo. 
 The padding variables included in the training are shown in Table \ref{tab:padding_variables}.\\
 \begin{table}[!h]
    \centering

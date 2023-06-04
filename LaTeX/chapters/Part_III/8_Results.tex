@@ -10,7 +10,7 @@ the supersymmetric direct slepton production, and the Two Higgs Doublet Model wi
    \item SR2: $m_{ll} >110$ GeV and $E_T^{miss} \in [100, 150]$ GeV
    \item SR3: $m_{ll} >110$ GeV and $E_T^{miss} >150$ GeV
 \end{itemize}
-To test how well the networks have learned the models we will create a mass exclusion limits for every model. We decided to make a cut of $m_{ll} >110$ GeV for the mono-Z' models when using the model dependent approach to reduce computational time.\\
+To test how well the networks have learned the models we will create a mass exclusion limit for every model. We decided to make a cut of $m_{ll} >110$ GeV for the mono-$Z'$ models when using the model dependent approach to reduce computational time.\\
 \\To compare the model-independent approach to the model-dependent approach we will statistically combine the mass exclusion results for each SR for the $ee$ and $\mu\mu$ channel. To navigate through the process we show the Dark Higgs Heavy Dark Sector model results, using the model dependent method, 
 whereas the model independent method does the same with three SRs. Afterwards we will present the combined exclusion limits for all eight models.
 
@@ -21,11 +21,11 @@ We conducted a grid search to optimize the BDT and trained the network using 80\
 categorizing signal (DM events) from background (SM events), this is illustrated in Figure \ref{fig:DH_HDS_feat}. 
 \begin{figure}[!ht]
 	\centering
-      \includegraphics[width=0.8\textwidth]{XGBoost/DH_HDS/feature_importance/weight.pdf}
+      \includegraphics[width=0.75\textwidth]{XGBoost/DH_HDS/feature_importance/weight.pdf}
    \caption[Feature importance for network trained on Z' DH HD model using the model dependent approach]{Feature importance for network trained on Z' DH HD model using the model dependent approach using the weight metric, which shows how many times a feature appears in a tree. The features in this plot use the labeling presented in Table \ref{tab:variables}, such that rt stands for $E_T^{miss}/H_T$. 
    To see the feature importance plots with the cover metric, which show the number of samples affected by the split using the feature, and gain metric, which measures the relative contribution of a feature to the network's performance, see the GitHub repo.}\label{fig:DH_HDS_feat}
 \end{figure}
-\\From Figure \ref{fig:DH_HDS_feat} we can see that the most important kinematical variable for the BDT in classifying DM signal from the DH HDS model from SM background was the invariant mass $m_{ll}$, as expected, as the DH HDS model is based 
+\newpage\noindent From Figure \ref{fig:DH_HDS_feat} we can see that the most important kinematical variable for the BDT in classifying DM signal from the DH HDS model from SM background was the invariant mass $m_{ll}$, as expected, as the DH HDS model is based 
 on a mono-$Z'$ model including a new $Z'$ boson decaying to two leptons, leading to a resonance at the mass of the $Z'$ as explained by the Breit-Wigner resonance in Eq (\ref{eq:Breit-Wigner}). Furthermore, we see that the three following features are all MET related, which is how we predict to measure the presence of DM. 
 These are the MET-significane, $E_T^{miss,sig}$, the stransverse mass $m_{T2}$, and the ratio between MET and hadronic activity $E_T^{miss}/H_T$. Something to note of the features in Figure \ref{fig:DH_HDS_vals} is that we use both $E_T^{miss}$ and $E_T^{miss,sig}$ which are correlated, the reason for using both is because the BDT 
 might find that one is better at distinguishing DM signal and SM background when training on other models.\\
@@ -45,8 +45,8 @@ we need to go through an unblinding procedure to show data in this region.\\
    \caption[Validation plots for network trained on Z' DH HDS model using the model dependent approach. ]{Validation plots for network trained on Z' DH HDS model using the model dependent approach. The validation plots show the distribution of the BDT score for every event from 0-1, where 1 is signal. On the left the results are for the $ee$ channel, and on the right the result are for the $\mu\mu$ channel. Both results were 
    trained by the same network consisting of a general dilepton final state.}\label{fig:DH_HDS_vals}
 \end{figure}
-\\While the validation plots might indicate that the network is not doing an impressive job at sorting signal from background, we can actually see how well the network learns the different mass points on the DH HDS model by looking at the Receiver Operating Characteristic (ROC) curves for each mass point, which are shown in Figure \ref{fig:DH_HDS_ROCS} for the $ee$ channel (left) and the $\mu\mu$ channel (right). 
-Here we see that the network struggles a tiny bit to learn the DH HDS models with the lowest $m_{Z'}$, but the Area Under the Curve (AUC) score is still 0.96, meaning that it is doing a somewhat good job in sorting the DM signal from SM background.\\
+\\\\While the validation plots might indicate that the network is not doing an impressive job at sorting signal from background, we can actually see how well the network learns the different mass points on the DH HDS model by looking at the Receiver Operating Characteristic (ROC) curves for each mass point, which are shown in Figure \ref{fig:DH_HDS_ROCS} for the $ee$ channel (left) and the $\mu\mu$ channel (right). 
+Here we see that the network struggles a tiny bit to learn the DH HDS models with the lowest $m_{Z'}$, but the Area Under the Curve (AUC) score is still 0.96, meaning that it is doing a good job in sorting the DM signal from SM background.\\
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}

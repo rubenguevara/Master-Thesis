@@ -76,7 +76,7 @@ MET. The main production mechanism for these processes can be seen in Figure \re
 
 \subsection{Diboson}
 The last SM background process we will look at are processes containing two bosons, called \textit{diboson} backgrounds. The two SM bosons we will consider when looking into these final states are the $W$ and $Z$, as these can decay as $Z\rightarrow ll$ 
-or $W\rightarrow l\nu_l$, where the prime means a different lepton flavor. The main production mechanism for these processes can be seen in Figure \ref{fig:Diboson_BKG}. From these diagrams we have that $WW\rightarrow ll+\nu\nu$, $WZ\rightarrow l\nu+ll$\footnote{Where one lepton is not reconstructed} and $ZZ\rightarrow ll+\nu\nu$, 
+or $W\rightarrow l\nu_l$. The main production mechanism for these processes can be seen in Figure \ref{fig:Diboson_BKG}. From these diagrams we have that $WW\rightarrow ll+\nu\nu$, $WZ\rightarrow l\nu+ll$\footnote{Where one lepton is not reconstructed} and $ZZ\rightarrow ll+\nu\nu$, 
 which all lead to a dilepton with MET final state. To simulate these background processes Sherpa 2.2.11 \cite{Sherpa} was used.
 \begin{figure}[!ht]
     \centering 
@@ -232,7 +232,7 @@ Same Flavor Opposite Sign (SFOS) leptons ($e^\pm e^\mp, \mu^\pm\mu^\mp$). Howeve
 \\Since we are looking for DM, which we expect to behave similarly to a neutrino, then a nice kinematical variable to set a general cut to isolate signal from background is the MET, we can see the 
 distribution of MET on all of Run II in a dilepton final state in Figure \ref{fig:uncut_met}, where we have applied a cut of $m_{ll}>10$ GeV to exclude hadrons, as well as the central recommendations cuts.\\
 \\As we are conducting a model independent search, we want to use minimal cuts. The MET cut made in this thesis was chosen to be of 50 GeV (violet line in plot), meaning we will \textit{only} look at events where the MET is greater than this. As we can see from Figure \ref{fig:uncut_met} 
-by making a kinematical cut on 50 GeV we are cutting out a massive part of the background processes while only losing a small part of the signal. \\
+by making a kinematical cut on 50 GeV we are cutting out a massive part of the background processes while only losing a small part of the signal. \\\\
 \graphicspath{{../../../Plots/Data_Analysis/SRs/Uncut/}} 
 \begin{figure}[!ht]
     \centering
@@ -292,7 +292,7 @@ The agreement with different $p_T$ cuts can be seen in Appendix \ref{appendix:Je
 \end{figure}
 \graphicspath{{../../../Plots/Data_Analysis/SRs/Control_region/}} 
 \\To know the distance between the lepton and MET the difference in azimuthal angle is studied between: the lepton pair, $\Delta\phi(l_1,l_2)$, the dilepton system and MET, $\Delta\phi(ll,E_T^{miss})$, the leading lepton and MET, $\Delta\phi(l_l,E_T^{miss})$, 
-and the lepton closest to the MET and the MET, $\Delta\phi(l_c,E_T^{miss})$. In some of the models we are studying it is expected for DM and the lepton pair to be back to back\todo{See if you have examples}, the distribution of $\Delta\phi(ll,E_T^{miss})$ shown in Figure \ref{fig:dPhiLLMET_dist}.
+and the lepton closest to the MET and the MET, $\Delta\phi(l_c,E_T^{miss})$. In some of the models we are studying it is expected for DM and the lepton pair to be back to back, the distribution of $\Delta\phi(ll,E_T^{miss})$ shown in Figure \ref{fig:dPhiLLMET_dist}, where we see that every model we study, except for the 2HDM + a model, is back to back. 
 \begin{figure}[!ht]
     \centering
         \includegraphics[width=0.8\textwidth]{dPhiLLMET.pdf}
@@ -332,7 +332,7 @@ and the lepton closest to the MET and the MET, $\Delta\phi(l_c,E_T^{miss})$. In 
 \end{table}
 
 \subsection{MC and data disagreement}\label{sec:star}
-There is a challenge, with the final states that are not $e^+e^-$ or $\mu^+\mu^-$ (SFOS), as the MC generated background tends to be lower than the recorded data. The number of events that are not SFOS are minimal though\footnote{For all kinematical variables divided into their respective dilepton final state see the GitHub repo, available here: }\todo{MAKE THE FIGURES}, 
+There is a challenge, with the final states that are not $e^+e^-$ or $\mu^+\mu^-$ (SFOS), as the MC generated background tends to be lower than the recorded data. The number of events that are not SFOS are minimal though\footnote{For all kinematical variables divided into their respective dilepton final state see the GitHub repo}, 
 and we think the reason it does not fit the data is because we are not including fake leptons\footnote{Fake leptons refer to reconstructed particles that appear to be leptons but are actually misidentified hadrons or non-prompt particles.}. The features where these are prominent are marked by a * In Table \ref{tab:variables}. As we want the MC simulations of the background to agree as much as possible, we will not use the features marked with a * when using our ML algorithms.
 
 \section{Transfer to ML-friendly syntax}

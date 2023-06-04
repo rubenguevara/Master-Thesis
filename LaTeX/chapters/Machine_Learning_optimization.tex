@@ -16,8 +16,8 @@ We will mention whenever these parameters were not used. The results for the dif
 
 \subsection{Normalization of data}\label{sec:normie_NN_res}
 We trained a network using 80\% of the whole SM background events as well as 80\% of all the Z' DH HDS samples. As sample weights we only balanced the signal and background using the total number of simulated events, we did this by using method 3. on Chapter \ref{sec:balance_NN}, meaning that we weighed down the background with the ratio $\frac{N_{sig}}{N_{bkg}}$. 
-We tested on the remaining 20\% of the SM background events, as well as 20\% of Z' DH HDS events where $m_{Z'} =130$ GeV. The different normalization methods explained in Chapter \ref{sec:normie_NN} have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. 
-To clarify the functioning of the validation plots, they illustrate the event distribution based on the ML algorithm score, ranging from 0 to 1, where a score of 1 signifies the ML algorithm's identification of the event as a Dark Matter (DM) signal event.
+We tested on the remaining 20\% of the SM background events, as well as 20\% of Z' DH HDS events where $m_{Z'} =130$ GeV. The different normalization methods explained in Chapter \ref{sec:normie_NN} have been tested and can be seen in the Figure \ref{fig:DifferentNormalizations}. \\
+\\To clarify the functioning of the validation plots, they illustrate the event distribution based on the ML algorithm score, ranging from 0 to 1, where a score of 1 signifies the ML algorithm's identification of the event as a Dark Matter (DM) signal event.
 However, as we are conducting a supervised ML search we know whether an event is actually a DM signal event or an SM background event, using this we can plot the distributions of both cases to see how well the ML algorithm classifies signal from background. In the ideal case we would accumulate 
 all signal events on the right side of the plot, and all background events on the left.\\
 \\With the reminder of how the validation plots work, we can now discuss the results. From Figure \ref{fig:DifferentNormalizations} (a-c) we observe that the NN does a poor job at classifying signal from background. 
@@ -84,7 +84,7 @@ repo\footnote{Available here: \href{https://github.com/rubenguevara/Master-Thesi
       \includegraphics[width=1\textwidth]{BatchNorm/EXP_SIG.pdf}
       \caption{The expected significance of (b)}
    \end{subfigure}
-   \caption[Comparison of best NN normalization methods and expected significance calculation]{Comparison of the best normalization methods. Figure (a) and (b) show the validation data of both cases, c) and d) show the expected significance of the validation plots when making a cut on the output. }\label{fig:BestNormie}
+   \caption[Comparison of best NN normalization methods and expected significance calculation]{Comparison of the best normalization methods. Figure (a) and (b) show the validation data of both cases, (c) and (d) show the expected significance of the validation plots when making a cut on the output. }\label{fig:BestNormie}
 \end{figure}
 \noindent In Figure \ref{fig:BestNormie} we can see the \verb|Batch_normalization| method gives us an overall higher value of expected significance, meaning that it is better at classifying signal from background. 
 Because of this, and because it is easier to implement this normalization method, we will use this further in the NN optimization studies. 
@@ -430,8 +430,8 @@ Additionally, the method involving the scaled absolute value of weights shows a 
 \end{figure}
 
 \clearpage
-\section{NN algorithm}
-\begin{lstlisting}[language=Python, caption={Neural network definition using TensorFlow}, label=alg:nn, captionpos=t]
+\section{NN algorithm}\label{alg:nn}
+\begin{lstlisting}[language=Python, caption={Neural network definition using TensorFlow}, captionpos=t]
    import tensorflow as tf
    from tensorflow.keras import layers
    
@@ -458,8 +458,8 @@ Additionally, the method involving the scaled absolute value of weights shows a 
 \end{lstlisting}
 
 \clearpage
-\section{BDT algorithm}
-\begin{lstlisting}[language=Python, caption={Boosted Decision Tree definition using XGBoost}, label=alg:xgb, captionpos=t]
+\section{BDT algorithm}\label{alg:xgb}
+\begin{lstlisting}[language=Python, caption={Boosted Decision Tree definition using XGBoost}, captionpos=t]
    import xgboost as xgb
    
    Boosted_Decision_Tree = xgb.XGBClassifier(
