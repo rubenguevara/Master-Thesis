@@ -75,7 +75,7 @@ The first one is a sigmoid activation function
 \begin{equation}\label{eq:sig}
     f(x) = \frac{1}{1+e^{-x}}
 \end{equation}
-which is the most basic activation function, this will be used from the input layer to our first hidden layer as the risk of having little neuron activation is minimal here. On all other layers we will utilize a Rectified Linear Unit (ReLU)
+which is the most basic activation function, this will be used from the last hidden layer to the output layer. On all other layers we will utilize a Rectified Linear Unit (ReLU)
 \begin{equation}\label{eq:ReLU}
     f(x) = x^+ = \text{max}(0,x) = \begin{cases}x&{\text{if }}x>0,\\0.&{\text{otherwise}}.\end{cases}
 \end{equation}
@@ -418,7 +418,7 @@ $$
 where $y_i$ is the network output, and $\bar{y}_{R_j}$ is the mean response for the training observations withing box $j$. Ideally we would consider every possible partition of the feature space into $J$ boxes, but his is computationally challenging. Thus, the common approach is to begin at the top of the tree, 
 where all observations belong to a single region, and then split the predictor space, where every split is indicated via two new branches down in the tree. This is greedy (as in \textit{Greedy Function Approximation} \cite{BDT_Friedman}) since the best split is made in the first step, 
 rather than looking ahead and picking a split that might lead to a better tree in a future step.\\ 
-To make any split we start by selecting the predictor $x_j$ and a cut point $s$ that splits the predictor space into two regions $R_1$ and $R_2$
+\\To make any split we start by selecting the predictor $x_j$ and a cut point $s$ that splits the predictor space into two regions $R_1$ and $R_2$
 $$
 \{X\vert x_j < s\} \quad\text{and}\quad \{X\vert x_j \ge s\}
 $$
@@ -510,7 +510,7 @@ Such that we can now write the objective to be
 \begin{equation}
     \mathcal{L}^{(t)}=\sum_{i}^{n}C(y_i,\hat{y}_i^{(t-1)}+f_t(x_i))+\Omega(f_t)
 \end{equation}
-from which we can set up our choice for cost function. In general case we take the Taylor expansion of the loss function up to the second order such that we get
+from which we can set up our choice for cost function. In general, we take the Taylor expansion of the loss function up to the second order such that we get
 $$
     \mathcal{L}^{(t)}=\sum_{i}^{n}\left[C(y_i,\hat{y}_i^{(t-1)})+g_i f_t(x_i)+\frac{1}{2}h_i f_t^2(x_i)\right]+\Omega(f_t)+const
 $$
@@ -617,7 +617,7 @@ On the other hand, the FPR is when we divide the \textit{False Positive} (FP), w
 $$
 \text{FPR} =\frac{\text{FP}}{\text{N}}
 $$
-To get a numerical value of how well a network classifies data we thus calculate the AUC. The TP and the FP are both going to be predictions from the networks, which for this thesis will give an event a score from 0 to 1\footnote{Where 0 means that the network believes an event has 0\% chance of being a signal event, and 1 means that the networks believes with 100\% certainty that an event is a signal event.}, 
+To get a numerical value of how well a network classifies data we thus calculate the AUC. The TP and the FP are both going to be predictions from the networks, which for this thesis will give an event a score from 0 to 1\footnote{Where 0 means that the network classifies an event as background and 1 as signal.}, 
 meaning that if we had a perfect network which guessed everything correctly we would only get TPs and thus an AUC of 1. If we were to get an area of 0.5 this would mean that the network is randomly guessing whether an event is a signal or background, practically making a coin toss for every event. 
 The goal is to have a network to give an AUC score as close to 1 as possible. \\
 \\While only using the accuracy as a metric is not a bad start, it is not favorable to use as a metric if datasets are unbalanced. As en example, if we had a dataset with 100 events, where 95 were background events and 5 were signal events, if we only used accuracy as a metric we would 
@@ -651,14 +651,14 @@ We can however still use the non-re-weighted plots to see how well the network h
     \end{subfigure}
     \caption[Validation plots illustration]{Illustration of the validation plots. Plot a) shows how the network learned a dataset without re-weighting events, while b) shows how it looks for re-weighted events. For this example we will not show any numbers, but the plot a) has more signal events than the luminosity allows for, while plot b) is corrected.}\label{fig:VAL}
 \end{figure}
-\\It is standard practice to make fill the histograms with semi-transparent colors, such that one can visualize the whole spectra for both background and signal. In this thesis we will use this, as well as validation plots where we divide the SM events into their respective background channels and fill them with opaque 
+\\It is standard practice to fill the histograms with semi-transparent colors, such that one can visualize the whole spectra for both background and signal. In this thesis we will use this, as well as validation plots where we divide the SM events into their respective background channels and fill them with opaque 
 colors, while leaving the signal unfilled. We will in addition include real data points in a control region, meaning up to a score of 0.6, to see how well SM simulations agree with the data. Ideally we want our data to not agree with the SM simulations when the network 
 predicts a score close to one, as this discrepancy could be a hint of new physics. But as we cannot show signal regions before a data unbinding procedure we will not pursue the latter case.
 
 
 \clearpage
 \subsection{Significance plots}\label{sec:siggy}
-To create signal regions which will be used for statistical analysis we will also look at significance plots. The way these plots work is by using the expected significance, Eq. (\ref{eq:exp_sig}), on the number of signal and background events that are present after making a cut in the ML output on the validation plots. 
+To create signal regions which will be used for statistical analysis we will also look at significance plots. The way these plots work is by using the expected significance, Eq. (\ref{eq:exp_sig})\footnote{Or Eq. (\ref{eq:significance}), if we want to include uncertainties}, on the number of signal and background events that are present after making a cut in the ML output on the validation plots. 
 As an example, Figure \ref{fig:EXP_SIG} shows the re-weighted validation plot from the previous section (upper figure). We can calculate the expected significance by counting the number of signal and background events that have an ML score greater than 0.5, 0.6, 0.7, 0.8, 0.9 and 0.99 respectively. The significance distribution is shown in the lower plot of Figure \ref{fig:EXP_SIG}. 
 Here we see that the greatest expected significance lies on the last bin of the upper distribution, the example used reaches an expected significance of $\approx 2.35\sigma$. We will use this as a metric to choose where we will make a kinematical cut before making exclusions.
 \begin{figure}[!ht]
@@ -674,15 +674,15 @@ Here we see that the greatest expected significance lies on the last bin of the 
     \end{subfigure}
     \caption[Significance plot illustration]{Plot a) shows an arbitrary ML score distribution. Plot b) shows the expected significance that is calculated from the distribution shown in plot a) when making cuts on the ML output score. The dashed lines are to guide the eye.}\label{fig:EXP_SIG}
 \end{figure}
-
+\clearpage
 \subsection{BDT and NN exclusive plots}\label{sec:feat}
 \subsubsection{Feature importance}
 For BDTs, as we can calculate which features had the most impact when splitting the data, we will also include feature importance plots. As the name states these plots tell us how important the features in the dataset were in the training to separate signal from background. As we are using the \verb|XGBoost| 
 package when working with BDTs, we will use the inbuilt functions of the package to plot the feature importance. \\
 \\When plotting the feature importance there are several metrics we can use to determine how important they are, for this thesis we will mainly look at 
 \begin{itemize}
-    \item Gain: which measures the relative contribution of a feature to the model's performance. This is the standard metric used by \verb|XGBoost|.
-    \item Weight: the number of times a feature appears on a tree to split the data
+    \item Gain: which measures the relative contribution of a feature to the model's performance
+    \item Weight: the number of times a feature appears on a tree to split the data. This is the standard metric used by \verb|XGBoost|
     \item Cover: the number of samples affected by the split with a feature
 \end{itemize}
 

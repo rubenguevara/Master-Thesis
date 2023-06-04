@@ -1,7 +1,6 @@
 % \documentclass[14pt, a4paper]{book}
 \documentclass[12pt, a4paper]{book}
 \usepackage{setspace}
-\setstretch{1.5}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -77,10 +76,10 @@
 \usepackage{subfiles} 
 
 
-\title{Model independent search for Dark Matter using Machine Learning
-} \subtitle{ 
-    In final states with dileptons and Missing Transverse Energy with the ATLAS detector at the LHC 
-}
+% \title{Model independent search for Dark Matter using Machine Learning} 
+% \subtitle{In final states with dileptons and Missing Transverse Energy with the ATLAS detector at the LHC}
+\title{Search for Dark Matter using Machine Learning in dilepton and missing energy events with the ATLAS detector at the LHC} 
+\subtitle{A tentative model independent approach}
 \author{Ruben Guevara}
 \date{Spring 2023}
 
@@ -96,7 +95,7 @@ supervisors = {Professor Farid Ould-Saada \and Dr. Eirik Gramstad},
 % image = {gort}
 ]
 
-
+\setstretch{1.5}
 \newpage
 \begin{center}
 \section*{Abstract}
@@ -106,17 +105,16 @@ supervisors = {Professor Farid Ould-Saada \and Dr. Eirik Gramstad},
 
 \newpage
 \section*{Acknowledgements}
-First and foremost I want to thank my supervisor Farid Ould-Saada for giving me the opportunity of pursuing this project and supporting my crazy ideas, such as me trying to make a QML algorithm to use in HEP, and to include new models to update my results two weeks before I hand in. I also 
-want to thank Eirik Gramstad for putting up with my constant nagging and the in depth discussions we had about ML. \todo{Finish this!}\\
-\\Most importantly I want to thank the coffee machine at the section for High Energy Particle Physics for the incredible support in times of need, as the coffee was free. \coffeestainA{1}{0.85}{-25}{3cm}{1.3cm}
-
-
+First and foremost, I want to thank my supervisor Farid Ould-Saada, for giving me the opportunity of pursuing this project and supporting my crazy ideas, such as me trying to make a QML algorithm to use in HEP, 
+and to include new models to update my results two weeks before I hand in, and also allowing me to participate in multiple conferences that broadened my view of academia.
+I would also want to thank Eirik Gramstad for putting up with my constant nagging and the in depth discussions we had about ML. If he had not had his door open for my multiple "quick questions", I would have not
+been able to overcome many of the local minima I found myself stuck in. I also would like to thank everyone at the ATLAS group at UiO, for the insight they shared with me on the [few] weekly meetings I attended. 
+I also need to thank the coffee machine at the HEPP section for the incredible support in times of need, as the coffee was free. \coffeestainA{0.2}{0.85}{120}{4cm}{-6.5cm}\\
+\\I also want to thank my friends, old, and new ones that I have made in the path of pursuing knowledge. Thank you for sharing your care and putting up with my shenanigans. 
+For my old friends; now that I am done, I will finally be able to hang out once again.\\
+\\Lastly, I would like to thank Kristina, I wouldn't be here without you.
 
 \newpage
-\tableofcontents
-\listoffigures
-\listoftables
-
 \chapter*{List of Acronyms}
 \textbf{SM} Standard Model\\\\
 \textbf{DM} Dark Matter\\\\
@@ -131,6 +129,12 @@ want to thank Eirik Gramstad for putting up with my constant nagging and the in 
 \textbf{ML} Machine Learning\\\\
 \textbf{NN} Neural Network\\\\
 \textbf{BDT} Boosted Decision Tree\\\\
+
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+
 \newpage
 \pagenumbering{arabic}
 

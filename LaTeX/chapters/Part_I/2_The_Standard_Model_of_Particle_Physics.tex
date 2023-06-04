@@ -148,8 +148,10 @@ $$
 where $f_i$ is the color state of the particle we are studying.
 
 \section{Electroweak unification and the BEH Mechanism}\label{sec:EW}
-We have so far introduced the three symmetry groups that form the SM, but this is not the full picture yet. To get the full SM we need to talk about the electroweak $U(1)_Y\otimes SU(2)_L$ unification that can be explained when studying the spontaneous symmetry breaking (SSB) of the electroweak symmetry.\\% using Glashow-Weinberg-Salam theory .\\
-\\If we introduce a new complex scalar field $\phi$ that transforms under the $SU(2)$ representation, we can write the Lagrangian
+We have so far introduced the three symmetry groups that form the SM, but this is not the full picture yet. To get the full SM we need to talk about the electroweak $U(1)_Y\otimes SU(2)_L$ unification as proposed by Glashow-Weinberg-Salam, 
+which in turn yields four massless vector fields (three $W_i$ from $SU(2)_L$, and $B$ from $U(1)$). The universe we observe however, does not have four such vector fields, the $W^\pm$ and $Z$ are massive, and in fact only the photon is 
+massless.\\
+\\As proposed by Higgs-Braut-Englert we can introduce a complex scalar $\phi$, which is charged under $SU(2)_L\otimes U(1)_Y$ with a hypercharge of $1/2$. This leads to the general, renormalizable Lagrangian 
 \begin{equation}\label{eq:electroweak}
     \mathcal{L}\supset \mathcal{L}_\phi = \left(D_\mu \phi\right)^\dagger\left(D^\mu \phi\right) -\mu^2\left(\phi^*\phi\right) - \lambda^2\left(\phi^*\phi\right)%-\lambda\left(\phi^\dagger \phi -\frac{v^2}{2}\right)^2
 \end{equation}
@@ -157,8 +159,8 @@ with
 \begin{equation}\label{eq:covar_higgs}
     D_\mu \phi =\partial_\mu \phi -igW_\mu^a\sigma^a-ig'y_\phi \phi
 \end{equation}
-where $W_\mu$ and $B_\mu$ are vector fields of the $SU(2)_L$ and $U(1)_Y$ group respectively. And where $\mu^2\left(\phi^*\phi\right) - \lambda^2\left(\phi^*\phi\right)= V(\phi)$ is the potential of the new complex scalar field. After developing $phi$ we can 
-minimize the potential to find the minima we can rewrite it as $V(\phi)=-\lambda\left(\phi^\dagger \phi -\frac{v^2}{2}\right)^2$. After rotating away the three phases due to $SU(2)_L$ gauge symmetry we can arrive at
+where $W_\mu$ and $B_\mu$ are vector fields of the $SU(2)_L$ and $U(1)_Y$ group respectively. And where $\mu^2\left(\phi^*\phi\right) - \lambda^2\left(\phi^*\phi\right)= V(\phi)$ is the potential of the new complex scalar field. Expanding about this
+potential with a real scalar field then yields the Higgs doublet, written in unitary gauge 
 \begin{equation}\label{eq:Higgs}
     \phi = \begin{pmatrix}
         0\\v+H(x)
@@ -169,9 +171,8 @@ where $H$ is real scalar field. This expands the potential to be
     V(H) =\frac{1}{2}m_H^2H^2 + \frac{1}{2v}m_H^2H^3 +\frac{1}{8v^2}m_H^2H^4
 \end{equation}
 where we have used that $m_H = \sqrt{2\lambda}v$. This potential is the so-called \textit{Sombrero potential}, and we can reveal that this scalar field $H$ is the Higgs boson. 
-The consequences of writing our complex scalar field using Eq. (\ref{eq:Higgs}) comes when from the shape of the potential, this gives rise to the mass of particles. The SSB comes from the fact that the fields have degenerate minima 
-on the potential but can move around in a higher dimensional space (around the sombrero edge) to get to the other minima.\\
-\\Another thing that follows from Eq. (\ref{eq:Higgs}) is that expanding on Eq. (\ref{eq:covar_higgs}) gives rise (after a lot of math) to the following relations
+In choosing unitary gauge, meaning Eq. (\ref{eq:Higgs}), we have seemingly removed three degrees of freedom from the Lagrangian. To see where the degrees of freedom have gone, we return to the Lagrangian in Eq. (\ref{eq:electroweak}) and write out
+Eq (\ref{eq:covar_higgs}), which (after a lot of math) yields the following new fields
 \begin{equation}\label{eq:W_boson}
     W_\mu^\pm = \frac{W_\mu^1 \mp iW_\mu^2}{\sqrt{2}}
 \end{equation}
@@ -181,7 +182,8 @@ on the potential but can move around in a higher dimensional space (around the s
 \begin{equation}\label{eq:photon}
     A_\mu = \frac{gB_\mu - g'W_\mu^3}{\sqrt{g^2+e^2}}
 \end{equation}
-These are the $W$ and $Z$ boson as well as the photon, respectively. To explicitly show how the SSB phenomena gives mass to every other particle, one can transform the Lagrangian to the the unitary gauge, 
+These are the $W$ and $Z$ boson as well as the photon, respectively. The three degrees of freedom we lost on the unitary gauge went to give mass to the $W^+$, $W^-$ and $Z$, while the photon remains massless.\\
+\\To explicitly show how the SSB phenomena gives mass to every other particle, one can transform the Lagrangian to the unitary gauge, 
 this adds an extra term on the Lagrangian called the $Yukawa$ Lagrangian
 $$
 \mathcal{L}_{YU} = \psi_i y_{ij}\psi_j\phi
@@ -295,12 +297,6 @@ where $p_f*$ and $p_i*$ are the magnitudes of the final- and initial-state momen
 This method is a general way to calculate the cross-section of an event we want to study, but usually one just constructs the matrix element $\mathcal{M}_{fi}$ from \textit{Feynman diagrams}. In this calculation we 
 already introduced the photon propagator in Eq. (\ref{eq:p-prop}), and we implicitly simplified it to be $\frac{g_{\mu\nu}}{q^2}$, which is valid for our purposes, and can be used in any event where the photon is the propagator. 
 Feynman realized this and made Feynman rules to construct diagrams. The rules are shown in Figure \ref{fig:feynman_rules}. \\
-\graphicspath{{../../figures/}}
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=\textwidth]{feynman_rules.png}
-    \caption[Standard Model Feynman Rules]{The Standard Model Feynman rules. Image taken from Thomson's "Modern Particle Physics" \cite{THOMSON}}\label{fig:feynman_rules}
-\end{figure}
 \\Meaning that following these rules we just constructed the Feynman diagram for Bhabha scattering shown in Figure \ref{fig:bhabha}
 \begin{figure}[!ht]
     \centering
@@ -347,6 +343,13 @@ Feynman realized this and made Feynman rules to construct diagrams. The rules ar
     \end{tikzpicture}
     \caption{Feynman diagram of Bhabha scattering annihilation}\label{fig:bhabha}
 \end{figure}
+\graphicspath{{../../figures/}}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{feynman_rules.png}
+    \caption[Standard Model Feynman Rules]{The Standard Model Feynman rules. Image taken from Thomson's "Modern Particle Physics" \cite{THOMSON}}\label{fig:feynman_rules}
+\end{figure}
+
 
 \clearpage
 

@@ -35,7 +35,7 @@ which can be generalized for a system containing $n$ particles as
     m^2 = p_\mu p^\mu = \left(\sum_{i=1}^n E_i\right)^2 - \left(\sum_{i=1}^n\mathbf{p}_i\right)^2
 \end{equation}
 As this thesis will focus on a dilepton (and missing transverse energy) final state, which is of the type $2\rightarrow4$ where two are invisible, but the invariant mass of the two visible leptons in the final state will be of interest, 
-we will denote this as $m_{ll}$. From this we can also get another interesting variable, the \textit{transverse energy}. This follows directly from Eq. (\ref{eq:invariant_mass}) by using the transverse momentum
+we will denote the invariant mass of the visible leptons as $m_{ll}$. From this we can also get another interesting variable, the \textit{transverse energy}. This follows directly from Eq. (\ref{eq:invariant_mass}) by using the transverse momentum
 \begin{equation}\label{eq:transverse_energy}
     E_T = \sqrt{m^2 + p_T^2}
 \end{equation}
@@ -201,7 +201,7 @@ The time has come to explore how we can search for new physics phenomena, now th
 the \textit{cut and count method}, but there are other methods to search for new physics, such as Machine Learning (ML) which is the method pursued in this thesis. There might be other methods, such as 
 Quantum ML, but as of today we are still in a too early stage of the technology \cite{QML}. To give a short description of the cut and count method, it makes kinematical \textit{cuts} on various variables to isolate signal from background. The way 
 the signal and background\footnote{There are also data driven methods, but on this thesis we will focus on simulations} are made is by Monte Carlo (MC) simulations, which is necessary for guiding us on where to place efficient cuts and understand our sensitivity to a given BSM model. As it would not be a real experimental physics discovery without making a statistical 
-analysis of the results we will also explain how we utilize this tool. To guide us through this process I will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the success of the cut and count method, and 
+analysis of the results we will also explain how we utilize this tool. To guide us through this process we will use $ZZ^{(*)}$ channel in the discovery of the Higgs Boson in 2012 \cite{Higgs_discovery_2012} as an example of the success of the cut and count method, and 
 the search for the existence of a new $W'$ boson studied by ATLAS \cite{Stat}, for the statistical tools.
 
 \subsection{Cut and count method}
@@ -209,7 +209,7 @@ The cut and count method is what has been the standard method of doing data anal
 The goal of using this method is to make cuts such that we remove as many background events as possible while also keeping as many signal events as possible. For example, if we were to study a new physics model with a new light vector boson behaving similarly to the $Z$ boson, but with a higher mass, 
 then a good kinematical cut to remove many background processes would be to require that $m_{ll}>100$ GeV, as this would remove the majority of $Z$-resonance from the final state, making it easier to "find" the new physics model. \\
 \\To more thoroughly explore the cut and count method we can look at the Higgs discovery, in particular the $H\rightarrow ZZ^{(*)} \rightarrow 4l$\footnote{Where $l$ is for lepton, but only means $e^\pm$ or $\mu^\pm$} channel. 
-The event selection consist of kinematical cuts used. The kinematical cuts include (aside from the \textit{acceptane cuts}), were:
+The event selection consist of kinematical cuts used. The kinematical cuts included (aside from the \textit{acceptane cuts}), were:
 \begin{itemize}
     \item Single-lepton or dilepton triggers
     \item Four leptons final state with ordered $p_T >20,15,10,7$ GeV
@@ -256,7 +256,7 @@ where $P_{\text{prior}}(\sigma B)$ is the assumed prior probability, here chosen
 combination, and then used to set a limit on $\sigma B$.\\
 \\As we can see, the inputs for the evaluation of $\mathcal{L}_B$ (and $P_{\text{post}}$) are $\varepsilon_{\text{sig}}$, $L_{\text{int}}$, $N_{\text{bkg}}$ and $N_{\text{obs}}$ and the uncertainties of the first three. The uncertainties for these should account for experimental 
 and theoretical systematic effects as well as the statistics of the simulated samples. For this thesis the systematic uncertainties will not be calculated, but will rather be assumed to be flat and $\pm$ 20\% of the background.\\
-\\To make exclusions we can use Eq. (\ref{eq:prior_prob}) to establish a \textit{confidence limit} (CL). CLs are defined as the probability to observe the number of events observed in an experiment, $N_{\text{obs}}$, or \textit{less} given signal+background. We usually define a signal+background 
+\\To make exclusions we can use Eq. (\ref{eq:prior_prob}) to establish a \textit{confidence level} (CL). CLs are defined as the probability to observe the number of events observed in an experiment, $N_{\text{obs}}$, or \textit{less} given signal+background. We usually define a signal+background 
 hypothesis to be excluded when CL$_{s+b}$ < 5\%. Meaning a 95\% CL, such that the probability to falsely exclude an existing signal(+background) is 5\%. We will use CL is to \textit{set limits} on theoretical models, rather than exclude them.\\
 \\On the other side, to claim any discovery in particle physics we need to know the \textit{significance} of any statistical fluctuation. Before getting to the significance we can discuss the \textit{p-value}, defined as the probability to observe the number of events observed in the experiment, $n_{\text{obs}}$, 
 or \textit{more} given only background

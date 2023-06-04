@@ -109,7 +109,7 @@ To test we used the remaining 20\% of SM events. We also tested the difference i
          \includegraphics[width=1\textwidth]{SGD/Balanced/VAL.pdf}
          \caption{Using SGD}
       \end{subfigure}
-      \caption[Difference between ADAM and SGD optimizer]{Validation plots using SGD and ADAM. 
+      \caption[Performance comparison between ADAM and SGD optimizer]{Validation plots using SGD and ADAM. 
       This was done using a dataset where the goal was to isolate the $W$ background process from other SM background processes}\label{fig:ADAMvsSGD}
 \end{figure}
 \\As ADAM is far better at sorting signal from background, since as we can see the ML algorithm using SGD gives a score of 0.5 or higher to every event, we will only use this optimizer further.\\
@@ -407,7 +407,7 @@ Additionally, the method involving the scaled absolute value of weights shows a 
       \includegraphics[width=1\textwidth]{No_wgt/VAL.pdf}
       \caption{Using no weights}
    \end{subfigure}
-   \caption[Difference when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts}
+   \caption[Validation plots when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts}
 \end{figure}
 \begin{figure}[!ht]
 	\centering
@@ -426,7 +426,7 @@ Additionally, the method involving the scaled absolute value of weights shows a 
       \includegraphics[width=1\textwidth]{No_wgt/EXP_SIG.pdf}
       \caption{Using no weights}
    \end{subfigure}
-   \caption[Difference when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts_sig}
+   \caption[Performance comparison when using different weighting methods on BDTs]{Difference when using different weighting methods. All networks were trained using the balancing method explained in Section \ref{sec:bdt_wgts}}\label{fig:BDT_wgts_sig}
 \end{figure}
 
 \clearpage
