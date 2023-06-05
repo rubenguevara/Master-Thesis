@@ -1,0 +1,30 @@
+\documentclass[12pt, a4paper]{book}
+\begin{document}
+After the Higgs boson, the last ingredient of the Standard Model (SM), was discovered in 2012 \cite{Higgs_discovery_2012}, we still question its nature. Is it the long-awaited SM particle or the first of a series of scalar particles? 
+With the advent of higher energies and higher collision rates, the Large Hadron Collider (LHC) continues the voyage towards new physics phenomena. The ambitious LHC physics programme may shed light on some of the greatest mysteries in physics today. 
+The focus of this work is to perform a search for new physics phenomena, such as Dark Matter (DM) candidate and its plausible mediator using supervised learning. A Neural Network (NN) and a Boosted Decision Tree (BDT) will 
+be trained on various Monte Carlo (MC) simulated data samples including both SM processes as well as different hypothetical DM models. The analysis uses proton-proton (pp) collisions at the LHC from Run II at $\sqrt{s}=$ 13 TeV, recorded by the ATLAS detector. 
+The data selects final states with dileptons and Missing Transverse Energy (MET). By comparing the data collected from Run II with simulation of SM processes we will carefully select the features to be used in the training phase of the Machine learning 
+(ML) networks. \\
+\\ One of the biggest motivations for this project is to search for Dark Matter (DM), one of the biggest mysteries in today's science. It can be a Weakly Interacting Particle (WIMP) \cite{WIMP} or the Axion \cite{Axion} which are both viable candidates to constitute the DM in the universe. 
+The primary focus is to set up a NN and a BDT to be trained on a set of models predicting DM particles such as: i) Supersymmetry \cite{JUNGMAN1996195} ii) 2HDM + a \cite{article} iii) simplified DM models with a different DM mediator as well as one model based on EFT \cite{Zp_DM_candidate2}.\\
+% such as supersymmetry, two Higgs doublet models, simplified DM models involving a mediator, including those 
+% models based on effective field theory (EFT). This way we aim at a model independent search of a DM particle, possibly together with its mediator.\\
+\\ We concentrate on dilepton and Missing Transverse Energy (MET) final states, $pp\rightarrow ll \chi\chi = ll$ MET. Where the presence of DM particles is inferred from large amounts of MET in the event, since they cannot be detected directly in the detector. There are various Beyond Standard Model (BSM) models 
+with a DM candidate, $\chi$, which may lead to a dilepton + MET final state. Typically, any searches for new physics chooses one or a few models and do a thorough data analysis to test them. However, the emphasis of this project, as aforementioned, will be to let an ML algorithm 
+learn the features of various DM models predicting a dilepton + MET final state.  Two approaches will be investigated: i) train one NN/BDT for each of the available DM model and ii) train a few NNs/BDTs in some relevant signal regions using all of the DM models as input. 
+The former method will serve as our benchmark while the latter will be a more model independent search for DM. \\
+\\Utilizing the powerful tool of ML it might help recognize a pattern that is common through all the different models studied, at least within some specific signal region., which might in turn bring us closer to identifying an empirical signal of DM in the collected data. 
+The DM models considered in this work are built upon different theoretical principles, making them phenomenologically different from each other, however, still sharing some experimental features. Thus, the approach of building generic ML algorithms to be simultaneously trained on several different the models 
+could help reduce the computational time needed to test new models in the future.\\
+\\This thesis is organized into three main parts: Background, Methods, and Results. The Background part provides a theoretical foundation, while the Methods part details the data preparation and machine learning optimization techniques. 
+Finally, the Results part presents the findings of the thesis, as well as the conclusion and outlook.\\
+\\We will start this thesis by introducing the theoretical foundation behind the SM using Quantum Field Theory in Chapter \ref{chap:SM}. Thereafter, in Chapter \ref{chap:DM} we will present the theory behind the DM models we will study. After the theorical description of the SM background and DM 
+signal that will be used on the ML algorithms, we will present how we can measure the theory from an experimental point of view. Afterwards, we will present the ATLAS detector, the traditional methods of searching for new physics, including the statistical 
+tools that we will utilize, all of this is in Chapter \ref{chap:CERN_method}. After that we will give an overview to both NNs and BDTs, as well as the tools that will be used to evaluate their performances in Chapter \ref{chap:theo_ML}.\\
+\\In Chapter \ref{chap:data_prep} we will present the methods used to prepare the dataset for ML, meaning the event selection and the feature selection. In this chapter we will discuss the challenges that arise when preparing datasets to be used in an ML study. 
+In Chapter \ref{chap:ML} we will discuss our model independent approach, and what methods we use to mitigate the challenges that come from the data preparation. Lastly, we will present and discuss the results in Chapter \ref{chap:results} 
+and \ref{chap:conclusion}.\\
+\\All scripts used in this thesis, and more plots, can be found on the GitHub repo available here \href{https://github.com/rubenguevara/Master-Thesis/tree/master}{https://github.com/rubenguevara/Master-Thesis/tree/master}.
+
+\end{document}
