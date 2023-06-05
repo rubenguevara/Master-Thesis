@@ -1,11 +1,30 @@
 # Master Thesis
-This is my repo for my masters thesis: <br/>
-**Model independent search for Dark Matter using Machine Learning In final states with dileptons and Missing Transverse Energy with the ATLAS detector at the LHC** <br/>
-So far it is divided in three categories:
-- DataPrep: Which both plots the kinematic variables to be used in ML and prepares the files in a ML friendly format.<br/>
-- EventSelector: Which includes the algorithm used to choose events of both Datapoints and Monte Carlo simulations of the Large Hadron Collider and make these into readable files for plotting and Machine Learning (ML). <br/>
-- LaTeX: Source code for the thesis paper. <br/>
-- ML: Here are the main algorithms made to train a Neural Network and Boosted Decision Tree to distinguish signal (Dark matter) from background (The Standard Model). <br/>
-- Plots: Here are all the plots created from the various scripts. <br/>
-- Stat_analysis: Scripts used to perform a Bayesian analysis to set limits on the models. <br/><br/>
-<p>More info on each category is inside the respective category.
+Welcome to the repository for my Master's thesis titled "Search for Dark Matter using Machine Learning in dilepton and missing energy events with the ATLAS detector at the LHC, A tentative model independent approach" This repository contains the code and resources related to the thesis project. The repository is organized into several categories:
+
+## DataPrep
+The **DataPrep** directory contains code and scripts for two main purposes:
+
+- Plotting the kinematic variables used in machine learning (ML) analysis.
+- Preparing the data files in a ML-friendly format.
+
+Inside the **DataPrep** directory you will find more detailed information about the specific scripts and their usage.
+
+## EventSelector
+The **EventSelector** directory includes the algorithm used for event selection. It works with both datapoints and Monte Carlo simulations from the Large Hadron Collider (LHC). The selected events are transformed into readable files suitable for plotting and further ML analysis. For more information on the algorithms and usage, please refer to the **EventSelector** directory.
+
+## LaTeX
+The **LaTeX** directory contains the LaTeX source code for the thesis paper. This includes the document structure, chapters, sections, and any additional resources necessary for generating the final thesis document.
+
+## ML
+The **ML** directory is dedicated to the main algorithms developed for training a Neural Network and Boosted Decision Tree. These algorithms are specifically designed to distinguish signal (dark matter) from background (the Standard Model). For detailed information about the algorithms and their implementation, please refer to the **ML** directory.
+
+## Plots
+The **Plots** directory contains all the plots generated from the various scripts used in the analysis. These plots provide visual representations of the data and results obtained during the research. Feel free to explore the **Plots** directory for further insights.
+
+## StatAnalysis
+The **StatAnalysis** directory contains scripts used for performing a Bayesian analysis. This analysis aims to set limits on the proposed models by utilizing statistical methods. If you are interested in the details of the Bayesian analysis and its implementation, please refer to the **StatAnalysis** directory.
+
+Please navigate into each respective category directory for more detailed information on scripts, usage, and additional resources.
+ <br/>
+If you have any questions or inquiries regarding this repository or my Master's thesis, please feel free to contact me!
+Thank you for your interest in this project!
