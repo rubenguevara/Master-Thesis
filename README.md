@@ -25,6 +25,6 @@ The **Plots** directory contains all the plots generated from the various script
 The **StatAnalysis** directory contains scripts used for performing a Bayesian analysis. This analysis aims to set limits on the proposed models by utilizing statistical methods. If you are interested in the details of the Bayesian analysis and its implementation, please refer to the **StatAnalysis** directory.
 
 Please navigate into each respective category directory for more detailed information on scripts, usage, and additional resources.
- <br/>
+<br/><br/><br/>
 If you have any questions or inquiries regarding this repository or my Master's thesis, please feel free to contact me!
 Thank you for your interest in this project!
