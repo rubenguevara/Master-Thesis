@@ -2,7 +2,7 @@
 !/.gitignore
 !DataPrep/
 !EventSelector/
-!Stat_analysis/
+!StatAnalysis/
 !ML/
 !Plots/
 !README.md
