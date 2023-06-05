@@ -6,11 +6,11 @@ import uproot as up
 
 t0 = time.time()
 
-save_dir = "../../../storage/racarcam/"
+save_dir = "/storage/racarcam/"
 
 
 ## Customize files here
-Run2_bkgs = save_dir + "Run2FINAL.root"
+Run2_bkgs = save_dir + "Run2.root"
 filename = 'W_search.h5' 
 
 thing = up.open(Run2_bkgs)

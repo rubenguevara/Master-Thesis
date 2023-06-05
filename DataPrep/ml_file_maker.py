@@ -10,16 +10,11 @@ t0 = time.time()
 save_dir = "/storage/racarcam/"
 
 
-# ## Customize files here
-# dm1 = save_dir + "ZpxDMxFINAL.root"
-# Run2_bkgs = save_dir + "Run2FINAL.root"
-# filename = 'FULL_DM_FINAL.h5' 
-
-
+## Customize files here
 dm1 = save_dir + "monoZp.root"
 dm2 = save_dir + "SUSY.root"
-Run2_bkgs = save_dir + "Run2frfr.root"
-filename = 'FINAL_FULL_DATASET.h5' 
+Run2_bkgs = save_dir + "Run2_bkgs.root"
+filename = 'FULL_DATASET.h5' 
 
 thing = up.open(Run2_bkgs)
 

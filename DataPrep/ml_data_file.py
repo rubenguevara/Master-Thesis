@@ -4,7 +4,7 @@ import os, time, json
 import uproot as up
 
 save_dir = "/storage/racarcam/"
-filename = "datafrfr.root"   # Change file if needed
+filename = "data.root"   # Change file if needed
 data = save_dir+filename
 
 thing = up.open(data)

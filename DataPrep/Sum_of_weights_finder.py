@@ -27,19 +27,17 @@ for mc in mc_runs:
                 sow += h.GetBinContent(1)
             SOW_SIG[mc][dsid] = sow
 
-print(sow)
+print(SOW_SIG['mc16d']['505889'])
+print(SOW_SIG['mc16e']['505889'])
+
+json = json.dumps(SOW_SIG)
+
+f = open("SOW_SIG_SUSY.json","w")  # Change name of file if needed
+f.write(json)
+f.close()
+
+
+sow_SIG_file = open('SOW_SIG.json')
+SOW_SIG = json.load(sow_SIG_file)
 print(SOW_SIG)
-# print(SOW_SIG['mc16d']['505889'])
-# print(SOW_SIG['mc16e']['505889'])
-
-# json = json.dumps(SOW_SIG)
-
-# f = open("SOW_SIG_SUSY.json","w")  # Change name of file if needed
-# f.write(json)
-# f.close()
-
-
-# sow_SIG_file = open('SOW_SIG.json')
-# SOW_SIG = json.load(sow_SIG_file)
-# print(SOW_SIG)
-# sow_SIG_file.close()
+sow_SIG_file.close()

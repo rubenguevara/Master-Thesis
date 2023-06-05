@@ -1,13 +1,12 @@
 import ROOT as R
 import os, sys, json
 from EventIDs import IDs
-from Plot_MakerSR import Plot_Maker
-from SOW import SOW_bkg, SOW_sig_AFII#, SOW_AFII, SOW_sig_AFII
+from Plot_Maker import Plot_Maker
+from SOW import SOW_bkg, SOW_sig_AFII
 from collections import OrderedDict
 
 
 rootdir = '../EventSelector/Histograms'
-# rootdir = '../EventSelector/Histograms_jet_cuts'
 susydir = '../EventSelector/Histograms_SUSY'
 BigDic = {}; variables = []; dsid_list = {}
 Types = ["Drell Yan", 'Single Top', "Diboson", "W", "TTbar", "DH HDS m_{Z'} 130", "LV HDS m_{Z'} 130", "EFT HDS m_{Z'} 130", 'SUSY (m_{#tilde{l}}, m_{#tilde{#chi}_{1}^{0}}) = (90, 1)', '2HDMa (m_{a}, m_{H^{-}}) = (150, 400)']
@@ -16,7 +15,6 @@ mc_year = ['mc16a', 'mc16d', 'mc16e']
 
 for subdir, dirs, files in os.walk(rootdir+'/mc16a'):
     for file in files:
-        # if '50' in file: continue
         c = os.path.join(subdir, file)
         myfile = R.TFile.Open(c)
         for variable in myfile.GetListOfKeys():
@@ -32,10 +30,8 @@ for mc in mc_year:
         for variable in variables:
                 BigDic[mc][type][variable] = []
 
-# DM_MODEL = 514619  # Write dsid of specific model
 sig_var = 'SUSY'
 filelist = []
-# filelist2 = []
 exclude = set(['data'])
 for subdir, dirs, files in os.walk(rootdir):
     dirs[:] = [d for d in dirs if d not in exclude]
@@ -80,25 +76,17 @@ for subdir, dirs, files in os.walk(rootdir):
                 histogram = myfile.Get(variable)
                 histogram.SetDirectory(0)
                 BigDic[mc_run]["W"][variable].append(histogram)
-        # elif dsid in IDs[sig_var]:
-        #     # if not dsid == int(id): continue
-        #     dsid_list[mc_run]['Signal'].append(str(dsid))
-        #     for variable in variables:
-        #         BigDic[mc_run]["Signal"][variable].append(myfile.Get(variable))
         elif dsid in [514560, 514561]:
-            # if not dsid == DM_MODEL: continue
             dsid_list[mc_run]["DH HDS m_{Z'} 130"].append(str(dsid))
             for variable in variables:
                 BigDic[mc_run]["DH HDS m_{Z'} 130"][variable].append(myfile.Get(variable))
         
         elif dsid in [514562, 514563]:
-            # if not dsid == DM_MODEL: continue
             dsid_list[mc_run]["LV HDS m_{Z'} 130"].append(str(dsid))
             for variable in variables:
                 BigDic[mc_run]["LV HDS m_{Z'} 130"][variable].append(myfile.Get(variable))
         
         elif dsid in [514564, 514565]:
-            # if not dsid == DM_MODEL: continue
             dsid_list[mc_run]["EFT HDS m_{Z'} 130"].append(str(dsid))
             for variable in variables:
                 BigDic[mc_run]["EFT HDS m_{Z'} 130"][variable].append(myfile.Get(variable))
@@ -109,14 +97,10 @@ for subdir, dirs, files in os.walk(susydir):
         dsid = int(file.split('.')[1])
         c = os.path.join(subdir, file)
         if '508116' in c: 
-            myfile2 = R.TFile.Open(c)# print(c)
+            myfile2 = R.TFile.Open(c)
         elif '503085' in c: 
             myfile2 = R.TFile.Open(c)
         else: continue
-        # print(c)
-        # print(dsid)
-        # myfile2 = R.TFile.Open(c)
-        # filelist2.append(myfile2)
         mc_run = subdir.split('/')[-1]
         AFII = c.split('.')[-2].split('_')[-1]
         if AFII =='AFII': 
@@ -134,7 +118,6 @@ for subdir, dirs, files in os.walk(susydir):
                 histogram = myfile2.Get(variable)
                 histogram.SetDirectory(0)
                 BigDic[mc_run]["2HDMa (m_{a}, m_{H^{-}}) = (150, 400)"][variable].append(histogram)
-# exit()
 data = {}
 
 for variable in variables:
@@ -171,9 +154,8 @@ Colors["TTbar"] = R.TColor.GetColor('#F9E559')
 Colors["Diboson"] = R.TColor.GetColor('#6CCECB')
 Colors["W"] = R.TColor.GetColor('#218C8D')
 
-# save_dir = "../Plots/SUSY_TEST"
 save_dir = "../Plots/Data_Analysis/SRs"
-# save_dir = "../Plots/Data_Analysis/JetSelection"
+
 try:
     os.makedirs(save_dir)
 

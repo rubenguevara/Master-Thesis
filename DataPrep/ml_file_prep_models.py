@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os, time, json
 
-save_dir = "../../../storage/racarcam/"
+save_dir = "/storage/racarcam/"
 # filename = 'FULL_Zp_FINAL.h5'                                                       # Change file if needed
 filename ='FINAL_FULL_DATASET.h5' 
 
