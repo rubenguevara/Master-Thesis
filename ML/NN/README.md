@@ -1,0 +1,2 @@
+# NN
+Here are all the scripts used when working with NNs. In this project we utilize TensorFlow version 2.7.1 GPU as our NN algorithm. Sometimes we downgrade to version 2.5.0 GPU because of errors in the package, this is highlighted in the code if needed.
