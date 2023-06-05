@@ -19,6 +19,8 @@ plt.rcParams["axes.prop_cycle"] = plt.cycler("color", plt.cm.PuRd_r(np.linspace(
 df_datas = pd.read_hdf(save_dir+datafile, key='df')
 df = pd.read_hdf(file, key='df_tot')
 
+df_datas = df_datas[df_datas['mll'] < 110]
+df = df[df['mll'] < 110]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--vari', type=str, default="mll", help="Variable to plot")
@@ -192,9 +194,9 @@ ax1.hist(EFT_LDS[vari], weights = EFT_LDS['Weight'], bins = x_axis, label="EFT L
 ax1.errorbar(x_axis_data, d_te[0], yerr = unc_data, fmt='o', color='black', label='Data', zorder = 10)
 ax2.set_xlabel(var_ax[vari]); ax1.set_ylabel('Events'); 
 if train == '1':
-    fig.suptitle("Distribution with $\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, \n Training dataset $E_{T}^{miss}$ > 50 GeV, 20% syst. uncertainty")
+    fig.suptitle("Distribution with $\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, \n Training dataset in CR, 20% syst. uncertainty")
 else: 
-    fig.suptitle("Distribution with $\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, \n Testing dataset $E_{T}^{miss}$ > 50 GeV, 20% syst. uncertainty")
+    fig.suptitle("Distribution with $\sqrt{s} = 13$ TeV, 139 fb$^{-1}$, \n Testing dataset in CR, 20% syst. uncertainty")
 ax1.set_yscale('log') 
 ax1.legend(ncol=2)
 ax1.yaxis.set_major_locator(mticker.LogLocator(numticks=999))
