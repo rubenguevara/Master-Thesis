@@ -12,9 +12,6 @@ Inside the **DataPrep** directory you will find more detailed information about 
 ## EventSelector
 The **EventSelector** directory includes the algorithm used for event selection. It works with both datapoints and Monte Carlo simulations from the Large Hadron Collider (LHC). The selected events are transformed into readable files suitable for plotting and further ML analysis. For more information on the algorithms and usage, please refer to the **EventSelector** directory.
 
-## LaTeX
-The **LaTeX** directory contains the LaTeX source code for the thesis paper. This includes the document structure, chapters, sections, and any additional resources necessary for generating the final thesis document.
-
 ## ML
 The **ML** directory is dedicated to the main algorithms developed for training a Neural Network and Boosted Decision Tree. These algorithms are specifically designed to distinguish signal (dark matter) from background (the Standard Model). For detailed information about the algorithms and their implementation, please refer to the **ML** directory.
 
